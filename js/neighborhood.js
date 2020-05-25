@@ -25,10 +25,13 @@ $(document).ready(function(){
  		//climbpath = ""
  		$("#header a[href]").each(function() {
  		  if($(this).attr('href').indexOf('http') < 0) {
-	      	$(this).attr("href", climbpath + $(this).attr('href'));
-
-	      	// else
-	      	// replace localsite.github.io with localsite
+	      	
+	      	if (location.host.indexOf('localhost') >= 0) {
+	      		$(this).attr("href", climbpath + $(this).attr('href'));
+	      	} else {
+	      		// replace localsite.github.io with localsite
+	      		$(this).attr("href", climbpath + $(this).attr('href').replace("localsite.github.io/",""));
+	      	}
 	  	  }
 	    })
  		$("#header img[src]").each(function() {
