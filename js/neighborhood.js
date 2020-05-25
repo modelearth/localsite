@@ -40,7 +40,11 @@ $(document).ready(function(){
 
  		$("#footer a[href]").each(function() {
  		  if($(this).attr('href').indexOf('http') < 0) {
-	        $(this).attr("href", climbpath + $(this).attr('href'));
+ 		  	if (location.host.indexOf('localhost') >= 0) {
+	        	$(this).attr("href", climbpath + $(this).attr('href'));
+	        } else {
+	        	$(this).attr("href", climbpath + $(this).attr('href').replace("localsite.github.io/",""));
+	        }
 	  	  }
 	    })
 	    $("#footer img[src]").each(function() {
