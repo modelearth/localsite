@@ -1,0 +1,108 @@
+<div id="menuHolder" style="background:#333; display:none">
+	<div id="menuTop">
+		<div class="hideMenu"></div>
+	</div>
+	<div id="menuNav">
+
+		<div style="margin:6px 0 10px 40px"><b>ATLANTA</b></div>
+
+		<a href="atlanta/downtown/">Downtown South</a>
+		<a href="atlanta/hulsey/">Hulsey Yard</a>
+		<a href="atlanta/o4w">Old Fourth Ward</a>
+		<a href="atlanta/grantpark">Grant Park</a>
+		<a href="atlanta/midtown">Midtown</a>
+		<a href="atlanta/quarry-yards">Quarry Yards</a>
+		<hr style="border:1px solid #777; padding:0px">
+		<!--<div><a href="projects/jewels">Y&rsquo;ALL Jewels</a></div>-->
+		<div><a href="projects/mobile-storefronts">Mobile Storefronts</a></div>
+		<div><a href="projects/micromobility">Micromobility</a></div>
+
+		<!--
+		<div><a href="projects/community">Model Builder</a></div>
+		-->
+
+		<div class="localonly" style="display:none">
+			<div><a href="projects/materials">Building Materials</a></div>
+			<div><a href="projects/memory/number-sounds">Memory Game</a></div>
+		</div>
+
+		
+
+	</div>
+</div>
+
+<div style="height:80px;background:#fff;z-index:1;width:100%;position:fixed;overflow:hidden;z-index:1000;border-bottom:1px solid #eee">
+	
+	<div style="float:left"><a href="/"><img class="headerLogo" src="localsite/img/logo/neighborhood.png" /></a></div>
+
+	<div style="overflow:auto; border-left:0px solid #ccc; height:60px; margin:23px 40px 0 10px; padding-left:16px; font-size:13px">
+
+		<div class="showMenu" style="float:right; font-size:24px; color:#999; margin-right:4px">☰</div>
+
+		<div class="navLinks hideMobileWide" style="display:none; float:right;padding-top:6px">
+			<div style="float:left"><a href="downtown/">Atlanta</a></div>
+			<div style="float:left"><a href="hulsey/">Hulsey1</a></div>
+			<div style="float:left"><a href="o4w">o4w</a></div>
+			<div style="float:left"><a href="midtown">Midtown</a></div>
+			<div style="float:left"><a href="quarry-yards">Quarry</a></div>
+        </div>
+
+	</div>
+</div>
+
+<div style="display:none">
+	<div id="disqus_thread" style="padding:40px; max-width:1000px; margin: 0 auto;"></div>
+</div>
+
+
+<!--
+Stop fixed position at footer
+https://stackoverflow.com/questions/8653025/stop-fixed-position-at-footer
+
+-->
+
+<div id="footerHolder" style="height:70px;">
+<div id="footer" class="footer-bottom">
+	<div style="float:right">
+		<a href="https://dreamstudio.com">DreamStudio</a>
+	</div>
+	<div style="float:left">
+		<a href="../projects/about/policy">Privacy Policy</a> &nbsp; &nbsp;
+		<a href="../projects/about/terms">Terms and Conditions</a>
+	</div>
+	
+</div>
+</div>
+
+<script>
+
+//document.body.appendChild(document.getElementById('disqus_thread'));
+document.body.appendChild(document.getElementById('footerHolder'));
+
+//var html = '<div id="disqus_thread" style="padding:30px; max-width:1000px; margin: 0 auto;"></div>';
+//document.body.insertAdjacentHTML('beforeend', html);
+</script>
+
+<!--
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://locally.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+
+
+                            
