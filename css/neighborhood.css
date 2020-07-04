@@ -1,6 +1,9 @@
 .hideMobile, .hideMobileWide {display:block;}
 .showMobile, .showMobileWide {display:none;}
 
+a {
+	text-decoration: none;
+}
 #header {
 	display: block !important;
 }
