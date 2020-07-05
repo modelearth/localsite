@@ -236,6 +236,7 @@ sup {
   padding-left: 55px;
   padding-right: 55px;
 }
+/* delete */
 .textColumns {
   margin-left:-22px;
   margin-right:-22px;
@@ -260,6 +261,34 @@ sup {
 }
 @media (max-width:980px) {
   .textColumn {
+    width:100%;
+  }
+}
+
+.pageColumns {
+  margin-left:-22px;
+  margin-right:-22px;
+}
+.pageColumn {
+  width:33.33%;
+  float:left;
+  margin-bottom: 0px;
+}
+.pageColumnInside {
+  padding-left: 22px;
+  padding-right:22px; /* Matches .pageColumns above */
+  line-height: 1.55;
+  color: #777;
+  border: 1px solid rgba(255,255,255,0);
+}
+.pageColumnTitle {
+  font-size: 1.27em;
+    line-height: 1.3em;
+    margin-top: 20px;
+    margin-bottom: 16px;
+}
+@media (max-width:980px) {
+  .pageColumn {
     width:100%;
   }
 }
