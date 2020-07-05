@@ -66,6 +66,13 @@ body {
   margin: 0px;
   background-color: #fafafa;
   -webkit-font-smoothing: antialiased;
+  font-family: "Raleway", Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+bodyX {
+  font-size: 13.5px;
+  background-color: #fafafa;
+  -webkit-font-smoothing: antialiased;
+  
 }
 /* ul, li, */
 li {
@@ -78,12 +85,7 @@ td {
   padding:0px;
   vertical-align: top;
 }
-bodyX {
-  font-size: 13.5px;
-  background-color: #fafafa;
-  -webkit-font-smoothing: antialiased;
-  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
+
 
 input {
   /* padding-left:5px; */
@@ -101,7 +103,7 @@ textarea {
     /* border:solid 1px #777; */
     border-color: rgb(238, 238, 238);
 }
-/* input needed below for search field. Might remove others id conflicts arrise */
+/* input needed below for search field. Might remove others if id conflicts arrise */
 input, label, button, select, textarea {
   /* font-size: 13.5px; */
   /* font-weight: normal; */
@@ -154,9 +156,11 @@ h2 {
   margin-top: 30px;
   margin-bottom: 14px;
 }
+/*
 h2 a:visited {
   color: #0366d6;
 }
+*/
 h3 {
   margin-top: 20px;
   margin-bottom: 10px;
@@ -247,9 +251,6 @@ sup {
   line-height: 1.55;
   color: #777;
   border: 1px solid rgba(255,255,255,0);
-}
-.textColumnInside:hover {
-  border:#ccc solid 1px;
 }
 .textColumnTitle {
   font-size: 1.27em;
