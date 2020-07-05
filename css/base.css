@@ -1,4 +1,7 @@
-/* Originate at https://neighborhood.org/localsite/css/base.css */
+/*
+Originates at https://neighborhood.github.io/localsite/css/base.css 
+Used in localsite, modelearth, io, neighborhood, trees
+*/
 
 /*
 html, body, div, applet, object, iframe,
@@ -22,10 +25,48 @@ time, mark, audio, video {
 }
 */
 
-* {
-  box-sizing: border-box;
-}
 
+* {box-sizing: border-box;}
+.hideMobile, .hideMobileWide {display:inline-block;}
+.showMobile, .showMobileWide {display:none;}
+.showGit {display:none;}
+.local, .localonly {
+  display:none; 
+  background-image: 
+     linear-gradient(45deg, 
+        rgba(0,0,0,0.1) 25%, 
+        transparent 25%),
+     linear-gradient(-45deg, 
+        rgba(0,0,0,0.1) 25%, 
+        transparent 25%),
+     linear-gradient(45deg, 
+        transparent 95%, 
+        rgba(0,0,0,0.1) 75%),
+     linear-gradient(-45deg, 
+        transparent 95%, 
+        rgba(0,0,0,0.1) 75%);
+  background-size: 3px 3px;
+}
+.local {padding:0 4px 0 4px; }
+.localonly {padding:20px; }
+svg{max-width:none;} /* Fix for embedding material icon map points in Drupal */
+
+@media (max-width: 800px) {
+  .hideMobile {display:none;}
+  .showMobile {display:inline-block;}
+}
+@media (max-width: 900px) {
+  .hideMobileWide {display:none;}
+  .showMobileWide {display:inline-block;}
+}
+html,body { /* both are needed for map height in iframe */
+  height: 100%;
+}
+body {
+  margin: 0px;
+  background-color: #fafafa;
+  -webkit-font-smoothing: antialiased;
+}
 /* ul, li, */
 li {
   /* margin-left:20px; */ /* impacts gd footer. Prevents bullets in rich-text editor. */
@@ -37,9 +78,9 @@ td {
   padding:0px;
   vertical-align: top;
 }
-body {
+bodyX {
   font-size: 13.5px;
-  colorX: rgb(119, 119, 119);
+  background-color: #fafafa;
   -webkit-font-smoothing: antialiased;
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -87,39 +128,56 @@ p {
   font-size: 15px;
 }
 
-h1, h2, h3, h4 {
+h1,h2,h3,h4 {
+  line-height: 1.5;
+}
+h2, h3, h4 {
     font-family: 'PT Sans', sans-serif;
-    font-weight: normal;
     color: rgb(77, 82, 89);
-    margin:0px;
+}
+.h1-home {
+  font-size: 28pt;
 }
 h1 {
+ font-family: "Helvetica Neue", Helvetica, "Lato", sans-serif;
+  font-weight: 300;
+  color: #5f5f5f;
   font-size: 34px;
   line-height: 40px;
-  margin-bottom: 30px;
+  margin-top: 10px;
+  margin-bottomX: 30px;
 }
 h2 {
-  font-size: 24.5px;
-  line-height: 27px;
-  margin-bottom: 22px;
-}
-h2 {
+  font-weight: 600;
   border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
   margin-top: 30px;
+  margin-bottom: 14px;
+}
+h2 a:visited {
+  color: #0366d6;
 }
 h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+
   font-size: 1.27em;
   line-height: 1.3em;
   margin-top: 20px;
   margin-bottom: 16px;
 }
 h4 {
-  font-size: 1.20em;
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 1.1em;
   line-height: 26px;
   margin-top: 15px;
   margin-bottom: 0px;
-  color:#777;
+  color:#555;
+}
+h5 {
+  font-size: 1em;
+  margin-top: 20px;
 }
 sup {
   line-height: 0.8em;
@@ -133,6 +191,39 @@ sup {
   */
 }
 @media screen {.printonly {display: none; }}
+
+.content {
+  max-width: 1140px;
+  margin:0 auto;
+  font-size: 15px;
+  line-height: 1.5;
+  position: relative;
+}
+.contentpadding {
+  padding-top: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.content li {
+  margin-left: -10px;
+}
+@media (min-width: 1400px) {
+  .content {
+    max-width: 1300px;
+  }
+}
+@media (max-width: 1200px) {
+
+  .content li {
+    margin-left: -20px;
+  }
+}
+@media (max-width: 500px) {
+  .contentpadding {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
 
 .container {
   position: relative;
@@ -171,6 +262,19 @@ sup {
     width:100%;
   }
 }
+.contentArea {
+    margin: 0px; padding: 0px; 
+    padding-left: 20px; padding-right: 20px;
+    line-height: 1.4em;
+}
+.litePanel {
+    background-color: #fff;
+    overflow:auto;
+}
+.darkPanel {
+    background-color: #ddd;
+}
+
 .link {
   color:#4091dd;
   /*
@@ -178,11 +282,7 @@ sup {
   */ /* thicker, darker */
   font-weight: 600;
 }
-.contentArea {
-    margin: 0px; padding: 0px; 
-    padding-left: 20px; padding-right: 20px;
-    line-height: 1.4em;
-}
+
 .nav {
   list-style: none;
 }
@@ -226,5 +326,7 @@ sup {
   width:100%;
   */
 }
-
+#footer {
+  clear:both;
+}
 
