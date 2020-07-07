@@ -228,6 +228,7 @@ summary::-webkit-details-marker {
   line-height: 1.5;
   position: relative;
   word-break: break-word;
+  overflowX: auto; /* Test when activating */
 }
 .contentpadding {
   padding-top: 20px;
