@@ -25,26 +25,13 @@ time, mark, audio, video {
 }
 */
 
-
 * {box-sizing: border-box;}
 .hideMobile, .hideMobileWide {display:inline-block;}
 .showMobile, .showMobileWide {display:none;}
 .showGit {display:none;}
 .local, .localonly {
   display:none; 
-  background-image: 
-     linear-gradient(45deg, 
-        rgba(0,0,0,0.1) 25%, 
-        transparent 25%),
-     linear-gradient(-45deg, 
-        rgba(0,0,0,0.1) 25%, 
-        transparent 25%),
-     linear-gradient(45deg, 
-        transparent 95%, 
-        rgba(0,0,0,0.1) 75%),
-     linear-gradient(-45deg, 
-        transparent 95%, 
-        rgba(0,0,0,0.1) 75%);
+  background-image: linear-gradient(45deg, rgba(0,0,0,0.1) 25%, transparent 25%), linear-gradient(-45deg, rgba(0,0,0,0.1) 25%, transparent 25%), linear-gradient(45deg, transparent 95%, rgba(0,0,0,0.1) 75%), linear-gradient(-45deg, transparent 95%, rgba(0,0,0,0.1) 75%);
   background-size: 3px 3px;
 }
 .local {padding:0 4px 0 4px; }
@@ -67,27 +54,14 @@ body {
   background-color: #fafafa;
   -webkit-font-smoothing: antialiased;
   font-family: "Raleway", Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-sizeX: 15px;
-}
-bodyX {
-  font-size: 13.5px;
-  background-color: #fafafa;
-  -webkit-font-smoothing: antialiased;
-  
-}
-/* ul, li, */
-li {
-  /* margin-left:20px; */ /* impacts gd footer. Prevents bullets in rich-text editor. */
 }
 table {
-  border-spacing:0px;
+  border-spacing: 0px;
 }
 td {
-  padding:0px;
+  padding: 0px;
   vertical-align: top;
 }
-
-
 input {
   /* padding-left:5px; */
   /* margin-right:2px; */
@@ -130,23 +104,12 @@ p {
   */
   font-sizeX: 15px;
 }
-
-summary {
-    font-family: 'PT Sans', sans-serif;
-    font-weight: normal;
-    color: rgb(66, 72, 79);
-    font-size: 17px;
-    font-weight: 100;
-    line-height: 1.5;
-}
-
 h1,h2,h3,h4 {
   line-height: 1.5;
 }
 h2, h3, h4 {
     font-family: 'PT Sans', sans-serif;
     font-family: Raleway, Lato, "Helvetica Neue", Helvetica, "Lato", sans-serif;
-    colorX: rgb(77, 82, 89);
 }
 .h1-home {
   font-size: 28pt;
@@ -165,7 +128,7 @@ h2 {
   border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
   margin-top: 30px;
-  margin-bottom: 14px;
+  /* margin-bottom: 14px; */ /* too tight */
   color: rgb(77, 82, 89);
 }
 /*
@@ -176,9 +139,11 @@ h2 a:visited {
 h3 {
   font-weight: 200; /* 100 is too light on pos energy */
   font-size: 1.27em;
+  font-size: 1.3em;
   line-height: 1.3em;
   margin-top: 20px;
   margin-bottom: 16px;
+  color: #000;
 }
 h4 {
   margin-top: 20px;
@@ -209,6 +174,23 @@ sup {
   line-height: 0.8em;
   font-size: 0.6em;
 }
+hr {
+    border: 0px;
+    border-top: 1px solid #ddd;
+}
+details {
+  display:inline;
+}
+summary { /* a button */
+  display: inline;
+  padding:0 5px;
+  floatX:left;
+  margin-right:8px;
+  border: 1px solid #ccc;
+}
+summary::-webkit-details-marker {
+  display: none
+}
 @media print 
 {
   .noprint {display: none; }
@@ -224,6 +206,8 @@ sup {
   font-size: 15px;
   line-height: 1.5;
   position: relative;
+  word-break: break-word;
+  overflowX: auto; /* Test when activating */
 }
 .contentpadding {
   padding-top: 20px;
@@ -257,34 +241,20 @@ sup {
   margin: 0 auto;
   padding-left: 55px;
   padding-right: 55px;
+  word-break: break-word;
 }
-/* delete */
-.textColumns {
-  margin-left:-22px;
-  margin-right:-22px;
+.lead {
+    font-family: 'PT Sans', sans-serif;
+    font-weight: normal;
+    color: rgb(66, 72, 79);
+    font-size: 17px;
+    font-weight: 100;
+    line-height: 1.5;
+    word-break: break-word;
 }
-.textColumn {
-  width:33.33%;
-  float:left;
-  margin-bottom: 0px;
-}
-.textColumnInside {
-  padding-left: 22px;
-  padding-right:22px; /* Matches .textColumns above */
-  line-height: 1.55;
-  color: #777;
-  border: 1px solid rgba(255,255,255,0);
-}
-.textColumnTitle {
-  font-size: 1.27em;
-    line-height: 1.3em;
-    margin-top: 20px;
-    margin-bottom: 16px;
-}
-@media (max-width:980px) {
-  .textColumn {
-    width:100%;
-  }
+.caption {
+  font-size: 12.5px;
+  margin-bottom:27px;
 }
 
 .pageColumns {
@@ -318,6 +288,35 @@ sup {
     margin: 0px; padding: 0px; 
     padding-left: 20px; padding-right: 20px;
     line-height: 1.4em;
+}
+.rightside, .floatright {
+  float:right;
+  max-width:400px;
+  margin-left:30px;
+  margin-bottom:30px;
+  /* font-size: 18px; */
+}
+@media (max-width: 1120px) {
+  .rightside {
+    max-width:auto;
+    margin-left:0px;
+    margin-bottom:30px;
+    float:none;
+  }
+}
+@media (max-width: 600px) {
+  .floatright {
+    max-width:auto;
+    margin-left:0px;
+    margin-bottom:30px;
+    float:none;
+  }
+  .fullMobile {
+    float:none;
+    width:100% !important;
+    max-width:100% !important;
+    margin-left:0px !important;
+  }
 }
 .litePanel {
     background-color: #fff;
@@ -396,6 +395,10 @@ content .js, pre code { /* Prevents .js from impacting js class within Drupal bo
   */
 }
 #footer {
-  clear:both;
+  clear: both;
+  position: relative;
+  z-index: 1000;
+  background: #fff;
+  padding-bottom: 15px;
 }
 
