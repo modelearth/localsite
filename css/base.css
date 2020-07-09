@@ -174,6 +174,10 @@ sup {
   line-height: 0.8em;
   font-size: 0.6em;
 }
+hr {
+    border: 0px;
+    border-top: 1px solid #ddd;
+}
 details {
   display:inline;
 }
