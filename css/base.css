@@ -89,12 +89,12 @@ a {
 }
 /* conflicts with buttons */
 a:link {
-  color: #4091dd;
+  color: #0366d6;
 }
 a:visited {
-  color: #4091dd;
+  color: #0366d6;
 }
-
+/* Lighter: #4091dd */
 p {
   margin-top: 0px;
   margin-bottom: 16px;
@@ -400,3 +400,41 @@ content .js, pre code { /* Prevents .js from impacting js class within Drupal bo
   padding-bottom: 15px;
 }
 
+.pagecard {
+    clear:both;
+    overflow: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    margin-bottom: 30px;
+}
+.cardstyle {
+    background: #fff;
+    min-height: 50px;
+    position: relative;
+    border-radius: 4px;
+    padding: 20px;
+}
+@media (max-width: 1200px) {
+    .pagecard {
+        paddingX:40px;
+        margin-rightX:20px;
+    }
+}
+@media (max-width: 500px) {
+    .pagecard {
+        padding:0px;
+    }
+}
+.leftLogo {
+    float:left;
+    margin:20px;
+    margin-right:40px;
+    min-width: 210px;
+}
+@media (max-width: 800px) {
+    .leftLogo {
+        float:none;
+        margin-right:20px;
+        max-width: 150px;
+    }
+}
