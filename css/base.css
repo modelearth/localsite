@@ -97,7 +97,7 @@ a:visited {
 
 p {
   margin-top: 0px;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   /*
   font-family: 'Open Sans', 'Helvetica Neue', Arial, Helvetica, sans-serif;
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -202,7 +202,7 @@ summary::-webkit-details-marker {
   max-width: 1140px;
   margin:0 auto;
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.7;
   position: relative;
   word-break: break-word;
   overflowX: auto; /* Test when activating */
