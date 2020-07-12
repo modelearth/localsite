@@ -432,9 +432,16 @@ content .js, pre code { /* Prevents .js from impacting js class within Drupal bo
     min-width: 210px;
 }
 @media (max-width: 800px) {
-    .leftLogo {
-        float:none;
-        margin-right:20px;
-        max-width: 150px;
-    }
+  .leftLogo {
+      float:none;
+      margin-right:20px;
+      max-width: 150px;
+  }
+  .narrowscreen {
+    width:100% !important;
+    max-width: 100% !important;
+    float:none !important;
+    padding:0 !important;
+    margin:0 0 30px 0;
+  }
 }
