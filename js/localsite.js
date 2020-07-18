@@ -133,6 +133,7 @@ var triggerHashChangeEvent = function () {
     document.dispatchEvent(event);
 };
 $(window).on('hashchange', function() { // Avoid window.onhashchange since overridden by map and widget embeds  
+  console.log("window hashchange");
   triggerHashChangeEvent();
 });
 function clearHash(toClear) {
