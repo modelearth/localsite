@@ -271,6 +271,9 @@ summary::-webkit-details-marker {
   float:left;
   margin-bottom: 0px;
 }
+.two .pageColumn {
+  width:50%;
+}
 .pageColumnInside {
   padding-left: 22px;
   padding-right:22px; /* Matches .pageColumns above */
@@ -471,4 +474,41 @@ content .js, pre code { /* Prevents .js from impacting js class within Drupal bo
   overflow:scroll;
   border:0px;
 }
+.bgimg {
+    positionX: relative;
+    opacity: 0.65;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-sizeX: cover;
+    background-position: 0 100px; /* adjust for page banner - BUGBUG */
+    background-size: 100% auto;
+    borderX: 2px solid blue;
+  }
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1024px) {
+    .bgimg {
+        background-attachment: scroll;
+    }
+}
+.herocenter {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  color: #000;
+}
 
+.herocenter span.border {
+  background-color: #111;
+  background-color: #000;
+  opacity: 0.95;
+  color: #fff;
+  padding: 18px;
+  padding-left: 25px;
+  font-size: 25px;
+  font-size:18px;
+  letter-spacing: 10px;
+  display: inline-block;
+}

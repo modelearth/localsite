@@ -23,14 +23,38 @@
 </head>
 
 <body>
-
-<div class="content contentpadding" style="padding-top:50px;">
-	<div id="readmeDiv"></div>
+<div style="background:#fff; min-height:150px">
+	<div class="lazy bgimg" data-src="img/hero/ceiling.jpg" style="min-height:400px;">
+		<img src="img/hero/ceiling.jpg" style="opacity:0;width:100%">
+	  
+	  <div class="herocenter">
+	  	Caption
+	  </div>
+	</div>
 </div>
+
+<div class="content contentpadding" style="padding-top:35px;">
+
+	<div class="two pageColumns">
+	    <div class="pageColumn">
+	      <div class="pageColumnInside">
+	          <div id="readmeDiv"></div>
+	      </div>
+	    </div>
+	    <div class="pageColumn">
+	      <div class="pageColumnInside">
+	        <div id="featuresDiv"></div>
+	      </div>
+	    </div>
+	</div>
+
+</div>
+<div style="clear:both"></div>
 <br>
 
 <script>
     loadMarkdown("README.md", "readmeDiv", "_parent");
+    loadMarkdown("features.md", "featuresDiv", "_parent");
 </script>
 
 </body>
