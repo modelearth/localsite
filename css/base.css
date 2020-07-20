@@ -56,6 +56,7 @@ body {
   font-family: "Raleway", Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-family: 'Nunito Sans', 'Raleway', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color:#111;
+  line-height:0; /* prevents gaps betweet images */
 }
 table {
   border-spacing: 0px;
@@ -217,9 +218,10 @@ summary::-webkit-details-marker {
   overflowX: auto; /* Test when activating */
 }
 .contentpadding {
-  padding-top: 20px;
+  padding-top: 25px;
   padding-left: 40px;
   padding-right: 40px;
+  padding-bottom: 45px;
 }
 .content li {
   margin-left: -10px;
@@ -265,13 +267,21 @@ summary::-webkit-details-marker {
 .pageColumns {
   margin-left:-22px;
   margin-right:-22px;
+  overflow: hidden; /* Allows bottom padding to apply after float:left columns */
 }
 .pageColumn {
   width:33.33%;
   float:left;
   margin-bottom: 0px;
 }
+.full .pageColumn {
+  width:100%;
+}
+.two .pageColumn {
+  width:50%;
+}
 .pageColumnInside {
+  position: relative;
   padding-left: 22px;
   padding-right:22px; /* Matches .pageColumns above */
   line-height: 1.55;
@@ -280,12 +290,12 @@ summary::-webkit-details-marker {
 }
 .pageColumnTitle {
   font-size: 1.27em;
-    line-height: 1.3em;
-    margin-top: 20px;
-    margin-bottom: 16px;
+  line-height: 1.3em;
+  margin-top: 20px;
+  margin-bottom: 16px;
 }
 @media (max-width:980px) {
-  .pageColumn {
+  .pageColumn, .two .pageColumn {
     width:100%;
   }
 }
@@ -471,4 +481,66 @@ content .js, pre code { /* Prevents .js from impacting js class within Drupal bo
   overflow:scroll;
   border:0px;
 }
+.bgimg {
+    position: relative;
+    opacity: 0.65;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-sizeX: cover;
+    background-position: 0 100px; /* adjust for page banner - BUGBUG */
+    background-size: 100% auto;
+    borderX: 2px solid blue;
 
+    opacityX: 0.2;
+  }
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1024px) {
+    .bgimg {
+        background-attachment: scroll;
+    }
+}
+.herocenter {
+  position: absolute;
+  left: 0;
+  top: 48.5%;
+  width: 100%;
+  text-align: center;
+  color: #000;
+}
+.herocenter-text {
+  font-size: 18px;
+  border: 1px solid #aaa;
+  display: inline-block;
+  padding: 4px 10px 4px 10px;
+  letter-spacing: .1em;
+  marginX: 20px 0px 20px 0px;
+  color: #fff;
+  text-decoration: none;
+
+  border: 0px;
+  background: rgba(55,55,55,0.7);
+  padding: 20px 25px 20px 25px;
+
+  /*
+  border: 0px;
+  padding: 18px 25px 18px 25px;
+  color: #000;
+  background: rgba(255,255,255,0.8);
+  */
+}
+.herocenter-text a {
+  color: #fff;
+}
+.herocenter span.border {
+  background-color: #111;
+  background-color: #000;
+  opacity: 0.85;
+  color: #fff;
+  padding: 18px;
+  padding-left: 25px;
+  font-size: 25px;
+  font-size:18px;
+  letter-spacing: 10px;
+  display: inline-block;
+}
