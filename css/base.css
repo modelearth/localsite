@@ -56,7 +56,7 @@ body {
   font-family: "Raleway", Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-family: 'Nunito Sans', 'Raleway', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color:#111;
-  line-height:0; /* prevents gaps betweet images */
+  line-heightX:0; /* prevents gaps betweet images, but 0 caused text to overlap on start and nav icons. */
 }
 table {
   border-spacing: 0px;
