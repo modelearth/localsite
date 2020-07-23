@@ -53,10 +53,18 @@ body {
   margin: 0px;
   background-color: #fafafa;
   -webkit-font-smoothing: antialiased;
-  font-family: "Raleway", Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-family: 'Nunito Sans', 'Raleway', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Nunito Sans', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color:#777;
   line-heightX:0; /* prevents gaps betweet images, but 0 caused text to overlap on start and nav icons. */
+
+  display: flex; /* for footer */
+  flex-direction: column; /* for footer */
+}
+main {
+    flex-grow: 1;
+}
+header, main, footer {
+    flex-shrink: 0; /* prevent shrinking if content is larger than the screen. */
 }
 table {
   border-spacing: 0px;
@@ -247,7 +255,7 @@ summary::-webkit-details-marker {
 
 .container {
   position: relative;
-  max-width: 1200px; /* max-width will conflict with sites that use bootstrap */
+  /* max-width: 1200px; */ /* makes video in rotation to short */ /* max-width will conflict with sites that use bootstrap */
   margin: 0 auto;
   padding-left: 55px;
   padding-right: 55px;
