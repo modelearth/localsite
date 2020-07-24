@@ -56,14 +56,15 @@ body {
   font-family: 'Nunito Sans', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color:#777;
   line-heightX:0; /* prevents gaps betweet images, but 0 caused text to overlap on start and nav icons. */
-
+}
+.flexbody {
   display: flex; /* for footer */
   flex-direction: column; /* for footer */
 }
-main {
+main, .flexmain {
     flex-grow: 1;
 }
-header, main, footer {
+header, main, .flexfooter {
     flex-shrink: 0; /* prevent shrinking if content is larger than the screen. */
 }
 table {
