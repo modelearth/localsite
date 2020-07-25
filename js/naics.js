@@ -969,9 +969,9 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                         
                         } // End naics rows
 
-                        updateHash({"naics":naicshash});
-                        params = loadParams(location.search,location.hash);
-                        midFunc(params.x,params.y,params.z,params);
+                        //updateHash({"naics":naicshash});
+                        //params = loadParams(location.search,location.hash);
+                        //midFunc(params.x,params.y,params.z,params);
                         })
                 })
                 d3.csv(root + "data/county_ID_list.csv").then( function(consdata) {
