@@ -62,7 +62,7 @@ body {
   flex-direction: column; /* for footer */
 }
 main, .flexmain {
-    flex-grow: 1;
+    flex-grow: 1; /* for footer */
 }
 header, main, .flexfooter {
     flex-shrink: 0; /* prevent shrinking if content is larger than the screen. */
