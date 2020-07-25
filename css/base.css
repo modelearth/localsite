@@ -56,14 +56,15 @@ body {
   font-family: 'Nunito Sans', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color:#777;
   line-heightX:0; /* prevents gaps betweet images, but 0 caused text to overlap on start and nav icons. */
-
+}
+.flexbody {
   display: flex; /* for footer */
   flex-direction: column; /* for footer */
 }
-main {
-    flex-grow: 1;
+main, .flexmain {
+    flex-grow: 1; /* for footer */
 }
-header, main, footer {
+header, main, .flexfooter {
     flex-shrink: 0; /* prevent shrinking if content is larger than the screen. */
 }
 table {
@@ -552,4 +553,14 @@ content .js, pre code { /* Prevents .js from impacting js class within Drupal bo
   font-size:18px;
   letter-spacing: 10px;
   display: inline-block;
+}
+
+/* Temp until io renamed in useeio-widget */
+.input-output input[type="text"], .input-output input[type="search"], .input-output select {
+    height: 30px;
+    font-size: 18px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin-right: 15px;
+    padding: 0 5px 0 10px;
 }
