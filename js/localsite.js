@@ -97,8 +97,7 @@ function updateHash(addToHash) {
         // findCompany
 
     
-
-    var pathname = window.location.pathname;
+    var pathname = window.location.pathname.replace(/\/\//g, '\/')
     var queryString = "";
     if (window.location.search) { // Existing, for parameters that are retained as hash changes.
       queryString += window.location.search; // Contains question mark (?)
