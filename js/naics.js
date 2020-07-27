@@ -437,10 +437,11 @@ function keyFound(this_key, cat_filter) {
         return false;
     } else if (cat_filter.length == 0) { // No filter
         return true;
-    } else if (this_key.startsWith("11")) { // Quick hack, always include Agriculture
-        if(params.go == "bioeconomy"){
-        return true;}else{return false;}
-    } else if (cat_filter.includes(this_key.slice(0,4))) { // Our 4 digit array matches key
+    } else if (params.go == "bioeconomy" && this_key.startsWith("11")) { // Quick hack, always include Agriculture
+        return true;
+    } else if (params.go == "bioeconomy" && cat_filter.includes(this_key.slice(0,4))) { // Our 4 digit array matches key
+        return true;
+    } else if (cat_filter.includes(this_key.slice(0,6))) {
         return true;
     } else {
         return false;
