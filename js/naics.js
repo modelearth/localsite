@@ -332,7 +332,7 @@ function renderIndustryChart(dataObject,values,params) {
         fips = dataObject.stateshown;
     }
     console.log("renderIndustryChart calls topRatesInFips with fips: " + fips)
-    topRatesInFips(dataObject, dataObject.industryNames, fips, 20, params);
+    topRatesInFips(dataObject, dataObject.industryNames, fips, 40, params);
 }
 
 
@@ -392,7 +392,7 @@ function geoChanged(dataObject,params){
 
         })
     }
-    topRatesInFips(dataObject, dataObject.industryNames, fips, 20, params)
+    topRatesInFips(dataObject, dataObject.industryNames, fips, 40, params)
     console.log('fips: '+fips)
 }
 
@@ -439,11 +439,25 @@ function keyFound(this_key, cat_filter) {
         return true;
     } else if (params.go == "bioeconomy" && this_key.startsWith("11")) { // Quick hack, always include Agriculture
         return true;
-    } else if (params.go == "bioeconomy" && cat_filter.includes(this_key.slice(0,4))) { // Our 4 digit array matches key
+    } else if ( params.catsize== 2){ // Our 4 digit array matches key
+        cat_filt=[]
+        for(i=0;i<cat_filter.length;i++){
+            cat_filt.push(cat_filter[i].slice(0,2))
+        }
+        if(cat_filt.includes(this_key.slice(0,2))){
+            return true;
+        }
+    }  else if ( params.catsize== 4 ) { // Our 4 digit array matches key
+        cat_filt=[]
+        for(i=0;i<cat_filter.length;i++){
+            cat_filt.push(cat_filter[i].slice(0,4))
+        }
+        if(cat_filt.includes(this_key.slice(0,4))){
+            return true;
+        }
+    }else if ( params.catsize== 6 && cat_filter.includes(this_key.slice(0,6))) { // Our 4 digit array matches key
         return true;
-    } else if (params.go != "bioeconomy" && cat_filter.includes(this_key.slice(0,6))) {
-        return true;
-    } else {
+    }else {
         return false;
     }
 }
@@ -495,11 +509,9 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                     if (cat_filter.length) {
                         cat_filt=[]
                         for(i=0;i<cat_filter.length;i++){
-                            if(params.go == "bioeconomy"){
-                                cat_filt.push(cat_filter[i].slice(0,4))
-                            }else{
+                            
                                 cat_filt.push(cat_filter[i].slice(0,6))
-                            }
+                            
                         }
                         cat_filter=cat_filt
                         //console.log(cat_filter)
