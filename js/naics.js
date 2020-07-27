@@ -432,7 +432,7 @@ function formatIndustryData(rawData,subsetKeys) {
 }
 
 
-function keyFound(this_key, cat_filter) {
+function keyFound(this_key, cat_filter,params) {
     if (this_key <= 1) {
         return false;
     } else if (cat_filter.length == 0) { // No filter
@@ -525,7 +525,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                     for (var i = 0; i<fips.length; i++){
                         Object.keys(dataSet.industryData.ActualRate).forEach( this_key=>{
                             // this_key = parseInt(d.split("$")[1])
-                            if (keyFound(this_key, cat_filter)){
+                            if (keyFound(this_key, cat_filter,params)){
                                 this_rate = dataSet.industryData.ActualRate[this_key]
                                 if (this_rate.hasOwnProperty(fips[i])){ 
                                     if(rates_dict[this_key]){
@@ -560,7 +560,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                     if(params['census_scope']){
                         if(params['census_scope']=="state"){
                             Object.keys(dataSet.industryDataStateApi.ActualRate).forEach( this_key=>{
-                                if (keyFound(this_key, cat_filter)){
+                                if (keyFound(this_key, cat_filter,params)){
                                     this_rate = dataSet.industryDataStateApi.ActualRate[this_key]
                                     if (this_rate.hasOwnProperty(fips)){ 
                                         rates_dict[this_key] = parseFloat(this_rate[fips][which_state_api])
@@ -574,7 +574,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                         }
                     }else{
                         Object.keys(dataSet.industryDataState.ActualRate).forEach( this_key=>{
-                            if (keyFound(this_key, cat_filter)){
+                            if (keyFound(this_key, cat_filter,params)){
                                 this_rate = dataSet.industryDataState.ActualRate[this_key]
                                 if (this_rate.hasOwnProperty(fips)){ 
                                     rates_dict[this_key] = parseFloat(this_rate[fips][which_state])
@@ -589,7 +589,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
 
                 }else{
                     Object.keys(dataSet.industryData.ActualRate).forEach( this_key=>{
-                        if (keyFound(this_key, cat_filter)){
+                        if (keyFound(this_key, cat_filter,params)){
                             this_rate = dataSet.industryData.ActualRate[this_key]
                             if (this_rate.hasOwnProperty(fips)){ 
                                 rates_dict[this_key] = parseFloat(this_rate[fips][which])
@@ -636,7 +636,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                                 }
                             }
                         }
-                        if (keyFound(naicscode, cat_filter)){
+                        if (keyFound(naicscode, cat_filter,params)){
                             if(dataNames[id]){
                                 if (rateInFips == null) {
                                     rateInFips = 1
@@ -668,7 +668,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                                         naicscode = 1
                                     }
                                     
-                                    if (keyFound(naicscode, cat_filter)){
+                                    if (keyFound(naicscode, cat_filter,params)){
                                         if (rateInFips == null) {
                                             rateInFips = 1
                                             top_data_list.push(
@@ -696,7 +696,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                                     naicscode = 1
                                 }
                                 
-                                if (keyFound(naicscode, cat_filter)){
+                                if (keyFound(naicscode, cat_filter,params)){
                                     if (rateInFips == null) {
                                         rateInFips = 1
                                         top_data_list.push(
@@ -731,7 +731,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                                 estim = 0
                             }
                             
-                            if (keyFound(naicscode, cat_filter)){
+                            if (keyFound(naicscode, cat_filter,params)){
                                 if (rateInFips == null) {
                                     rateInFips = 1
                                     top_data_list.push(
