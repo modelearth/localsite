@@ -464,6 +464,7 @@ function keyFound(this_key, cat_filter,params) {
 
 // Top rows of for a specific set of fips (states and counties)
 function topRatesInFips(dataSet, dataNames, fips, howMany, params){
+    document.getElementById("p1").innerHTML=""
     console.log("topRatesInFips")
     d3.csv(root + "data/data_raw/BEA_Industry_Factors/state_fips.csv").then( function(consdata) {
         var filteredData = consdata.filter(function(d) {
