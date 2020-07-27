@@ -509,9 +509,9 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                     if (cat_filter.length) {
                         cat_filt=[]
                         for(i=0;i<cat_filter.length;i++){
-                            if(params.go == "bioeconomy"){
+                            
                                 cat_filt.push(cat_filter[i].slice(0,6))
-                            }
+                            
                         }
                         cat_filter=cat_filt
                         //console.log(cat_filter)
