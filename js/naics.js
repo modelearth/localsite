@@ -332,7 +332,7 @@ function renderIndustryChart(dataObject,values,params) {
         fips = dataObject.stateshown;
     }
     console.log("renderIndustryChart calls topRatesInFips with fips: " + fips)
-    topRatesInFips(dataObject, dataObject.industryNames, fips, 20, params);
+    topRatesInFips(dataObject, dataObject.industryNames, fips, 40, params);
 }
 
 
@@ -392,7 +392,7 @@ function geoChanged(dataObject,params){
 
         })
     }
-    topRatesInFips(dataObject, dataObject.industryNames, fips, 20, params)
+    topRatesInFips(dataObject, dataObject.industryNames, fips, 40, params)
     console.log('fips: '+fips)
 }
 
