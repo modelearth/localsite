@@ -665,7 +665,7 @@ function markerRadius(radiusValue,map) {
 
 // MAP 1
 // var map1 = {};
-function loadMap1(dp) { // Also called by search-filters.js
+function loadMap1(dp) { // Also called by map-filters.js
   console.log('loadMap1');
 
   // Note: light_nolabels does not work on https. Remove if so. Was positron_light_nolabels.
@@ -1035,7 +1035,7 @@ function showList(dp,map) {
     products_array = products.split2(/\s*;\s*/);
   }
   if ($("#productCodes").val()) {
-    // For each product ID - Still to implement, copied for search-filters.js
+    // For each product ID - Still to implement, copied for map-filters.js
     productcodes = $("#productCodes").val().replace(";",",");
     productcode_array = productcodes.split2(/\s*,\s*/); // Removes space when splitting on comma
   }

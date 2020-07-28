@@ -44,7 +44,7 @@ $(document).ready(function(){
 	 	$("body").addClass("flexbody"); // For footer to stick at bottom on short pages
 	 	$("body").wrapInner( "<main class='flexmain'></main>"); // To stick footer to bottom
 	 	$("body").prepend( "<div id='header' class='flexheader hideprint'></div>\r" );
-		let headerFile = climbpath + "../community/header.html";
+		let headerFile = climbpath + "../localsite/header.html";
 		if (param.header) headerFile = param.header;
 	 	$("#header").load(headerFile, function( response, status, xhr ) {
 
@@ -168,7 +168,7 @@ $(document).ready(function(){
 		} else {
 			//$("#footer").addClass("flexfooter");
 		}
-		let footerFile = climbpath + "../community/footer.html";
+		let footerFile = climbpath + "../localsite/footer.html";
 		if (param.footer) footerFile = param.footer;
 		$("#footer").load(footerFile, function( response, status, xhr ) {
 			let pageFolder = getPageFolder(footerFile);

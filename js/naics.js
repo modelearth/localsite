@@ -192,7 +192,7 @@ function ready(values) {
                         }); 
                     }
                     //addGeoChangeDetectToDOM(1);
-                    function addGeoChangeDetectToDOM(count) { // Wait for county checkboxes to be added to DOM by search-filters.js
+                    function addGeoChangeDetectToDOM(count) { // Wait for county checkboxes to be added to DOM by map-filters.js
                         if($(".geo").length) {
                             //d3.selectAll(".geo").on("change",function() {
                             $(".geo").change(function(e) {

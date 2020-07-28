@@ -210,7 +210,7 @@ $(document).ready(function () {
 		//alert($(this).data('id'));
         consoleLog("Call locationFilterChange from .filterUL li click: " + $(this).data('id'));
         locationFilterChange($(this).data('id'));
-		updateHash({"geo":$(this).data('id')});
+		updateHash({"geo":$(this).data('id')}, false);
 		// TO DO: set state
 
 		$(".fieldSelector").hide(); // Close loc menu
@@ -743,7 +743,7 @@ function updateLoc(geo) {
         }
 		
     }
-    console.log('ALERT: Change to support state as GEO')
+    console.log('ALERT: Change to support state as GEO. Current geo: ' + geo)
     if (!geo) {
         $(".county-view").hide();
         $(".state-view").show();

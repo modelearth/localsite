@@ -186,8 +186,7 @@ h2 {
 <script>
 document.addEventListener('hashChangeEvent', function (elem) {
 	console.log("info/index.html detects hashChangeEvent");
-  //let params = loadParams(location.search,location.hash);
-  refreshWidgets();
+ 	refreshWidgets();
 }, false);
 
 // INIT
@@ -249,7 +248,7 @@ function refreshWidgets() {
 	if (hash.geo != priorHash.geo) {
 		//$(".regiontitle").text(""); //Clear
 		//$(".regionsubtitle").text(""); //Clear
-		//updateLoc(hash.geo); // Check counties. (search-filters.js)
+		//updateLoc(hash.geo); // Check counties. (map-filters.js)
 	}
 	
 
@@ -599,6 +598,8 @@ https://www.epa.gov/enviroatlas
 	-->
 
 	<link rel="stylesheet" type="text/css" href="../../input-output/bubbles/css/bubble.css"/>
+
+
 	<div class="bubble-graph">
 
       <div style="float:left">

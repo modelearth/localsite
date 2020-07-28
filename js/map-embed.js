@@ -193,7 +193,7 @@ strVar += "                              <li data-id=\"US\"><a href=\"#\">USA<\/
 strVar += "                              <!--";
 strVar += "                              <li data-id=\"state\" class=\"selected\" style=\"white-space:nowrap\"><a href=\"#\">Entire State<\/a><\/li>";
 strVar += "                              -->";
-strVar += "                              <li data-id=\"state:ga\" class=\"selected\" style=\"white-space:nowrap\"><a href=\"#\">Georgia<\/a><\/li>";
+strVar += "                              <li data-id=\"US13\" class=\"selected\" style=\"white-space:nowrap\"><a href=\"#\">Georgia<\/a><\/li>";
 strVar += "                              ";
 strVar += "                              ";
 strVar += "                              <li data-id=\"city\" class=\"local\" style=\"display:none\"><a href=\"#\">Cities<\/a><\/li>";
@@ -897,8 +897,8 @@ strVar += "<!-- \/buttons -->";
 strVar += "";
 strVar += "";
 strVar += "<!-- APP MENU -->";
-strVar += "<!-- From search-filters.js displayBigThumbnails function -->";
-strVar += "<!-- Currently search-filters.js limits loading to localhost -->";
+strVar += "<!-- From map-filters.js displayBigThumbnails function -->";
+strVar += "<!-- Currently map-filters.js limits loading to localhost -->";
 strVar += "<div id=\"honeycombPanelHolder\" style=\"display:none; margin-top:30px; margin-bottom:50px;\">";
 strVar += "  ";
 strVar += "  <!--div id=\"honeycombPanel\"-->";
@@ -1377,7 +1377,7 @@ function lazyLoadFiles() {
 	//document.write(strVarCss);
 	document.head.insertAdjacentHTML("beforeend", strVarCss);
 
-  	loadScript(root + '/localsite/js/d3.v5.min.js', function(results) { // BUG - change so search-filters.js does not require this on it's load
+  	loadScript(root + '/localsite/js/d3.v5.min.js', function(results) { // BUG - change so map-filters.js does not require this on it's load
     	loadScript(root + '/localsite/js/map.js', function(results) { 
   			loadSearchFilters(1); // Uses dual_map library for community_root
   		});
@@ -1386,7 +1386,7 @@ function lazyLoadFiles() {
 
 	function loadSearchFilters(count) {
 		if (typeof customD3loaded !== 'undefined' && typeof dual_map !== 'undefined') {
-			loadScript(root + '/localsite/js/search-filters.js', function(results) {});
+			loadScript(root + '/localsite/js/map-filters.js', function(results) {});
 		} else if (count<100) { // Wait a milisecond and try again
 			setTimeout( function() {
 	   			console.log("try loadSearchFilters again")
@@ -1436,7 +1436,7 @@ function dualmapLoaded(param, root, count) {
 			  }
 		})
 
-		loadScript(root + '/localsite/js/search-filters.js', function(results) {
+		loadScript(root + '/localsite/js/map-filters.js', function(results) {
 
 			loadMap1();
 			document.addEventListener('hashChangeEvent', function (elem) {
