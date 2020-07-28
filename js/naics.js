@@ -92,6 +92,11 @@ function ready(values) {
                 if (!params.catsize) {
                    params.catsize = 6;
                 }
+                if (!params.census_scope) {
+                   params.census_scope = 'state';
+                }
+
+                console.log("tttttt"+params.census_scope)
                 industryData = {
                     'ActualRate': formatIndustryData(values[params.catsize/2],dataObject.subsetKeys),
                 }
@@ -161,8 +166,12 @@ function ready(values) {
                     fips = dataObject.stateshown;
                 }
 
+                /*
+                let geo_list={}
+                counter=0
+                */
+                //renderIndustryChart(dataObject,values,params,geo_list,counter);
                 renderIndustryChart(dataObject,values,params);
-
                 $(document).ready(function() {
 
                     // `hashChangeEvent` event reside in multiple widgets. 
@@ -171,7 +180,9 @@ function ready(values) {
                         let params = loadParams(location.search,location.hash);
                         //displayTopIndustries();
                         console.log("topindustries.js detects hashChangeEvent")
-                        renderIndustryChart(dataObject,values,params);
+                        
+                        
+                        renderIndustryChart(dataObject,values,params)
                     }, false);
                                         
                     if (document.getElementById("clearButton")) {
@@ -228,14 +239,7 @@ function displayTopIndustries() { // Not currently called
         }
     }
 
-    if(lastParams.geo){
-        if (lastParams.geo.includes(",")){
-            geos=lastParams.geo.split(",")
-            dataObject.laststateshown=(geos[0].split("US")[1]).slice(0,2)
-        }else{
-            dataObject.laststateshown=(lastParams.geo.split("US")[1]).slice(0,2)
-        }
-    }
+
     
     if(dataObject.stateshown!=dataObject.laststateshown){
         d3.csv(root + "data/data_raw/BEA_Industry_Factors/state_fips.csv").then( function(consdata) {
@@ -267,12 +271,38 @@ function displayTopIndustries() { // Not currently called
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function renderIndustryChart(dataObject,values,params) {
+    /*
+    if(counter==2){
+        counter=0
+    }
+    if(counter==0){  
+      geo_list[0]=params.geo
+      if(geo_list[1]){
+        lastgeo=geo_list[1]
+        currgeo=geo_list[0]
+      }else{
+        lastgeo=[]
+        currgeo=geo_list[0]
+      }
+    }else{
+    geo_list[1]=params.geo
+    lastgeo=geo_list[0]
+    currgeo=geo_list[1]
+    }
+    if(typeof currgeo=='undefined' && typeof lastgeo!='undefined' && lastgeo.length>0 ){
+        params.census_scope='state'
+    }
+    
 
+    counter=counter+1*/
     if(!params.catsort){
         params.catsort = "payann";
     }
     if(!params.catsize){
         params.catsize = 6;
+    }
+    if(!params.census_scope){
+        params.census_scope='state'
     }
     subsetKeys = ['emp_reported','emp_est1','emp_est3', 'payann_reported','payann_est1','payann_est3', 'estab', 'NAICS2012_TTL','GEO_TTL','state','COUNTY','relevant_naics','estimate_est1','estimate_est3']
     subsetKeys_state = ['emp_agg', 'payann_agg', 'estab_agg', 'NAICS2012_TTL','GEO_TTL','state','COUNTY','relevant_naics']
@@ -340,6 +370,8 @@ function renderIndustryChart(dataObject,values,params) {
 
 //function for when the geo hash changes
 function geoChanged(dataObject,params){
+    
+
     if (!params) {
         params = loadParams(location.search,location.hash); // Pull from updated hash
     }
@@ -464,6 +496,7 @@ function keyFound(this_key, cat_filter,params) {
 
 // Top rows of for a specific set of fips (states and counties)
 function topRatesInFips(dataSet, dataNames, fips, howMany, params){
+  
     document.getElementById("p1").innerHTML=""
     console.log("topRatesInFips")
     d3.csv(root + "data/data_raw/BEA_Industry_Factors/state_fips.csv").then( function(consdata) {
@@ -558,7 +591,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
 
                 }else if(fips==dataObject.stateshown){
                     //fips=13
-                    if(params['census_scope']){
+                    
                         if(params['census_scope']=="state"){
                             Object.keys(dataSet.industryDataStateApi.ActualRate).forEach( this_key=>{
                                 if (keyFound(this_key, cat_filter,params)){
@@ -573,7 +606,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                                 }
                             })
                         }
-                    }else{
+                    else{
                         Object.keys(dataSet.industryDataState.ActualRate).forEach( this_key=>{
                             if (keyFound(this_key, cat_filter,params)){
                                 this_rate = dataSet.industryDataState.ActualRate[this_key]
@@ -655,7 +688,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                     }   
                 }else{
                     if(fips==dataObject.stateshown){
-                        if(params['census_scope']){
+                    
                             if(params['census_scope']=="state"){
                                 for (var i=0; i<rates_list.length; i++) {
                                     id = parseInt(getKeyByValue(rates_dict, rates_list[i]))
@@ -683,8 +716,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                                         }
                                     }
                                 }
-                            }
-                        }else{
+                            }else{
                             for (var i=0; i<rates_list.length; i++) {
                                 id = parseInt(getKeyByValue(rates_dict, rates_list[i]))
                                 delete rates_dict[id]
