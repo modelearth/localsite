@@ -210,9 +210,10 @@ $(document).ready(function () {
 		//alert($(this).data('id'));
         consoleLog("Call locationFilterChange from .filterUL li click: " + $(this).data('id'));
         locationFilterChange($(this).data('id'));
-		updateHash({"geo":"","loc":$(this).data('id')});
+		updateHash({"geo":$(this).data('id')});
 		// TO DO: set state
 
+		$(".fieldSelector").hide(); // Close loc menu
 		e.stopPropagation(); // Prevents click on containing #filterClickLocation.
 	 });
 
@@ -473,7 +474,7 @@ $(document).ready(function () {
 function locationFilterChange(selectedValue) {
 
     consoleLog("locationFilterChange: " + selectedValue);
-    $(".geoListHolder > div").hide();
+    //$(".geoListHolder > div").hide();
     $(".geoListCounties").show();
     //showSearchClick(); // Display filters
     hideLocationFilters();
@@ -590,7 +591,7 @@ function showCounties() {
 	}
 	//Load in contents of CSV file
 	//d3.csv("data/usa/GA/GAcounties.csv", function(error, myData) {
-	d3.csv("/community/info/data/usa/GA/GAcounties.csv").then(function(myData,error) {
+	d3.csv("/localsite/info/data/usa/GA/GAcounties.csv").then(function(myData,error) {
 		if (error) {
 			alert("error")
 			console.log("Error loading file. " + error);
@@ -703,7 +704,7 @@ function showCounties() {
 		// Not available here
 		
 		// loadScript is not available here, only in calling page.
-		//loadScript('/community/js/common/stupidtable.js', function(results) { 
+		//loadScript('/community/js/table-sort.js', function(results) { 
 			// jquery sorting applied to it - could be done with d3 and events.
 			applyStupidTable(1); 
 		//});

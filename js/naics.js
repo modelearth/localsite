@@ -26,7 +26,7 @@ if(params["geo"]){
     fips = dataObject.stateshown;
 }
 
-let root = "/community/info/"; // To do, detect the current level like we do in 
+let root = "/localsite/info/"; // To do, detect the current level like we do in 
 
 // Get the levels below root
 /* Try something like this from navigation.js
@@ -44,7 +44,7 @@ let root = "/community/info/"; // To do, detect the current level like we do in
         climbpath += "./"; // Eliminates ? portion of URL
     }
 */
-d3.csv(root + "data/data_raw/BEA_Industry_Factors/state_fips.csv").then( function(consdata) {
+d3.csv(root + "data/state_fips.csv").then( function(consdata) {
     var filteredData = consdata.filter(function(d) {
         if(d["FIPS"]==String(dataObject.stateshown)) {
             var promises = [
@@ -72,7 +72,7 @@ d3.csv(root + "data/data_raw/BEA_Industry_Factors/state_fips.csv").then( functio
 
 function ready(values) {
     console.log("ready - promises loaded")
-    d3.csv(root + "data/data_raw/BEA_Industry_Factors/state_fips.csv").then( function(consdata) {
+    d3.csv(root + "data/state_fips.csv").then( function(consdata) {
         var filteredData = consdata.filter(function(d) {
             if(d["FIPS"]==String(dataObject.stateshown)) {
                 let params = loadParams(location.search,location.hash);
@@ -242,7 +242,7 @@ function displayTopIndustries() { // Not currently called
 
     
     if(dataObject.stateshown!=dataObject.laststateshown){
-        d3.csv(root + "data/data_raw/BEA_Industry_Factors/state_fips.csv").then( function(consdata) {
+        d3.csv(root + "data/state_fips.csv").then( function(consdata) {
             var filteredData = consdata.filter(function(d) {
                 if(d["FIPS"]==String(dataObject.stateshown)) {
                     var promises = [
@@ -399,7 +399,7 @@ function geoChanged(dataObject,params){
     
 
     if(dataObject.stateshown!=dataObject.laststateshown){
-        d3.csv(root + "data/data_raw/BEA_Industry_Factors/state_fips.csv").then( function(consdata) {
+        d3.csv(root + "data/state_fips.csv").then( function(consdata) {
             var filteredData = consdata.filter(function(d) {
                 if(d["FIPS"]==String(dataObject.stateshown)) {
                     var promises = [
@@ -498,7 +498,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
   
     document.getElementById("p1").innerHTML=""
     console.log("topRatesInFips")
-    d3.csv(root + "data/data_raw/BEA_Industry_Factors/state_fips.csv").then( function(consdata) {
+    d3.csv(root + "data/state_fips.csv").then( function(consdata) {
         var filteredData = consdata.filter(function(d) {
             if(d["FIPS"]==String(dataObject.stateshown)) {
                 if(params.catsort=='estab'){
@@ -1005,7 +1005,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                             }
 
 
-                            rightCol += "<div class='cell mock-up' style='display:none'><img src='http://localhost:8887/community/impact/img/plus-minus.gif' class='plus-minus'></div>";
+                            rightCol += "<div class='cell mock-up' style='display:none'><img src='http://localhost:8887/localsite/info/img/plus-minus.gif' class='plus-minus'></div>";
                             //text += top_data_list[i]['NAICScode'] + ": <b>" +top_data_list[i]['data_id']+"</b>, "+String(whichVal.node().options[whichVal.node().selectedIndex].text).slice(3, )+": "+Math.round(top_data_list[i][whichVal.node().value])+"<br>";
                             
                             if(Array.isArray(fips)){

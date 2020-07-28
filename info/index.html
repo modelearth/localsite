@@ -177,6 +177,9 @@ h2 {
 	margin-bottom: 8px;
 	display: none;
 }
+#pageLinks a {
+	color: #aaa;
+}
 </style>
   
 
@@ -205,7 +208,7 @@ function refreshWidgets() {
 			$("#infoColumn").show();
 			$("#geomap").show();
 			if(location.host.indexOf('localhost') >= 0) { // Temp
-				loadScript('/community/js/leaflet/leaflet.js', function(results) {
+				loadScript('/community/js/leaflet.js', function(results) {
 					setTimeout( function() {
 						addCountyBoundaries("geomap");
 					}, 3000 );
@@ -277,36 +280,26 @@ function refreshWidgets() {
 <!-- two columns -->
 <div class="pageColumns">
 	<div style="display:table-row;">
-		<div class="mainColumn mainColumn1" style="font-size: 15px; padding-bottom:10px; padding-right: 30px">
-			<a onClick="goHash({'go':'', 'view':'mosaic', 'count':'10', 'regiontitle':'', 'geo':''}); return false;" href="./#view=mosaic">Overview</a> | 
-			<a onClick="goHash({'go':'bioeconomy', 'view':'mosaic', 'count':'10'}); return false;" href="./#go=bioeconomy&view=mosaic">Bioeconomy</a> | 
-			<a onClick="goHash({'go':'parts', 'view':'mosaic', 'count':'10'}); return false;" href="./#go=parts&view=mosaic">Parts</a> | 
-			<a onClick="goHash({'go':'manufacturing', 'view':'mosaic', 'count':'10'}); return false;" href="./#go=manufacturing&view=mosaic">Manufacturing</a> | 
-			<a onClick="goHash({'go':'geomap', 'view':'mosaic', 'count':'10'}); return false;" href="./#go=bioeconomy&view=mosaic">County Map</a>
-			<br>
-		</div>
+		
+		<!--
+			class="mainColumn mainColumn1" 
+		-->
+	     <div id="pageLinksInsert" style="display:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
+	          <a onClick="goHash({'go':'', 'view':'mosaic', 'count':'10', 'regiontitle':'', 'geo':''}); return false;" href="./#view=mosaic">Overview</a> | 
+	          <a onClick="goHash({'go':'bioeconomy', 'view':'mosaic', 'count':'10'}); return false;" href="./#go=bioeconomy&view=mosaic">Bioeconomy</a> | 
+	          
+	          <a onClick="goHash({'go':'manufacturing', 'view':'mosaic', 'count':'10'}); return false;" href="./#go=manufacturing&view=mosaic">Manufacturing</a> | 
+	          <a onClick="goHash({'go':'parts', 'view':'mosaic', 'count':'10'}); return false;" href="./#go=parts&view=mosaic">Automotive Parts</a> | 
+	          <a onClick="goHash({'go':'geomap', 'view':'mosaic', 'count':'10'}); return false;" href="./#go=bioeconomy&view=mosaic">County Map</a>
+	          <br>
+        </div>
+
+        <!--
 		<div class="mainColumn mainColumn2" style="font-size: 15px;">
 			<a href="#view=mosaic">Statewide</a> | 
-
-			<a onClick="goHash({
-			'regiontitle':'Southeast+Coastal+Georgia',
-			'geo':'US13001,US13005,US13127,US13161,US13229,US13305', 
-			'view':'mosaic', 
-			'count':'10',
-			'lat':'31.1891',
-			'lon':'-81.4979'
-			}); return false;" href="#regiontitle=Southeast+Coastal+Georgia&geo=US13001,US13005,US13127,US13161,US13229,US13305&view=mosaic&count=10&lat=31.1891&lon=-81.4980">Southeast Coastal</a> |  
-
-			<a onClick="goHash({
-			'regiontitle':'West+Central+Georgia',
-			'geo':'US13077,US13145,US13149,US13199,US13263,US13285', 
-			'view':'mosaic', 
-			'count':'10',
-			'lat':'33.0362',
-			'lon':'-85.0322'
-			}); return false;" href="#regiontitle=West+Central+Georgia&geo=US13077,US13145,US13149,US13199,US13263,US13285&view=mosaic&count=10">West&nbsp;Central&nbsp;Georgia</a> | 
 			<a href="../../io/charts/">About Widgets</a>
 		</div>
+		-->
 	</div>
 </div>
 
@@ -732,7 +725,7 @@ function updateText(go) {
 		loadMarkdown("../../io/tools/bioeconomy-planner/about.md", "aboutToolsDiv", "_parent");
 		//loadMarkdown("../../io/tools/bioeconomy-planner/bioenergy/README.md", "bioenergySummaryDiv", "_parent");
 	} else if (go == "dataprep") {
-		loadMarkdown("../../community/info/data/README.md", "aboutToolsDiv", "_parent");
+		loadMarkdown("../../localsite/info/data/README.md", "aboutToolsDiv", "_parent");
 	} else if (go == "parts") {
 		loadMarkdown("../../io/tools/localized-economy/about.md", "aboutToolsDiv", "_parent");
 	} else {

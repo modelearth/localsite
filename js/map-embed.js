@@ -1,12 +1,13 @@
 
 /*
 // EMBED MAP
-// Generate the script below by pasting impact/index.html into:
+// Generate the script below by pasting map/index.html from <!-- Start HTML --> to <!-- End HTML --> into:
 // http://www.accessify.com/tools-and-wizards/developer-tools/html-javascript-convertor/
+// Choose: Build Up String Variable
 // Final version resides in embed-map.js
 */
 
-// Add \r to end of aside rows manually.
+// Add \r to end of aside rows below manually. (You can ignore this, the aside rows are not currently in use.)
 
 var strVar="";
 
@@ -19,6 +20,7 @@ strVar += ".component--main_content, .component--single_column_content {padding:
 strVar += "<\/style>";
 
 // Omit var strVar=""; here
+strVar += "<!-- Start HTML -->";
 strVar += "";
 strVar += "<style>";
 strVar += "  svg{ max-width:none; } \/* Fix for embedding material icon map points in Drupal *\/";
@@ -27,7 +29,7 @@ strVar += "";
 strVar += "<!-- FILTERS -->";
 strVar += "<!--";
 strVar += "  Sample indicator:weight hash value: #census=pop>180:25;edu:50;work:50;pov>15;ypov>10;apov>8;spov>4";
-strVar += "  https:\/\/datascape.github.io\/community\/#columns=population:31;education:50";
+strVar += "  https:\/\/datascape.github.io\/localsite\/#columns=population:31;education:50";
 strVar += "-->";
 strVar += "<div id=\"headerFixed\" class=\"filterPanel\">";
 strVar += "  <div class=\"headerOffset headerOffsetOne\">&nbsp;<\/div>";
@@ -41,7 +43,7 @@ strVar += " ";
 strVar += "  <div id=\"filterFieldsHolder\" class=\"content contentpadding\" style=\"padding-top:0px\">";
 strVar += "    <div class=\"filterFields\" style=\"min-height:54px; padding:2px 0 4px 0; float:left\">";
 strVar += "";
-strVar += "      <div style=\"display:none;\" class=\"filterField mock-up suppliers\">";
+strVar += "      <div style=\"display:none;\" class=\"filterField mock-up suppliers exporter\">";
 strVar += "        <div id=\"catSearchHolder\">";
 strVar += "          <div class=\"filterLabel\">";
 strVar += "            <div class=\"filterLabelMain\">";
@@ -187,7 +189,7 @@ strVar += "                        <input id=\"l\" autocomplete=\"off\" style=\"
 strVar += "                        <div style=\"float:left; clear:both\">";
 strVar += "                          <ul class=\"filterUL\" style=\"margin-top:0px;clear:both;min-width:120px;float:left\">";
 strVar += "                            <li data-id=\"all\" style=\"display:none\"><a href=\"#\">All<\/a><\/li>";
-strVar += "                              <li data-id=\"country:us\" class=\"local\" style=\"display:none\"><a href=\"#\">USA<\/a><\/li>";
+strVar += "                              <li data-id=\"US\"><a href=\"#\">USA<\/a><\/li>";
 strVar += "                              <!--";
 strVar += "                              <li data-id=\"state\" class=\"selected\" style=\"white-space:nowrap\"><a href=\"#\">Entire State<\/a><\/li>";
 strVar += "                              -->";
@@ -203,9 +205,28 @@ strVar += "                              <li data-id=\"current\" class=\"hideFil
 strVar += "                              ";
 strVar += "                          <\/ul>";
 strVar += "                          <div style=\"overflow:auto; border:1px solid #ccc; padding:20px;\" class=\"geoListHolder height100\">";
-strVar += "                              <div class=\"geoListIntro\" style=\"max-width:150px\">";
-strVar += "                                <b>Click Counties<\/b><br>";
-strVar += "                                Lists to select states, cities and postal codes will be displayed here.";
+strVar += "                              <div class=\"geoListIntro\">";
+strVar += "                                <b>Quick Links<\/b><br>";
+strVar += "                                <ul>";
+strVar += "                                      <li><a onClick=\"goHash({";
+strVar += "                                      'regiontitle':'Southeast+Coastal+Georgia',";
+strVar += "                                      'geo':'US13001,US13005,US13127,US13161,US13229,US13305', ";
+strVar += "                                      'view':'mosaic', ";
+strVar += "                                      'count':'10',";
+strVar += "                                      'lat':'31.1891',";
+strVar += "                                      'lon':'-81.4979'";
+strVar += "                                      }); $('.fieldSelector').hide(); return false;\" href=\"#regiontitle=Southeast+Coastal+Georgia&geo=US13001,US13005,US13127,US13161,US13229,US13305&view=mosaic&count=10&lat=31.1891&lon=-81.4980\">Southeast Coastal Georgia<\/a><\/li> ";
+strVar += "";
+strVar += "                                      <li><a onClick=\"goHash({";
+strVar += "                                      'regiontitle':'West+Central+Georgia',";
+strVar += "                                      'geo':'US13077,US13145,US13149,US13199,US13263,US13285', ";
+strVar += "                                      'view':'mosaic', ";
+strVar += "                                      'count':'10',";
+strVar += "                                      'lat':'33.0362',";
+strVar += "                                      'lon':'-85.0322'";
+strVar += "                                      }); $('.fieldSelector').hide(); return false;\" href=\"#regiontitle=West+Central+Georgia&geo=US13077,US13145,US13149,US13199,US13263,US13285&view=mosaic&count=10\">West&nbsp;Central&nbsp;Georgia<\/a><\/li>";
+strVar += "                                <\/ul>";
+strVar += "                                Click column headers to sort:<br>";
 strVar += "                              <\/div>";
 strVar += "";
 strVar += "                              <div class=\"listHolder\">";
@@ -344,7 +365,6 @@ strVar += "              <div id=\"goSearch\" class=\"detailbutton\" href=\"#\" 
 strVar += "";
 strVar += "              <!-- showAll showAllResults searchHeight -->";
 strVar += "              <div id=\"clearButton\" class=\"detailbutton\" style=\"float:left;margin:0px 6px 0px 0px\">Clear<\/div>";
-strVar += "                ";
 strVar += "              ";
 strVar += "            <\/div>";
 strVar += "            <!-- \/Submit Button -->";
@@ -476,286 +496,6 @@ strVar += "";
 strVar += "<!-- Matches filterFields and headerFixed height -->";
 strVar += "<div class=\"headerOffset2\" style=\"height:56px\">&nbsp;<\/div>";
 strVar += "";
-strVar += "<div class=\"displayOnload\" style=\"display:none;position:relative\">";
-strVar += "<div id=\"map1\"><\/div>";
-strVar += "<div id=\"legendHolder\">";
-strVar += "  <div id=\"allLegends\"><\/div>";
-strVar += "<\/div>";
-strVar += "<\/div>";
-strVar += "";
-strVar += "<div style=\"clear:both\"><\/div>";
-strVar += "";
-strVar += "";
-strVar += "";
-strVar += "";
-strVar += "<div id=\"tableSide\" class=\"hideMobile\">";
-strVar += "<div id='sidecolumn' class='hideprint' style=\"display: none\">";
-strVar += "<\/div>";
-strVar += "";
-strVar += "<!-- INDUSTRIES -->";
-strVar += "<div class=\"mock-up\" style=\"display:none; padding-top:20px; padding-bottom:80px\">";
-strVar += "";
-strVar += "";
-strVar += "  <div class=\"sideWidget eWidget\">";
-strVar += "    <div class=\"widgetbar\" style=\"font-size: 24px;font-weight:200;padding:10px;min-height:34px\">LOCAL GOODS & SERVICES<\/div>";
-strVar += "    <div class=\"topboxes\" style=\"min-heightX: 120px\">";
-strVar += "";
-strVar += "      <!--";
-strVar += "      <div style=\"font-size:18px\">Set your goals<\/div>";
-strVar += "      <br>";
-strVar += "      -->";
-strVar += "";
-strVar += "      <b>Adjust Industry Levels<\/b>";
-strVar += "      to reflect technology initiatives ";
-strVar += "      that generate new revenue streams, create jobs and ";
-strVar += "      increase your community's positive outcomes.";
-strVar += "";
-strVar += "      <!--";
-strVar += "        Create new mixes of local goods and services.";
-strVar += "      -->";
-strVar += "    <\/div>";
-strVar += "  <\/div>";
-strVar += "";
-strVar += "  <div class=\"sideWidget eWidget\">";
-strVar += "    <div class=\"widgetbar\" style=\"padding-left:5px\">";
-strVar += "      <a href=\"..\/start\/dataset\/\"><img src=\"\/community\/impact\/img\/backarrow.gif\" style=\"width:11.5px;float:left;margin:1px 7px 0 0\"><\/a>";
-strVar += "      AGRICULTURE, FORESTRY, FISHING AND HUNTING";
-strVar += "    <\/div>";
-strVar += "    ";
-strVar += "    <div class=\"topboxes\">";
-strVar += "      <div style=\"position: relative\">";
-strVar += "          <img src=\"\/community\/impact\/img\/sectors.gif\" style=\"width:100%;max-width:400px;margin-right:80px\" \/>";
-strVar += "          <div style=\"position: absolute; right:0; top:8px; background: rgb(250,250,250); padding-left:6px\">";
-strVar += "            <img src=\"\/community\/impact\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
-strVar += "            <img src=\"\/community\/impact\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
-strVar += "            <img src=\"\/community\/impact\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
-strVar += "            <img src=\"\/community\/impact\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
-strVar += "            <img src=\"\/community\/impact\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
-strVar += "            <img src=\"\/community\/impact\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
-strVar += "            <img src=\"\/community\/impact\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
-strVar += "            <img src=\"\/community\/impact\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
-strVar += "            <img src=\"\/community\/impact\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
-strVar += "            <img src=\"\/community\/impact\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
-strVar += "            <img src=\"\/community\/impact\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
-strVar += "            <img src=\"\/community\/impact\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
-strVar += "            <img src=\"\/community\/impact\/img\/plus-minus.gif\" class=\"plus-minus\">";
-strVar += "          <\/div>";
-strVar += "      <\/div>";
-strVar += "";
-strVar += "      <div style=\"font-size: 12px; background:#eee; border-bottom:1px solid #ddd; display:inline; padding:0 4px 0 4px\">";
-strVar += "        <a href=\"..\/start\/dataset\/\">Main categories<\/a> | ";
-strVar += "        <a href=\"..\/start\/dataset\/\">Show all 382 sectors<\/a>";
-strVar += "";
-strVar += "        <span style=\"float:right; color:#777\">Balanced &nbsp;<\/span>";
-strVar += "";
-strVar += "      <\/div>";
-strVar += "";
-strVar += "    <\/div>";
-strVar += "  <\/div>";
-strVar += "  ";
-strVar += "<\/div>";
-strVar += "<!-- \/INDUSTRIES -->";
-strVar += "";
-strVar += "<div style=\"display:none;margin:20px 10px 20px 17px; min-width:195px; line-height: 1.5em;\" class=\"suppliers\">";
-strVar += "  <div class=\"catList\" id=\"industryCatList\">";
-strVar += "    <div>All Categories<\/div>";
-strVar += "    <div>Air Purifying Machines<\/div>";
-strVar += "    <div>Face Shields<\/div>";
-strVar += "    <div>Gloves<\/div>";
-strVar += "    <div>Hair Covers<\/div>";
-strVar += "    <div>Hand Sanitizer<\/div>";
-strVar += "    <div>Hospital Beds<\/div>";
-strVar += "    <div>Masks<\/div>";
-strVar += "    <div>Negative Pressure Machines<\/div>";
-strVar += "    <div>No-Touch Thermometers<\/div>";
-strVar += "    <div>Regular Thermometers<\/div>";
-strVar += "    <div>Safety Goggles<\/div>";
-strVar += "    <div>Sanitation Units<\/div>";
-strVar += "    <div>Sanitizing Spray<\/div>";
-strVar += "    <div>Sanitizing Wipes<\/div>";
-strVar += "    <div>Shoe Covers<\/div>";
-strVar += "    <div>Surgical Gowns<\/div>";
-strVar += "    <div>Surgical Masks<\/div>";
-strVar += "    <div>Tyvek Suits<\/div>";
-strVar += "    <div>Ventilators<\/div>";
-strVar += "    <div class=\"suppliers_pre\" style=\"display:none\">Warehouse<\/div>";
-strVar += "  <\/div>";
-strVar += "<\/div>";
-strVar += "<\/div>";
-strVar += "";
-strVar += "<div id=\"list_main\" style=\"overflow:auto; background: #fff\">";
-strVar += "";
-strVar += "";
-strVar += "<!-- buttons -->";
-strVar += "<style>";
-strVar += "        .pagebuttonHolder {";
-strVar += "          padding: 4px;";
-strVar += "          padding-top: 6px;";
-strVar += "          padding-bottom: 11px;";
-strVar += "          overflow: auto;";
-strVar += "          background-color:#fff;";
-strVar += "          width:100%;";
-strVar += "        }";
-strVar += "        .pagebutton {";
-strVar += "          background: #cfcfcf;";
-strVar += "          margin-right: 8px;";
-strVar += "          color:#fff;";
-strVar += "          border-radius: 5px;";
-strVar += "          padding: 0px 4px 0 6px;";
-strVar += "          min-height: 34px;";
-strVar += "          vertical-align: middle;";
-strVar += "          cursor: pointer;";
-strVar += "          \/* text-transform: uppercase; *\/";
-strVar += "          font-family: 'Open Sans', 'Helvetica Neue', HelveticaNeue, calibri, arial, sans-serif;";
-strVar += "          font-size: 15.5px;";
-strVar += "          font-weight: 400;";
-strVar += "          line-height: 1;";
-strVar += "        }";
-strVar += "        .pagebutton:hover {";
-strVar += "          background-color:#aaa;";
-strVar += "        }";
-strVar += "        .listOptions {";
-strVar += "          display:none;";
-strVar += "          position:absolute;";
-strVar += "          left:auto;";
-strVar += "          right: 0;";
-strVar += "          top: 44px;";
-strVar += "          width: 164px;";
-strVar += "        }";
-strVar += "      <\/style>";
-strVar += "";
-strVar += "";
-strVar += "      <div class=\"content contentpadding\" style=\"padding-top:0px;padding-bottom:0px\">";
-strVar += "        <div style=\"overflow: visible;\">";
-strVar += "";
-strVar += "          <div class=\"pagebuttonHolder\" style=\"min-height:45px;\">";
-strVar += "";
-strVar += "            <h1 class=\"shortTitle\" style=\"displayX:none; margin-bottom:0px; padding:4px 15px 4px 0; white-space: nowrap; float:left; font-size:28px; color:#999; margin-top;\"><\/h1>";
-strVar += "";
-strVar += "          <div style=\"float:right;padding-top:6px\">";
-strVar += "            <div class=\"sendfeedback pagebutton\" style=\"float:left;\">";
-strVar += "              <div style=\"margin:10px 5px 0 3px;white-space: nowrap; float:left\"> ";
-strVar += "              Feedback";
-strVar += "              <\/div>";
-strVar += "            <\/div>";
-strVar += "            <div class=\"local downloadbutton showDownload pagebutton\" href=\"#\" style=\"float:left; display:none\">";
-strVar += "              <div style=\"float:left\">";
-strVar += "                <i class=\"material-icons\" style=\"font-size:19pt;padding-top:4px\">&#xE2C4;<\/i>";
-strVar += "              <\/div>";
-strVar += "              <div class=\"downloadtext\" style=\"margin:10px 5px 0 3px;white-space: nowrap; float:left\"> ";
-strVar += "              Download";
-strVar += "              <\/div>";
-strVar += "            <\/div>";
-strVar += "";
-strVar += "            <!--";
-strVar += "            <div class=\"local addlisting pagebutton greenButton\" href=\"#\" style=\"float:left; display:none\">";
-strVar += "              ";
-strVar += "              <div class=\"hideMobile\" style=\"margin:10px 5px 0 3px;white-space: nowrap; float:left\"> ";
-strVar += "              Add Listing";
-strVar += "              <\/div>";
-strVar += "              <div class=\"showMobile\" style=\"display:none;\"><i class=\"material-icons\" style=\"font-size:19pt;padding-top:4px\">&#xE145;<\/i><\/div>";
-strVar += "";
-strVar += "            <\/div>";
-strVar += "            <div class=\"local partnertools pagebutton\" href=\"#\" style=\"float:left; display:none\">";
-strVar += "              <div style=\"margin:10px 5px 0 3px;white-space: nowrap; float:left\"> ";
-strVar += "              Partner Tools";
-strVar += "              <\/div>";
-strVar += "            <\/div>";
-strVar += "            -->";
-strVar += "";
-strVar += "            <!-- Down arrow -->";
-strVar += "            <div class=\"local catchClick hideEmbed\" style=\"position:relative;float:left;overflow:visible;\">";
-strVar += "";
-strVar += "              <div class=\"toggleListOptions pagebutton\"><i class=\"material-icons toggleArrow\" style=\"font-weight:900; font-size: 32px; padding:0px; margin:0px\">&#xE5C5;<\/i>";
-strVar += "              <\/div>";
-strVar += "";
-strVar += "              <div class=\"listOptions filterBubble\">";
-strVar += "";
-strVar += "                <div class=\"hideEmbed\" style=\"display:none\">";
-strVar += "";
-strVar += "                  <div class=\"reduceHeader menuItem\" style=\"display:none\"><i class=\"material-icons\" style=\"margin-top:-5px;\">&#xE3C4;<\/i>Narrow Header<\/div>";
-strVar += "";
-strVar += "                  <!-- Google Icons - search for \"crop\" -->";
-strVar += "                  <div class=\"revealImage menuItem\" style=\"display:none\"><i class=\"material-icons\" style=\"margin-top:-5px;\">&#xE3C4;<\/i>Full Header Image<\/div>";
-strVar += "";
-strVar += "                  <div class=\"hideInfo hideInfoLink menuItem\"><i class=\"material-icons\" style=\"margin-top:-5px\">&#xE88E;<\/i>Hide Bar<\/div>";
-strVar += "";
-strVar += "                  <div class=\"showInfo showInfoLink menuItem\" style=\"display:none\"><i class=\"material-icons\" style=\"margin-top:-10px\">&#xE88E;<\/i>Show Info<\/div>";
-strVar += "";
-strVar += "                <\/div>";
-strVar += "";
-strVar += "                ";
-strVar += "                <div class=\"showImage menuItem\" style=\"display:none\"><i class=\"material-icons\">slideshow<\/i>Slideshow<\/div>";
-strVar += "";
-strVar += "                  <div class=\"hideMobile\">";
-strVar += "                  <div class=\"local menuItem refreshMap\" style=\"display:none\">";
-strVar += "                    <i class=\"material-icons\" style=\"font-weight:900; margin-top:-5px\">&#xE5D5;<\/i> Refresh Map";
-strVar += "                  <\/div>";
-strVar += "                <\/div>";
-strVar += "";
-strVar += "                <!--";
-strVar += "                <div class=\"menuItem hideList\" style=\"display:none\">";
-strVar += "                  <i class=\"material-icons\" style=\"font-size:28px;margin-top:-5px;\">&#xE5CD;<\/i> Hide List";
-strVar += "                <\/div>";
-strVar += "";
-strVar += "                <div class=\"menuItem showList\">";
-strVar += "                  <i class=\"material-icons\" style=\"font-size:28px;margin-top:-5px;\">&#xE8EF;<\/i> Show List";
-strVar += "                <\/div>";
-strVar += "                -->";
-strVar += "";
-strVar += "                <div class=\"menuItem hideMap\" style=\"display:none\">";
-strVar += "                  <i class=\"material-icons\" style=\"font-size:28px;margin-top:-5px;\">&#xE55B;<\/i> Hide Map";
-strVar += "                <\/div>";
-strVar += "                <div class=\"menuItem showMap\" style=\"display:none\">";
-strVar += "                  <i class=\"material-icons\" style=\"font-size:28px;margin-top:-5px;\">&#xE55B;<\/i> Show Map";
-strVar += "                <\/div>";
-strVar += "";
-strVar += "                <div class=\"menuItem showThumbnails layerContentHide\" style=\"display:none\">";
-strVar += "                  <i class=\"material-icons\" style=\"font-size:28px;margin-top:-5px;\">&#xE8F0;<\/i> Modules";
-strVar += "                <\/div>";
-strVar += "";
-strVar += "              <\/div>";
-strVar += "";
-strVar += "            <\/div>";
-strVar += "";
-strVar += "            <div class=\"showInfo showInfoButton1 pagebutton\" style=\"float: left; padding: 3px 3px 3px 4px; color:#fff; display:none;\"><i class=\"material-icons\" style=\"font-size:28px;\">&#xE88F;<\/i>";
-strVar += "            <\/div>";
-strVar += "          <\/div>";
-strVar += "        <\/div>";
-strVar += "      <\/div>";
-strVar += "";
-strVar += "";
-strVar += "      <\/div><!-- \/content -->";
-strVar += "";
-strVar += "      <div style=\"clear:both; border-bottom: 1px solid #eee;\">";
-strVar += "      <\/div>";
-strVar += "<!-- \/buttons -->";
-strVar += "";
-strVar += "<!-- move after left column -->";
-strVar += "";
-strVar += "";
-strVar += "";
-strVar += "";
-strVar += "<!-- APP MENU -->";
-strVar += "<!-- From search-filters.js displayBigThumbnails function -->";
-strVar += "<!-- Currently search-filters.js limits loading to localhost -->";
-strVar += "<div id=\"honeycombPanelHolder\" style=\"display:none\">";
-strVar += "  <div id=\"honeycombPanel\">";
-strVar += "";
-strVar += "    <a name=\"sections\"><\/a>";
-strVar += "    ";
-strVar += "      <div class=\"bigThumbMenu widthColumns\"><\/div>";
-strVar += "    ";
-strVar += "";
-strVar += "    <div id=\"honeyMenuHolder\" style=\"display:none\">";
-strVar += "      <div id=\"honeycombMenu\"><\/div>";
-strVar += "    <\/div>";
-strVar += "";
-strVar += "      <br><br>";
-strVar += "      ";
-strVar += "  <\/div>";
-strVar += "<\/div>";
-strVar += "<!-- \/APP MENU -->";
 strVar += "";
 strVar += "<!-- Settings Panel -->";
 strVar += "<div class=\"settingsPanel topMenuOffset floater\" style=\"display:none; position:fixed\">";
@@ -922,7 +662,7 @@ strVar += "";
 strVar += "  <div class=\"user-5\" style=\"display:none\">";
 strVar += "    <hr>Staff only - ";
 strVar += "    <a href=\"\/maps\/leaflet\/providers\/preview\/\" target=\"basemaps\">View Basemaps<\/a> | ";
-strVar += "    <a href=\"\/community\/impact\/json\/menu.json\">View JSON<\/a><br>";
+strVar += "    <a href=\"\/localsite\/impact\/json\/menu.json\">View JSON<\/a><br>";
 strVar += "    <div class=\"settingAdminNotes\"><\/div>";
 strVar += "  <\/div>";
 strVar += "";
@@ -930,6 +670,253 @@ strVar += "<\/div>";
 strVar += "<!-- End Settings Panel -->";
 strVar += "";
 strVar += "<div style=\"clear:both\"><\/div>";
+strVar += "";
+strVar += "";
+strVar += "<div class=\"displayOnload\" style=\"display:none;position:relative\">";
+strVar += "<div id=\"map1\"><\/div>";
+strVar += "<div id=\"legendHolder\">";
+strVar += "  <div id=\"allLegends\"><\/div>";
+strVar += "<\/div>";
+strVar += "<\/div>";
+strVar += "";
+strVar += "<div style=\"clear:both\"><\/div>";
+strVar += "";
+strVar += "";
+strVar += "<div id=\"tableSide\" class=\"hideMobile\">";
+strVar += "<div id='sidecolumn' class='hideprint' style=\"display: none\">";
+strVar += "<\/div>";
+strVar += "";
+strVar += "<!-- INDUSTRIES -->";
+strVar += "<div class=\"mock-up\" style=\"display:none; padding-top:20px; padding-bottom:80px\">";
+strVar += "";
+strVar += "";
+strVar += "  <div class=\"sideWidget eWidget\">";
+strVar += "    <div class=\"widgetbar\" style=\"font-size: 24px;font-weight:200;padding:10px;min-height:34px\">LOCAL GOODS & SERVICES<\/div>";
+strVar += "    <div class=\"topboxes\" style=\"min-heightX: 120px\">";
+strVar += "";
+strVar += "      <!--";
+strVar += "      <div style=\"font-size:18px\">Set your goals<\/div>";
+strVar += "      <br>";
+strVar += "      -->";
+strVar += "";
+strVar += "      <b>Adjust Industry Levels<\/b>";
+strVar += "      to reflect technology initiatives ";
+strVar += "      that generate new revenue streams, create jobs and ";
+strVar += "      increase your community's positive outcomes.";
+strVar += "";
+strVar += "      <!--";
+strVar += "        Create new mixes of local goods and services.";
+strVar += "      -->";
+strVar += "    <\/div>";
+strVar += "  <\/div>";
+strVar += "";
+strVar += "  ";
+strVar += "<\/div>";
+strVar += "<!-- \/INDUSTRIES -->";
+strVar += "";
+strVar += "<div style=\"display:none;margin:20px 10px 20px 17px; min-width:195px; line-height: 1.5em;\" class=\"suppliers\">";
+strVar += "  <div class=\"catList\" id=\"industryCatList\">";
+strVar += "    <div>All Categories<\/div>";
+strVar += "    <div>Air Purifying Machines<\/div>";
+strVar += "    <div>Face Shields<\/div>";
+strVar += "    <div>Gloves<\/div>";
+strVar += "    <div>Hair Covers<\/div>";
+strVar += "    <div>Hand Sanitizer<\/div>";
+strVar += "    <div>Hospital Beds<\/div>";
+strVar += "    <div>Masks<\/div>";
+strVar += "    <div>Negative Pressure Machines<\/div>";
+strVar += "    <div>No-Touch Thermometers<\/div>";
+strVar += "    <div>Regular Thermometers<\/div>";
+strVar += "    <div>Safety Goggles<\/div>";
+strVar += "    <div>Sanitation Units<\/div>";
+strVar += "    <div>Sanitizing Spray<\/div>";
+strVar += "    <div>Sanitizing Wipes<\/div>";
+strVar += "    <div>Shoe Covers<\/div>";
+strVar += "    <div>Surgical Gowns<\/div>";
+strVar += "    <div>Surgical Masks<\/div>";
+strVar += "    <div>Tyvek Suits<\/div>";
+strVar += "    <div>Ventilators<\/div>";
+strVar += "    <div class=\"suppliers_pre\" style=\"display:none\">Warehouse<\/div>";
+strVar += "  <\/div>";
+strVar += "<\/div>";
+strVar += "<\/div>";
+strVar += "";
+strVar += "<div id=\"list_main\" style=\"overflow:auto; background: #fff\">";
+strVar += "";
+strVar += "";
+strVar += "<!-- buttons -->";
+strVar += "<style>";
+strVar += "        .pagebuttonHolder {";
+strVar += "          padding: 4px;";
+strVar += "          padding-top: 6px;";
+strVar += "          padding-bottom: 11px;";
+strVar += "          overflow: auto;";
+strVar += "          background-color:#fff;";
+strVar += "          width:100%;";
+strVar += "        }";
+strVar += "        .pagebutton {";
+strVar += "          background: #cfcfcf;";
+strVar += "          margin-right: 8px;";
+strVar += "          color:#fff;";
+strVar += "          border-radius: 5px;";
+strVar += "          padding: 0px 4px 0 6px;";
+strVar += "          min-height: 34px;";
+strVar += "          vertical-align: middle;";
+strVar += "          cursor: pointer;";
+strVar += "          \/* text-transform: uppercase; *\/";
+strVar += "          font-family: 'Open Sans', 'Helvetica Neue', HelveticaNeue, calibri, arial, sans-serif;";
+strVar += "          font-size: 15.5px;";
+strVar += "          font-weight: 400;";
+strVar += "          line-height: 1;";
+strVar += "        }";
+strVar += "        .pagebutton:hover {";
+strVar += "          background-color:#aaa;";
+strVar += "        }";
+strVar += "        .listOptions {";
+strVar += "          display:none;";
+strVar += "          position:absolute;";
+strVar += "          left:auto;";
+strVar += "          right: 0;";
+strVar += "          top: 44px;";
+strVar += "          width: 164px;";
+strVar += "        }";
+strVar += "      <\/style>";
+strVar += "";
+strVar += "";
+strVar += "      <div style=\"padding-top:0px;padding-bottom:0px\">";
+strVar += "        <div style=\"overflow: visible;\">";
+strVar += "";
+strVar += "          <div class=\"pagebuttonHolder\" style=\"min-height:45px; padding-left:20px\">";
+strVar += "";
+strVar += "            <div class=\"showApps local\" style=\"display:none;float:left;\">";
+strVar += "              <i class=\"material-icons\" style=\"font-size:30px; color:#ccc; padding:5px 0px 4px 0px; cursor:pointer\">&#xE5C3;<\/i>";
+strVar += "            <\/div>";
+strVar += "";
+strVar += "            <h1 class=\"shortTitle\" style=\"displayX:none; margin-bottom:0px; padding:4px 15px 4px 0; white-space: nowrap; float:left; font-size:28px; color:#999; margin-top;\"><\/h1>";
+strVar += "";
+strVar += "            <div id=\"pageLinks\"><\/div>";
+strVar += "";
+strVar += "            <div style=\"float:right;padding-top:6px\">";
+strVar += "              <div class=\"sendfeedback pagebutton\" style=\"float:left;\">";
+strVar += "                <div style=\"margin:10px 5px 0 3px;white-space: nowrap; float:left\"> ";
+strVar += "                Feedback";
+strVar += "                <\/div>";
+strVar += "              <\/div>";
+strVar += "              <div class=\"local downloadbutton showDownload pagebutton\" href=\"#\" style=\"float:left; display:none\">";
+strVar += "                <div style=\"float:left\">";
+strVar += "                  <i class=\"material-icons\" style=\"font-size:19pt;padding-top:4px\">&#xE2C4;<\/i>";
+strVar += "                <\/div>";
+strVar += "                <div class=\"downloadtext\" style=\"margin:10px 5px 0 3px;white-space: nowrap; float:left\"> ";
+strVar += "                Download";
+strVar += "                <\/div>";
+strVar += "            <\/div>";
+strVar += "";
+strVar += "            <!--";
+strVar += "            <div class=\"local addlisting pagebutton greenButton\" href=\"#\" style=\"float:left; display:none\">";
+strVar += "              ";
+strVar += "              <div class=\"hideMobile\" style=\"margin:10px 5px 0 3px;white-space: nowrap; float:left\"> ";
+strVar += "              Add Listing";
+strVar += "              <\/div>";
+strVar += "              <div class=\"showMobile\" style=\"display:none;\"><i class=\"material-icons\" style=\"font-size:19pt;padding-top:4px\">&#xE145;<\/i><\/div>";
+strVar += "";
+strVar += "            <\/div>";
+strVar += "            <div class=\"local partnertools pagebutton\" href=\"#\" style=\"float:left; display:none\">";
+strVar += "              <div style=\"margin:10px 5px 0 3px;white-space: nowrap; float:left\"> ";
+strVar += "              Partner Tools";
+strVar += "              <\/div>";
+strVar += "            <\/div>";
+strVar += "            -->";
+strVar += "";
+strVar += "            <!-- Down arrow -->";
+strVar += "            <div class=\"local catchClick hideEmbed\" style=\"position:relative;float:left;overflow:visible;\">";
+strVar += "";
+strVar += "              <div class=\"toggleListOptions pagebutton\"><i class=\"material-icons toggleArrow\" style=\"font-weight:900; font-size: 32px; padding:0px; margin:0px\">&#xE5C5;<\/i>";
+strVar += "              <\/div>";
+strVar += "";
+strVar += "              <div class=\"listOptions filterBubble\">";
+strVar += "";
+strVar += "                <div class=\"hideEmbed\" style=\"display:none\">";
+strVar += "";
+strVar += "                  <div class=\"reduceHeader menuItem\" style=\"display:none\"><i class=\"material-icons\" style=\"margin-top:-5px;\">&#xE3C4;<\/i>Narrow Header<\/div>";
+strVar += "";
+strVar += "                  <!-- Google Icons - search for \"crop\" -->";
+strVar += "                  <div class=\"revealImage menuItem\" style=\"display:none\"><i class=\"material-icons\" style=\"margin-top:-5px;\">&#xE3C4;<\/i>Full Header Image<\/div>";
+strVar += "";
+strVar += "                  <div class=\"hideInfo hideInfoLink menuItem\"><i class=\"material-icons\" style=\"margin-top:-5px\">&#xE88E;<\/i>Hide Bar<\/div>";
+strVar += "";
+strVar += "                  <div class=\"showInfo showInfoLink menuItem\" style=\"display:none\"><i class=\"material-icons\" style=\"margin-top:-10px\">&#xE88E;<\/i>Show Info<\/div>";
+strVar += "";
+strVar += "                <\/div>";
+strVar += "";
+strVar += "                ";
+strVar += "                <div class=\"showImage menuItem\" style=\"display:none\"><i class=\"material-icons\">slideshow<\/i>Slideshow<\/div>";
+strVar += "";
+strVar += "                  <div class=\"hideMobile\">";
+strVar += "                  <div class=\"local menuItem refreshMap\" style=\"display:none\">";
+strVar += "                    <i class=\"material-icons\" style=\"font-weight:900; margin-top:-5px\">&#xE5D5;<\/i> Refresh Map";
+strVar += "                  <\/div>";
+strVar += "                <\/div>";
+strVar += "";
+strVar += "                <!--";
+strVar += "                <div class=\"menuItem hideList\" style=\"display:none\">";
+strVar += "                  <i class=\"material-icons\" style=\"font-size:28px;margin-top:-5px;\">&#xE5CD;<\/i> Hide List";
+strVar += "                <\/div>";
+strVar += "";
+strVar += "                <div class=\"menuItem showList\">";
+strVar += "                  <i class=\"material-icons\" style=\"font-size:28px;margin-top:-5px;\">&#xE8EF;<\/i> Show List";
+strVar += "                <\/div>";
+strVar += "                -->";
+strVar += "";
+strVar += "                <div class=\"menuItem hideMap\" style=\"display:none\">";
+strVar += "                  <i class=\"material-icons\" style=\"font-size:28px;margin-top:-5px;\">&#xE55B;<\/i> Hide Map";
+strVar += "                <\/div>";
+strVar += "                <div class=\"menuItem showMap\" style=\"display:none\">";
+strVar += "                  <i class=\"material-icons\" style=\"font-size:28px;margin-top:-5px;\">&#xE55B;<\/i> Show Map";
+strVar += "                <\/div>";
+strVar += "";
+strVar += "                <div class=\"menuItem showThumbnails layerContentHide\" style=\"display:none\">";
+strVar += "                  <i class=\"material-icons\" style=\"font-size:28px;margin-top:-5px;\">&#xE8F0;<\/i> Modules";
+strVar += "                <\/div>";
+strVar += "";
+strVar += "              <\/div>";
+strVar += "";
+strVar += "            <\/div>";
+strVar += "";
+strVar += "            <div class=\"showInfo showInfoButton1 pagebutton\" style=\"float: left; padding: 3px 3px 3px 4px; color:#fff; display:none;\"><i class=\"material-icons\" style=\"font-size:28px;\">&#xE88F;<\/i>";
+strVar += "            <\/div>";
+strVar += "          <\/div>";
+strVar += "        <\/div>";
+strVar += "      <\/div>";
+strVar += "";
+strVar += "";
+strVar += "      <\/div><!-- \/content -->";
+strVar += "";
+strVar += "      <div style=\"clear:both; border-bottom: 1px solid #eee;\">";
+strVar += "      <\/div>";
+strVar += "<!-- \/buttons -->";
+strVar += "";
+strVar += "";
+strVar += "<!-- APP MENU -->";
+strVar += "<!-- From search-filters.js displayBigThumbnails function -->";
+strVar += "<!-- Currently search-filters.js limits loading to localhost -->";
+strVar += "<div id=\"honeycombPanelHolder\" style=\"display:none; margin-top:30px; margin-bottom:50px;\">";
+strVar += "  ";
+strVar += "  <!--div id=\"honeycombPanel\"-->";
+strVar += "  <div id=\"honeycombPanel\" style=\"display: block;\">";
+strVar += "    <a name=\"sections\"><\/a>";
+strVar += "    ";
+strVar += "    <div class=\"bigThumbMenu widthColumns\" style=\"margin:0 auto; \"><\/div>";
+strVar += "";
+strVar += "    <div id=\"honeyMenuHolder\" style=\"display:none\">";
+strVar += "      <div id=\"honeycombMenu\"><\/div>";
+strVar += "    <\/div>";
+strVar += "";
+strVar += "      <br><br>";
+strVar += "      ";
+strVar += "  <\/div>";
+strVar += "<\/div>";
+strVar += "<div style=\"clear:both\"><\/div>";
+strVar += "<!-- \/APP MENU -->";
 strVar += "";
 strVar += "";
 strVar += "<section class=\"data-section\" id=\"data\" style=\"overflow:auto\">";
@@ -1118,19 +1105,19 @@ strVar += "                <div class=\"topboxes outcomesbox\" style=\"min-heigh
 strVar += "";
 strVar += "                  <!-- was width:230px; -->";
 strVar += "                  <div style=\"float:left;width:250px; margin-right:30px\">";
-strVar += "                    <div>1. Value-Added <span><img src=\"\/community\/impact\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
-strVar += "                    <div>2. Quality Jobs <span><img src=\"\/community\/impact\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
-strVar += "                    <div>3. Clean Air <span><img src=\"\/community\/impact\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
-strVar += "                    <div>4. Clean Water <span><img src=\"\/community\/impact\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
-strVar += "                    <div>5. Clean Energy <span><img src=\"\/community\/impact\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
+strVar += "                    <div>1. Value-Added <span><img src=\"\/localsite\/info\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
+strVar += "                    <div>2. Quality Jobs <span><img src=\"\/localsite\/info\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
+strVar += "                    <div>3. Clean Air <span><img src=\"\/localsite\/info\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
+strVar += "                    <div>4. Clean Water <span><img src=\"\/localsite\/info\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
+strVar += "                    <div>5. Clean Energy <span><img src=\"\/localsite\/info\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
 strVar += "                    ";
 strVar += "                  <\/div>";
 strVar += "                  <div style=\"float:left;width:250px\">";
-strVar += "                    <div>6. Local Suppliers <span><img src=\"\/community\/impact\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
-strVar += "                    <div>7. Green Materials <span><img src=\"\/community\/impact\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
-strVar += "                    <div>8. Inclusive Design <span><img src=\"\/community\/impact\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
-strVar += "                    <div>9. Improves Health <span><img src=\"\/community\/impact\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
-strVar += "                    <div>10. Creates Beauty <span><img src=\"\/community\/impact\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
+strVar += "                    <div>6. Local Suppliers <span><img src=\"\/localsite\/info\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
+strVar += "                    <div>7. Green Materials <span><img src=\"\/localsite\/info\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
+strVar += "                    <div>8. Inclusive Design <span><img src=\"\/localsite\/info\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
+strVar += "                    <div>9. Improves Health <span><img src=\"\/localsite\/info\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
+strVar += "                    <div>10. Creates Beauty <span><img src=\"\/localsite\/info\/img\/greenbar.gif\" style=\"width:80px;height:14px;margin-right:8px\">50<\/span><\/div>";
 strVar += "                  <\/div>";
 strVar += "                <\/div>";
 strVar += "              ";
@@ -1155,11 +1142,11 @@ strVar += "                    <b>Type:<\/b> Consumption, Production<br>";
 strVar += "                    <b>Indicator & Weight:<\/b> Impact, Resources, Waste, Chem, Econ<br>";
 strVar += "                  <\/div>";
 strVar += "";
-strVar += "                  <div class=\"column50\" style=\"float:left\"><img src=\"\/community\/impact\/img\/impacts1.gif\" style=\"width:100%; padding-right:40px\" \/>";
+strVar += "                  <div class=\"column50\" style=\"float:left\"><img src=\"\/localsite\/info\/img\/impacts1.gif\" style=\"width:100%; padding-right:40px\" \/>";
 strVar += "                  <\/div>";
 strVar += "                  <div class=\"column50mid\" style=\"float:left\">&nbsp;";
 strVar += "                  <\/div>";
-strVar += "                  <div class=\"column50\" style=\"float:left\"><img src=\"\/community\/impact\/img\/impacts2.gif\" style=\"width:100%; padding-right:40px\" \/>";
+strVar += "                  <div class=\"column50\" style=\"float:left\"><img src=\"\/localsite\/info\/img\/impacts2.gif\" style=\"width:100%; padding-right:40px\" \/>";
 strVar += "                  <\/div>";
 strVar += "              <\/div>";
 strVar += "";
@@ -1199,6 +1186,7 @@ strVar += "  <\/div>";
 strVar += "<\/div>";
 strVar += "";
 strVar += "<!-- End HTML -->";
+
 
 
 
@@ -1319,10 +1307,10 @@ function mix(incoming, target) { // Combine two objects, priority to incoming. D
 
 // UNIQUE TO PAGE
 function jsLoaded(root) {
-	loadScript(root + '/community/js/common/stupidtable.js', function(results) {});
+	loadScript(root + '/localsite/js/table-sort.js', function(results) {});
 	if (location.host.indexOf('localhost') >= 0) {
 		// Causing map points to shift right, maybe due to later loading.
-		//loadScript(root + '/community/js/common/navigation.js');
+		//loadScript(root + '/localsite/js/common/navigation.js');
 	}
 }
 function leafletLoaded(root, count) {
@@ -1330,11 +1318,11 @@ function leafletLoaded(root, count) {
 	if (typeof L !== 'undefined') {
 		console.log(L);
 	  // The large d3-legend.js script is flawed because it throws errors due to dependencies on leaflet script, so we can not load early.
-		loadScript(root + '/community/js/leaflet/leaflet.icon-material.js');
-		loadScript(root + '/community/js/jquery/jquery-1.12.4.min.js', function(results) {
-			loadScript(root + '/community/js/d3/d3.v5.min.js', function(results) {
-				loadScript(root + '/community/js/common/dual-map.js', function(results) { // BUG - change so dual-map does not require this on it's load
-					//loadScript(root + '/community/js/d3/d3-legend.js', function(results) { // This checks that load above is completed.
+		loadScript(root + '/localsite/js/leaflet.icon-material.js');
+		loadScript(root + '/localsite/js/jquery/jquery-1.12.4.min.js', function(results) {
+			loadScript(root + '/localsite/js/d3.v5.min.js', function(results) {
+				loadScript(root + '/localsite/js/map.js', function(results) { // BUG - change so dual-map does not require this on it's load
+					//loadScript(root + '/localsite/js/d3-legend.js', function(results) { // This checks that load above is completed.
 			  		dualmapLoaded(param, root, 1);
 			  	});
 			});
@@ -1347,10 +1335,12 @@ function leafletLoaded(root, count) {
 	} else {
 		console.log("ERROR: leafletLoaded exceeded 100 attempts.");
 	}
+	$("#pageLinks").append($("#pageLinksInsert"));
+	$("#pageLinksInsert").show();
 }
 function d3Loaded(root) {
 	// To big and d3-legend.js file is not available in embed, despite 
-	//loadScript(root + '/community/js/d3/d3-legend.js');
+	//loadScript(root + '/localsite/js/d3-legend.js');
 }
 
 function lazyLoadFiles() {
@@ -1358,13 +1348,13 @@ function lazyLoadFiles() {
 	if (location.host.indexOf('localhost') < 0) {
 		root = "https://modelearth.github.io";
 	}
-  loadScript(root + '/community/js/jquery/jquery-1.12.4.min.js', function(results) {
+  loadScript(root + '/localsite/js/jquery/jquery-1.12.4.min.js', function(results) {
     jsLoaded(root);
   });
 
   // Load early so available later
-  loadScript(root + '/community/js/d3/d3.v5.min.js', function(results) { // BUG - change so dual-map does not require this on it's load
-  	loadScript(root + '/community/js/common/dual-map.js', function(results) {});
+  loadScript(root + '/localsite/js/d3.v5.min.js', function(results) { // BUG - change so dual-map does not require this on it's load
+  	loadScript(root + '/localsite/js/map.js', function(results) {});
   });
   loadScript(root + '/localsite/js/localsite.js', function(results) {
 
@@ -1387,8 +1377,8 @@ function lazyLoadFiles() {
 	//document.write(strVarCss);
 	document.head.insertAdjacentHTML("beforeend", strVarCss);
 
-  	loadScript(root + '/community/js/d3/d3.v5.min.js', function(results) { // BUG - change so search-filters.js does not require this on it's load
-    	loadScript(root + '/community/js/common/dual-map.js', function(results) { 
+  	loadScript(root + '/localsite/js/d3.v5.min.js', function(results) { // BUG - change so search-filters.js does not require this on it's load
+    	loadScript(root + '/localsite/js/map.js', function(results) { 
   			loadSearchFilters(1); // Uses dual_map library for community_root
   		});
     });	
@@ -1396,7 +1386,7 @@ function lazyLoadFiles() {
 
 	function loadSearchFilters(count) {
 		if (typeof customD3loaded !== 'undefined' && typeof dual_map !== 'undefined') {
-			loadScript(root + '/community/js/common/search-filters.js', function(results) {});
+			loadScript(root + '/localsite/js/search-filters.js', function(results) {});
 		} else if (count<100) { // Wait a milisecond and try again
 			setTimeout( function() {
 	   			console.log("try loadSearchFilters again")
@@ -1407,28 +1397,31 @@ function lazyLoadFiles() {
 		}
 
 	}  	
-	//includeCSS(root + '/community/css/community.css',root);
+	//includeCSS(root + '/localsite/css/localsite.css',root);
 	includeCSS(root + '/localsite/css/base.css',root);
-	includeCSS(root + '/community/css/search-filters.css',root);
-	includeCSS(root + '/community/css/display.css',root);
-	includeCSS(root + '/community/css/hexagons.css',root);
+	includeCSS(root + '/localsite/css/search-filters.css',root);
+	includeCSS(root + '/localsite/css/map-display.css',root);
+	//includeCSS(root + '/localsite/css/hexagons.css',root);
 
 
-	includeCSS(root + '/community/css/leaflet/leaflet.css',root);
+	includeCSS(root + '/localsite/css/leaflet.css',root);
 	includeCSS('https://fonts.googleapis.com/icon?family=Material+Icons',root);
-	includeCSS(root + '/community/css/leaflet/leaflet.icon-material.css',root);
-	includeCSS(root + '/community/css/map.css',root);
+	includeCSS(root + '/localsite/css/leaflet.icon-material.css',root);
+	includeCSS(root + '/localsite/css/map.css',root);
 	
 
 	// Required by leafletLoaded that follows
-	loadScript(root + '/community/js/d3/d3.v5.min.js', function(results) {
+	loadScript(root + '/localsite/js/d3.v5.min.js', function(results) {
     	d3Loaded(root);
 	});
 
-	// Resides AFTER css/leaflet/leaflet.css
-	loadScript(root + '/community/js/leaflet/leaflet.js', function(results) {
+	// Resides AFTER css/leaflet.css
+	loadScript(root + '/localsite/js/leaflet.js', function(results) {
 		leafletLoaded(root,1);
 	});
+
+	
+
 }
 
 lazyLoadFiles();
@@ -1443,7 +1436,7 @@ function dualmapLoaded(param, root, count) {
 			  }
 		})
 
-		loadScript(root + '/community/js/common/search-filters.js', function(results) {
+		loadScript(root + '/localsite/js/search-filters.js', function(results) {
 
 			loadMap1();
 			document.addEventListener('hashChangeEvent', function (elem) {
@@ -1464,7 +1457,7 @@ function dualmapLoaded(param, root, count) {
 
 
 /*
-loadFromCSV('map1', 'map2', "/community/tools/map.csv", function(results) {
+loadFromCSV('map1', 'map2', "/localsite/tools/map.csv", function(results) {
     // This function gets called by the geocode function on success
     //makeMap(results[0].geometry.location.lat(), results[0].geometry.location.lng());
 

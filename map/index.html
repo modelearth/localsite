@@ -3,10 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Community Map Resources - Input-Output Material Management</title>
 <link rel="icon" type="image/x-icon" href="../img/logo/favicon.png" />
 
-<link rel="stylesheet" rel="stylesheet" href="../css/community.css" />
+<!--
+  To create a widget from this page, see map-embed.js.
+-->
+
+<title>Local Input-Output Map</title>
+
+
 <link type="text/css" rel="stylesheet" href="../css/base.css" />
 <link rel="stylesheet" href="../css/search-filters.css" />
 <link rel="stylesheet" href="../css/map-display.css" />
@@ -109,7 +114,7 @@
   <div id="activeLayer" style="display: none"></div>
 
  
-  <div id="filterFieldsHolder" class="content contentpadding" style="padding-top:0px">
+  <div id="filterFieldsHolder" style="padding-top:0px; margin-left:30px">
     <div class="filterFields" style="min-height:54px; padding:2px 0 4px 0; float:left">
 
       <div style="display:none;" class="filterField mock-up suppliers exporter">
@@ -258,7 +263,7 @@
                         <div style="float:left; clear:both">
                           <ul class="filterUL" style="margin-top:0px;clear:both;min-width:120px;float:left">
                             <li data-id="all" style="display:none"><a href="#">All</a></li>
-                              <li data-id="country:us" class="local" style="display:none"><a href="#">USA</a></li>
+                              <li data-id="US"><a href="#">USA</a></li>
                               <!--
                               <li data-id="state" class="selected" style="white-space:nowrap"><a href="#">Entire State</a></li>
                               -->
@@ -274,9 +279,28 @@
                               
                           </ul>
                           <div style="overflow:auto; border:1px solid #ccc; padding:20px;" class="geoListHolder height100">
-                              <div class="geoListIntro" style="max-width:150px">
-                                <b>Click Counties</b><br>
-                                Lists to select states, cities and postal codes will be displayed here.
+                              <div class="geoListIntro">
+                                <b>Quick Links</b><br>
+                                <ul>
+                                      <li><a onClick="goHash({
+                                      'regiontitle':'Southeast+Coastal+Georgia',
+                                      'geo':'US13001,US13005,US13127,US13161,US13229,US13305', 
+                                      'view':'mosaic', 
+                                      'count':'10',
+                                      'lat':'31.1891',
+                                      'lon':'-81.4979'
+                                      }); $('.fieldSelector').hide(); return false;" href="#regiontitle=Southeast+Coastal+Georgia&geo=US13001,US13005,US13127,US13161,US13229,US13305&view=mosaic&count=10&lat=31.1891&lon=-81.4980">Southeast Coastal Georgia</a></li> 
+
+                                      <li><a onClick="goHash({
+                                      'regiontitle':'West+Central+Georgia',
+                                      'geo':'US13077,US13145,US13149,US13199,US13263,US13285', 
+                                      'view':'mosaic', 
+                                      'count':'10',
+                                      'lat':'33.0362',
+                                      'lon':'-85.0322'
+                                      }); $('.fieldSelector').hide(); return false;" href="#regiontitle=West+Central+Georgia&geo=US13077,US13145,US13149,US13199,US13263,US13285&view=mosaic&count=10">West&nbsp;Central&nbsp;Georgia</a></li>
+                                </ul>
+                                Click column headers to sort:<br>
                               </div>
 
                               <div class="listHolder">
@@ -760,29 +784,30 @@ Port of Bainbridge,30.902867,-84.606259,Liquid/Dry Bulk,1321 Spring Creek Road,B
     </div>
   </div>
 
+  <!--
   <div class="sideWidget eWidget">
     <div class="widgetbar" style="padding-left:5px">
-      <a href="../start/dataset/"><img src="/community/impact/img/backarrow.gif" style="width:11.5px;float:left;margin:1px 7px 0 0"></a>
+      <a href="../start/dataset/"><img src="/localsite/info/img/backarrow.gif" style="width:11.5px;float:left;margin:1px 7px 0 0"></a>
       AGRICULTURE, FORESTRY, FISHING AND HUNTING
     </div>
     
     <div class="topboxes">
       <div style="position: relative">
-          <img src="/community/impact/img/sectors.gif" style="width:100%;max-width:400px;margin-right:80px" />
+          <img src="/localsite/info/img/sectors.gif" style="width:100%;max-width:400px;margin-right:80px" />
           <div style="position: absolute; right:0; top:8px; background: rgb(250,250,250); padding-left:6px">
-            <img src="/community/impact/img/plus-minus.gif" class="plus-minus"><br>
-            <img src="/community/impact/img/plus-minus.gif" class="plus-minus"><br>
-            <img src="/community/impact/img/plus-minus.gif" class="plus-minus"><br>
-            <img src="/community/impact/img/plus-minus.gif" class="plus-minus"><br>
-            <img src="/community/impact/img/plus-minus.gif" class="plus-minus"><br>
-            <img src="/community/impact/img/plus-minus.gif" class="plus-minus"><br>
-            <img src="/community/impact/img/plus-minus.gif" class="plus-minus"><br>
-            <img src="/community/impact/img/plus-minus.gif" class="plus-minus"><br>
-            <img src="/community/impact/img/plus-minus.gif" class="plus-minus"><br>
-            <img src="/community/impact/img/plus-minus.gif" class="plus-minus"><br>
-            <img src="/community/impact/img/plus-minus.gif" class="plus-minus"><br>
-            <img src="/community/impact/img/plus-minus.gif" class="plus-minus"><br>
-            <img src="/community/impact/img/plus-minus.gif" class="plus-minus">
+            <img src="/localsite/info/img/plus-minus.gif" class="plus-minus"><br>
+            <img src="/localsite/info/img/plus-minus.gif" class="plus-minus"><br>
+            <img src="/localsite/info/img/plus-minus.gif" class="plus-minus"><br>
+            <img src="/localsite/info/img/plus-minus.gif" class="plus-minus"><br>
+            <img src="/localsite/info/img/plus-minus.gif" class="plus-minus"><br>
+            <img src="/localsite/info/img/plus-minus.gif" class="plus-minus"><br>
+            <img src="/localsite/info/img/plus-minus.gif" class="plus-minus"><br>
+            <img src="/localsite/info/img/plus-minus.gif" class="plus-minus"><br>
+            <img src="/localsite/info/img/plus-minus.gif" class="plus-minus"><br>
+            <img src="/localsite/info/img/plus-minus.gif" class="plus-minus"><br>
+            <img src="/localsite/info/img/plus-minus.gif" class="plus-minus"><br>
+            <img src="/localsite/info/img/plus-minus.gif" class="plus-minus"><br>
+            <img src="/localsite/info/img/plus-minus.gif" class="plus-minus">
           </div>
       </div>
 
@@ -796,6 +821,7 @@ Port of Bainbridge,30.902867,-84.606259,Liquid/Dry Bulk,1321 Spring Creek Road,B
 
     </div>
   </div>
+  -->
   
 </div>
 <!-- /INDUSTRIES -->
@@ -872,27 +898,29 @@ Port of Bainbridge,30.902867,-84.606259,Liquid/Dry Bulk,1321 Spring Creek Road,B
       <div style="padding-top:0px;padding-bottom:0px">
         <div style="overflow: visible;">
 
-          <div class="pagebuttonHolder" style="min-height:45px;">
+          <div class="pagebuttonHolder" style="min-height:45px; padding-left:20px">
 
-            <div class="showApps local" style="displayX:none; float:left;">
-              <i class="material-icons" style="font-size:30px; color:#ccc; padding:5px 4px 4px 0px">&#xE5C3;</i>
+            <div class="showApps local" style="display:none;float:left;">
+              <i class="material-icons" style="font-size:30px; color:#ccc; padding:5px 0px 4px 0px; cursor:pointer">&#xE5C3;</i>
             </div>
 
             <h1 class="shortTitle" style="displayX:none; margin-bottom:0px; padding:4px 15px 4px 0; white-space: nowrap; float:left; font-size:28px; color:#999; margin-top;"></h1>
 
-          <div style="float:right;padding-top:6px">
-            <div class="sendfeedback pagebutton" style="float:left;">
-              <div style="margin:10px 5px 0 3px;white-space: nowrap; float:left"> 
-              Feedback
+            <div id="pageLinks"></div>
+
+            <div style="float:right;padding-top:6px">
+              <div class="sendfeedback pagebutton" style="float:left;">
+                <div style="margin:10px 5px 0 3px;white-space: nowrap; float:left"> 
+                Feedback
+                </div>
               </div>
-            </div>
-            <div class="local downloadbutton showDownload pagebutton" href="#" style="float:left; display:none">
-              <div style="float:left">
-                <i class="material-icons" style="font-size:19pt;padding-top:4px">&#xE2C4;</i>
-              </div>
-              <div class="downloadtext" style="margin:10px 5px 0 3px;white-space: nowrap; float:left"> 
-              Download
-              </div>
+              <div class="local downloadbutton showDownload pagebutton" href="#" style="float:left; display:none">
+                <div style="float:left">
+                  <i class="material-icons" style="font-size:19pt;padding-top:4px">&#xE2C4;</i>
+                </div>
+                <div class="downloadtext" style="margin:10px 5px 0 3px;white-space: nowrap; float:left"> 
+                Download
+                </div>
             </div>
 
             <!--
@@ -1189,19 +1217,19 @@ Port of Bainbridge,30.902867,-84.606259,Liquid/Dry Bulk,1321 Spring Creek Road,B
 
                   <!-- was width:230px; -->
                   <div style="float:left;width:250px; margin-right:30px">
-                    <div>1. Value-Added <span><img src="/community/impact/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
-                    <div>2. Quality Jobs <span><img src="/community/impact/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
-                    <div>3. Clean Air <span><img src="/community/impact/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
-                    <div>4. Clean Water <span><img src="/community/impact/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
-                    <div>5. Clean Energy <span><img src="/community/impact/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
+                    <div>1. Value-Added <span><img src="/localsite/info/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
+                    <div>2. Quality Jobs <span><img src="/localsite/info/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
+                    <div>3. Clean Air <span><img src="/localsite/info/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
+                    <div>4. Clean Water <span><img src="/localsite/info/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
+                    <div>5. Clean Energy <span><img src="/localsite/info/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
                     
                   </div>
                   <div style="float:left;width:250px">
-                    <div>6. Local Suppliers <span><img src="/community/impact/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
-                    <div>7. Green Materials <span><img src="/community/impact/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
-                    <div>8. Inclusive Design <span><img src="/community/impact/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
-                    <div>9. Improves Health <span><img src="/community/impact/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
-                    <div>10. Creates Beauty <span><img src="/community/impact/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
+                    <div>6. Local Suppliers <span><img src="/localsite/info/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
+                    <div>7. Green Materials <span><img src="/localsite/info/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
+                    <div>8. Inclusive Design <span><img src="/localsite/info/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
+                    <div>9. Improves Health <span><img src="/localsite/info/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
+                    <div>10. Creates Beauty <span><img src="/localsite/info/img/greenbar.gif" style="width:80px;height:14px;margin-right:8px">50</span></div>
                   </div>
                 </div>
               
@@ -1226,11 +1254,11 @@ Port of Bainbridge,30.902867,-84.606259,Liquid/Dry Bulk,1321 Spring Creek Road,B
                     <b>Indicator & Weight:</b> Impact, Resources, Waste, Chem, Econ<br>
                   </div>
 
-                  <div class="column50" style="float:left"><img src="/community/impact/img/impacts1.gif" style="width:100%; padding-right:40px" />
+                  <div class="column50" style="float:left"><img src="/localsite/info/img/impacts1.gif" style="width:100%; padding-right:40px" />
                   </div>
                   <div class="column50mid" style="float:left">&nbsp;
                   </div>
-                  <div class="column50" style="float:left"><img src="/community/impact/img/impacts2.gif" style="width:100%; padding-right:40px" />
+                  <div class="column50" style="float:left"><img src="/localsite/info/img/impacts2.gif" style="width:100%; padding-right:40px" />
                   </div>
               </div>
 

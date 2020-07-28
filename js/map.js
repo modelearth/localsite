@@ -707,7 +707,7 @@ function loadMap1(dp) { // Also called by search-filters.js
 
   // This was outside of functions, but caused error because L was not available when dual-map.js loaded before leaflet.
   // Not sure if it was working, or if it will contine to work here.
-  // Recall existing map https://github.com/Leaflet/Leaflet/issues/6298
+  // Recall existing map https://github.com/leaflet/issues/6298
   // https://plnkr.co/edit/iCgbRjW4aymAjoVoicZQ?p=preview&preview
   L.Map.addInitHook(function () {
     // Store a reference of the Leaflet map object on the map container,
