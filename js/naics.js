@@ -365,9 +365,6 @@ function renderIndustryChart(dataObject,values,params) {
     topRatesInFips(dataObject, dataObject.industryNames, fips, 40, params);
 }
 
-
-
-
 //function for when the geo hash changes
 function geoChanged(dataObject,params){
     
@@ -470,6 +467,8 @@ function keyFound(this_key, cat_filter,params) {
     } else if (cat_filter.length == 0) { // No filter
         return true;
     } else if (params.go == "bioeconomy" && this_key.startsWith("11")) { // Quick hack, always include Agriculture
+        return true;
+    } else if (params.go == "manufacturing" && (this_key.startsWith("31") || this_key.startsWith("32") || this_key.startsWith("33") )) { // Quick hack, always include Agriculture
         return true;
     } else if ( params.catsize== 2){ // Our 4 digit array matches key
         cat_filt=[]
@@ -1045,7 +1044,11 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                         if (params.regiontitle == "") {
                             $(".regiontitle").text("Industries within "+fipslen+" counties");
                         } else if (params.regiontitle) {
-                            $(".regiontitle").text(params.regiontitle.replace(/\+/g," "));
+                            if (params.go) {
+                                $(".regiontitle").text(params.regiontitle.replace(/\+/g," ") + " - " + param.go.toTitleCase());
+                            } else {
+                                $(".regiontitle").text(params.regiontitle.replace(/\+/g," "));
+                            }
                         }
                         for(var i=0; i<fipslen; i++){
                             var filteredData = consdata.filter(function(d) {
