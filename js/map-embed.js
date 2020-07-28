@@ -1346,7 +1346,7 @@ function d3Loaded(root) {
 function lazyLoadFiles() {
 	let root = location.protocol + '//' + location.host;
 	if (location.host.indexOf('localhost') < 0) {
-		root = "https://modelearth.github.io";
+		root = "https://neighborhood.org";
 	}
   loadScript(root + '/localsite/js/jquery/jquery-1.12.4.min.js', function(results) {
     jsLoaded(root);
