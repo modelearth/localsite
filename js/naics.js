@@ -470,7 +470,7 @@ function keyFound(this_key, cat_filter,params) {
         return true;
     } else if (params.go == "manufacturing" && (this_key.startsWith("31") || this_key.startsWith("32") || this_key.startsWith("33") )) { // All manufacturing
         return true;
-    } else if ( params.catsize== 2){ // Our 4 digit array matches key
+    } else if ( (params.go == "bioeconomy" || params.go=="parts")&& params.catsize== 2){ // Our 4 digit array matches key
         cat_filt=[]
         for(i=0;i<cat_filter.length;i++){
             cat_filt.push(cat_filter[i].slice(0,2))
@@ -478,7 +478,7 @@ function keyFound(this_key, cat_filter,params) {
         if(cat_filt.includes(this_key.slice(0,2))){
             return true;
         }
-    }  else if ( params.catsize== 4 ) { // Our 4 digit array matches key
+    }  else if ( (params.go == "bioeconomy" || params.go=="parts")&& params.catsize== 4 ) { // Our 4 digit array matches key
         cat_filt=[]
         for(i=0;i<cat_filter.length;i++){
             cat_filt.push(cat_filter[i].slice(0,4))
@@ -486,7 +486,7 @@ function keyFound(this_key, cat_filter,params) {
         if(cat_filt.includes(this_key.slice(0,4))){
             return true;
         }
-    }else if ( params.catsize == 6 && cat_filter.includes(this_key.slice(0,6))) { // Our 4 digit array matches key
+    }else if ( (params.go == "bioeconomy" || params.go=="parts")&& params.catsize == 6 && cat_filter.includes(this_key.slice(0,6))) { // Our 4 digit array matches key
         return true;
     }else {
         return false;
@@ -551,6 +551,10 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                         //console.log(cat_filter)
                     }
                 }
+                if(params.go=="manufacturing"){
+                    cat_filter=["manufacturing placeholder"]
+                }
+                
                 var rates_dict = {};
                 var rates_list = [];
                 var forlist={}
