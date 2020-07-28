@@ -1079,7 +1079,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                         var filteredData = consdata.filter(function(d) {
                             if(d["id"]==fips )
                             {      
-                                $(".regiontitle").text("Industries within "+d["county"]);
+                                $(".regiontitle").text(d["county"] + " Industries");
                             }
                         })
                     }
