@@ -468,7 +468,7 @@ function keyFound(this_key, cat_filter,params) {
         return true;
     } else if (params.go == "bioeconomy" && this_key.startsWith("11")) { // Quick hack, always include Agriculture
         return true;
-    } else if (params.go == "manufacturing" && (this_key.startsWith("31") || this_key.startsWith("32") || this_key.startsWith("33") )) { // Quick hack, always include Agriculture
+    } else if (params.go == "manufacturing" && (this_key.startsWith("31") || this_key.startsWith("32") || this_key.startsWith("33") )) { // All manufacturing
         return true;
     } else if ( params.catsize== 2){ // Our 4 digit array matches key
         cat_filt=[]
@@ -486,7 +486,7 @@ function keyFound(this_key, cat_filter,params) {
         if(cat_filt.includes(this_key.slice(0,4))){
             return true;
         }
-    }else if ( params.catsize== 6 && cat_filter.includes(this_key.slice(0,6))) { // Our 4 digit array matches key
+    }else if ( params.catsize == 6 && cat_filter.includes(this_key.slice(0,6))) { // Our 4 digit array matches key
         return true;
     }else {
         return false;
@@ -529,7 +529,8 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                 var bio_output = "325211,325991,3256,335991,325120,326190,";
                 var green_energy = "221117,221111,221113,221114,221115,221116,221118,";
                 var fossil_energy = "221112,324110";
-                var parts = "336111,336330,336340,336360,336370,336390,333613,336412,336413,335910,335912,339110,333111,313110,313210,314110,325211,325520,326112,326220,331221,332211";
+                var parts = "336111,336330,336340,336360,336370,336390,333613,336412,336413,335910,335912,339110,333111,325211,325520,326112,326220,331221,332211";
+                var parts_carpets = "314110,313110,313210"
 
                 var cat_filter = [];
                 if (params.go){
@@ -1037,7 +1038,9 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                     if (params.go == "bioeconomy") {
                         $(".regiontitle").text("Bioeconomy vs Fossil Fuel Industries");
                     } else if (params.go == "parts") {
-                        $(".regiontitle").text("Parts Manufacturing - Automotive, Carpets, etc.");
+                        $(".regiontitle").text("Automotive Parts Manufacturing");
+                    } else if (params.go == "manufacturing") {
+                        $(".regiontitle").text("Manufacturing");
                     }
                     if(Array.isArray(fips) && statelength!=fips.length){
                         fipslen=fips.length
@@ -1071,7 +1074,9 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                         if (params.go == "bioeconomy") {
                             $(".regiontitle").text("Bioeconomy vs Fossil Fuel Industries");
                         } else if (params.go == "parts") {
-                            $(".regiontitle").text("Parts Manufacturing - Automotive, Carpets, etc.");
+                            $(".regiontitle").text("Automotive Parts");
+                        } else if (params.go == "manufacturing") {
+                            $(".regiontitle").text("Manufacturing");
                         } else {
                             $(".regiontitle").text(String(d['Name'])+"'s Top Industries");
                         }
