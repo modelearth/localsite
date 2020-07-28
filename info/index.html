@@ -207,7 +207,7 @@ function refreshWidgets() {
 			$("#infoColumn").show();
 			$("#geomap").show();
 			if(location.host.indexOf('localhost') >= 0) { // Temp
-				loadScript('/community/js/leaflet.js', function(results) {
+				loadScript('/localsite/js/leaflet.js', function(results) {
 					setTimeout( function() {
 						addCountyBoundaries("geomap");
 					}, 3000 );
@@ -774,7 +774,7 @@ function addCountyBoundaries(whichmap) {
 
     // Topo data source
     //https://github.com/deldersveld/topojson/tree/master/countries/us-states
-    var url = '../start/maps/counties/topo/GA-13-georgia-counties.json'
+    var url = '../info/data/GA-13-georgia-counties.json'
 
     req.open('GET', url, true);
     req.onreadystatechange = handler;

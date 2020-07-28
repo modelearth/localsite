@@ -50,7 +50,7 @@ $(document).ready(function () {
 		$(".si-btn").hide();
 	}
 	catArray = [];
-	$.get(dual_map.community_root() + 'impact/harmonized-system/hs.txt', function(data) {
+	$.get(dual_map.community_root() + 'info/data/harmonized-system.txt', function(data) {
 		var catLines = data.split("\n");
 		
 		catLines.forEach(function(element) {
@@ -472,6 +472,7 @@ $(document).ready(function () {
 
 
 function locationFilterChange(selectedValue) {
+	var useCookies = false; // Would need Cookies from site repo.
 
     consoleLog("locationFilterChange: " + selectedValue);
     //$(".geoListHolder > div").hide();
@@ -1290,7 +1291,7 @@ function initSiteObject(layerName) {
 	    // https://github.com/codeforgreenville/leaflet-google-sheets-template
 	    // https://data.openupstate.org/map-layers
 
-	    var layerJson = dual_map.community_root() + "impact/menu.json";
+	    var layerJson = dual_map.community_root() + "map/menu.json";
 
 	    var siteObject = (function() {
 	        var json = null;

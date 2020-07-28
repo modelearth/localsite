@@ -1035,7 +1035,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                     //document.getElementById("industryheader").text = ""; // Clear initial.
                     $(".regionsubtitle").text(""); //Clear
                     if (params.go == "bioeconomy") {
-                        $(".regiontitle").text("Bioeconomy and Fossil Fuel Industries");
+                        $(".regiontitle").text("Bioeconomy vs Fossil Fuel Industries");
                     } else if (params.go == "parts") {
                         $(".regiontitle").text("Parts Manufacturing - Automotive, Carpets, etc.");
                     }
@@ -1069,7 +1069,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                         }
                     }else if(fips==dataObject.stateshown){
                         if (params.go == "bioeconomy") {
-                            $(".regiontitle").text("Bioeconomy and Fossil Fuel Industries");
+                            $(".regiontitle").text("Bioeconomy vs Fossil Fuel Industries");
                         } else if (params.go == "parts") {
                             $(".regiontitle").text("Parts Manufacturing - Automotive, Carpets, etc.");
                         } else {

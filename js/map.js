@@ -14,9 +14,9 @@ var dual_map = dual_map || (function(){
         },
         community_root : function() {
             // or sendfeedback
-            let root = location.protocol + '//' + location.host + '/community/';
+            let root = location.protocol + '//' + location.host + '/localsite/';
             if (location.host.indexOf('localhost') < 0) {
-              root = "https://modelearth.github.io/community/";
+              root = "https://neighborhood.org/localsite/";
             }
             return (root);
         },
@@ -864,7 +864,7 @@ function loadMap1(dp) { // Also called by map-filters.js
   //} else if (param["show"] == "produce" || param["design"]) {
   } else { // || param["show"] == "mockup"
     dp1.listTitle = "USDA Farm Produce (mockup)";
-    dp1.dataset = community_root + "map/starter/farmersmarkets-ga.csv";
+    dp1.dataset = community_root + "info/data/farmersmarkets-ga.csv";
     dp1.name = "Local Farms"; // To remove
     dp1.dataTitle = "Farm Fresh Produce";
     dp1.markerType = "google";

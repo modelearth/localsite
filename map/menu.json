@@ -64,8 +64,28 @@ callback(
 
 	{
 		"menulevel": "1",
+		"item": "farmfresh",
+		"rootfolder": "info",
+		"title": "Farm Fresh",
+		"tabtitle": "Farm Fresh",
+		"mobiletitle": "Farm Fresh",
+		"section": "Farm Fresh",
+		"provider": "Admin",
+		"image": "/site/docs/hurricane/img/shelf_cloud_road.jpg",
+		"siteHeaderHeight": "10px",
+		"siteHeaderHeightMax": "230px",
+		"icon": "<i class='material-icons'>&#xE87A;</i>",
+		"hideOverlaysButton": "true",
+		"sectionTitle": "leftNav",
+		"topnavaccess": "10",
+		"menuaccess": "0",
+		"directlink": "/localsite/#show=farmfresh",
+		"caption": ""
+	},
+
+	{
+		"menulevel": "1",
 		"item": "travel",
-		"directlink": "/site/docs/info",
 		"rootfolder": "info",
 		"title": "Travel Info",
 		"tabtitle": "Travel Info",
@@ -80,7 +100,7 @@ callback(
 		"sectionTitle": "leftNav",
 		"topnavaccess": "10",
 		"menuaccess": "0",
-		"directlinkX": "http://www.exploregeorgia.org",
+		"directlink": "/site/docs/info",
 		"caption": "Find lodging, check traffic conditions, view gas prices, search maps and follow weather forecasts."
 	},
 	{
