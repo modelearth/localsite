@@ -80,9 +80,11 @@ function getHash() {
       return b;
     })(window.location.hash.substr(1).split('&'));
 }
-function updateHash(addToHash) {
-
-    let hash = getHash(); // Include all existing
+function updateHash(addToHash, addToExisting) {
+    let hash = {};
+    if (addToExisting != false) {
+      hash = getHash(); // Include all existing
+    }
     hash = mix(addToHash,hash); // Gives priority to addToHash
 
     // Reside in mix. DELETE

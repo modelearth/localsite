@@ -1,3 +1,4 @@
+// Maintained in localsite/js/navigation.js
 if (window.location.protocol != 'https:' && location.host.indexOf('localhost') < 0) {
 	location.href = location.href.replace("http://", "https://");
 }
@@ -43,7 +44,7 @@ $(document).ready(function(){
 	 	$("body").addClass("flexbody"); // For footer to stick at bottom on short pages
 	 	$("body").wrapInner( "<main class='flexmain'></main>"); // To stick footer to bottom
 	 	$("body").prepend( "<div id='header' class='flexheader hideprint'></div>\r" );
-		let headerFile = climbpath + "../community/header.html";
+		let headerFile = climbpath + "../localsite/header.html";
 		if (param.header) headerFile = param.header;
 	 	$("#header").load(headerFile, function( response, status, xhr ) {
 
@@ -135,7 +136,7 @@ $(document).ready(function(){
 	 		$('#logoholder').css('background-position', 'center');
 
 	 		$('#state_select').on('change', function() {
-			    window.location = "/community/info/?state=" + this.value + "#show=mockup";
+			    window.location = "/localsite/info/?state=" + this.value + "#show=mockup";
 			});
 	 		$('.showMenu').click(function () {
 				//$(".showMenu").hide();
@@ -167,7 +168,7 @@ $(document).ready(function(){
 		} else {
 			//$("#footer").addClass("flexfooter");
 		}
-		let footerFile = climbpath + "../community/footer.html";
+		let footerFile = climbpath + "../localsite/footer.html";
 		if (param.footer) footerFile = param.footer;
 		$("#footer").load(footerFile, function( response, status, xhr ) {
 			let pageFolder = getPageFolder(footerFile);

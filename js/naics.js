@@ -26,7 +26,7 @@ if(params["geo"]){
     fips = dataObject.stateshown;
 }
 
-let root = "/community/info/"; // To do, detect the current level like we do in 
+let root = "/localsite/info/"; // To do, detect the current level like we do in 
 
 // Get the levels below root
 /* Try something like this from navigation.js
@@ -44,7 +44,7 @@ let root = "/community/info/"; // To do, detect the current level like we do in
         climbpath += "./"; // Eliminates ? portion of URL
     }
 */
-d3.csv(root + "data/data_raw/BEA_Industry_Factors/state_fips.csv").then( function(consdata) {
+d3.csv(root + "data/state_fips.csv").then( function(consdata) {
     var filteredData = consdata.filter(function(d) {
         if(d["FIPS"]==String(dataObject.stateshown)) {
             var promises = [
@@ -72,7 +72,7 @@ d3.csv(root + "data/data_raw/BEA_Industry_Factors/state_fips.csv").then( functio
 
 function ready(values) {
     console.log("ready - promises loaded")
-    d3.csv(root + "data/data_raw/BEA_Industry_Factors/state_fips.csv").then( function(consdata) {
+    d3.csv(root + "data/state_fips.csv").then( function(consdata) {
         var filteredData = consdata.filter(function(d) {
             if(d["FIPS"]==String(dataObject.stateshown)) {
                 let params = loadParams(location.search,location.hash);
@@ -192,7 +192,7 @@ function ready(values) {
                         }); 
                     }
                     //addGeoChangeDetectToDOM(1);
-                    function addGeoChangeDetectToDOM(count) { // Wait for county checkboxes to be added to DOM by search-filters.js
+                    function addGeoChangeDetectToDOM(count) { // Wait for county checkboxes to be added to DOM by map-filters.js
                         if($(".geo").length) {
                             //d3.selectAll(".geo").on("change",function() {
                             $(".geo").change(function(e) {
@@ -242,7 +242,7 @@ function displayTopIndustries() { // Not currently called
 
     
     if(dataObject.stateshown!=dataObject.laststateshown){
-        d3.csv(root + "data/data_raw/BEA_Industry_Factors/state_fips.csv").then( function(consdata) {
+        d3.csv(root + "data/state_fips.csv").then( function(consdata) {
             var filteredData = consdata.filter(function(d) {
                 if(d["FIPS"]==String(dataObject.stateshown)) {
                     var promises = [
@@ -399,7 +399,7 @@ function geoChanged(dataObject,params){
     
 
     if(dataObject.stateshown!=dataObject.laststateshown){
-        d3.csv(root + "data/data_raw/BEA_Industry_Factors/state_fips.csv").then( function(consdata) {
+        d3.csv(root + "data/state_fips.csv").then( function(consdata) {
             var filteredData = consdata.filter(function(d) {
                 if(d["FIPS"]==String(dataObject.stateshown)) {
                     var promises = [
@@ -468,9 +468,9 @@ function keyFound(this_key, cat_filter,params) {
         return true;
     } else if (params.go == "bioeconomy" && this_key.startsWith("11")) { // Quick hack, always include Agriculture
         return true;
-    } else if (params.go == "manufacturing" && (this_key.startsWith("31") || this_key.startsWith("32") || this_key.startsWith("33") )) { // Quick hack, always include Agriculture
+    } else if (params.go == "manufacturing" && (this_key.startsWith("31") || this_key.startsWith("32") || this_key.startsWith("33") )) { // All manufacturing
         return true;
-    } else if ( params.catsize== 2){ // Our 4 digit array matches key
+    } else if ( (params.go == "bioeconomy" || params.go=="parts")&& params.catsize== 2){ // Our 4 digit array matches key
         cat_filt=[]
         for(i=0;i<cat_filter.length;i++){
             cat_filt.push(cat_filter[i].slice(0,2))
@@ -478,7 +478,7 @@ function keyFound(this_key, cat_filter,params) {
         if(cat_filt.includes(this_key.slice(0,2))){
             return true;
         }
-    }  else if ( params.catsize== 4 ) { // Our 4 digit array matches key
+    }  else if ( (params.go == "bioeconomy" || params.go=="parts")&& params.catsize== 4 ) { // Our 4 digit array matches key
         cat_filt=[]
         for(i=0;i<cat_filter.length;i++){
             cat_filt.push(cat_filter[i].slice(0,4))
@@ -486,7 +486,7 @@ function keyFound(this_key, cat_filter,params) {
         if(cat_filt.includes(this_key.slice(0,4))){
             return true;
         }
-    }else if ( params.catsize== 6 && cat_filter.includes(this_key.slice(0,6))) { // Our 4 digit array matches key
+    }else if ( (params.go == "bioeconomy" || params.go=="parts")&& params.catsize == 6 && cat_filter.includes(this_key.slice(0,6))) { // Our 4 digit array matches key
         return true;
     }else {
         return false;
@@ -498,7 +498,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
   
     document.getElementById("p1").innerHTML=""
     console.log("topRatesInFips")
-    d3.csv(root + "data/data_raw/BEA_Industry_Factors/state_fips.csv").then( function(consdata) {
+    d3.csv(root + "data/state_fips.csv").then( function(consdata) {
         var filteredData = consdata.filter(function(d) {
             if(d["FIPS"]==String(dataObject.stateshown)) {
                 if(params.catsort=='estab'){
@@ -529,7 +529,8 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                 var bio_output = "325211,325991,3256,335991,325120,326190,";
                 var green_energy = "221117,221111,221113,221114,221115,221116,221118,";
                 var fossil_energy = "221112,324110";
-                var parts = "336111,336330,336340,336360,336370,336390,333613,336412,336413,335910,335912,339110,333111,313110,313210,314110,325211,325520,326112,326220,331221,332211";
+                var parts = "336111,336330,336340,336360,336370,336390,333613,336412,336413,335910,335912,339110,333111,325211,325520,326112,326220,331221,332211";
+                var parts_carpets = "314110,313110,313210"
 
                 var cat_filter = [];
                 if (params.go){
@@ -550,6 +551,10 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                         //console.log(cat_filter)
                     }
                 }
+                if(params.go=="manufacturing"){
+                    cat_filter=["manufacturing placeholder"]
+                }
+                
                 var rates_dict = {};
                 var rates_list = [];
                 var forlist={}
@@ -1005,7 +1010,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                             }
 
 
-                            rightCol += "<div class='cell mock-up' style='display:none'><img src='http://localhost:8887/community/impact/img/plus-minus.gif' class='plus-minus'></div>";
+                            rightCol += "<div class='cell mock-up' style='display:none'><img src='http://localhost:8887/localsite/info/img/plus-minus.gif' class='plus-minus'></div>";
                             //text += top_data_list[i]['NAICScode'] + ": <b>" +top_data_list[i]['data_id']+"</b>, "+String(whichVal.node().options[whichVal.node().selectedIndex].text).slice(3, )+": "+Math.round(top_data_list[i][whichVal.node().value])+"<br>";
                             
                             if(Array.isArray(fips)){
@@ -1015,7 +1020,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                             }
                             
                             document.getElementById("p1").innerHTML = "<div id='sector_list'>" + text + "</div>";
-                            if(i<5){
+                            if(i<=20){
                                 if(i==0){
                                     naicshash=naicshash+top_data_list[i]['NAICScode']
                                 }else{
@@ -1026,6 +1031,9 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                         
                         } // End naics rows
 
+                        // Send to USEEIO Widget
+                        document.querySelector('#industry-list').setAttribute('data-naics', naicshash);
+
                         //updateHash({"naics":naicshash});
                         //params = loadParams(location.search,location.hash);
                         //midFunc(params.x,params.y,params.z,params);
@@ -1035,9 +1043,11 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                     //document.getElementById("industryheader").text = ""; // Clear initial.
                     $(".regionsubtitle").text(""); //Clear
                     if (params.go == "bioeconomy") {
-                        $(".regiontitle").text("Bioeconomy and Fossil Fuel Industries");
+                        $(".regiontitle").text("Bioeconomy vs Fossil Fuel Industries");
                     } else if (params.go == "parts") {
-                        $(".regiontitle").text("Parts Manufacturing - Automotive, Carpets, etc.");
+                        $(".regiontitle").text("Automotive Parts Manufacturing");
+                    } else if (params.go == "manufacturing") {
+                        $(".regiontitle").text("Manufacturing");
                     }
                     if(Array.isArray(fips) && statelength!=fips.length){
                         fipslen=fips.length
@@ -1069,9 +1079,11 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                         }
                     }else if(fips==dataObject.stateshown){
                         if (params.go == "bioeconomy") {
-                            $(".regiontitle").text("Bioeconomy and Fossil Fuel Industries");
+                            $(".regiontitle").text("Bioeconomy vs Fossil Fuel Industries");
                         } else if (params.go == "parts") {
-                            $(".regiontitle").text("Parts Manufacturing - Automotive, Carpets, etc.");
+                            $(".regiontitle").text("Automotive Parts");
+                        } else if (params.go == "manufacturing") {
+                            $(".regiontitle").text("Manufacturing");
                         } else {
                             $(".regiontitle").text(String(d['Name'])+"'s Top Industries");
                         }
@@ -1079,7 +1091,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                         var filteredData = consdata.filter(function(d) {
                             if(d["id"]==fips )
                             {      
-                                $(".regiontitle").text("Industries within "+d["county"]);
+                                $(".regiontitle").text(d["county"] + " Industries");
                             }
                         })
                     }
