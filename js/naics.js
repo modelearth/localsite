@@ -1020,7 +1020,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                             }
                             
                             document.getElementById("p1").innerHTML = "<div id='sector_list'>" + text + "</div>";
-                            if(i<5){
+                            if(i<=20){
                                 if(i==0){
                                     naicshash=naicshash+top_data_list[i]['NAICScode']
                                 }else{
@@ -1030,7 +1030,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                             }
                         
                         } // End naics rows
-                        
+
                         // Send to USEEIO Widget
                         document.querySelector('#industry-list').setAttribute('data-naics', naicshash);
 

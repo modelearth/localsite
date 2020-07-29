@@ -717,7 +717,8 @@ function loadMap1(dp) { // Also called by map-filters.js
   });
 
   let community_root = dual_map.community_root();
-
+  let state_root = "/georgia-data/";
+  let state_abbreviation = "ga";
   let dp1 = {}
   // Might use when height it 280px
   dp1.latitude = 31.6074;
@@ -864,7 +865,7 @@ function loadMap1(dp) { // Also called by map-filters.js
   //} else if (param["show"] == "produce" || param["design"]) {
   } else { // || param["show"] == "mockup"
     dp1.listTitle = "USDA Farm Produce (mockup)";
-    dp1.dataset = community_root + "info/data/farmersmarkets-ga.csv";
+    dp1.dataset = state_root + "farmfresh/farmersmarkets-" + state_abbreviation + ".csv";
     dp1.name = "Local Farms"; // To remove
     dp1.dataTitle = "Farm Fresh Produce";
     dp1.markerType = "google";

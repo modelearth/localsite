@@ -87,11 +87,14 @@ To fix a conflict you may need delete the .DS_Store within the Github.com websit
 
 - Use CloudFlare.com as a free proxy for your domain name
 - Important: Avoid adding the 4 Google A records (these prevent adding the CNAME record)
-- Add a CNAME record in CloudFlare with @ and [github username].github.io
 - Create a public repo called [github username].github.io
-- Activate GitHub Pages and add your custom domain name.
+- Add a CNAME record in CloudFlare with @ and [github username].github.io
+- Important: Point your primary domain at a different Github account, otherwise it will be limited to one repo.
+- Activate GitHub Pages and add your custom domain name (which points at a repo in a different Github account).
 - Wait a couple minutes for new GitHub Pages site to become available.
 - Activate GitHub Pages for each additional repo. These can be forks from other accounts.  
+- Avoid putting referenced files in your [github username].github.io repo. It won't be the root of your site when you view on localhost.  
+- Make a fork of the current "localsite" repo to include it's functionality in your site design.  
 <!-- note, when setting up the prior neighborhood folder was renamed to [github username].github.io -->
 
 

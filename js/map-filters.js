@@ -1,6 +1,7 @@
 function populateFieldsFromHash() {
 	$("#keywordsTB").val(param["q"]);
 
+	$('.catList > div').removeClass('catListSelected');
 	if (param["cat"]) {
 		var catString = param["cat"].replace(/_/g, ' ');;
 		$("#catSearch").val(catString);
@@ -1004,9 +1005,10 @@ $(document).ready(function () {
       }).appendTo("body");
   }
   if (param["show"] == "suppliers") {
-    var div = $("<div />", {
-        html: '<style>.suppliers{display:inline !important;}</style>'
-      }).appendTo("body");
+    //var div = $("<div />", {
+    //    html: '<style>.suppliers{display:inline !important;}</style>'
+    //}).appendTo("body");
+    $(".suppliers").show();
   }
 
   if (param["show"] == "produce") {
