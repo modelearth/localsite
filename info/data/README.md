@@ -45,3 +45,7 @@ For example, to get the 2016 data for all counties in the state of Georgia, you 
 	https://api.census.gov/data/2016/cbp?get=GEO_ID,GEO_TTL,COUNTY,YEAR,NAICS2012,NAICS2012_TTL,ESTAB,EMP,PAYANN&for=county:*&in=state:13
 
 You can find a list of columns to select on [this link](https://api.census.gov/data/2016/cbp/variables.html).
+### Note for the data used in the Bubblemap
+If rounding off 8 decimals, ozone depletion, pesticides and a few others would need to be switched to scientific notation in the data file. This would allow the files to be reduced
+US from 151kb to under 72.7kb
+GA from 120kb, to under 59.2kb
