@@ -40,7 +40,7 @@ strVar += "";
 strVar += "  <div id=\"activeLayer\" style=\"display: none\"><\/div>";
 strVar += "";
 strVar += " ";
-strVar += "  <div id=\"filterFieldsHolder\" class=\"content contentpadding\" style=\"padding-top:0px\">";
+strVar += "  <div id=\"filterFieldsHolder\" class=\"contentX contentpaddingX\" style=\"margin-left:35px;padding-top:0px\">";
 strVar += "    <div class=\"filterFields\" style=\"min-height:54px; padding:2px 0 4px 0; float:left\">";
 strVar += "";
 strVar += "      <div style=\"display:none;\" class=\"filterField mock-up suppliers exporter\">";
@@ -792,7 +792,7 @@ strVar += "            <div class=\"showApps local\" style=\"display:none;float:
 strVar += "              <i class=\"material-icons\" style=\"font-size:30px; color:#ccc; padding:5px 0px 4px 0px; cursor:pointer\">&#xE5C3;<\/i>";
 strVar += "            <\/div>";
 strVar += "";
-strVar += "            <h1 class=\"shortTitle\" style=\"displayX:none; margin-bottom:0px; padding:4px 15px 4px 0; white-space: nowrap; float:left; font-size:28px; color:#999; margin-top;\"><\/h1>";
+strVar += "            <h1 class=\"shortTitle\" style=\"display:none; margin-bottom:0px; padding:4px 15px 4px 0; white-space: nowrap; float:left; font-size:28px; color:#999; margin-top;\"><\/h1>";
 strVar += "";
 strVar += "            <div id=\"pageLinks\"><\/div>";
 strVar += "";

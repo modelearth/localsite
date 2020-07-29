@@ -421,7 +421,29 @@ $(document).ready(function () {
     	toggleFullScreen();  
     });
 });
+
+function toggleFullScreen_Example() { // Delete me
+  if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen(); 
+    }
+  }
+}
+
+
 function toggleFullScreen() {
+  if (document.fullscreenElement) { // Already fullscreen
+  	alert("Already fullscreenElement");
+  	if (document.exitFullscreen) {
+  		alert("Attempt to exit fullscreen")
+      document.exitFullscreen();
+      $('.reduceFromFullscreen').hide();
+      $('.expandToFullscreen').show();
+      return;
+    }
+  }
   if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
    (!document.mozFullScreen && !document.webkitIsFullScreen)) {
     // Only if video is not visible. Otherwise become black.

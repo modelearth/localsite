@@ -741,7 +741,7 @@ function loadMap1(dp) { // Also called by map-filters.js
     //alert(community_root + "tools/map.csv");
 
     dp1.shortTitle = "Communities";
-    dp1.dataset =  community_root + "tools/map.csv";
+    dp1.dataset =  community_root + "info/data/map-georgia-smart.csv";
     dp1.listInfo = "Includes Georgia Smart Community Projects";
     dp1.search = {"In Title": "title", "In Description": "description", "In Website URL": "website", "In Address": "address", "In City Name": "city", "In Zip Code" : "zip"};
 
@@ -978,7 +978,8 @@ function showList(dp,map) {
   var products_array = [];
   var productcode_array = [];
 
-  if (dp.shortTitle) {$(".shortTitle").html(dp.shortTitle); $(".shortTitle").show()};
+  // Need to show this somewhere else
+  //if (dp.shortTitle) {$(".shortTitle").html(dp.shortTitle); $(".shortTitle").show()};
   if (dp.listTitle) {$(".listTitle").html(dp.listTitle); $(".listTitle").show()};
   if (dp.listSubtitle) {$(".listSubtitle").html(dp.listSubtitle); $(".listSubtitle").show()};
 

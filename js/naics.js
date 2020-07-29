@@ -1030,6 +1030,9 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                             }
                         
                         } // End naics rows
+                        
+                        // Send to USEEIO Widget
+                        document.querySelector('#industry-list').setAttribute('data-naics', naicshash);
 
                         //updateHash({"naics":naicshash});
                         //params = loadParams(location.search,location.hash);
