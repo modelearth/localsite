@@ -742,7 +742,7 @@ function loadMap1(dp) { // Also called by map-filters.js
     //alert(community_root + "tools/map.csv");
 
     dp1.shortTitle = "Communities";
-    dp1.dataset =  community_root + "info/data/map-georgia-smart.csv";
+    dp1.dataset =  state_root + "communities/map-georgia-smart.csv";
     dp1.listInfo = "Includes Georgia Smart Community Projects";
     dp1.search = {"In Title": "title", "In Description": "description", "In Website URL": "website", "In Address": "address", "In City Name": "city", "In Zip Code" : "zip"};
 

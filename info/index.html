@@ -227,6 +227,9 @@ function refreshWidgets() {
 		}
 	}
 	if (hash.show != priorHash.show) {
+		if (hash.show == "farmfresh") {
+			$(".data-section").show();
+		}
 		if (hash.show == "suppliers") {
 			$(".data-section").show();
 			$(".suppliers").show();
@@ -303,10 +306,10 @@ function refreshWidgets() {
 	     <div id="pageLinksInsert" style="display:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
 	          <a onClick="goHash({'go':'', 'view':'mosaic', 'count':'10', 'regiontitle':'', 'geo':''}); return false;" href="./#view=mosaic">Overview</a> | 
 	          <a onClick="goHash({'go':'bioeconomy', 'view':'mosaic', 'count':'10'}); return false;" href="./#go=bioeconomy&view=mosaic">Bioeconomy</a> | 
-	          
+	          <a onClick="goHash({'show':'farmfresh', 'count':'10'}); return false;" href="./#show=farmfresh">Fresh Produce</a> | 
 	          <a onClick="goHash({'go':'manufacturing', 'view':'mosaic', 'count':'10'}); return false;" href="./#go=manufacturing&view=mosaic">Manufacturing</a> | 
 	          <a onClick="goHash({'go':'parts', 'view':'mosaic', 'count':'10'}); return false;" href="./#go=parts&view=mosaic">Automotive Parts</a> | 
-	          <a onClick="goHash({'show':'suppliers', 'view':'mosaic', 'count':'10'}); return false;" href="./#show=suppliers">PPE Suppliers</a> | 
+	          <a onClick="goHash({'show':'suppliers', 'count':'10'}); return false;" href="./#show=suppliers">PPE Suppliers</a> | 
 	          <a onClick="goHash({'go':'geomap', 'view':'mosaic', 'count':'10'}); return false;" href="./#go=bioeconomy&view=mosaic">County Map</a>
 	          <br>
         </div>
@@ -524,7 +527,7 @@ function refreshWidgets() {
 
 <div class="pageColumns">
 
-    <div class="pageColumn" style="width:350px">
+    <div class="pageColumn">
       <div class="pageColumnInside">
           <h2>1.) Input</h2>
           Goods & Services Suppliers
@@ -533,7 +536,7 @@ function refreshWidgets() {
       </div>
     </div>
 
-    <div class="pageColumn" style="width:auto; float:left">
+    <div class="pageColumn">
       <div class="pageColumnInside">
         <h2>2.) Industries</h2>
         <div>Georgia Manufacturers</div>
@@ -636,10 +639,43 @@ function refreshWidgets() {
 
 </div>
 <div style="clear:both;"></div>
+<br><br>
 <!-- /INPUT OUTPUT -->
 
 
+<!-- MOSAIC HEATMAP -->
+<div class="content contentadding">
+	<h2>Impact Heatmap</h2>
+    <div class="io">
+        <div style="margin: 0 auto;">
+            <div class="matrix-title">Goods & Services</div><br><br>
+            <div class="industry-list-heatmap">
+            </div>
+        </div>
+    </div>
+</div>
 
+<script>
+function configHeatmap() {
+    var config = useeio.urlConfig();
+    var modelID = config.get().model || 'GAUSEEIO';
+
+    var model = useeio.model({
+        endpoint: '/io/charts/useeio/api',
+        model: modelID,
+        asJsonFiles: true,
+        view: 'mosaic'
+    });
+
+    var industryList = useeio.industryList({
+        model: model,
+        selector: '.industry-list-heatmap',
+    });
+    config.join(industryList);
+}
+configHeatmap();
+</script>
+<!-- /MOSAIC HEATMAP -->
 
 
 <!--
@@ -1214,19 +1250,6 @@ function loadIOWidgets(param) {
 	  },
 	});
 	*/
-
-	config.updateIfAbsent({
-	  count: 20,
-	  view: "mosaic"
-	});
-	config.updateIfAbsent({
-	  count: 20,
-	  scopes: {
-	    'input': {
-	      count: 5,
-	     },
-	  },
-	});
 
 	
 
