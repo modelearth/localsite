@@ -102,7 +102,11 @@ To fix a conflict you may need delete the .DS_Store within the Github.com websit
 
 ### Occasionally merge in updates from the master (source) repo by doing a "pull request"
 
-On your forked repo: Click Compare > switching the base (if you have not switched already) > Create pull request > Give the pull request a title > Create pull request (again) > Merge pull request (scroll down) > Confirm merge.  
+- On your forked repo: Click Compare 
+- Flip the order. (Pick a third repo temporarily because if the two match a warning occurs.)<!-- switching the base (if you have not switched already) -->
+- Create pull request > Give the pull request a title 
+- Create pull request (again) 
+- Merge pull request (scroll down) > Confirm merge.  
 
 [Images of steps for updating your fork](https://stackoverflow.com/questions/20984802/how-can-i-keep-my-fork-in-sync-without-adding-a-separate-remote/21131381#21131381)
 
