@@ -435,9 +435,9 @@ function toggleFullScreen_Example() { // Delete me
 
 function toggleFullScreen() {
   if (document.fullscreenElement) { // Already fullscreen
-  	alert("Already fullscreenElement");
+  	console.log("Already fullscreenElement");
   	if (document.exitFullscreen) {
-  		alert("Attempt to exit fullscreen")
+  		console.log("Attempt to exit fullscreen")
       document.exitFullscreen();
       $('.reduceFromFullscreen').hide();
       $('.expandToFullscreen').show();

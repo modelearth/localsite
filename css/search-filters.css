@@ -11,7 +11,9 @@
     margin-right: 6px;
     min-height: 34px;
 }
-
+.select-menu-arrow-holder {
+    position:absolute; right:5px; top:5px; pointer-events:none;bottom:2px;background:#fff;
+}
 .fieldSelector {
 	display: none;
 }
