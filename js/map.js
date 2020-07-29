@@ -902,58 +902,6 @@ function loadMap1(dp) { // Also called by map-filters.js
          
   });
 
-  // MAP 2 - INTERMODAL PORTS - Includes Railroads layer
-  if (1==2) {
-      let dp2 = {
-        selector: "aside.Intermodal_Ports",
-        delimiter: ",",
-        numColumns: ["lat","lon"],
-        valueColumn: "value",
-        scaleType: "scaleOrdinal",
-        //scaleType: "scaleQuantile",
-        //scaleType: "scaleThreshold",
-      }
-      //dp2.name = dp2.selector.split(".").pop(); // name: Intermodal_Ports
-      dp2.name = "Intermodal Ports";
-      dp2.listLocation = false;
-
-      dp2.latitude = 31.6074;
-      dp2.longitude = -81.8854;
-      // Bruswick GA - Jesup was not centering
-      dp2.latitude = 31.1500;
-      dp2.longitude =  -81.4915;
-
-      dp2.zoom = 8;
-      dp2.markerType = "google";
-      dp2.data = readData(dp2.selector, dp2.delimiter, dp2.numColumns, dp2.valueColumn);
-      //dp2.color = '#0033ff'; // Alternative to scale
-      dp2.scale = getScale(dp2.data, dp2.scaleType, dp2.valueColumn);
-
-      dp2.group = L.layerGroup();
-      //dp2.group2 = L.layerGroup();
-      //dp2.iconName = 'device_hub';
-      dp2.iconName = "language";
-      dp2.nameColumn = "group";
-      
-
-      //dataParameters.push(dp2);
-
-      // Legend needs to reside below map on left, or in side popup
-      //addLegend(dp2.scale, dp2.scaleType, dp2.name);
-
-      populateMap('map2', dp2, function(map) { // Called on success
-
-        // Add another layer to existing map
-        dp2 = {}
-        dp2.name = "Communities";
-        dp2.dataset = "/community/tools/map.csv";
-        loadFromCSV('map1', 'map2', dp2, basemaps1, basemaps2, function(results) {
-          // Add Railroad layer
-          layerControl['map2'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
-        });
-      });
-  }
-
   // Return to top for mobile users on search.
   if (document.body.clientWidth <= 500) {
     window.scrollTo({
