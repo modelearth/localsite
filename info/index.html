@@ -502,17 +502,12 @@ function refreshWidgets() {
 	<h2 style="border:0px" id="infoHeaderX">Supply Chain</h2>
 	<hr>
 
-	<div style="margin-bottom:16px">
-		<span id="infoHeaderNote"></span> 
-		<a href="#view=mosaic&count=20">Impact Mosaic</a> | 
-		<a href="#view=io&count=10">Input-Output Mockup</a> | 
-		<a href="../../io/charts/useeio/">More Widget Samples</a>
+	<div style="float:right;margin-bottom:16px">
+		<a href="../../io/charts/">About Widgets</a>
 	</div>
 
 </div>
 
-	
-	
 
 	<div style="display:none">
 		<div style="font-size: 15px;">
@@ -526,13 +521,14 @@ function refreshWidgets() {
 
 
 
+Choose commodities below to view upstream input and downstream output.<br>
 
 <div class="pageColumns">
 
     <div class="pageColumn">
       <div class="pageColumnInside">
-          <h2>1.) Input</h2>
-          Goods & Services Suppliers
+          <h2>Upstream</h2>
+          Input from Suppliers
           <div id="inputs" class="industry-list">
           </div>
       </div>
@@ -540,7 +536,7 @@ function refreshWidgets() {
 
     <div class="pageColumn">
       <div class="pageColumnInside">
-        <h2>2.) Industries</h2>
+        <h2>Commodities</h2>
         <div>Georgia Manufacturers</div>
         <div id="industry-list" class="industry-list">
         </div>
@@ -549,8 +545,8 @@ function refreshWidgets() {
 
     <div class="pageColumn">
       <div class="pageColumnInside">
-        <h2>3.) Output</h2>
-          Goods & Services Buyers
+        <h2>Downstream</h2>
+          Output to Buyers
           <div id="outputs" class="industry-list">
           </div>
       </div>
@@ -646,19 +642,20 @@ function refreshWidgets() {
 
 
 <!-- MOSAIC HEATMAP -->
+<br><br>
 <div class="content contentadding">
-	<h2>Impact Heatmap</h2>
+	<h2 style="border-bottom: 0px">Impact Heatmap</h2>
     <div class="io">
         <div style="margin: 0 auto;">
             <div class="matrix-title">Goods & Services</div><br><br>
-            <div class="industry-list-heatmap">
+            <div class="industry-list-mosaic">
             </div>
         </div>
     </div>
 </div>
 
 <script>
-function configHeatmap() {
+function configMosaic() {
     var config = useeio.urlConfig();
     var modelID = config.get().model || 'GAUSEEIO';
 
@@ -669,18 +666,29 @@ function configHeatmap() {
         view: 'mosaic'
     });
 
-    var industryList = useeio.industryList({
+    var industryListMosaic = useeio.industryList({
         model: model,
-        selector: '.industry-list-heatmap',
+        selector: '.industry-list-mosaic',
     });
-    config.join(industryList);
+    config.withDefaults({
+    	view: ['mosaic'],
+        count: 15,
+    });
+    config.join(industryListMosaic);
 }
-configHeatmap();
+configMosaic();
 </script>
 <!-- /MOSAIC HEATMAP -->
 
 
 <!--
+config.withDefaults({
+  view: ['mosaic'],
+  count: 20,
+});
+config.join(industryList);
+
+
 https://www.epa.gov/enviroatlas
 
 <div class="contentpadding">
@@ -1271,7 +1279,6 @@ function applyView(view) {
 		/*
 		$("#infoHeader").text("Input-output mockup")
 		$("#sectorBucketTitle").show();
-		$("#infoHeaderNote").show();
 		$("#io-input").show();
 		$("#io-output").show();
 		$(".io-arrow").show();
@@ -1282,7 +1289,6 @@ function applyView(view) {
 
 		/*
 		$("#sectorBucketTitle").hide();
-		$("#infoHeaderNote").hide();
 		$("#io-input").hide();
 		$("#io-output").hide();
 		$(".io-arrow").hide();
