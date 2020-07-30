@@ -251,11 +251,6 @@ function refreshWidgets() {
         $(".mainColumn1").show();
     }
 
-	if (hash.view != priorHash.view) {
-		applyView(hash.view);
-	}
-
-
 	//alert(hash.regiontitle)
 	if (hash.regiontitle != priorHash.regiontitle) {
 		if (hash.go) {
@@ -304,15 +299,17 @@ function refreshWidgets() {
 			class="mainColumn mainColumn1" 
 		-->
 	     <div id="pageLinksInsert" style="display:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
-	          <a onClick="goHash({'go':'', 'regiontitle':'', 'geo':''}); return false;" href="./#view=mosaic">Overview</a> | 
+	          <a href="./">Overview</a> | 
 	          <a onClick="goHash({'go':'bioeconomy'}); return false;" href="./#go=bioeconomy&view=mosaic">Bioeconomy</a> | 
-	          <a onClick="goHash({'show':'farmfresh'}); return false;" href="./#show=farmfresh">Fresh Produce</a> | 
-	          <a onClick="goHash({'go':'manufacturing'}); return false;" href="./#go=manufacturing">Manufacturing</a> | 
-	          <a onClick="goHash({'go':'parts'}); return false;" href="./#go=parts">Automotive Parts</a> | 
 	          <span class="local" style="display:none">
-	          <a onClick="goHash({'show':'suppliers'}); return false;" href="./#show=suppliers">PPE Suppliers</a> | 
+	          <a onClick="go({'go':'','show':'farmfresh'}); return false;" href="./#show=farmfresh">Fresh Produce</a> | 
 	      	  </span>
-	          <a onClick="goHash({'go':'geomap'}); return false;" href="./#go=geomap">County Map</a>
+	          <a onClick="goHash({'go':'manufacturing','show':''}); return false;" href="./#go=manufacturing">Manufacturing</a> | 
+	          <a onClick="goHash({'go':'parts','show':''}); return false;" href="./#go=parts">Automotive Parts</a> | 
+	          <span class="local" style="display:none">
+	          <a onClick="goHash({'go':'','show':'suppliers'}); return false;" href="./#show=suppliers">PPE Suppliers</a> | 
+	      	  </span>
+	          <a onClick="goHash({'go':'geomap','show':''}); return false;" href="./#go=geomap">County Map</a>
 	          <br>
         </div>
 
@@ -1262,38 +1259,12 @@ function loadIOWidgets(param) {
 	});
 	*/
 
-	
 
 	// http://localhost:8887/localsite/info/#go=manufacturing&catsize=6
 
-	applyView(param["view"]);
 }
 refreshWidgets();
 
-function applyView(view) {
-	// CENTER - SECTORS
-	if (view == "io") {
-		/*
-		$("#infoHeader").text("Input-output mockup")
-		$("#sectorBucketTitle").show();
-		$("#io-input").show();
-		$("#io-output").show();
-		$(".io-arrow").show();
-		$("#sectorBucket").removeClass("sectorBucketMosaic");
-		$(".industryBucketPadding").removeClass("industryBucketPaddingMosaic");
-		*/
-	} else {
-
-		/*
-		$("#sectorBucketTitle").hide();
-		$("#io-input").hide();
-		$("#io-output").hide();
-		$(".io-arrow").hide();
-		$("#sectorBucket").addClass("sectorBucketMosaic");
-		$(".industryBucketPadding").addClass("industryBucketPaddingMosaic");
-		*/
-	}
-}
 </script>
 
 

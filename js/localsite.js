@@ -127,6 +127,11 @@ function goHash(addToHash) {
   updateHash(addToHash);
   triggerHashChangeEvent();
 }
+function go(addToHash) {
+  console.log("go ")
+  updateHash(addToHash,false); // Drop existing
+  triggerHashChangeEvent();
+}
 // Triggers custom hashChangeEvent in multiple widgets.
 // Exception, React widgets use a different process.
 var triggerHashChangeEvent = function () {
