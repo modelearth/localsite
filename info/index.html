@@ -324,7 +324,7 @@ function refreshWidgets() {
 
 <div class="pageColumns">
 	<div style="display:table-row">
-		<div id="infoColumn" class="mainColumn mainColumn1" style="font-size: 15px;">
+		<div id="infoColumn" class="mainColumn mainColumn1" style="font-size: 15px; position: relative">
 
 			<!--
 
@@ -335,7 +335,7 @@ function refreshWidgets() {
 			value added revenue and positive environmental&nbsp;impacts.
 			</div>
 			-->
-			<div id="geomap" style="height:550px; border:1px solid blue; display:none"></div>
+			<div id="geomap" style="height:550px; border:1px solid blue; display:none; position: relative"></div>
 
 			
 			<div id="aboutToolsDiv" style="position: relative;"></div>
@@ -994,9 +994,10 @@ function addCountyBoundaries(whichmap) {
       //var zoom = 5;
 
       // Georgia 32.1656° N, 82.9001° W
-      var lat = 32.16;
-      var lonX = -82.90;
-      var lon = -81.8;
+      var latX = 32.16;
+      var lat = 32.69;
+      var lon = -83.2;
+      var lonX = -81.8;
       var zoom = 7;
 
       //var layer = "terrain";
