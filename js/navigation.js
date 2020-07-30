@@ -124,10 +124,12 @@ $(document).ready(function(){
 		 		$('.logoholder-modelearth').css('margin-top', '7px');
 		 		$('.logoholder-modelearth').css('margin-right', '20px');
 		 	}
-
-		 	$('#logoholder').css('background-image', 'url(' + imageUrl + ')');
-			$('#logoholder').css('background-repeat', 'no-repeat');
-
+		 	if (param.headerLogo) {
+		 		$('#logoholder').html(param.headerLogo);
+		 	} else {
+			 	$('#logoholder').css('background-image', 'url(' + imageUrl + ')');
+				$('#logoholder').css('background-repeat', 'no-repeat');
+			}
 	 		//$('#logoholder').css('background-size', '70% 70%');
 
 	 		$('#logoholder').css('margin-left', '20px');
