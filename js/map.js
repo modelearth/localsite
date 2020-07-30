@@ -20,6 +20,20 @@ var dual_map = dual_map || (function(){
             }
             return (root);
         },
+        localsite_root : function() {
+            let root = location.protocol + '//' + location.host + '/localsite/';
+            if (location.host.indexOf('localhost') < 0) {
+              root = "https://neighborhood.org/localsite/";
+            }
+            return (root);
+        },
+        location_data_root : function() {
+            let root = location.protocol + '//' + location.host + '/georgia-data/';
+            if (location.host.indexOf('localhost') < 0) {
+              root = "https://neighborhood.org/georgia-data/";
+            }
+            return (root);
+        },
         absolute_root : function() {
           // Curently only used for feedback form
           let root = "https://map.georgia.org/community/"
@@ -789,8 +803,8 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.listTitle = "Georgia COVID-19 Response";
     dp1.listTitle = "Georgia Suppliers of&nbsp;Critical Items <span style='white-space:nowrap'>to Fight COVID-19</span>"; // For iFrame site
 
-    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-07/ga_suppliers_list_7-22-2020.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
-    dp1.dataset = "https://georgiadata.github.io/display/products/suppliers/us_ga_suppliers_ppe_2020_07_22.csv";
+    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-07/ga_suppliers_list_7-29-2020.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
+    dp1.dataset = "https://georgiadata.github.io/display/products/suppliers/us_ga_suppliers_ppe_2020_07_29.csv";
     //dp1.dataset = "/display/products/suppliers/us_ga_suppliers_ppe_2020_06_17.csv";
 
     dp1.dataTitle = "Manufacturers and Distributors";
@@ -865,7 +879,7 @@ function loadMap1(dp) { // Also called by map-filters.js
   //} else if (param["show"] == "produce" || param["design"]) {
   } else { // || param["show"] == "mockup"
     dp1.listTitle = "USDA Farm Produce (mockup)";
-    dp1.dataset = state_root + "farmfresh/farmersmarkets-" + state_abbreviation + ".csv";
+    dp1.dataset = dual_map.location_data_root()  + "farmfresh/farmersmarkets-" + state_abbreviation + ".csv";
     dp1.name = "Local Farms"; // To remove
     dp1.dataTitle = "Farm Fresh Produce";
     dp1.markerType = "google";
