@@ -215,13 +215,13 @@ function refreshWidgets() {
 			$("#aboutToolsDiv").hide();
 			$("#infoColumn").show();
 			$("#geomap").show();
-			if(location.host.indexOf('localhost') >= 0) { // Temp
+			//if(location.host.indexOf('localhost') >= 0) { // Temp
 				loadScript('/localsite/js/leaflet.js', function(results) {
-					setTimeout( function() {
+					//setTimeout( function() {
 						addCountyBoundaries("geomap");
-					}, 3000 );
+					//}, 3000 );
 				});
-			}
+			//}
 		} else {
 			$("#aboutToolsDiv").show();
 		}
@@ -300,7 +300,7 @@ function refreshWidgets() {
 		-->
 	     <div id="pageLinksInsert" style="display:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
 	          <a href="./">Overview</a> | 
-	          <a onClick="goHash({'go':'bioeconomy'}); return false;" href="./#go=bioeconomy&view=mosaic">Bioeconomy</a> | 
+	          <a onClick="goHash({'go':'bioeconomy','show':''}); return false;" href="./#go=bioeconomy&view=mosaic">Bioeconomy</a> | 
 	          <span class="local" style="display:none">
 	          <a onClick="go({'go':'','show':'farmfresh'}); return false;" href="./#show=farmfresh">Fresh Produce</a> | 
 	      	  </span>
@@ -335,7 +335,7 @@ function refreshWidgets() {
 			value added revenue and positive environmental&nbsp;impacts.
 			</div>
 			-->
-			<div id="geomap" style="height:500px; border:1px solid blue; display:none"></div>
+			<div id="geomap" style="height:550px; border:1px solid blue; display:none"></div>
 
 			
 			<div id="aboutToolsDiv" style="position: relative;"></div>
@@ -904,7 +904,9 @@ function addCountyBoundaries(whichmap) {
 
     // Topo data source
     //https://github.com/deldersveld/topojson/tree/master/countries/us-states
-    var url = '../../georgia-data/counties/GA-13-georgia-counties.json'
+    var url = '../../georgia-data/counties/GA-13-georgia-counties.json';
+
+    var layerControl_CountyMap = {}; // Object containing one control for each map on page.
 
     req.open('GET', url, true);
     req.onreadystatechange = handler;
@@ -1036,15 +1038,45 @@ function addCountyBoundaries(whichmap) {
       };
 
 
+      var basemaps1 = {
+	    'Grayscale' : L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
+	    'Satellite' : L.tileLayer(mbUrl, {maxZoom: 25, id: 'mapbox.satellite', attribution: mbAttr}),
+	    'Streets' : L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr}),
+	    'OpenStreetMap' : L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	        maxZoom: 19, attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+	    }),
+	  }
+
       //dataParameters.forEach(function(ele) {
         //overlays[ele.name] = ele.group; // Allows for use of dp.name with removeLayer and addLayer
         //console.log("Layer added: " + ele.name);
       //})
-      if(layerControl === false) {
+      if(layerControl_CountyMap === false) { // First time, add new layer
         // Add the layers control to the map
-        layerControl = L.control.layers(baseLayers, overlays).addTo(map);
+        layerControl_CountyMap = L.control.layers(baseLayers, overlays).addTo(map);
       }
 
+      if (typeof layerControl != "undefined") {
+      	console.log("SURPRISE: layerControl is available to CountyMap.")
+
+      	// layerControl wasn't yet available in loading sequence.
+      	// Could require localsite/js/map.js load first, but top maps might not always be loaded.
+      	// Or only declare layerControl object if not yet declared.
+
+      	if (layerControl[whichmap] == undefined) {
+	      layerControl[whichmap] = L.control.layers(basemaps1, overlays1).addTo(map); // Push multple layers
+	      //basemaps1["Satellite"].addTo(map);
+	      basemaps1["Streets"].addTo(map);
+	    } else {
+	      layerControl[whichmap].addOverlay(dp.group, dp.dataTitle); // Appends to existing layers
+	    }
+
+
+      	if(layerControl === false) {
+      		
+      		//layerControl = L.control.layers(baseLayers, overlays).addTo(map);
+      	}
+      }
       // Make a layer active. 
       geojsonLayer.addTo(map);
 

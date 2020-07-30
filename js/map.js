@@ -78,6 +78,13 @@ var mbAttr = '<a href="https://www.mapbox.com/">Mapbox</a>',
 function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,callback) {
 
   console.log('loadFromCSV into #' + whichmap + '._leaflet_map');
+  if (!dp.dataset) {
+    console.log('Cancel - no dataset selected for top map.');
+    $('#' + whichmap).hide();
+    return;
+  } else {
+    $('#' + whichmap).show();
+  }
   let defaults = {};
   defaults.zoom = 7;
   defaults.numColumns = ["zip","lat","lon"];
@@ -876,8 +883,7 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.valueColumnLabel = "Delivery";
     dp1.valueColumn = "Delivery";
     dp1.listLocation = true;
-  //} else if (param["show"] == "produce" || param["design"]) {
-  } else { // || param["show"] == "mockup"
+  } else if (param["show"] == "farmfresh") { // || param["show"] == "" || param["show"] == "mockup"
     dp1.listTitle = "USDA Farm Produce (mockup)";
     dp1.dataset = dual_map.location_data_root()  + "farmfresh/farmersmarkets-" + state_abbreviation + ".csv";
     dp1.name = "Local Farms"; // To remove
