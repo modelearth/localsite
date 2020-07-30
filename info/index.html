@@ -307,12 +307,12 @@ function refreshWidgets() {
 	          <a onClick="goHash({'go':'', 'regiontitle':'', 'geo':''}); return false;" href="./#view=mosaic">Overview</a> | 
 	          <a onClick="goHash({'go':'bioeconomy'}); return false;" href="./#go=bioeconomy&view=mosaic">Bioeconomy</a> | 
 	          <a onClick="goHash({'show':'farmfresh'}); return false;" href="./#show=farmfresh">Fresh Produce</a> | 
-	          <a onClick="goHash({'go':'manufacturing', 'view':'mosaic', 'count':'10'}); return false;" href="./#go=manufacturing&view=mosaic">Manufacturing</a> | 
-	          <a onClick="goHash({'go':'parts', 'view':'mosaic', 'count':'10'}); return false;" href="./#go=parts&view=mosaic">Automotive Parts</a> | 
+	          <a onClick="goHash({'go':'manufacturing'}); return false;" href="./#go=manufacturing">Manufacturing</a> | 
+	          <a onClick="goHash({'go':'parts'}); return false;" href="./#go=parts">Automotive Parts</a> | 
 	          <span class="local" style="display:none">
-	          <a onClick="goHash({'show':'suppliers', 'count':'10'}); return false;" href="./#show=suppliers">PPE Suppliers</a> | 
+	          <a onClick="goHash({'show':'suppliers'}); return false;" href="./#show=suppliers">PPE Suppliers</a> | 
 	      	  </span>
-	          <a onClick="goHash({'go':'geomap', 'view':'mosaic', 'count':'10'}); return false;" href="./#go=bioeconomy&view=mosaic">County Map</a>
+	          <a onClick="goHash({'go':'geomap'}); return false;" href="./#go=geomap">County Map</a>
 	          <br>
         </div>
 
@@ -644,7 +644,7 @@ Choose commodities below to view upstream input and downstream output.<br>
 
 			</select>
 			<br><br>
-			
+
             <div class="industry-list-mosaic">
             </div>
         </div>
@@ -907,7 +907,7 @@ function addCountyBoundaries(whichmap) {
 
     // Topo data source
     //https://github.com/deldersveld/topojson/tree/master/countries/us-states
-    var url = '../info/data/GA-13-georgia-counties.json'
+    var url = '../../georgia-data/counties/GA-13-georgia-counties.json'
 
     req.open('GET', url, true);
     req.onreadystatechange = handler;
