@@ -793,21 +793,27 @@ https://www.epa.gov/enviroatlas
 </div>
 <br><br>
 
-<div id="barchart"></div>
-<div id="impactText2"></div>
+
+<div id="barchart" style="display:none"></div>
+<div id="impactText2" style="display:none"></div>
+
 
 <script type="text/javascript" src="../../input-output/bubbles/js/bubble.js"></script>
 
 
-<div class="io" style="max-width: 750px; margin: auto;">
+<div class="io" style="display:none; max-width: 750px; margin: auto;">
         <h1 class="text-center">Impact chart</h1>
         <p>
             The impact chart widget shows the environmental profile of one or more sectors.
         </p>
-        <div id="impact-chart" class="impact-chart"></div>
-    </div>
+        <div id="impact-chart" class="impact-chart">
+        	
+        </div>
+</div>
 
-<div id="sector-list" class="sector-list">
+
+<div id="sector-list" class="sector-list" ></div>
+
 
 <script>
 
@@ -815,7 +821,7 @@ https://www.epa.gov/enviroatlas
     var modelID = config.get().model || 'GAUSEEIO';
 
     var model = useeio.model({
-        endpoint: './api',
+        endpoint: '/io/charts/useeio/api',
         model: modelID,
         asJsonFiles: true,
     });
@@ -858,7 +864,7 @@ https://www.epa.gov/enviroatlas
           var config = useeio.urlConfig();
           var modelID = config.get().model || selected_model;
           var model = useeio.model({
-              endpoint: './api',
+              endpoint: '/io/charts/useeio/api',
               model: modelID,
               asJsonFiles: true,
           });
