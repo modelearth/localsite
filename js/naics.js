@@ -179,7 +179,7 @@ function ready(values) {
                     document.addEventListener('hashChangeEvent', function (elem) {
                         let params = loadParams(location.search,location.hash);
                         //displayTopIndustries();
-                        console.log("topindustries.js detects hashChangeEvent")
+                        console.log("naics.js detects hash change hashChangeEvent")
                         
                         
                         renderIndustryChart(dataObject,values,params)
@@ -270,31 +270,9 @@ function displayTopIndustries() { // Not currently called
 //Functions
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+var priorHash_Naics = {};
 function renderIndustryChart(dataObject,values,params) {
-    /*
-    if(counter==2){
-        counter=0
-    }
-    if(counter==0){  
-      geo_list[0]=params.geo
-      if(geo_list[1]){
-        lastgeo=geo_list[1]
-        currgeo=geo_list[0]
-      }else{
-        lastgeo=[]
-        currgeo=geo_list[0]
-      }
-    }else{
-    geo_list[1]=params.geo
-    lastgeo=geo_list[0]
-    currgeo=geo_list[1]
-    }
-    if(typeof currgeo=='undefined' && typeof lastgeo!='undefined' && lastgeo.length>0 ){
-        params.census_scope='state'
-    }
-    
 
-    counter=counter+1*/
     if(!params.catsort){
         params.catsort = "payann";
     }
@@ -304,6 +282,27 @@ function renderIndustryChart(dataObject,values,params) {
     if(!params.census_scope){
         params.census_scope='state'
     }
+
+    // Reduce params to only those used
+    const filteredKeys = ['go','geo','catsort','catsize','catmethod','census_scope'];
+    params = filteredKeys.reduce((obj, key) => ({ ...obj, [key]: params[key] }), {});
+
+    console.log("params used by naics.js:")
+    console.log(params)
+    // Check which naics params have channged
+    let whichHaveChanged = [];
+    for (const key in params) {
+      //if (watchingHash.includes(${key})) {
+      if (params[key] != priorHash_Naics[key]) {
+        whichHaveChanged.push(key)
+      }
+    }
+    console.log("whichHaveChanged: " + whichHaveChanged);
+    if (whichHaveChanged.length == 0) {
+        console.log("Cancel naics.js, no params have changed")
+        return; // None have changed
+    }
+
     subsetKeys = ['emp_reported','emp_est1','emp_est3', 'payann_reported','payann_est1','payann_est3', 'estab', 'NAICS2012_TTL','GEO_TTL','state','COUNTY','relevant_naics','estimate_est1','estimate_est3']
     subsetKeys_state = ['emp_agg', 'payann_agg', 'estab_agg', 'NAICS2012_TTL','GEO_TTL','state','COUNTY','relevant_naics']
     subsetKeys_state_api = ['emp_api', 'payann_api', 'estab_api', 'NAICS2012_TTL','GEO_TTL','state','COUNTY','relevant_naics']
@@ -363,6 +362,7 @@ function renderIndustryChart(dataObject,values,params) {
     }
     console.log("renderIndustryChart calls topRatesInFips with fips: " + fips)
     topRatesInFips(dataObject, dataObject.industryNames, fips, 40, params);
+    priorHash_Naics = params;
 }
 
 //function for when the geo hash changes
