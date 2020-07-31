@@ -43,6 +43,10 @@
 .mock-up {
 	displayX: inline-block !important;
 }
+.top-content-columns-wide {
+	width:100% !important;
+	max-width:5000px !important;
+}
 .indicator-row {
     height: auto;
 }
@@ -200,7 +204,6 @@ document.addEventListener('hashChangeEvent', function (elem) {
 var priorHash = {};
 function refreshWidgets() {
 	param = loadParams(location.search,location.hash); // param is declared in localsite.js
-	//let priorHash = hash;
 	let hash = getHash();
 	//alert("refreshWidgets from prior go: " + priorHash.go + " to " + hash.go);
 	
@@ -231,8 +234,7 @@ function refreshWidgets() {
 	if (hash.show != priorHash.show) {
 		if (hash.show == "farmfresh") {
 			$(".data-section").show();
-		}
-		if (hash.show == "suppliers") {
+		} else if (hash.show == "suppliers") {
 			$(".data-section").show();
 			$(".suppliers").show();
 		} else {
@@ -244,15 +246,16 @@ function refreshWidgets() {
 		$("#infoColumn").show();
         $(".mainColumn1").show();
         //alert("showed?")
-	} if (hash.geo && hash.geo.split(",").length > 4) {
-        $("#infoColumn").hide();
-    } else if (hash.go) {
-		$("#infoColumn").show();
-	} else {
-        $("#infoColumn").show();
-        $(".mainColumn1").show();
-    }
-
+	}
+	if (hash.geo != priorHash.geo) {
+		if (hash.geo && hash.geo.split(",").length > 4) {
+	        //$("#infoColumn").hide();
+	        $("#top-content-columns").addClass("top-content-columns-wide");
+		} else {
+	        $("#infoColumn").show();
+	        $(".mainColumn1").show();
+	    }
+	}
 	//alert(hash.regiontitle)
 	if (hash.regiontitle != priorHash.regiontitle) {
 		if (hash.go) {
@@ -291,7 +294,7 @@ function refreshWidgets() {
 
 <script type="text/javascript" src="../js/map-embed.js?show=smart"></script>
 
-<div class="content contentpadding" style="padding-top:20px">
+<div id="top-content-columns" class="content contentpadding" style="padding-top:20px">
 
 <!-- two columns -->
 <div class="pageColumns">
@@ -302,7 +305,7 @@ function refreshWidgets() {
 		-->
 	     <div id="pageLinksInsert" style="display:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
 	          <a href="./">Overview</a> | 
-	          <a onClick="goHash({'go':'bioeconomy','show':''}); return false;" href="./#go=bioeconomy&view=mosaic">Bioeconomy</a> | 
+	          <a onClick="goHash({'go':'bioeconomy','show':''}); return false;" href="./#go=bioeconomy">Bioeconomy</a> | 
 	          <span class="local" style="display:none">
 	          <a onClick="go({'go':'','show':'farmfresh'}); return false;" href="./#show=farmfresh">Fresh Produce</a> | 
 	      	  </span>
@@ -315,12 +318,6 @@ function refreshWidgets() {
 	          <br>
         </div>
 
-        <!--
-		<div class="mainColumn mainColumn2" style="font-size: 15px;">
-			<a href="#view=mosaic">Statewide</a> | 
-			<a href="../../io/charts/">About Widgets</a>
-		</div>
-		-->
 	</div>
 </div>
 
