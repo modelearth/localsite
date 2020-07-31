@@ -3,6 +3,49 @@
 
 // common.js does NOT use jquery, so it can be used before jquery loads.
 
+// Dual Map Library - A global namespace singleton
+// If dual_map library exists then use it, else define a new object.
+var dual_map = dual_map || (function(){
+    var _args = {}; // private
+
+    return {
+        init : function(Args) {
+            _args = Args;
+            // some other initialising
+        },
+        helloWorld : function() {
+            alert('Hello World! -' + _args[0]);
+        },
+        community_root : function() {
+            // or sendfeedback
+            let root = location.protocol + '//' + location.host + '/localsite/';
+            if (location.host.indexOf('localhost') < 0) {
+              root = "https://neighborhood.org/localsite/";
+            }
+            return (root);
+        },
+        localsite_root : function() {
+            let root = location.protocol + '//' + location.host + '/localsite/';
+            if (location.host.indexOf('localhost') < 0) {
+              root = "https://neighborhood.org/localsite/";
+            }
+            return (root);
+        },
+        location_data_root : function() { // States, regions and counties with unique repos for custom data
+            let root = location.protocol + '//' + location.host + '/georgia-data/';
+            if (location.host.indexOf('localhost') < 0) {
+              root = "https://neighborhood.org/georgia-data/";
+            }
+            return (root);
+        },
+        absolute_root : function() {
+          // Curently only used for feedback form
+          let root = "https://map.georgia.org/community/"
+          return (root);
+        }
+    };
+}());
+
 // USE params (plural) to isolate within functions when creating embedable widgets.
 // USE param for any html page using common.js.
 var param = loadParams(location.search,location.hash);

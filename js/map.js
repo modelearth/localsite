@@ -1,48 +1,3 @@
-
-// Dual Map Library - A global namespace singleton
-// If dual_map library exists then use it, else define a new object.
-var dual_map = dual_map || (function(){
-    var _args = {}; // private
-
-    return {
-        init : function(Args) {
-            _args = Args;
-            // some other initialising
-        },
-        helloWorld : function() {
-            alert('Hello World! -' + _args[0]);
-        },
-        community_root : function() {
-            // or sendfeedback
-            let root = location.protocol + '//' + location.host + '/localsite/';
-            if (location.host.indexOf('localhost') < 0) {
-              root = "https://neighborhood.org/localsite/";
-            }
-            return (root);
-        },
-        localsite_root : function() {
-            let root = location.protocol + '//' + location.host + '/localsite/';
-            if (location.host.indexOf('localhost') < 0) {
-              root = "https://neighborhood.org/localsite/";
-            }
-            return (root);
-        },
-        location_data_root : function() {
-            let root = location.protocol + '//' + location.host + '/georgia-data/';
-            if (location.host.indexOf('localhost') < 0) {
-              root = "https://neighborhood.org/georgia-data/";
-            }
-            return (root);
-        },
-        absolute_root : function() {
-          // Curently only used for feedback form
-          let root = "https://map.georgia.org/community/"
-          return (root);
-        }
-    };
-}());
-
-
 var dataParameters = [];
 var dp = {};
 var layerControl = {}; // Object containing one control for each map on page.
@@ -77,12 +32,12 @@ var mbAttr = '<a href="https://www.mapbox.com/">Mapbox</a>',
 
 function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,callback) {
 
-  console.log('loadFromCSV into #' + whichmap + '._leaflet_map');
   if (!dp.dataset) {
-    console.log('Cancel - no dataset selected for top map.');
+    console.log('Cancel loadFromCSV - no dataset selected for top map.');
     $('#' + whichmap).hide();
     return;
   } else {
+    console.log('loadFromCSV into #' + whichmap + '._leaflet_map');
     $('#' + whichmap).show();
   }
   let defaults = {};
@@ -168,7 +123,7 @@ function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,callback) {
       dp.iconName = 'star';
       //dataParameters.push(dp);
 
-      // Remove the markers from the map for the layer
+      // Remove - clear the markers from the map for the layer
        if (map.hasLayer(overlays1[dp.dataTitle])){
           overlays1[dp.dataTitle].remove();
        }
