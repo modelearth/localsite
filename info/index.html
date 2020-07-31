@@ -222,7 +222,7 @@ function refreshWidgets() {
 			//if(location.host.indexOf('localhost') >= 0) { // Temp
 				loadScript('/localsite/js/leaflet.js', function(results) {
 					//setTimeout( function() {
-						addCountyBoundaries("geomap", hash.geomap);
+						renderMapShapes("geomap", hash);
 					//}, 3000 );
 				});
 			//}
@@ -255,6 +255,9 @@ function refreshWidgets() {
 	        $("#infoColumn").show();
 	        $(".mainColumn1").show();
 	    }
+	    if (hash.geomap == priorHash.geomap) { // Since otherwise called above
+	    	renderMapShapes("geomap", hash);
+		}
 	}
 	//alert(hash.regiontitle)
 	if (hash.regiontitle != priorHash.regiontitle) {
@@ -782,11 +785,106 @@ https://www.epa.gov/enviroatlas
 
 
   	</div>
+  	<button onclick="clearSelection()">Clear Selection</button>
 
-	<script type="text/javascript" src="../../input-output/bubbles/js/bubble.js"></script>
-	<br>
+  	<div style="clear:both"></div>
+
 
 </div>
+<br><br>
+
+<div id="barchart"></div>
+<div id="impactText2"></div>
+
+<script type="text/javascript" src="../../input-output/bubbles/js/bubble.js"></script>
+
+
+<div class="io" style="max-width: 750px; margin: auto;">
+        <h1 class="text-center">Impact chart</h1>
+        <p>
+            The impact chart widget shows the environmental profile of one or more sectors.
+        </p>
+        <div id="impact-chart" class="impact-chart"></div>
+    </div>
+
+<div id="sector-list" class="sector-list">
+
+<script>
+
+    var config = useeio.urlConfig();
+    var modelID = config.get().model || 'GAUSEEIO';
+
+    var model = useeio.model({
+        endpoint: './api',
+        model: modelID,
+        asJsonFiles: true,
+    });
+     var svg3 = d3.select("#impact-chart")
+      .append("div")
+      .attr('id', 'imp');
+    var impactChart = useeio.impactChart({
+        model: model,
+        selector: '#impt',
+        columns: 3,
+        width: 800,
+        height: 300,
+    });
+    selected_sector=""
+
+    impactChart.update({
+        sectors: [selected_sector],
+    });
+
+        var element = document.querySelector('#sector-list');
+    var observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.type == "attributes") {
+
+          
+          selected_sector1=document.getElementById('sector-list').getAttribute('sector')
+          if(typeof selected_sector1 == "undefined" || selected_sector1==null){
+              selected_sector1=[]
+              selected_sector=[]
+          }else{
+            selected_sector=selected_sector1.split(',')
+          }
+          console.log("selected"+typeof selected_sector)
+          selected_model=document.getElementById('sector-list').getAttribute('area')
+          d3.select("#imp").remove();
+          var svg3 = d3.select("#impact-chart")
+        .append("div")
+        .attr('id', 'imp');
+          console.log(selected_model)
+          var config = useeio.urlConfig();
+          var modelID = config.get().model || selected_model;
+          var model = useeio.model({
+              endpoint: './api',
+              model: modelID,
+              asJsonFiles: true,
+          });
+          var impactChart = useeio.impactChart({
+              model: model,
+              selector: '#imp',
+              columns: 3,
+              width: 800,
+              height: 300,
+          });
+          impactChart.update({
+              sectors: selected_sector,
+              
+          });
+        }
+      });
+    });
+
+    observer.observe(element, {
+      attributes: true //configure it to listen to attribute changes
+    });
+
+</script>
+<br><br><br><br>
+
+
 
 
 <div class="content contentpadding" style="display:none">
@@ -898,9 +996,9 @@ document.getElementById('showValues').onclick = function() {
 
 // These is missing var promises = [] and ready.
 // Let's look at Industry Mix first: http://localhost:8887/community/zip/leaflet/#columns=JobsAgriculture:50;JobsManufacturing:50
-function addCountyBoundaries(whichmap, whichGeoRegion) { // whichGeoRegion is not yet applied.
+function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 	var req = new XMLHttpRequest();
-
+	const whichGeoRegion = hash.geomap;
     // Topo data source
     //https://github.com/deldersveld/topojson/tree/master/countries/us-states
 
@@ -971,9 +1069,12 @@ function addCountyBoundaries(whichmap, whichGeoRegion) { // whichGeoRegion is no
 
             //})
 
-            console.log('topodata: ', topodata)
+            //console.log('topodata: ', topodata)
 
-            let geojsonLayer = L.geoJson(topodata, {style:style, onEachFeature: onEachFeature}); // Called within addTo(map)
+            //geojsonLayer.clearLayers(); // Clear prior
+            //        layerControl_CountyMap.clearLayers();
+
+            let geojsonLayer = L.geoJson(topodata, {style:styleShape, onEachFeature: onEachFeature}); // Called within addTo(map)
 
             //console.log('neigh', neighbors)
          //}
@@ -1017,16 +1118,31 @@ function addCountyBoundaries(whichmap, whichGeoRegion) { // whichGeoRegion is no
       });
 
       let dataParameters = {}; // Temp
-      //let map = document.querySelector('#' + whichmap)._leaflet_map; // Recall existing map
-      //alert("init map")
-      let map = new L.Map(whichmap,
-      {
-          scrollWheelZoom: false,
-          center: new L.LatLng(lat,lon),
-          zoom: zoom,
-          //layers: [streets, dataParameters[0].group] // Indicates default layer
-      });
-	  
+
+      let map = document.querySelector('#' + whichmap)._leaflet_map; // Recall existing map
+      var container = L.DomUtil.get(map);
+  	  if (container == null) { // Initialize map
+
+	      //let map = document.querySelector('#' + whichmap)._leaflet_map; // Recall existing map
+	      //alert("init map")
+	      /*
+	      map = new L.Map(whichmap,
+	      {
+	          scrollWheelZoom: false,
+	          center: new L.LatLng(lat,lon),
+	          zoom: zoom,
+	          //layers: [streets, dataParameters[0].group] // Indicates default layer
+	      });
+			*/
+	      map = L.map(whichmap, {
+		      center: new L.LatLng(lat,lon),
+		      scrollWheelZoom: false,
+		      zoom: zoom,
+		      dragging: !L.Browser.mobile, 
+		      tap: !L.Browser.mobile
+		    });
+
+	  }
 
       var baseLayers = {
         "Open Street Map": OpenStreetMap_BlackAndWhite,
@@ -1058,14 +1174,20 @@ function addCountyBoundaries(whichmap, whichGeoRegion) { // whichGeoRegion is no
       }
 
       if (typeof layerControl != "undefined") {
-      	console.log("SURPRISE: layerControl is available to CountyMap.")
+      	//alert("SURPRISE: layerControl is available to CountyMap.")
 
+      	// layerControl is declaired in map.js
+      	if (layerControl[whichmap] != undefined) {
+	      	if (overlays["Counties"]) {
+	          layerControl[whichmap].removeLayer(overlays["Counties"]);
+	       	}
+	    }
       	// layerControl wasn't yet available in loading sequence.
       	// Could require localsite/js/map.js load first, but top maps might not always be loaded.
       	// Or only declare layerControl object if not yet declared.
 
       	if (layerControl[whichmap] == undefined) {
-	      layerControl[whichmap] = L.control.layers(basemaps1, overlays1).addTo(map); // Push multple layers
+	      layerControl[whichmap] = L.control.layers(basemaps1, overlays).addTo(map); // Push multple layers
 	      //basemaps1["Satellite"].addTo(map);
 	      basemaps1["Streets"].addTo(map);
 	    } else {
@@ -1078,8 +1200,20 @@ function addCountyBoundaries(whichmap, whichGeoRegion) { // whichGeoRegion is no
       		//layerControl = L.control.layers(baseLayers, overlays).addTo(map);
       	}
       }
+
+      // Remove - clear the markers from the map for the layer
+       //if (map.hasLayer(overlays1[dp.dataTitle])){
+       //   overlays1[dp.dataTitle].remove();
+       //}
+       if (map.hasLayer(overlays["Counties"])){
+       	  alert("found layer")
+          overlays["Counties"].remove();
+       }
+
       // Make a layer active. 
       geojsonLayer.addTo(map);
+
+      
 
       // To add additional layers:
       //layerControl.addOverlay(dp.group, dp.name); // Appends to existing layers
@@ -1090,7 +1224,7 @@ function addCountyBoundaries(whichmap, whichGeoRegion) { // whichGeoRegion is no
           var layer = e.target;
           layer.setStyle({
             weight: 3,
-              color: '#665',
+            color: '#665',
             dashArray: '',
             fillOpacity: .7})
             if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
@@ -1099,7 +1233,7 @@ function addCountyBoundaries(whichmap, whichGeoRegion) { // whichGeoRegion is no
           // Send text to side box
           info.update(layer.feature.properties);
         }
-
+   
         function resetHighlight(e){
           geojsonLayer.resetStyle(e.target);
           info.update();
@@ -1171,26 +1305,37 @@ function mergeInDetailData(topodata,detail_data) {
   });
   return cluster_data;
 }
-function style(feature) {
+function styleShape(feature) {
 
-	return; // Temp deactivate, dp in start/maps/counties/counties.html
+	let hash = getHash(); // To do: pass in as parameter
+
+	console.log("feature ", feature)
+	//return; // Temp deactivate, dp in start/maps/counties/counties.html
 
     // Called for each topojson row
     // console.log("feature.properties.COUNTYFP: " + feature.properties.COUNTYFP);
-    var fillColor = '#ff0000';
+    var fillColor = 'rgb(51, 136, 255)'; // 
+    // For hover '#665';
     
-    // Hack - because region1 did not work like in did in maps/poverty
+    // REGION COLORS: See community/start/map/counties.html for colored region sample.
+    /*
     dp.data.forEach(function(datarow) { // For each county row from the region lookup table
       if (datarow.county_num == feature.properties.COUNTYFP) {
         fillColor = color(datarow.io_region);
       }
     })
+	*/
+	let fillOpacity = .15;
+	if (hash.geo && hash.geo.includes("US" + feature.properties.STATEFP + feature.properties.COUNTYFP)) {
+    	fillColor = 'purple';
+    	fillOpacity = .4;
+	}
     return {
-        weight: 1,
-        opacity: .5,
+        weight: 3,
+        opacity: .7,
         color: fillColor, // '#ccc', // 'white'
         //dashArray: '3',
-        fillOpacity: 0.7,
+        fillOpacity: fillOpacity,
         fillColor: fillColor
     };
     

@@ -123,7 +123,7 @@ function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,callback) {
       dp.iconName = 'star';
       //dataParameters.push(dp);
 
-      // Remove the markers from the map for the layer
+      // Remove - clear the markers from the map for the layer
        if (map.hasLayer(overlays1[dp.dataTitle])){
           overlays1[dp.dataTitle].remove();
        }
