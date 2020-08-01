@@ -692,7 +692,7 @@ function loadMap1(dp) { // Also called by map-filters.js
     this.getContainer()._leaflet_map = this;
   });
 
-  let community_root = dual_map.community_root();
+  let community_root = dual_map.community_data_root();
   let state_root = "/georgia-data/";
   let state_abbreviation = "ga";
   let dp1 = {}

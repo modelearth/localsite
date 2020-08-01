@@ -16,14 +16,6 @@ var dual_map = dual_map || (function(){
         helloWorld : function() {
             alert('Hello World! -' + _args[0]);
         },
-        community_root : function() {
-            // or sendfeedback
-            let root = location.protocol + '//' + location.host + '/localsite/';
-            if (location.host.indexOf('localhost') < 0) {
-              root = "https://neighborhood.org/localsite/";
-            }
-            return (root);
-        },
         localsite_root : function() {
             let root = location.protocol + '//' + location.host + '/localsite/';
             if (location.host.indexOf('localhost') < 0) {
@@ -31,10 +23,17 @@ var dual_map = dual_map || (function(){
             }
             return (root);
         },
-        community_data_root : function() { // States, regions and counties with unique repos for custom data
+        community_data_root : function() { // General US states and eventually some international
             let root = location.protocol + '//' + location.host + '/community-data/';
             if (location.host.indexOf('localhost') < 0) {
               root = "https://modelearth.github.io/community-data/";
+            }
+            return (root);
+        },
+        custom_data_root : function() { // Unique US states - will use javascript, domain, cookies and json.
+            let root = location.protocol + '//' + location.host + '/georgia-data/';
+            if (location.host.indexOf('localhost') < 0) {
+              root = "https://neighborhood.org/local-data/";
             }
             return (root);
         },
