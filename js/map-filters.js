@@ -592,8 +592,7 @@ function showCounties() {
 		return; // Avoid reloading
 	}
 	//Load in contents of CSV file
-	//d3.csv("data/usa/GA/GAcounties.csv", function(error, myData) {
-	d3.csv("/community-data/us/state/GA/GAcounties.csv").then(function(myData,error) {
+	d3.csv(dual_map.community_data_root() + "us/state/GA/GAcounties.csv").then(function(myData,error) {
 		if (error) {
 			alert("error")
 			console.log("Error loading file. " + error);
@@ -1038,7 +1037,7 @@ $(document).ready(function () {
 
     catString = catString.replace(/ /g, '_');
     updateHash({"cat":catString});
-    console.log("catList clicked, call loadMap1 which calls loadFromCSV > showList in dual-map.js");
+    console.log("catList clicked, call loadMap1 which calls loadFromCSV > showList in map.js");
     loadMap1();
     //hideNonListPanels();
     event.stopPropagation();
