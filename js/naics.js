@@ -54,7 +54,7 @@ d3.csv(root + "us/id_lists/state_fips.csv").then( function(consdata) {
                 d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
                 //d3.tsv(root + "data/c5.tsv"),
                 d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics6_all.tsv"),
-                d3.csv(root + "us/id_lists/county_ID_list.csv"),
+                d3.csv(root + "us/id_lists/county_id_list.csv"),
                 d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_state_all.tsv"),
                 d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_state_all.tsv"),
                 d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics6_state_all.tsv"),
@@ -246,7 +246,7 @@ function displayTopIndustries() { // Not currently called
             var filteredData = consdata.filter(function(d) {
                 if(d["FIPS"]==String(dataObject.stateshown)) {
                     var promises = [
-                    d3.csv(root + "data/industry_ID_list.csv"),
+                    d3.csv(root + "data/industry_id_list.csv"),
                     d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
                     //d3.tsv(root + "data/c3.tsv"),
                     d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
@@ -403,7 +403,7 @@ function geoChanged(dataObject,params){
             var filteredData = consdata.filter(function(d) {
                 if(d["FIPS"]==String(dataObject.stateshown)) {
                     var promises = [
-                    d3.csv(root + "data/industry_ID_list.csv"),
+                    d3.csv(root + "data/industry_id_list.csv"),
                     d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
                     //d3.tsv(root + "data/c3.tsv"),
                     d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
