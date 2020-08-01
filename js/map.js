@@ -30,6 +30,17 @@ var mbAttr = '<a href="https://www.mapbox.com/">Mapbox</a>',
 
 // INTERMODAL PORTS - was here
 
+var localsite_map = localsite_map || (function(){
+    var _args = {}; // private
+
+    return {
+        init : function(Args) {
+            _args = Args;
+            // some other initialising
+        },
+    };
+}());
+
 function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,callback) {
 
   if (!dp.dataset) {
