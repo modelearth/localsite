@@ -863,7 +863,7 @@ function loadMap1(dp) { // Also called by map-filters.js
 
   // Load the map using settings above
   loadFromCSV('map1','map2', dp1, basemaps1, basemaps2, function(results) {
-      alert("Remove this from map.js")
+      console.log("This is used by c19 map. Can we remove this from map.js?")
       // CALLED WHENEVER FILTERS CHANGE
 
       //loadFromCSV('map1', 'map2', "/community/tools/map.csv", basemaps1, basemaps2, function(results) {
