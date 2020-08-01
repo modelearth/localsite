@@ -51,7 +51,7 @@ $(document).ready(function () {
 		$(".si-btn").hide();
 	}
 	catArray = [];
-	$.get(dual_map.community_root() + 'info/data/harmonized-system.txt', function(data) {
+	$.get(dual_map.community_data_root() + 'global/hs/harmonized-system.txt', function(data) {
 		var catLines = data.split("\n");
 		
 		catLines.forEach(function(element) {
@@ -593,7 +593,7 @@ function showCounties() {
 	}
 	//Load in contents of CSV file
 	//d3.csv("data/usa/GA/GAcounties.csv", function(error, myData) {
-	d3.csv("/localsite/info/data/usa/GA/GAcounties.csv").then(function(myData,error) {
+	d3.csv("/community-data/us/state/GA/GAcounties.csv").then(function(myData,error) {
 		if (error) {
 			alert("error")
 			console.log("Error loading file. " + error);

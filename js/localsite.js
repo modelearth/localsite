@@ -31,10 +31,10 @@ var dual_map = dual_map || (function(){
             }
             return (root);
         },
-        location_data_root : function() { // States, regions and counties with unique repos for custom data
-            let root = location.protocol + '//' + location.host + '/georgia-data/';
+        community_data_root : function() { // States, regions and counties with unique repos for custom data
+            let root = location.protocol + '//' + location.host + '/community-data/';
             if (location.host.indexOf('localhost') < 0) {
-              root = "https://neighborhood.org/georgia-data/";
+              root = "https://modelearth.github.io/community-data/";
             }
             return (root);
         },
