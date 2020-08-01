@@ -1038,7 +1038,7 @@ $(document).ready(function () {
 
     catString = catString.replace(/ /g, '_');
     updateHash({"cat":catString});
-    console.log("catList clicked, call loadMap1 which calls loadFromCSV > showList in dual-map.js");
+    console.log("catList clicked, call loadMap1 which calls loadFromCSV > showList in map.js");
     loadMap1();
     //hideNonListPanels();
     event.stopPropagation();
