@@ -33,7 +33,7 @@ var dual_map = dual_map || (function(){
         custom_data_root : function() { // Unique US states - will use javascript, domain, cookies and json.
             let root = location.protocol + '//' + location.host + '/georgia-data/';
             if (location.host.indexOf('localhost') < 0) {
-              root = "https://neighborhood.org/local-data/";
+              root = "https://neighborhood.org/georgia-data/";
             }
             return (root);
         },
