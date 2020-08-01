@@ -31,20 +31,29 @@ $(document).ready(function(){
  	if (climbpath == "") {
  		climbpath += "./"; // Eliminates ? portion of URL
  	}
- 	if (param["showheader"] != "false") {
- 		if (param["showhero"] != "false") {
-	 		if(location.host.indexOf('model.georgia') >= 0) { 
-		 		$("body").prepend( "<div class='headerImage'><img src='" + climbpath + "../io/img/hero/sustainable-communities.jpg' style='width:100%'></div>");
-		 	}
-		 }
-	 	$("body").wrapInner( "<div id='fullcolumn'></div>"); // Creates space for sidecolumn
-	 	if(document.getElementById("sidecolumn") == null) {
-	 		$("body").prepend( "<div id='sidecolumn' class='hideprint'></div>\r" );
+
+ 	if (param["showhero"] != "false") {
+ 		if(location.host.indexOf('model.georgia') >= 0) { 
+	 		$("body").prepend( "<div class='headerImage'><img src='" + climbpath + "../io/img/hero/sustainable-communities.jpg' style='width:100%'></div>");
 	 	}
-	 	$("body").addClass("flexbody"); // For footer to stick at bottom on short pages
-	 	$("body").wrapInner( "<main class='flexmain'></main>"); // To stick footer to bottom
-	 	$("body").prepend( "<div id='header' class='flexheader hideprint'></div>\r" );
-		let headerFile = climbpath + "../localsite/header.html";
+	 }
+ 	$("body").wrapInner( "<div id='fullcolumn'></div>"); // Creates space for sidecolumn
+ 	if(document.getElementById("sidecolumn") == null) {
+ 		$("body").prepend( "<div id='sidecolumn' class='hideprint'></div>\r" );
+ 	}
+ 	$("body").addClass("flexbody"); // For footer to stick at bottom on short pages
+ 	$("body").wrapInner( "<main class='flexmain'></main>"); // To stick footer to bottom
+ 	$("body").prepend( "<div id='header' class='flexheader hideprint'></div>\r" );
+		
+
+ 	if (param["showheader"] == "false") {
+
+		$(".filterPanel").addClass("filterPanel_fixed");
+		$("#map1").addClass("filterPanel_fixed_maptop");
+	
+ 	} else {
+ 		// LOAD HEADER.HTML
+ 		let headerFile = climbpath + "../localsite/header.html";
 		if (param.header) headerFile = param.header;
 	 	$("#header").load(headerFile, function( response, status, xhr ) {
 
@@ -60,62 +69,66 @@ $(document).ready(function(){
 		  	  }
 		    })
 
-	 		// Set here so path works at all levels.
+ 		// Set here so path works at all levels.
 
-	 		// To do: fetch the existing background-image.
+ 		// To do: fetch the existing background-image.
+ 		
+ 		if(location.host.indexOf('georgia') >= 0) { // || location.host.indexOf('localhost') >= 0
+ 			$(".siteTitleShort").text("Model Georgia");
+	 		//imageUrl = climbpath + "../community/img/logo/georgia-icon-rect.png"; // georgia-icon-on-gray.png
+	 		//imageUrl = climbpath + "../io/img/logo/georgia_usa.png";
 	 		
-	 		if(location.host.indexOf('georgia') >= 0) { // || location.host.indexOf('localhost') >= 0
-	 			$(".siteTitleShort").text("Model Georgia");
-		 		//imageUrl = climbpath + "../community/img/logo/georgia-icon-rect.png"; // georgia-icon-on-gray.png
-		 		//imageUrl = climbpath + "../io/img/logo/georgia_usa.png";
-		 		
-		 		//imageUrlSide = climbpath + "../community/img/logo/georgia-icon-rect.png";
-	 			//$('#logoholder').addClass('logoholder-state');
-		 		//$('#headerLocTitleHolder').addClass('headerLocTitleHolder-state');
+	 		//imageUrlSide = climbpath + "../community/img/logo/georgia-icon-rect.png";
+ 			//$('#logoholder').addClass('logoholder-state');
+	 		//$('#headerLocTitleHolder').addClass('headerLocTitleHolder-state');
 
-		 		$('#logoholder').html("<a href='https://georgia.org'><img src='" + climbpath + "../community/img/logo/georgia_usa_gray.png' style='width:130px;padding-top:4px'></a>");
-		 		//$('.georgia').show(); // For nav menu
-		 		$('.georgia').css('display', 'inline');
-		 	} else if(1==2 && location.host.indexOf('neighborhood') >= 0) {
-		 		// Something here causes distorted logo live on neighborhood
-		 		$(".siteTitleShort").text("Model Building");
-		 		$('#logoholder').html("<a href='/'><img style='height: 25px;margin: 30px 10px 4px 10px;' src='" + climbpath + "../localsite/img/logo/favicon.png' style='width:140px;padding-top:4px'></a>");
-		 		$('.headerbar').css('height', '80px');
-		 		$('.headerOffsetOne').css('height', '80px');
-		 		$('.headerbarheight').css('height', '80px');
-		 		//$('.neighborhood').show(); // Not yet implemented
-		 		$('.neighborhood').css('display', 'block');
-		 	} else {
-		 		$(".siteTitleShort").text("Model Earth");
-		 		imageUrl = climbpath + "../community/img/logo/favicon.png"; // model earth
-		 		imageUrlSide = climbpath + "../community/img/logo/favicon.png";
-		 		$('#logoholderside').css('width', '24px');
-		 		$('#logoholderside').css('height', '24px');
-	 			//$('#logospace').css('margin-top','2px');
-		 		$('#logoholder').addClass('logoholder-modelearth');
-		 		$('#headerSiteTitle').html("<span style='float:left'><a href='/community/' style='text-decoration:none'><span style='color: #777;'>model</span><span style='color:#bbb;margin-left:1px'>earth</span></a></span>");
-		 		//$('#headerLocTitle').html("<span style='float:left'>model<span style='color:#bbb;margin-left:1px'>earth</span></span><i class='material-icons' style='float:left; font-size:24px; margin:4px 2px 0px 2px; color:#bbb;'>keyboard_arrow_right</i><div style='float:left;font-size:21px; padding:0 14px 0 14px; letter-spacing: 1.5px; color:#999; border:1px solid #ccc'>Georgia,USA</div>");
-		 		//$('.earth').show(); // For nav menu
-		 		$('.earth').css('display', 'block'); 
+	 		$('#logoholder').html("<a href='https://georgia.org'><img src='" + climbpath + "../community/img/logo/georgia_usa_gray.png' style='width:130px;padding-top:4px'></a>");
+	 		//$('.georgia').show(); // For nav menu
+	 		$('.georgia').css('display', 'inline');
+	 	} else if(1==2 && location.host.indexOf('neighborhood') >= 0) {
+	 		// Something here causes distorted logo live on neighborhood
+	 		$(".siteTitleShort").text("Model Building");
+	 		$('#logoholder').html("<a href='/'><img style='height: 25px;margin: 30px 10px 4px 10px;' src='" + climbpath + "../localsite/img/logo/favicon.png' style='width:140px;padding-top:4px'></a>");
+	 		$('.headerbar').css('height', '80px');
+	 		$('.headerOffsetOne').css('height', '80px');
+	 		$('.headerbarheight').css('height', '80px');
+	 		//$('.neighborhood').show(); // Not yet implemented
+	 		$('.neighborhood').css('display', 'block');
+	 	} else {
+	 		$(".siteTitleShort").text("Model Earth");
+	 		imageUrl = climbpath + "../community/img/logo/favicon.png"; // model earth
+	 		imageUrlSide = climbpath + "../community/img/logo/favicon.png";
+	 		$('#logoholderside').css('width', '24px');
+	 		$('#logoholderside').css('height', '24px');
+ 			//$('#logospace').css('margin-top','2px');
+	 		$('#logoholder').addClass('logoholder-modelearth');
+	 		$('#headerSiteTitle').html("<span style='float:left'><a href='/community/' style='text-decoration:none'><span style='color: #777;'>model</span><span style='color:#bbb;margin-left:1px'>earth</span></a></span>");
+	 		//$('#headerLocTitle').html("<span style='float:left'>model<span style='color:#bbb;margin-left:1px'>earth</span></span><i class='material-icons' style='float:left; font-size:24px; margin:4px 2px 0px 2px; color:#bbb;'>keyboard_arrow_right</i><div style='float:left;font-size:21px; padding:0 14px 0 14px; letter-spacing: 1.5px; color:#999; border:1px solid #ccc'>Georgia,USA</div>");
+	 		//$('.earth').show(); // For nav menu
+	 		$('.earth').css('display', 'block'); 
+	 	}
+	 	if (param["show"] == "mockup") {
+	 		if(location.host.indexOf('georgia') >= 0) {
+	 			$('#headerLocTitle').html("Troup County");
+	 		} else {
+		 		$('#headerLocTitle').html("<span class='arrownext' style='margin:10px 10px 0 10px'></span><span style='float:left'> Troup County</span>");
 		 	}
-		 	if (param["show"] == "mockup") {
-		 		if(location.host.indexOf('georgia') >= 0) {
-		 			$('#headerLocTitle').html("Troup County");
-		 		} else {
-			 		$('#headerLocTitle').html("<span class='arrownext' style='margin:10px 10px 0 10px'></span><span style='float:left'> Troup County</span>");
-			 	}
-			 	// Hack, since called too early for header
-			 	$('.mock-up').css('display', 'block');
-		 	}
+		 	// Hack, since called too early for header
+		 	$('.mock-up').css('display', 'block');
+	 	}
 
-		 	if(location.host.indexOf('neighborhood') >= 0) {
-		 		// Since deactivated above due to conflict with header logo in app.
-		 		$('.neighborhood').css('display', 'block');
-		 	}
-		 	if (param.titleArray) {
-		 		$('#headerSiteTitle').html("<span style='float:left'><a href='" + climbpath + "' style='text-decoration:none'><span style='color: #777;'>" + param.titleArray[0] + "</span><span style='color:#bbb;margin-left:1px'>" + param.titleArray[1] + "</span></a></span>");
-		 	}
-		 	if (param.favicon) {
+	 	if(location.host.indexOf('neighborhood') >= 0) {
+	 		// Since deactivated above due to conflict with header logo in app.
+	 		$('.neighborhood').css('display', 'block');
+	 	}
+	 	if (param.titleArray) {
+	 		$('#headerSiteTitle').html("<span style='float:left'><a href='" + climbpath + "' style='text-decoration:none'><span style='color: #777;'>" + param.titleArray[0] + "</span><span style='color:#bbb;margin-left:1px'>" + param.titleArray[1] + "</span></a></span>");
+	 	}
+	 	
+
+
+		// WAS LIMITED TO HEADER
+			if (param.favicon) {
 		 		imageUrl = climbpath + ".." + param.favicon;
 		 		//$('#logoholderside').css('width', '40px');
 		 		//$('#logoholderside').css('height', '40px');
@@ -162,24 +175,27 @@ $(document).ready(function(){
 	            	}
 	        	}
 			});
+		// END WAS LIMITED TO HEADER
 
-		});
-	
-		if(document.getElementById("footer") == null) {
-			$("body").append( "<div id='footer' class='flexfooter hideprint'></div>\r" );
-		} else {
-			//$("#footer").addClass("flexfooter");
-		}
-		let footerFile = climbpath + "../localsite/footer.html";
-		if (param.footer) footerFile = param.footer;
-		$("#footer").load(footerFile, function( response, status, xhr ) {
-			let pageFolder = getPageFolder(footerFile);
-			makeLinksRelative("footer",climbpath,pageFolder);
-		});
-	} else {
-		$(".filterPanel").addClass("filterPanel_fixed");
-		$("#map1").addClass("filterPanel_fixed_maptop");
+		}); // End $("#header").load
 	}
+
+
+
+
+
+	if(document.getElementById("footer") == null) {
+		$("body").append( "<div id='footer' class='flexfooter hideprint'></div>\r" );
+	} else {
+		//$("#footer").addClass("flexfooter");
+	}
+	let footerFile = climbpath + "../localsite/footer.html";
+	if (param.footer) footerFile = param.footer;
+	$("#footer").load(footerFile, function( response, status, xhr ) {
+		let pageFolder = getPageFolder(footerFile);
+		makeLinksRelative("footer",climbpath,pageFolder);
+	});
+
 
  	// SIDE NAV WITH HIGHLIGHT ON SCROLL
 	if (param["sidecolumn"]) {

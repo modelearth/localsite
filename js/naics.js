@@ -26,7 +26,7 @@ if(params["geo"]){
     fips = dataObject.stateshown;
 }
 
-let root = "/localsite/info/"; // To do, detect the current level like we do in 
+let root = "/community-data/"; // To do, detect the current level.
 
 // Get the levels below root
 /* Try something like this from navigation.js
@@ -44,21 +44,21 @@ let root = "/localsite/info/"; // To do, detect the current level like we do in
         climbpath += "./"; // Eliminates ? portion of URL
     }
 */
-d3.csv(root + "data/state_fips.csv").then( function(consdata) {
+d3.csv(root + "us/id_lists/state_fips.csv").then( function(consdata) {
     var filteredData = consdata.filter(function(d) {
         if(d["FIPS"]==String(dataObject.stateshown)) {
             var promises = [
-                d3.csv(root + "data/industry_ID_list.csv"),
-                d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
+                d3.csv(root + "us/id_lists/industry_id_list.csv"),
+                d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
                 //d3.tsv(root + "data/c3.tsv"),
-                d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
+                d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
                 //d3.tsv(root + "data/c5.tsv"),
-                d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics6_all.tsv"),
-                d3.csv(root + "data/county_ID_list.csv"),
-                d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_state_all.tsv"),
-                d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_state_all.tsv"),
-                d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics6_state_all.tsv"),
-                d3.tsv(root + "data/usa/"+d['Postal Code']+"/"+d['Postal Code']+"counties.csv")
+                d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics6_all.tsv"),
+                d3.csv(root + "us/id_lists/county_ID_list.csv"),
+                d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_state_all.tsv"),
+                d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_state_all.tsv"),
+                d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics6_state_all.tsv"),
+                d3.tsv(root + "us/state/"+d['Postal Code']+"/"+d['Postal Code']+"counties.csv")
             ]
 
 
@@ -72,7 +72,7 @@ d3.csv(root + "data/state_fips.csv").then( function(consdata) {
 
 function ready(values) {
     console.log("ready - promises loaded")
-    d3.csv(root + "data/state_fips.csv").then( function(consdata) {
+    d3.csv(root + "us/id_lists/state_fips.csv").then( function(consdata) {
         var filteredData = consdata.filter(function(d) {
             if(d["FIPS"]==String(dataObject.stateshown)) {
                 let params = loadParams(location.search,location.hash);
@@ -242,21 +242,21 @@ function displayTopIndustries() { // Not currently called
 
     
     if(dataObject.stateshown!=dataObject.laststateshown){
-        d3.csv(root + "data/state_fips.csv").then( function(consdata) {
+        d3.csv(root + "us/id_lists/state_fips.csv").then( function(consdata) {
             var filteredData = consdata.filter(function(d) {
                 if(d["FIPS"]==String(dataObject.stateshown)) {
                     var promises = [
                     d3.csv(root + "data/industry_ID_list.csv"),
-                    d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
+                    d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
                     //d3.tsv(root + "data/c3.tsv"),
-                    d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
+                    d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
                     //d3.tsv(root + "data/c5.tsv"),
-                    d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics6_all.tsv"),
-                    d3.csv(root + "data/county_ID_list.csv"),
-                    d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_state_all.tsv"),
-                    d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_state_all.tsv"),
-                    d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics6_state_all.tsv"),
-                    d3.tsv(root + "data/usa/"+d['Postal Code']+"/"+d['Postal Code']+"counties.csv")
+                    d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics6_all.tsv"),
+                    d3.csv(root + "us/id_lists/county_id_list.csv"),
+                    d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_state_all.tsv"),
+                    d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_state_all.tsv"),
+                    d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics6_state_all.tsv"),
+                    d3.tsv(root + "us/state/"+d['Postal Code']+"/"+d['Postal Code']+"counties.csv")
                     ]
                     Promise.all(promises).then(ready);
                 }
@@ -399,21 +399,21 @@ function geoChanged(dataObject,params){
     
 
     if(dataObject.stateshown!=dataObject.laststateshown){
-        d3.csv(root + "data/state_fips.csv").then( function(consdata) {
+        d3.csv(root + "us/id_lists/state_fips.csv").then( function(consdata) {
             var filteredData = consdata.filter(function(d) {
                 if(d["FIPS"]==String(dataObject.stateshown)) {
                     var promises = [
                     d3.csv(root + "data/industry_ID_list.csv"),
-                    d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
+                    d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
                     //d3.tsv(root + "data/c3.tsv"),
-                    d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
+                    d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
                     //d3.tsv(root + "data/c5.tsv"),
-                    d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics6_all.tsv"),
-                    d3.csv(root + "data/county_ID_list.csv"),
-                    d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_state_all.tsv"),
-                    d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_state_all.tsv"),
-                    d3.tsv(root + "data/usa/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics6_state_all.tsv"),
-                    d3.tsv(root + "data/usa/"+d['Postal Code']+"/"+d['Postal Code']+"counties.csv")
+                    d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics6_all.tsv"),
+                    d3.csv(root + "us/id_lists/county_id_list.csv"),
+                    d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_state_all.tsv"),
+                    d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_state_all.tsv"),
+                    d3.tsv(root + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics6_state_all.tsv"),
+                    d3.tsv(root + "us/state/"+d['Postal Code']+"/"+d['Postal Code']+"counties.csv")
                     ]
                     Promise.all(promises).then(ready);
                 }
@@ -496,9 +496,9 @@ function keyFound(this_key, cat_filter,params) {
 // Top rows of for a specific set of fips (states and counties)
 function topRatesInFips(dataSet, dataNames, fips, howMany, params){
   
-    document.getElementById("p1").innerHTML=""
+    $("#econ_list").html("");
     console.log("topRatesInFips")
-    d3.csv(root + "data/state_fips.csv").then( function(consdata) {
+    d3.csv(root + "us/id_lists/state_fips.csv").then( function(consdata) {
         var filteredData = consdata.filter(function(d) {
             if(d["FIPS"]==String(dataObject.stateshown)) {
                 if(params.catsort=='estab'){
@@ -795,8 +795,8 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                 if(params.catsort=="payann"){
                     totalLabel = "Total Payroll ($)";
                 }
-                d3.csv(root + "data/county_ID_list.csv").then( function(consdata) {
-                    d3.csv(root + "data/usa/"+d['Postal Code']+"/"+d['Postal Code']+"counties.csv").then( function(latdata) {
+                d3.csv(root + "us/id_lists/county_id_list.csv").then( function(consdata) {
+                    d3.csv(root + "us/state/"+d['Postal Code']+"/"+d['Postal Code']+"counties.csv").then( function(latdata) {
                          // TABLE HEADER ROW
 
                         if(Array.isArray(fips) && statelength != fips.length){
@@ -832,7 +832,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                                 //let county = "Coweta" + " County"; // Replace "Coweta" with county name from dataset
                                 let county = ""; // Delete this line
                                 
-                                //d3.csv(root + "data/county_ID_list.csv").then( function(consdata) {
+                                //d3.csv(root + "us/id_lists/county_id_list.csv").then( function(consdata) {
                                     if(Array.isArray(fips) && statelength!=fips.length){
                                         mapLink=[]
                                         for(var j=0; j<fipslen; j++){
@@ -1019,7 +1019,9 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                                 text += "<div class='row'><div class='cell'>" + icon + top_data_list[i]['NAICScode'] + "</div><div class='cell'>" + top_data_list[i]['data_id'] + "</div>" + rightCol + "</div>";
                             }
                             
-                            document.getElementById("p1").innerHTML = "<div id='sector_list'>" + text + "</div>";
+                            // use GoHash()
+                            let alertStr = "<p class='mapinfo'>Grey text indicates approximated values. <a href='https://github.com/modelearth/community-data/'>Learn more</a></p>"
+                            $("#econ_list").html("<div id='sector_list'>" + text + "</div><br>" + alertStr);
                             if(i<=20){
                                 if(i==0){
                                     naicshash=naicshash+top_data_list[i]['NAICScode']
@@ -1032,14 +1034,14 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                         } // End naics rows
 
                         // Send to USEEIO Widget
-                        document.querySelector('#industry-list').setAttribute('data-naics', naicshash);
+                        $('#industry-list').attr('data-naics', naicshash);
 
                         //updateHash({"naics":naicshash});
                         //params = loadParams(location.search,location.hash);
                         //midFunc(params.x,params.y,params.z,params);
                         })
                 })
-                d3.csv(root + "data/county_ID_list.csv").then( function(consdata) {
+                d3.csv(root + "us/id_lists/county_id_list.csv").then( function(consdata) {
                     //document.getElementById("industryheader").text = ""; // Clear initial.
                     $(".regionsubtitle").text(""); //Clear
                     if (params.go == "bioeconomy") {
@@ -1096,10 +1098,6 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                         })
                     }
                 })
-                
-                //document.getElementById("p1").innerHTML = "tri"
-                
-
                 return top_data_list;
             }
         })

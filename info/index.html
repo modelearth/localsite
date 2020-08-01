@@ -398,7 +398,7 @@ function refreshWidgets() {
 
 			
 			
-			<div id="p1"></div>
+			<div id="econ_list"></div>
 			<br>
 			<div class="mock-up" style="display:none">
 				Change scales to view the impact of different industry mixes. (Not yet activated)<br>
@@ -715,30 +715,22 @@ https://www.epa.gov/enviroatlas
 	<div id="bioenergySummaryDiv"></div>
 
 </div>
+<br>
 
 
-<div class="contentX contentpadding" style="margin-left:30px">
+
+
 <!-- Warning: adding content class causes popups to disappear because the absoulte top is using the top of page. -->
-
-	<!--
-	Source: https://bl.ocks.org/luluwuluying/ace3699c70a2e3e7a2bb
-	To do: Multicolumn sort (but allow for fixed first column)
-	https://rawgit.com/joequery/Stupid-Table-Plugin/master/examples/multicolumn-sort.html
-	-->
+<div class="contentX contentpadding" style="margin-left:30px">
 
 	<link rel="stylesheet" type="text/css" href="../../input-output/bubbles/css/bubble.css"/>
 
 
 	<div class="bubble-graph">
 
-      <div style="float:left">
-        <h2>Environmental Impact</h2>
+        <h2>Impact Bubble Chart</h2>
         <div id="bubble-graph-title"></div>
         <text id="bubble-graph-equation"></text>
-      </div>
-      <div style="float:right">
-        <div id="impactText"></div>
-      </div>
 
       <div style="clear:both; border-top:1px solid #999; border-bottom:1px solid #999; padding:10px; margin-bottom:10px; overflow: scroll">
 
@@ -786,98 +778,92 @@ https://www.epa.gov/enviroatlas
 
   	</div>
   	<button onclick="clearSelection()">Clear Selection</button>
-
   	<div style="clear:both"></div>
 
-
-</div>
-<br><br>
-
-
-<div id="barchart" style="display:none"></div>
-<div id="impactText2" style="display:none"></div>
-
-
-<script type="text/javascript" src="../../input-output/bubbles/js/bubble.js"></script>
-
-
-<div class="io" style="display:none; max-width: 750px; margin: auto;">
-        <h1 class="text-center">Impact chart</h1>
-        <p>
-            The impact chart widget shows the environmental profile of one or more sectors.
-        </p>
-        <div id="impact-chart" class="impact-chart">
-        	
-        </div>
 </div>
 
+<div class="content contentpadding" style="padding-top: 0px">
+	<!-- Saving for later -->
+	<div id="barchart" style="display:none"></div>
 
-<div id="sector-list" class="sector-list" ></div>
+	<div id="impactTextIntro">Click bubbles above to display a bar chart below for comparison.</div>
+	<div id="impactText" style="float:left"></div>
+	<div style="clear:both"></div>
 
+
+	<script type="text/javascript" src="../../input-output/bubbles/js/bubble.js"></script>
+
+
+	<div class="io" style="display:none; max-width: 750px; margin: auto;">
+	        <h1 class="text-center">Impact chart</h1>
+	        <p>
+	            The impact chart widget shows the environmental profile of one or more sectors.
+	        </p>
+	        <div id="impact-chart" class="impact-chart" style="display:none">
+	        	
+	        </div>
+	</div>
+
+
+	<div id="sector-list" class="sector-list"></div>
+</div>
 
 <script>
-
     var config = useeio.urlConfig();
     var modelID = config.get().model || 'GAUSEEIO';
-
     var model = useeio.model({
-        endpoint: '/io/charts/useeio/api',
-        model: modelID,
-        asJsonFiles: true,
+      endpoint: '/io/charts/useeio/api',
+      model: modelID,
+      asJsonFiles: true,
     });
      var svg3 = d3.select("#impact-chart")
       .append("div")
       .attr('id', 'imp');
     var impactChart = useeio.impactChart({
-        model: model,
-        selector: '#impt',
-        columns: 3,
-        width: 800,
-        height: 300,
+      model: model,
+      selector: '#impt',
+      columns: 3,
+      width: 800,
+      height: 300,
     });
     selected_sector=""
-
     impactChart.update({
         sectors: [selected_sector],
     });
 
-        var element = document.querySelector('#sector-list');
+    //update the chart if the sector-list changes.
+    var element = document.querySelector('#sector-list');
     var observer = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
         if (mutation.type == "attributes") {
-
-          
           selected_sector1=document.getElementById('sector-list').getAttribute('sector')
           if(typeof selected_sector1 == "undefined" || selected_sector1==null){
-              selected_sector1=[]
-              selected_sector=[]
+            selected_sector1=[]
+            selected_sector=[]
           }else{
             selected_sector=selected_sector1.split(',')
           }
-          console.log("selected"+typeof selected_sector)
           selected_model=document.getElementById('sector-list').getAttribute('area')
           d3.select("#imp").remove();
           var svg3 = d3.select("#impact-chart")
-        .append("div")
-        .attr('id', 'imp');
-          console.log(selected_model)
+            .append("div")
+            .attr('id', 'imp');
           var config = useeio.urlConfig();
           var modelID = config.get().model || selected_model;
           var model = useeio.model({
-              endpoint: '/io/charts/useeio/api',
-              model: modelID,
-              asJsonFiles: true,
+            endpoint: '/io/charts/useeio/api',
+            model: modelID,
+            asJsonFiles: true,
           });
           var impactChart = useeio.impactChart({
-              model: model,
-              selector: '#imp',
-              columns: 3,
-              width: 800,
-              height: 300,
+            model: model,
+            selector: '#imp',
+            columns: 3,
+            width: 800,
+            height: 300,
           });
           impactChart.update({
-              sectors: selected_sector,
-              
+            sectors: selected_sector,  
           });
         }
       });
@@ -886,7 +872,6 @@ https://www.epa.gov/enviroatlas
     observer.observe(element, {
       attributes: true //configure it to listen to attribute changes
     });
-
 </script>
 <br><br><br><br>
 
@@ -1008,7 +993,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
     // Topo data source
     //https://github.com/deldersveld/topojson/tree/master/countries/us-states
 
-    var url = dual_map.location_data_root() + '/counties/GA-13-georgia-counties.json';
+    var url = dual_map.community_data_root() + '/counties/GA-13-georgia-counties.json';
 
     var layerControl_CountyMap = {}; // Object containing one control for each map on page.
 
@@ -1315,8 +1300,7 @@ function styleShape(feature) {
 
 	let hash = getHash(); // To do: pass in as parameter
 
-	console.log("feature ", feature)
-	//return; // Temp deactivate, dp in start/maps/counties/counties.html
+	//console.log("feature ", feature)
 
     // Called for each topojson row
     // console.log("feature.properties.COUNTYFP: " + feature.properties.COUNTYFP);

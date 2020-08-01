@@ -33,7 +33,7 @@ var mbAttr = '<a href="https://www.mapbox.com/">Mapbox</a>',
 function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,callback) {
 
   if (!dp.dataset) {
-    console.log('Cancel loadFromCSV - no dataset selected for top map.');
+    console.log('CANCEL loadFromCSV - no dataset selected for top map.');
     $('#' + whichmap).hide();
     return;
   } else {
@@ -692,7 +692,7 @@ function loadMap1(dp) { // Also called by map-filters.js
     this.getContainer()._leaflet_map = this;
   });
 
-  let community_root = dual_map.community_root();
+  let community_root = dual_map.community_data_root();
   let state_root = "/georgia-data/";
   let state_abbreviation = "ga";
   let dp1 = {}
@@ -840,7 +840,7 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.listLocation = true;
   } else if (param["show"] == "farmfresh") { // || param["show"] == "" || param["show"] == "mockup"
     dp1.listTitle = "USDA Farm Produce (mockup)";
-    dp1.dataset = dual_map.location_data_root()  + "farmfresh/farmersmarkets-" + state_abbreviation + ".csv";
+    dp1.dataset = dual_map.community_data_root()  + "farmfresh/farmersmarkets-" + state_abbreviation + ".csv";
     dp1.name = "Local Farms"; // To remove
     dp1.dataTitle = "Farm Fresh Produce";
     dp1.markerType = "google";
