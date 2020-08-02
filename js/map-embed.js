@@ -29,7 +29,7 @@ strVar += "";
 strVar += "<!-- FILTERS -->";
 strVar += "<!--";
 strVar += "  Sample indicator:weight hash value: #census=pop>180:25;edu:50;work:50;pov>15;ypov>10;apov>8;spov>4";
-strVar += "  https:\/\/datascape.github.io\/localsite\/#columns=population:31;education:50";
+strVar += "  https:\/\/datascape.github.io\/community\/#columns=population:31;education:50";
 strVar += "-->";
 strVar += "<div id=\"headerFixed\" class=\"filterPanel\">";
 strVar += "  <div class=\"headerOffset headerOffsetOne\">&nbsp;<\/div>";
@@ -40,7 +40,7 @@ strVar += "";
 strVar += "  <div id=\"activeLayer\" style=\"display: none\"><\/div>";
 strVar += "";
 strVar += " ";
-strVar += "  <div id=\"filterFieldsHolder\" class=\"contentX contentpaddingX\" style=\"margin-left:35px;padding-top:0px\">";
+strVar += "  <div id=\"filterFieldsHolder\" class=\"content-wide\" style=\"padding-top:0px;\">";
 strVar += "    <div class=\"filterFields\" style=\"min-height:54px; padding:2px 0 4px 0; float:left\">";
 strVar += "";
 strVar += "      <div style=\"display:none;\" class=\"filterField mock-up suppliers exporter\">";
@@ -54,7 +54,7 @@ strVar += "";
 strVar += "";
 strVar += "            <div style=\"position:relative; float:left;\">";
 strVar += "";
-strVar += "                <div style=\"position:absolute; right:5px; top:5px; pointer-events:none;\">";
+strVar += "                <div class=\"select-menu-arrow-holder\">";
 strVar += "                  <i class=\"material-icons\" style=\"font-size:24px;cursor:pointer;\">&#xE409;<\/i>";
 strVar += "                  <i class=\"material-icons\" style=\"font-size:24px;cursor:pointer;display:none;\">&#xE313;<\/i>";
 strVar += "                <\/div>";
@@ -206,6 +206,65 @@ strVar += "                              ";
 strVar += "                          <\/ul>";
 strVar += "                          <div style=\"overflow:auto; border:1px solid #ccc; padding:20px;\" class=\"geoListHolder height100\">";
 strVar += "                              <div class=\"geoListIntro\">";
+strVar += "";
+strVar += "                                <div class=\"local input-output\" style=\"display:none\">";
+strVar += "                                <select id=\"state_select\" name=\"state\">";
+strVar += "                                   <option value='AL'>Alabama<\/option>";
+strVar += "                                   <option value='AK'>Alaska<\/option>";
+strVar += "                                   <option value='AZ'>Arizona<\/option>";
+strVar += "                                   <option value='AR'>Arkansas<\/option>";
+strVar += "                                   <option value='CA'>California<\/option>";
+strVar += "                                   <option value='CO'>Colorado<\/option>";
+strVar += "                                   <option value='CT'>Connecticut<\/option>";
+strVar += "                                   <option value='DE'>Delaware<\/option>";
+strVar += "                                   <option value='DC'>District of Columbia<\/option>";
+strVar += "                                   <option value='FL'>Florida<\/option>";
+strVar += "                                   <option value='GA' selected>Georgia<\/option>";
+strVar += "                                   <option value='HI'>Hawaii<\/option>";
+strVar += "                                   <option value='ID'>Idaho<\/option>";
+strVar += "                                   <option value='IL'>Illinois<\/option>";
+strVar += "                                   <option value='IN'>Indiana<\/option>";
+strVar += "                                   <option value='IA'>Iowa<\/option>";
+strVar += "                                   <option value='KS'>Kansas<\/option>";
+strVar += "                                   <option value='KY'>Kentucky<\/option>";
+strVar += "                                   <option value='LA'>Louisiana<\/option>";
+strVar += "                                   <option value='ME'>Maine<\/option>";
+strVar += "                                   <option value='MD'>Maryland<\/option>";
+strVar += "                                   <option value='MA'>Massachusetts<\/option>";
+strVar += "                                   <option value='MI'>Michigan<\/option>";
+strVar += "                                   <option value='MN'>Minnesota<\/option>";
+strVar += "                                   <option value='MS'>Mississippi<\/option>";
+strVar += "                                   <option value='MO'>Missouri<\/option>";
+strVar += "                                   <option value='MT'>Montana<\/option>";
+strVar += "                                   <option value='NE'>Nebraska<\/option>";
+strVar += "                                   <option value='NV'>Nevada<\/option>";
+strVar += "                                   <option value='NH'>New Hampshire<\/option>";
+strVar += "                                   <option value='NJ'>New Jersey<\/option>";
+strVar += "                                   <option value='NM'>New Mexico<\/option>";
+strVar += "                                   <option value='NY'>New York<\/option>";
+strVar += "                                   <option value='NC'>North Carolina<\/option>";
+strVar += "                                   <option value='ND'>North Dakota<\/option>";
+strVar += "                                   <option value='OH'>Ohio<\/option>";
+strVar += "                                   <option value='OK'>Oklahoma<\/option>";
+strVar += "                                   <option value='OR'>Oregon<\/option>";
+strVar += "                                   <option value='PA'>Pennsylvania<\/option>";
+strVar += "                                   <option value='RI'>Rhode Island<\/option>";
+strVar += "                                   <option value='SC'>South Carolina<\/option>";
+strVar += "                                   <option value='SD'>South Dakota<\/option>";
+strVar += "                                   <option value='TN'>Tennessee<\/option>";
+strVar += "                                   <option value='TX'>Texas<\/option>";
+strVar += "                                   <option value='UT'>Utah<\/option>";
+strVar += "                                   <option value='VT'>Vermont<\/option>";
+strVar += "                                   <option value='VA'>Virginia<\/option>";
+strVar += "                                   <option value='WA'>Washington<\/option>";
+strVar += "                                   <option value='WV'>West Virginia<\/option>";
+strVar += "                                   <option value='WI'>Wisconsin<\/option>";
+strVar += "                                   <option value='WY'>Wyoming<\/option>";
+strVar += "                                 <\/select>";
+strVar += "                                 <br><br>";
+strVar += "                                 <\/div>";
+strVar += "                                 <div style=\"clear:both\"><\/div>";
+strVar += "";
 strVar += "                                <b>Quick Links<\/b><br>";
 strVar += "                                <ul>";
 strVar += "                                      <li><a onClick=\"goHash({";
@@ -470,8 +529,6 @@ strVar += "<\/div>";
 strVar += "<!-- END FILTERS -->";
 strVar += "";
 strVar += "";
-strVar += "";
-strVar += "";
 strVar += "<!-- Matches filterFields and headerFixed height -->";
 strVar += "<div class=\"headerOffset2\" style=\"height:56px\">&nbsp;<\/div>";
 strVar += "";
@@ -641,7 +698,7 @@ strVar += "";
 strVar += "  <div class=\"user-5\" style=\"display:none\">";
 strVar += "    <hr>Staff only - ";
 strVar += "    <a href=\"\/maps\/leaflet\/providers\/preview\/\" target=\"basemaps\">View Basemaps<\/a> | ";
-strVar += "    <a href=\"\/localsite\/impact\/json\/menu.json\">View JSON<\/a><br>";
+strVar += "    <a href=\"\/community\/impact\/json\/menu.json\">View JSON<\/a><br>";
 strVar += "    <div class=\"settingAdminNotes\"><\/div>";
 strVar += "  <\/div>";
 strVar += "";
@@ -689,6 +746,44 @@ strVar += "      -->";
 strVar += "    <\/div>";
 strVar += "  <\/div>";
 strVar += "";
+strVar += "  <!--";
+strVar += "  <div class=\"sideWidget eWidget\">";
+strVar += "    <div class=\"widgetbar\" style=\"padding-left:5px\">";
+strVar += "      <a href=\"..\/start\/dataset\/\"><img src=\"\/localsite\/info\/img\/backarrow.gif\" style=\"width:11.5px;float:left;margin:1px 7px 0 0\"><\/a>";
+strVar += "      AGRICULTURE, FORESTRY, FISHING AND HUNTING";
+strVar += "    <\/div>";
+strVar += "    ";
+strVar += "    <div class=\"topboxes\">";
+strVar += "      <div style=\"position: relative\">";
+strVar += "          <img src=\"\/localsite\/info\/img\/sectors.gif\" style=\"width:100%;max-width:400px;margin-right:80px\" \/>";
+strVar += "          <div style=\"position: absolute; right:0; top:8px; background: rgb(250,250,250); padding-left:6px\">";
+strVar += "            <img src=\"\/localsite\/info\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
+strVar += "            <img src=\"\/localsite\/info\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
+strVar += "            <img src=\"\/localsite\/info\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
+strVar += "            <img src=\"\/localsite\/info\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
+strVar += "            <img src=\"\/localsite\/info\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
+strVar += "            <img src=\"\/localsite\/info\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
+strVar += "            <img src=\"\/localsite\/info\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
+strVar += "            <img src=\"\/localsite\/info\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
+strVar += "            <img src=\"\/localsite\/info\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
+strVar += "            <img src=\"\/localsite\/info\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
+strVar += "            <img src=\"\/localsite\/info\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
+strVar += "            <img src=\"\/localsite\/info\/img\/plus-minus.gif\" class=\"plus-minus\"><br>";
+strVar += "            <img src=\"\/localsite\/info\/img\/plus-minus.gif\" class=\"plus-minus\">";
+strVar += "          <\/div>";
+strVar += "      <\/div>";
+strVar += "";
+strVar += "      <div style=\"font-size: 12px; background:#eee; border-bottom:1px solid #ddd; display:inline; padding:0 4px 0 4px\">";
+strVar += "        <a href=\"..\/start\/dataset\/\">Main categories<\/a> | ";
+strVar += "        <a href=\"..\/start\/dataset\/\">Show all 382 sectors<\/a>";
+strVar += "";
+strVar += "        <span style=\"float:right; color:#777\">Balanced &nbsp;<\/span>";
+strVar += "";
+strVar += "      <\/div>";
+strVar += "";
+strVar += "    <\/div>";
+strVar += "  <\/div>";
+strVar += "  -->";
 strVar += "  ";
 strVar += "<\/div>";
 strVar += "<!-- \/INDUSTRIES -->";
@@ -725,40 +820,7 @@ strVar += "";
 strVar += "";
 strVar += "<!-- buttons -->";
 strVar += "<style>";
-strVar += "        .pagebuttonHolder {";
-strVar += "          padding: 4px;";
-strVar += "          padding-top: 6px;";
-strVar += "          padding-bottom: 11px;";
-strVar += "          overflow: auto;";
-strVar += "          background-color:#fff;";
-strVar += "          width:100%;";
-strVar += "        }";
-strVar += "        .pagebutton {";
-strVar += "          background: #cfcfcf;";
-strVar += "          margin-right: 8px;";
-strVar += "          color:#fff;";
-strVar += "          border-radius: 5px;";
-strVar += "          padding: 0px 4px 0 6px;";
-strVar += "          min-height: 34px;";
-strVar += "          vertical-align: middle;";
-strVar += "          cursor: pointer;";
-strVar += "          \/* text-transform: uppercase; *\/";
-strVar += "          font-family: 'Open Sans', 'Helvetica Neue', HelveticaNeue, calibri, arial, sans-serif;";
-strVar += "          font-size: 15.5px;";
-strVar += "          font-weight: 400;";
-strVar += "          line-height: 1;";
-strVar += "        }";
-strVar += "        .pagebutton:hover {";
-strVar += "          background-color:#aaa;";
-strVar += "        }";
-strVar += "        .listOptions {";
-strVar += "          display:none;";
-strVar += "          position:absolute;";
-strVar += "          left:auto;";
-strVar += "          right: 0;";
-strVar += "          top: 44px;";
-strVar += "          width: 164px;";
-strVar += "        }";
+strVar += "";
 strVar += "      <\/style>";
 strVar += "";
 strVar += "";
@@ -1168,8 +1230,6 @@ strVar += "<!-- End HTML -->";
 
 
 
-
-
 // Hidden until search-filters.css loads
 document.write("<div id=\"filterEmbedHolder\" style=\"display:none;position:relative\">" + strVar + "<\/div> ");
 
@@ -1309,7 +1369,7 @@ function jsLoaded(root) {
 
 	  	loadScript(root + '/localsite/js/d3.v5.min.js', function(results) { // BUG - change so map-filters.js does not require this on it's load
 	    	loadScript(root + '/localsite/js/map.js', function(results) { 
-	  			loadSearchFilters(root,1); // Uses dual_map library for community_root
+	  			loadSearchFilters(root,1); // Uses dual_map library in localsite.js for community_data_root
 	  		});
 	    });
 	});
@@ -1347,7 +1407,7 @@ function leafletLoaded(root, count) {
 }
 
 function loadSearchFilters(root, count) {
-	if (typeof customD3loaded !== 'undefined' && typeof dual_map !== 'undefined') {
+	if (typeof customD3loaded !== 'undefined' && typeof localsite_map !== 'undefined') {
 		loadScript(root + '/localsite/js/map-filters.js', function(results) {});
 	} else if (count<100) { // Wait a milisecond and try again
 		setTimeout( function() {
@@ -1396,8 +1456,8 @@ function lazyLoadFiles() {
 lazyLoadFiles();
 
 function dualmapLoaded(param, root, count) {
-	if (typeof dual_map !== 'undefined' && typeof L.IconMaterial !== 'undefined') {
-		dual_map.init(["somevalue", 1, "controlId"]); // Used by link to feedback form
+	if (typeof localsite_map !== 'undefined' && typeof L.IconMaterial !== 'undefined') {
+		localsite_map.init(["somevalue", 1, "controlId"]); // Used by link to feedback form
 
 		$("#filterEmbedHolder img[src]").each(function() {
 			  if($(this).attr("src").toLowerCase().indexOf("http") < 0){

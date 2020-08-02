@@ -219,13 +219,16 @@ function refreshWidgets() {
 			$("#aboutToolsDiv").hide();
 			$("#infoColumn").show();
 			$("#geomap").show();
-			//if(location.host.indexOf('localhost') >= 0) { // Temp
-				loadScript('/localsite/js/leaflet.js', function(results) {
-					//setTimeout( function() {
-						renderMapShapes("geomap", hash);
-					//}, 3000 );
-				});
-			//}
+			/*
+			alert("show map")
+			if (document.querySelector('#geomap')._leaflet_map) {
+				alert("redraw map")
+				document.querySelector('#geomap')._leaflet_map.invalidateSize(); // Refresh map tiles.
+			}
+			*/
+			loadScript('/localsite/js/leaflet.js', function(results) {
+				renderMapShapes("geomap", hash);
+			});
 		} else {
 			$("#geomap").hide();
 			$("#aboutToolsDiv").show();
@@ -270,7 +273,7 @@ function refreshWidgets() {
 
 	if (hash.geo != priorHash.geo) {
 		//$(".regiontitle").text(""); //Clear
-		//$(".regionsubtitle").text(""); //Clear
+		//$(".location_titles").text(""); //Clear
 		//updateLoc(hash.geo); // Check counties. (map-filters.js)
 	}
 	
@@ -348,7 +351,7 @@ function refreshWidgets() {
 		
 			<div>
 				<h2 class="regiontitle">Loading Industries...</h2>
-				<h4 class="regionsubtitle" style="font-size:16px;color:#555;"></h4>
+				<h4 class="location_titles" style="font-size:16px;color:#555;display:none"></h4>
 			</div>
 
 			<!--
@@ -939,7 +942,6 @@ function loadScriptXXXXXX(url, callback)
 
 function updateText(go) {
 	$("#aboutToolsDiv").text("");
-	//$("#geomap").hide();
 	if (go == "bioeconomy") {
 		loadMarkdown("../../io/tools/bioeconomy-planner/about.md", "aboutToolsDiv", "_parent");
 		//loadMarkdown("../../io/tools/bioeconomy-planner/bioenergy/README.md", "bioenergySummaryDiv", "_parent");
@@ -1007,7 +1009,8 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
     function handler(){
 
     if(req.readyState === XMLHttpRequest.DONE) {
-
+//alert("render")
+//map.invalidateSize();
       //map.addLayer(OpenStreetMap_BlackAndWhite)
 
       // try and catch json parsing of the responseText
@@ -1203,7 +1206,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
       // Make a layer active. 
       geojsonLayer.addTo(map);
-
+      
       
 
       // To add additional layers:

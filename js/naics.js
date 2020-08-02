@@ -282,7 +282,7 @@ function renderIndustryChart(dataObject,values,params) {
     }
 
     // Reduce params to only those used
-    const filteredKeys = ['go','geo','catsort','catsize','catmethod','census_scope'];
+    const filteredKeys = ['go','geo','catsort','catsize','catmethod','catpage','catcount','census_scope'];
     params = filteredKeys.reduce((obj, key) => ({ ...obj, [key]: params[key] }), {});
 
     console.log("params used by naics.js:")
@@ -359,7 +359,7 @@ function renderIndustryChart(dataObject,values,params) {
         fips = dataObject.stateshown;
     }
     console.log("renderIndustryChart calls topRatesInFips with fips: " + fips)
-    topRatesInFips(dataObject, dataObject.industryNames, fips, 40, params);
+    topRatesInFips(dataObject, dataObject.industryNames, fips, params);
     priorHash_Naics = params;
 }
 
@@ -419,7 +419,7 @@ function geoChanged(dataObject,params){
 
         })
     }
-    topRatesInFips(dataObject, dataObject.industryNames, fips, 40, params)
+    topRatesInFips(dataObject, dataObject.industryNames, fips, params)
     console.log('fips: '+fips)
 }
 
@@ -492,8 +492,9 @@ function keyFound(this_key, cat_filter,params) {
 }
 
 // Top rows of for a specific set of fips (states and counties)
-function topRatesInFips(dataSet, dataNames, fips, howMany, params){
-  
+function topRatesInFips(dataSet, dataNames, fips, params){
+    let catcount = params.catcount || 20;
+
     $("#econ_list").html("");
     console.log("topRatesInFips")
     d3.csv(dual_map.community_data_root() + "us/id_lists/state_fips.csv").then( function(consdata) {
@@ -643,7 +644,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                 top_data_ids = []
                 naCount = 1
                 let naicscode = [];
-                x=Math.min(howMany,rates_list.length)
+                x=Math.min(catcount,rates_list.length)
 
                 if(Array.isArray(fips)){
 
@@ -818,7 +819,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                         text = "<div class='row'><div class='cell'><!-- col 1 --></div><div class='cell'><!-- col 2 --></div>" + text + "<div class='cell-right'>" + totalLabel + "</div><div></div class='cell mock-up' style='display:none'></div>"; // #676464
                         
                         // INDUSTRY ROWS
-                        y=Math.min(howMany, top_data_ids.length)
+                        y=Math.min(catcount, top_data_ids.length)
                         naicshash=""
                         $("#econ_list").html("<div><br>No results found. " + d["county"] + "</div><br>");
                         for (i = 0; i < y; i++) { // Naics

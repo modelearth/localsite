@@ -338,4 +338,38 @@
   color: #fff;
 }
 
-
+.pagebuttonHolder {
+  padding: 4px;
+  padding-top: 6px;
+  padding-bottom: 11px;
+  overflow: auto;
+  background-color:#fff;
+  width:100%;
+  overflow: visible;
+}
+.pagebutton {
+  background: #cfcfcf;
+  margin-right: 8px;
+  color:#fff;
+  border-radius: 5px;
+  padding: 0px 4px 0 6px;
+  min-height: 34px;
+  vertical-align: middle;
+  cursor: pointer;
+  /* text-transform: uppercase; */
+  font-family: 'Open Sans', 'Helvetica Neue', HelveticaNeue, calibri, arial, sans-serif;
+  font-size: 15.5px;
+  font-weight: 400;
+  line-height: 1;
+}
+.pagebutton:hover {
+  background-color:#aaa;
+}
+.listOptions {
+  display:none;
+  position:absolute;
+  left:auto;
+  right: 0;
+  top: 44px;
+  width: 164px;
+}
