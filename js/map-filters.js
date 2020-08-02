@@ -760,6 +760,8 @@ locationFilterChange("counties");
 $("#filterClickLocation .filterSelected").html("Counties");
 $(".filterUL li").removeClass("selected");
 $(".filterUL li").find("[data-id='counties']").addClass("selected"); // Not working
+$(".showSearch").css("display","inline-block");
+$(".showSearch").removeClass("local");
 
 function showSearchClick() {
 	

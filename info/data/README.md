@@ -1,21 +1,25 @@
 ## Data Preparation 
 
-The census does not publish payroll values for counties with only 1 or 2 establishments (and sometimes up to 27 establishments, ). Instead, they provide these values as aggregates within a state total for each industry.  
+The census does not publish payroll values for counties with only 1 or 2 establishments (and sometimes up to 27 establishments). Instead, they provide these values as aggregates within a state total for each industry.  
 
-To allow for gaps in annual community census data, we calculate an industry estimates for every year first, and then averaging across years. This allows a sum of each industry’s average to match the state total for the 5 years spanned.  
+To fill gaps in annual community census data, we calculate an industry estimate for each year in a range of 5 years, then average across years. This allows a sum of each industry’s average to match the state total for the 5 years spanned.  
 
-To approximate payrolls and employee levels based on the number of establishments, we provide two options under the settings icon:  
+To approximate payrolls and employee levels based on the number of establishments, we provide three options under the settings icon when at least one county is selected:  
 
-1. Average of unpublished payrolls  
-2. Average of total state payroll  
+1. Average of unallocated county payrolls  
+2. Average of all state payrolls (less accurate)  
+3. Leave unpublished values blank  
 
-Option 1 dispersals should accurately add up to the state total, while pulling their average from other counties with a similar low concentration of an industry.  
+The default display is option 1 since it more accurately fills in the gaps with values that add up to the actual state total. In some cases, option 2 may more accurately match an individual county, so we advise comparing the two while factoring in attributes that may affect the level in the counties you are analysing.  
 
-Example: With option 1 “Temporary Help Services” is five times higher (at $17.76 mil) for McDuffie County because counties with only a couple firms tend to have large payrolls as the sole provider of a local service.  
+Option 1 dispersals add up to the state total by pulling their average from other counties with a similar low concentration of an industry.  
 
-With option 2, the level is low ($4.92 mil) because overall counties with more than a couple services have smaller payrolls per establishment.  
+For example: With option 1 “Temporary Help Services” is five times higher than the state average for McDuffie County, Georgia because counties with only a couple firms tend to have larger payrolls since they are the sole provider of local temp services.  With option 2 (state average), the level is low because overall counties with more than a couple services tend to have smaller payrolls per establishment.  
 
-This trend flips for industries that have larger revenue in areas where firms are concentrated, hence “Transportation Equipment Manufacturing” is estimated higher for McDuffie County when using the state average because payrolls are higher for firms in other counties where transportation equipment production is concentrated.  
-Based on the above, we’ll use option 1 by default.  
+This trend flips for industries that have larger revenue in counties where firms are concentrated, hence “Transportation Equipment Manufacturing” is estimated higher for McDuffie County, Georgia when using the average of all state payrolls because payrolls for similar firms in other counties with higher concentrations of equipment manufacturing skew the average upward, exceeding the value that is shared by the unallocated counties which have less concentration.  
+
+[More about data prep](https://github.com/modelearth/community-data/)
+
+
 
 
