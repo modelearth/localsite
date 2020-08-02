@@ -816,7 +816,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                                 })
                             }
                         }
-                        text = "<div class='row'><div class='cell'><!-- col 1 --></div><div class='cell'><!-- col 2 --></div>" + text + "<div class='cell-right'>" + totalLabel + "</div><div></div class='cell mock-up' style='display:none'></div>"; // #676464
+                        text = "<div class='row'><div class='cell'><!-- col 1 -->NAICS</div><div class='cell' style='min-width:300px'><!-- col 2 -->Industry</div>" + text + "<div class='cell-right'>" + totalLabel + "</div><div></div class='cell mock-up' style='display:none'></div>"; // #676464
                         
                         // INDUSTRY ROWS
                         y=Math.min(catcount, top_data_ids.length)
@@ -1020,7 +1020,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                             }
                             
                             // use GoHash()
-                            let alertStr = "<p class='mapinfo'>Grey text indicates approximated values. <a href='https://github.com/modelearth/community-data/'>Learn more</a></p>"
+                            let alertStr = "<p class='mapinfo'>Grey text indicates approximated values. <a href='#go=dataprep'>Learn more</a></p>"
                             $("#econ_list").html("<div id='sector_list'>" + text + "</div><br>" + alertStr);
                             if(i<=20){
                                 if(i==0){

@@ -1,8 +1,8 @@
 ## Data Preparation 
 
-The census does not publish payroll values for counties with only 1 or 2 establishments (and sometimes up to 27 establishments). Instead, they provide these values as aggregates within a state total for each industry.  
+The census publishes payroll and employee counts by county for industries with 3 or more establishments. Sometimes industries with up to 27 establishments are also unpublished. Values are available as aggregates within a state total for each industry.  
 
-To fill gaps in annual community census data, we calculate an industry estimate for each year in a range of 5 years, then average across years. This allows a sum of each industry’s average to match the state total for the 5 years spanned.  
+To fill gaps, we generate an industry estimate for each year in a range of 5 years, then average across years. This allows a sum of each industry’s average to match the state's total for the 5 years spanned.  
 
 To approximate payrolls and employee levels based on the number of establishments, we provide three options under the settings icon when at least one county is selected:  
 

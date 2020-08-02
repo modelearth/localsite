@@ -837,7 +837,7 @@ strVar += "            <h1 class=\"shortTitle\" style=\"display:none; margin-bot
 strVar += "";
 strVar += "            <div id=\"pageLinks\"><\/div>";
 strVar += "";
-strVar += "            <div style=\"float:right;padding-top:6px\">";
+strVar += "            <div style=\"float:right\">";
 strVar += "              <div class=\"sendfeedback pagebutton\" style=\"float:left;\">";
 strVar += "                <div style=\"margin:10px 5px 0 3px;white-space: nowrap; float:left\"> ";
 strVar += "                Feedback";
