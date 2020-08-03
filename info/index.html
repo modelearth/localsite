@@ -322,38 +322,98 @@ function refreshWidgets() {
 <!-- /top hero -->
 
 
-<div id="top-content-columns" class="content contentpadding" style="padding-top:0px; padding-bottom:0px">
-
-<!-- two columns -->
-<div class="pageColumns">
-	<div style="display:table-row;">
-		
-		<!--
-			class="mainColumn mainColumn1" 
-		-->
-	     <div id="pageLinksInsert" style="display:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
-	          <a onClick="go({}); return false;"  href="./">Overview</a> | 
-	          <a onClick="goHash({'go':'bioeconomy','show':''}); return false;" href="./#go=bioeconomy">Bioeconomy</a> | 
-	          <span class="local" style="display:none">
-	          <a onClick="go({'go':'','show':'farmfresh'}); return false;" href="./#show=farmfresh">Fresh Produce</a> | 
-	      	  </span>
-	          <a onClick="goHash({'go':'manufacturing','show':''}); return false;" href="./#go=manufacturing">Manufacturing</a> | 
-	          <a onClick="goHash({'go':'parts','show':''}); return false;" href="./#go=parts">Automotive Parts</a> | 
-	          <span class="local" style="display:none">
-	          <a onClick="goHash({'go':'','show':'suppliers'}); return false;" href="./#show=suppliers">PPE Suppliers</a> | 
-	      	  </span>
-	          <a onClick="goHash({'geomap':'US13'}); return false;" href="./#geomap=US13">County&nbsp;Map</a>
-	          <br>
-        </div>
-
-	</div>
-</div>
-
-</div>
-
 <!-- map and list -->
 <script type="text/javascript" src="../js/map-embed.js?show=smart"></script>
 <!-- /map and list -->
+
+<div style="clear:both"></div>
+
+
+<div class="content contentpadding">
+    <div class="pageColumns">
+
+        <div class="pageColumn">
+          <div class="pageColumnInside">
+
+            <h2>Local Supply Chains</h2>
+            Yilun Zha
+            
+          </div>
+        </div>
+
+        <div class="pageColumn">
+          <div class="pageColumnInside">
+              <h2>Environmental Indicators</h2>
+              Nazanin Tabatabaei
+          </div>
+        </div>
+
+        <div class="pageColumn">
+          <div class="pageColumnInside">
+
+            <h2>Sustainable Bioeconomies</h2>
+            Cindy Azuero
+            
+          </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="content contentpadding" style="padding-bottom:20px;">
+    <div id="localDiv"></div>
+    How will local economies be impacted as the transition occurs from gas vehicles to electric and hydrogen vehicles?<br><br>
+    <script>
+        loadMarkdown("../../io/overview/README.md", "localDiv", "_parent");
+    </script>
+</div>
+
+<div classX="widthColumns" class="content contentpadding contentwide" style="padding-bottom:20px; background: #fff">
+    
+    <img src="../../io/overview/img/hero/sankey.png" style="width:100%; bottom:0px;">
+    <br>
+</div>
+<br>
+
+<div class="lazy bgimg bgimg-notfixed" data-src="../../io/overview/img/hero/board-masks.jpg" style="top:auto; bottom:0px; opacity:.85; line-height: 0px">
+    <img src="../../io/overview/img/hero/board-masks.jpg" style="opacity:0; width:100%; bottom:0px;">
+</div>
+
+
+
+<div id="top-content-columns" class="content contentpadding" style="padding-top:0px; padding-bottom:0px">
+
+	<br>
+	<!-- two columns -->
+	<div class="pageColumns">
+		<div style="display:table-row;">
+			
+			<!--
+				class="mainColumn mainColumn1" 
+			-->
+		     <div id="pageLinksInsert" style="display:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
+		          <a onClick="go({}); return false;"  href="./">Overview</a> | 
+		          <a onClick="goHash({'go':'bioeconomy','show':''}); return false;" href="./#go=bioeconomy">Bioeconomy</a> | 
+		          <span class="local" style="display:none">
+		          <a onClick="go({'go':'','show':'farmfresh'}); return false;" href="./#show=farmfresh">Fresh Produce</a> | 
+		      	  </span>
+		          <a onClick="goHash({'go':'manufacturing','show':''}); return false;" href="./#go=manufacturing">Manufacturing</a> | 
+		          <a onClick="goHash({'go':'parts','show':''}); return false;" href="./#go=parts">Automotive Parts</a> | 
+		          <span class="local" style="display:none">
+		          <a onClick="goHash({'go':'','show':'suppliers'}); return false;" href="./#show=suppliers">PPE Suppliers</a> | 
+		      	  </span>
+		          <a onClick="goHash({'geomap':'US13'}); return false;" href="./#geomap=US13">County&nbsp;Map</a>
+		          <br>
+	        </div>
+
+		</div>
+	</div>
+	<br>
+
+</div>
+
+
 
 <div class="content contentpadding" style="padding-top:0px; padding-bottom:0px">
 
