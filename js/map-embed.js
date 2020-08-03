@@ -40,7 +40,7 @@ strVar += "";
 strVar += "  <div id=\"activeLayer\" style=\"display: none\"><\/div>";
 strVar += "";
 strVar += " ";
-strVar += "  <div id=\"filterFieldsHolder\" class=\"content-wide\" style=\"padding-top:0px;\">";
+strVar += "  <div id=\"filterFieldsHolder\" class=\"content-wide noprint\" style=\"padding-top:0px;\">";
 strVar += "    <div class=\"filterFields\" style=\"min-height:54px; padding:2px 0 4px 0; float:left\">";
 strVar += "";
 strVar += "      <div class=\"showApps local\" style=\"display:none;float:left;\">";

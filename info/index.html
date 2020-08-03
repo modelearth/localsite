@@ -48,6 +48,18 @@
 #logoholder { margin-top: -8px; }
 #headerLocTitleHolder { margin-left: 10px !important; margin-top: 2px !important; }
 
+.fade-in {
+  animation: fadeIn ease 4s;
+}
+@keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
 .headerOffset2 {
 	display: none !important;
 }
@@ -303,7 +315,7 @@ function refreshWidgets() {
 <div style="background:#fff; min-height:150px; width:100%; position: relative">
     <div class="herocenter" style="position: absolute; z-index:2; top:42%">
 
-        <div class="fade-in text-flowX" style="position:fixed; 
+        <div class="fade-in noprint" style="position:fixed; 
         left:0px; right:0px; 
         text-align:center; 
         margin-top:50px; color:#fff; font-size:28px; text-shadow: 2px 2px 8px #333;">
@@ -351,15 +363,20 @@ function refreshWidgets() {
 }
 .biotext {
   overflow: auto;
-  font-size: 18px;
+  font-size: 16px;
 }
 .biotext h2 {
   font-size: 20px;
   margin-top: 0px;
+  padding-bottom: 0px;
+  margin-bottom: 8px;
 }
 </style>
 <br>
+
 <div class="content contentpadding biotext">
+    <a href="../../io/team/" style="float:right" class="noprint">View Team Bios</a>
+    <h1 style="margin-bottom:35px">Our Team</h1>
     <div class="pageColumns">
 
         <div class="pageColumn">
@@ -380,7 +397,7 @@ function refreshWidgets() {
                 <img src="../../io/team/img/Nazanin-Tabatabaei.jpg">
             </div>
               <h2>Nazanin Tabatabaei</h2>
-              Environmental Indicators
+              Industries and Indicators
           </div>
         </div>
 
@@ -394,9 +411,85 @@ function refreshWidgets() {
           </div>
         </div>
 
+        <div style="clear:both; height:40px"></div>
+
+        <div class="pageColumn">
+          <div class="pageColumnInside">
+            <div class="bioimage">
+                <img src="../../io/team/img/Wesley-Ingwersen.jpg">
+            </div>
+            <h2>Wesley Ingwersen</h2>
+            US EPA Lead
+            
+          </div>
+        </div>
+
+        <div class="pageColumn">
+          <div class="pageColumnInside">
+
+            <div class="bioimage">
+                <img src="../../io/team/img/Loren-Kevin-Heyns.jpg">
+            </div>
+              <h2>Loren Heyns</h2>
+              GA Economic Development
+          </div>
+        </div>
+
+        <div class="pageColumn">
+          <div class="pageColumnInside">
+            <div class="bioimage">
+                <img src="../../io/team/img/Valerie-Thomas.png">
+            </div>
+            <h2>Valerie Thomas</h2>
+            Georgia Tech Advisor
+          </div>
+        </div>
+
+        <div style="clear:both; height:40px"></div>
+
+        <div style="display:none">
+	        <div class="pageColumn">
+	          <div class="pageColumnInside">
+	            <div class="bioimage">
+	                <img src="../../io/team/img/Barbara-Alfano.jpg">
+	            </div>
+	            <h2>Barbara Alfano</h2>
+	            US EPA
+	            
+	          </div>
+	        </div>
+
+	        <div class="pageColumn">
+	          <div class="pageColumnInside">
+
+	            <div class="bioimage">
+	                <img src="../../io/team/img/Costas-Simoglou.jpg">
+	            </div>
+	              <h2>Costas Simoglou</h2>
+	              GA Economic Development
+	          </div>
+	        </div>
+
+	        <div class="pageColumn">
+	          <div class="pageColumnInside">
+	            <div class="bioimage">
+	                <img src="../../io/team/img/Dawn-Price.jpg">
+	            </div>
+	            <h2>Dawn Price</h2>
+	            GA Economic Development
+	          </div>
+	        </div>
+	    </div>
+
+
     </div>
+
+    
+<div style="clear:both"></div><br>
+
+
 </div>
-<div style="clear:both"></div>
+
 <!-- /bios -->
 
 
@@ -447,7 +540,7 @@ function refreshWidgets() {
 
 
 
-<div id="top-content-columns" class="content contentpadding" style="padding-top:0px; padding-bottom:0px">
+<div id="top-content-columns" class="content contentpadding noprint" style="padding-top:0px; padding-bottom:0px">
 
 	<br>
 	<!-- two columns -->
@@ -486,9 +579,11 @@ function refreshWidgets() {
 	<div style="display:table-row">
 		<div id="infoColumn" class="mainColumn mainColumn1" style="font-size: 15px; position: relative">
 
+			<h1 class="module_h1">Industries and Indicators</h1>
+
 			<!--
 
-			<h1 class="module_h1">The Impact Game</h1>
+			
 
 			<div style="max-width:400px; margin-bottom:10px">
 			Adjust your local industry mix to maximize job quality, 
@@ -579,7 +674,7 @@ function refreshWidgets() {
 	<h2 style="border:0px" id="infoHeaderX">Supply Chain Impact</h2>
 	<hr>
 
-	<div style="float:right;margin-bottom:16px">
+	<div style="float:right;margin-bottom:16px" class="noprint">
 		<a href="../../io/charts/">About Widgets</a>
 	</div>
 </div>
@@ -720,7 +815,7 @@ Choose commodities below to view upstream input and downstream output.<br>
 <!-- MOSAIC HEATMAP -->
 <br><br>
 <div class="content contentadding">
-	<div style="float:right;margin-bottom:16px">
+	<div style="float:right;margin-bottom:16px" class="noprint">
 		<a href="../../io/charts/">About Mosaic</a>
 	</div>
 
@@ -890,7 +985,7 @@ https://www.epa.gov/enviroatlas
 
 	<div class="bubble-graph">
 
-		<div style="float:right;margin-bottom:16px">
+		<div style="float:right;margin-bottom:16px" class="noprint">
 			<a href="../../io/charts/">About Bubble Chart</a>
 		</div>
 
@@ -952,7 +1047,7 @@ https://www.epa.gov/enviroatlas
 	<!-- Saving for later -->
 	<div id="barchart" style="display:none"></div>
 
-	<div id="impactTextIntro">Click bubbles above to display a bar chart below for comparison.</div>
+	<div id="impactTextIntro" class="noprint">Click bubbles above to display a bar chart below for comparison.</div>
 	<div id="impactText" style="float:left"></div>
 	<div style="clear:both"></div>
 
