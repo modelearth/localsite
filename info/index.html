@@ -402,7 +402,6 @@ function refreshWidgets() {
 
 <div class="content contentpadding" style="padding-bottom:20px;">
     <div id="localDiv"></div>
-    How will local economies be impacted as the transition occurs from gas vehicles to electric and hydrogen vehicles?<br><br>
     <script>
         loadMarkdown("../../io/overview/README.md", "localDiv", "_parent");
     </script>
@@ -415,8 +414,35 @@ function refreshWidgets() {
 </div>
 <br>
 
+<style>
+	.storybox {
+        position: absolute;
+        left: 60px;
+        bottom: 40px;
+        height: 420px;
+        width: 420px;
+        background-color: rgba(35, 35, 35, .85);
+        padding: 60px;
+        padding-top: 50px;
+        padding-bottom: 40px;
+        color:#fff;
+        line-height: 2.6em;
+        font-size: 16px;
+    }
+    .storybox-right {
+        left: auto;
+        right: 60px;
+    }
+    @media (max-width: 1400px) {
+	  .storybox {display:none;}
+	}
+</style>
 <div class="lazy bgimg bgimg-notfixed" data-src="../../io/overview/img/hero/board-masks.jpg" style="top:auto; bottom:0px; opacity:.85; line-height: 0px">
     <img src="../../io/overview/img/hero/board-masks.jpg" style="opacity:0; width:100%; bottom:0px;">
+
+    <div class="storybox storybox-right hideMobile">
+           <h2 style="color:#eee">Local Economies</h2>
+    </div>
 </div>
 
 
