@@ -821,7 +821,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                         // INDUSTRY ROWS
                         y=Math.min(catcount, top_data_ids.length)
                         naicshash=""
-                        $("#econ_list").html("<div><br>No results found. " + d["county"] + "</div><br>");
+                        $("#econ_list").html("<div><br>No results found.</div><br>");
                         for (i = 0; i < y; i++) { // Naics
                             rightCol="";
                             midCol="";
