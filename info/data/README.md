@@ -14,7 +14,7 @@ The default display is option 1 since it more accurately fills in the gaps with 
 
 Option 1 dispersals add up to the state total by pulling their average from other counties with a similar low concentration of an industry.  
 
-For example: With option 1 “Temporary Help Services” is five times higher than the state average for McDuffie County, Georgia because counties with only a couple firms tend to have larger payrolls since they are the sole provider of local temp services.  With option 2 (state average), the level is low because overall counties with more than a couple services tend to have smaller payrolls per establishment.  
+For example: With option 1 “Temporary Help Services” is five times higher than the state average for estimated counties using the average of unassigned payrolls - perhaps because agricultural counties with only a couple temp agencies tend to have larger payrolls since as the sole provider of local temp services.  With option 2 (state average), the level is low because overall counties have more temp services with smaller payrolls per establishment.  
 
 This trend flips for industries that have larger revenue in counties where firms are concentrated, hence “Transportation Equipment Manufacturing” is estimated higher for McDuffie County, Georgia when using the average of all state payrolls because payrolls for similar firms in other counties with higher concentrations of equipment manufacturing skew the average upward, exceeding the value that is shared by the unallocated counties which have less concentration.  
 
