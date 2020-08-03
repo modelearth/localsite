@@ -233,15 +233,18 @@ summary::-webkit-details-marker {
   padding-right: 40px;
   padding-bottom: 45px;
 }
-.content-wide {
-  margin-left:30px
+.contentwide {
+  max-width: 1400px;
 }
 .content li {
   margin-left: -10px;
 }
-@media (min-width: 1400px) {
+@media (max-width: 1400px) {
   .content {
     max-width: 1120px;
+  }
+  .contentwide {
+    max-width: 1350px;
   }
 }
 @media (max-width: 1200px) {
