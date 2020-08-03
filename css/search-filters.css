@@ -302,7 +302,7 @@
   width:100%;
   background-color: #fff;
   z-index: 1001;
-  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 1px 7px rgba(0, 0, 0, 0.1); */
   overflow: visible;
   min-height: 56px;
 }
@@ -348,10 +348,13 @@
   overflow: visible;
 }
 .pagebutton {
+  /*
   background: #cfcfcf;
-  margin-right: 8px;
   color:#fff;
-  border-radius: 5px;
+  */
+  margin-right: 8px;
+  border-radius: 7px;
+  border: 1px solid #dfdfdf;
   padding: 0px 4px 0 6px;
   min-height: 34px;
   vertical-align: middle;
@@ -364,6 +367,7 @@
 }
 .pagebutton:hover {
   background-color:#aaa;
+  color:#fff;
 }
 .listOptions {
   display:none;

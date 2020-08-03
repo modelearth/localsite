@@ -6,14 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/x-icon" href="../img/logo/favicon.png" />
 
-<script type="text/javascript" src="../js/jquery/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="../js/localsite.js"></script>
+<script type="text/javascript" src="../js/jquery/jquery-1.12.4.min.js" id="http://localhost:8887/localsite/js/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../js/localsite.js" id="http://localhost:8887/localsite/js/localsite.js"></script>
 <script type="text/javascript" src="../js/navigation.js"></script>
 <script type="text/javascript" src="../js/showdown.min.js"></script>
-<script type="text/javascript" src="../js/d3.v5.min.js"></script>
-
+<script type="text/javascript" src="../js/d3.v5.min.js" id="http://localhost:8887/localsite/js/d3.v5.min.js"></script>
 <script src="https://unpkg.com/topojson-client@3"></script>
-
 
 <!-- PRODUCTION -->
 <!--
@@ -37,8 +35,23 @@
 <link rel="stylesheet" href="../css/community.css" />
 -->
 
+<script>
+	$(document).ready(function () {
+		param.titleArray = ["Georgia"]
+		param.headerLogo = "<img src='/community/img/logo/georgia-icon.png' style='width:64px'>";
+
+	    $(window).scroll(function(){$(".herocenter").css("opacity", 1 - $(window).scrollTop() / 200);});
+	});
+</script>
 
 <style>
+#menuNav { display:none; }
+#logoholder { margin-top: -8px; }
+#headerLocTitleHolder { margin-left: 10px !important; margin-top: 2px !important; }
+    
+.headerOffset2 {
+	display: none !important;
+}
 /* Temp overrides */
 .mock-up {
 	displayX: inline-block !important;
@@ -63,7 +76,7 @@
 	display: block !important;
 }
 #map1 {
-	height:350px !important;
+	height:350px;
 }
 #data {
 	displayX: none !important;
@@ -82,23 +95,12 @@ code {
 	margin-bottom:5px;
 }
 
-h1 {
-	margin-bottom: 1px;
-	padding-bottom: 1px;
-}
+
 .module_h1XX {
 	font-size:28px;
 	font-weight: 200;
 	padding-top:0px;
 	margin-top:0px;
-	margin-bottom:20px;
-	border-bottom: 1px solid #ddd;
-}
-h2 {
-	font-size:28px;
-	font-weight: 200;
-	padding-top:0px;
-	margin-top:0px !important; /* Oddly community.css has priority otherwise */
 	margin-bottom:20px;
 	border-bottom: 1px solid #ddd;
 }
@@ -298,9 +300,30 @@ function refreshWidgets() {
 
 <body>
 
-<script type="text/javascript" src="../js/map-embed.js?show=smart"></script>
+<!-- top hero -->
+<div style="background:#fff; min-height:150px; width:100%; position: relative">
+    <div class="herocenter" style="position: absolute; z-index:2; top:42%">
 
-<div id="top-content-columns" class="content contentpadding" style="padding-top:20px">
+        <div class="fade-in text-flowX" style="position:fixed; 
+        left:0px; right:0px; 
+        text-align:center; 
+        margin-top:50px; color:#fff; font-size:28px; text-shadow: 2px 2px 8px #333;">
+            Georgia's <span style="font-weight:800; opacity:1">environmentally-enabled</span> input-output
+
+            <br><br>
+            <div id="play-button" style="font-size: 68px; margin-left:2px">
+            	<a onClick="goHash({}); return false;"  href="#industries">▶️</a>
+            </div>
+        </div>
+    </div>
+    <div class="lazy bgimg bgimg-notfixed" data-src="../../io/overview/img/hero/woman-table-computer.jpg" style="opacity:.85">
+        <img src="../../io/overview/img/hero/woman-table-computer.jpg" style="opacity:0;width:100%">
+    </div>
+</div>
+<!-- /top hero -->
+
+
+<div id="top-content-columns" class="content contentpadding" style="padding-top:0px; padding-bottom:0px">
 
 <!-- two columns -->
 <div class="pageColumns">
@@ -310,7 +333,7 @@ function refreshWidgets() {
 			class="mainColumn mainColumn1" 
 		-->
 	     <div id="pageLinksInsert" style="display:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
-	          <a href="./">Overview</a> | 
+	          <a onClick="go({}); return false;"  href="./">Overview</a> | 
 	          <a onClick="goHash({'go':'bioeconomy','show':''}); return false;" href="./#go=bioeconomy">Bioeconomy</a> | 
 	          <span class="local" style="display:none">
 	          <a onClick="go({'go':'','show':'farmfresh'}); return false;" href="./#show=farmfresh">Fresh Produce</a> | 
@@ -326,6 +349,14 @@ function refreshWidgets() {
 
 	</div>
 </div>
+
+</div>
+
+<!-- map and list -->
+<script type="text/javascript" src="../js/map-embed.js?show=smart"></script>
+<!-- /map and list -->
+
+<div class="content contentpadding" style="padding-top:0px; padding-bottom:0px">
 
 <div class="pageColumns">
 	<div style="display:table-row">
@@ -421,7 +452,7 @@ function refreshWidgets() {
 <div class="content contentpadding litePanel" style="width:95% !important; max-width:95%; margin-top:20px; border:1px solid #aaa">
 
 <div style="margin-right:45px">
-	<h2 style="border:0px" id="infoHeaderX">Supply Chain</h2>
+	<h2 style="border:0px" id="infoHeaderX">Supply Chain Impact</h2>
 	<hr>
 
 	<div style="float:right;margin-bottom:16px">

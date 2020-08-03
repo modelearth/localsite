@@ -756,7 +756,7 @@ function updateLoc(geo) {
     }
 }
 // INIT
-locationFilterChange("counties"); 
+locationFilterChange("counties"); // Display county list
 $("#filterClickLocation .filterSelected").html("Counties");
 $(".filterUL li").removeClass("selected");
 $(".filterUL li").find("[data-id='counties']").addClass("selected"); // Not working
