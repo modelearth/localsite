@@ -9,7 +9,7 @@
   To create a widget from this page, see map-embed.js.
 -->
 
-<title>Local Input-Output Map</title>
+<title>Community Map</title>
 
 
 <link type="text/css" rel="stylesheet" href="../css/base.css" />
@@ -117,6 +117,10 @@
   <div id="filterFieldsHolder" class="content-wide" style="padding-top:0px;">
     <div class="filterFields" style="min-height:54px; padding:2px 0 4px 0; float:left">
 
+      <div class="showApps local" style="display:none;float:left;">
+        <i class="material-icons" style="font-size:30px; color:#ccc; padding:10px 0px 4px 0px; cursor:pointer">&#xE5C3;</i>
+      </div>
+
       <div style="display:none;" class="filterField mock-up suppliers exporter">
         <div id="catSearchHolder">
           <div class="filterLabel">
@@ -150,6 +154,8 @@
       <!-- KEYWORD SEARCH -->
       <div style="float:left">
         <div class="filterField keywordField">
+          
+
           <!-- Search Companies -->
           <div class="filterLabel">
               <div class="filterLabelMain">
@@ -281,8 +287,8 @@
                           <div style="overflow:auto; border:1px solid #ccc; padding:20px;" class="geoListHolder height100">
                               <div class="geoListIntro">
 
-                                <div class="local" style="display:none">
-                                <select id="state_select" name="state" class="picklist">
+                                <div class="local input-output" style="display:none">
+                                <select id="state_select" name="state">
                                    <option value='AL'>Alabama</option>
                                    <option value='AK'>Alaska</option>
                                    <option value='AZ'>Arizona</option>
@@ -337,6 +343,7 @@
                                  </select>
                                  <br><br>
                                  </div>
+                                 <div style="clear:both"></div>
 
                                 <b>Quick Links</b><br>
                                 <ul>
@@ -345,14 +352,16 @@
                                       'geo':'US13001,US13005,US13127,US13161,US13229,US13305', 
                                       'lat':'31.1891',
                                       'lon':'-81.4979'
-                                      }); $('.fieldSelector').hide(); return false;" href="#regiontitle=Southeast+Coastal+Georgia&geo=US13001,US13005,US13127,US13161,US13229,US13305&lat=31.1891&lon=-81.4980">Southeast Coastal Georgia</a></li> 
+                                      }); $('.fieldSelector').hide(); return false;" href="#regiontitle=Southeast+Coastal+Georgia&geo=US13001,US13005,US13127,US13161,US13229,US13305&lat=31.1891&lon=-81.4980">Southeast Coastal Georgia</a></li>
 
                                       <li><a onClick="goHash({
                                       'regiontitle':'West+Central+Georgia',
                                       'geo':'US13077,US13145,US13149,US13199,US13263,US13285', 
                                       'lat':'33.0362',
                                       'lon':'-85.0322'
-                                      }); $('.fieldSelector').hide(); return false;" href="#regiontitle=West+Central+Georgia&geo=US13077,US13145,US13149,US13199,US13263,US13285">West&nbsp;Central&nbsp;Georgia</a></li>
+                                      }); $('.fieldSelector').hide(); return false;" href="#regiontitle=West+Central+Georgia&geo=US13045,US13077,US13143,US13145,US13149,US13199,US13223,US13233,US13263,US13285">West&nbsp;Central&nbsp;Georgia</a></li>
+
+                                      <!--     US13077,US13145,US13149,US13199,US13263,US13285 -->
                                 </ul>
                                 Click column headers to sort:<br>
                               </div>
@@ -503,6 +512,102 @@
       </div><!-- /searchField -->
 
     </div><!-- /filterFields -->
+
+
+
+    <!-- Right Links -->
+        <div style="float:right; padding-top:10px; padding-right:10px">
+          <div class="sendfeedback pagebutton" style="float:left;">
+            <div style="margin:10px 5px 0 3px;white-space: nowrap; float:left"> 
+            Feedback
+            </div>
+          </div>
+          <div class="local downloadbutton showDownload pagebutton" href="#" style="float:left; display:none">
+            <div style="float:left">
+              <i class="material-icons" style="font-size:19pt;padding-top:4px">&#xE2C4;</i>
+            </div>
+            <div class="downloadtext" style="margin:10px 5px 0 3px;white-space: nowrap; float:left"> 
+            Download
+            </div>
+          </div>
+
+        <!--
+        <div class="local addlisting pagebutton greenButton" href="#" style="float:left; display:none">
+          
+          <div class="hideMobile" style="margin:10px 5px 0 3px;white-space: nowrap; float:left"> 
+          Add Listing
+          </div>
+          <div class="showMobile" style="display:none;"><i class="material-icons" style="font-size:19pt;padding-top:4px">&#xE145;</i></div>
+
+        </div>
+        <div class="local partnertools pagebutton" href="#" style="float:left; display:none">
+          <div style="margin:10px 5px 0 3px;white-space: nowrap; float:left"> 
+          Partner Tools
+          </div>
+        </div>
+        -->
+
+        <!-- Down arrow -->
+        <div class="local catchClick hideEmbed" style="position:relative;float:left;overflow:visible;">
+
+          <div class="toggleListOptions pagebutton"><i class="material-icons toggleArrow" style="font-weight:900; font-size: 32px; padding:0px; margin:0px">&#xE5C5;</i>
+          </div>
+
+          <div class="listOptions filterBubble">
+
+            <div class="hideEmbed" style="display:none">
+
+              <div class="reduceHeader menuItem" style="display:none"><i class="material-icons" style="margin-top:-5px;">&#xE3C4;</i>Narrow Header</div>
+
+              <!-- Google Icons - search for "crop" -->
+              <div class="revealImage menuItem" style="display:none"><i class="material-icons" style="margin-top:-5px;">&#xE3C4;</i>Full Header Image</div>
+
+              <div class="hideInfo hideInfoLink menuItem"><i class="material-icons" style="margin-top:-5px">&#xE88E;</i>Hide Bar</div>
+
+              <div class="showInfo showInfoLink menuItem" style="display:none"><i class="material-icons" style="margin-top:-10px">&#xE88E;</i>Show Info</div>
+
+            </div>
+
+            
+            <div class="showImage menuItem" style="display:none"><i class="material-icons">slideshow</i>Slideshow</div>
+
+              <div class="hideMobile">
+              <div class="local menuItem refreshMap" style="display:none">
+                <i class="material-icons" style="font-weight:900; margin-top:-5px">&#xE5D5;</i> Refresh Map
+              </div>
+            </div>
+
+            <!--
+            <div class="menuItem hideList" style="display:none">
+              <i class="material-icons" style="font-size:28px;margin-top:-5px;">&#xE5CD;</i> Hide List
+            </div>
+
+            <div class="menuItem showList">
+              <i class="material-icons" style="font-size:28px;margin-top:-5px;">&#xE8EF;</i> Show List
+            </div>
+            -->
+
+            <div class="menuItem hideMap" style="display:none">
+              <i class="material-icons" style="font-size:28px;margin-top:-5px;">&#xE55B;</i> Hide Map
+            </div>
+            <div class="menuItem showMap" style="display:none">
+              <i class="material-icons" style="font-size:28px;margin-top:-5px;">&#xE55B;</i> Show Map
+            </div>
+
+            <div class="menuItem showThumbnails layerContentHide" style="display:none">
+              <i class="material-icons" style="font-size:28px;margin-top:-5px;">&#xE8F0;</i> Modules
+            </div>
+
+          </div>
+
+        </div>
+        <!-- /Down arrow -->
+
+        <div class="showInfo showInfoButton1 pagebutton" style="float: left; padding: 3px 3px 3px 4px; color:#fff; display:none;"><i class="material-icons" style="font-size:28px;">&#xE88F;</i>
+        </div>
+      </div>
+      <!-- /Right Links -->
+
   </div>
     
 
@@ -889,159 +994,6 @@
 </div>
 
 <div id="list_main" style="overflow:auto; background: #fff">
-
-
-<!-- buttons -->
-<style>
-        .pagebuttonHolder {
-          padding: 4px;
-          padding-top: 6px;
-          padding-bottom: 11px;
-          overflow: auto;
-          background-color:#fff;
-          width:100%;
-        }
-        .pagebutton {
-          background: #cfcfcf;
-          margin-right: 8px;
-          color:#fff;
-          border-radius: 5px;
-          padding: 0px 4px 0 6px;
-          min-height: 34px;
-          vertical-align: middle;
-          cursor: pointer;
-          /* text-transform: uppercase; */
-          font-family: 'Open Sans', 'Helvetica Neue', HelveticaNeue, calibri, arial, sans-serif;
-          font-size: 15.5px;
-          font-weight: 400;
-          line-height: 1;
-        }
-        .pagebutton:hover {
-          background-color:#aaa;
-        }
-        .listOptions {
-          display:none;
-          position:absolute;
-          left:auto;
-          right: 0;
-          top: 44px;
-          width: 164px;
-        }
-      </style>
-
-
-      <div style="padding-top:0px;padding-bottom:0px">
-        <div style="overflow: visible;">
-
-          <div class="pagebuttonHolder" style="min-height:45px; padding-left:20px">
-
-            <div class="showApps local" style="display:none;float:left;">
-              <i class="material-icons" style="font-size:30px; color:#ccc; padding:5px 0px 4px 0px; cursor:pointer">&#xE5C3;</i>
-            </div>
-
-            <h1 class="shortTitle" style="display:none; margin-bottom:0px; padding:4px 15px 4px 0; white-space: nowrap; float:left; font-size:28px; color:#999; margin-top;"></h1>
-
-            <div id="pageLinks"></div>
-
-            <div style="float:right;padding-top:6px">
-              <div class="sendfeedback pagebutton" style="float:left;">
-                <div style="margin:10px 5px 0 3px;white-space: nowrap; float:left"> 
-                Feedback
-                </div>
-              </div>
-              <div class="local downloadbutton showDownload pagebutton" href="#" style="float:left; display:none">
-                <div style="float:left">
-                  <i class="material-icons" style="font-size:19pt;padding-top:4px">&#xE2C4;</i>
-                </div>
-                <div class="downloadtext" style="margin:10px 5px 0 3px;white-space: nowrap; float:left"> 
-                Download
-                </div>
-            </div>
-
-            <!--
-            <div class="local addlisting pagebutton greenButton" href="#" style="float:left; display:none">
-              
-              <div class="hideMobile" style="margin:10px 5px 0 3px;white-space: nowrap; float:left"> 
-              Add Listing
-              </div>
-              <div class="showMobile" style="display:none;"><i class="material-icons" style="font-size:19pt;padding-top:4px">&#xE145;</i></div>
-
-            </div>
-            <div class="local partnertools pagebutton" href="#" style="float:left; display:none">
-              <div style="margin:10px 5px 0 3px;white-space: nowrap; float:left"> 
-              Partner Tools
-              </div>
-            </div>
-            -->
-
-            <!-- Down arrow -->
-            <div class="local catchClick hideEmbed" style="position:relative;float:left;overflow:visible;">
-
-              <div class="toggleListOptions pagebutton"><i class="material-icons toggleArrow" style="font-weight:900; font-size: 32px; padding:0px; margin:0px">&#xE5C5;</i>
-              </div>
-
-              <div class="listOptions filterBubble">
-
-                <div class="hideEmbed" style="display:none">
-
-                  <div class="reduceHeader menuItem" style="display:none"><i class="material-icons" style="margin-top:-5px;">&#xE3C4;</i>Narrow Header</div>
-
-                  <!-- Google Icons - search for "crop" -->
-                  <div class="revealImage menuItem" style="display:none"><i class="material-icons" style="margin-top:-5px;">&#xE3C4;</i>Full Header Image</div>
-
-                  <div class="hideInfo hideInfoLink menuItem"><i class="material-icons" style="margin-top:-5px">&#xE88E;</i>Hide Bar</div>
-
-                  <div class="showInfo showInfoLink menuItem" style="display:none"><i class="material-icons" style="margin-top:-10px">&#xE88E;</i>Show Info</div>
-
-                </div>
-
-                
-                <div class="showImage menuItem" style="display:none"><i class="material-icons">slideshow</i>Slideshow</div>
-
-                  <div class="hideMobile">
-                  <div class="local menuItem refreshMap" style="display:none">
-                    <i class="material-icons" style="font-weight:900; margin-top:-5px">&#xE5D5;</i> Refresh Map
-                  </div>
-                </div>
-
-                <!--
-                <div class="menuItem hideList" style="display:none">
-                  <i class="material-icons" style="font-size:28px;margin-top:-5px;">&#xE5CD;</i> Hide List
-                </div>
-
-                <div class="menuItem showList">
-                  <i class="material-icons" style="font-size:28px;margin-top:-5px;">&#xE8EF;</i> Show List
-                </div>
-                -->
-
-                <div class="menuItem hideMap" style="display:none">
-                  <i class="material-icons" style="font-size:28px;margin-top:-5px;">&#xE55B;</i> Hide Map
-                </div>
-                <div class="menuItem showMap" style="display:none">
-                  <i class="material-icons" style="font-size:28px;margin-top:-5px;">&#xE55B;</i> Show Map
-                </div>
-
-                <div class="menuItem showThumbnails layerContentHide" style="display:none">
-                  <i class="material-icons" style="font-size:28px;margin-top:-5px;">&#xE8F0;</i> Modules
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="showInfo showInfoButton1 pagebutton" style="float: left; padding: 3px 3px 3px 4px; color:#fff; display:none;"><i class="material-icons" style="font-size:28px;">&#xE88F;</i>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      </div><!-- /content -->
-
-      <div style="clear:both; border-bottom: 1px solid #eee;">
-      </div>
-<!-- /buttons -->
-
 
 <!-- APP MENU -->
 <!-- From map-filters.js displayBigThumbnails function -->

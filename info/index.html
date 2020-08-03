@@ -6,14 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/x-icon" href="../img/logo/favicon.png" />
 
-<script type="text/javascript" src="../js/jquery/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="../js/localsite.js"></script>
+<script type="text/javascript" src="../js/jquery/jquery-1.12.4.min.js" id="http://localhost:8887/localsite/js/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../js/localsite.js" id="http://localhost:8887/localsite/js/localsite.js"></script>
 <script type="text/javascript" src="../js/navigation.js"></script>
 <script type="text/javascript" src="../js/showdown.min.js"></script>
-<script type="text/javascript" src="../js/d3.v5.min.js"></script>
-
+<script type="text/javascript" src="../js/d3.v5.min.js" id="http://localhost:8887/localsite/js/d3.v5.min.js"></script>
 <script src="https://unpkg.com/topojson-client@3"></script>
-
 
 <!-- PRODUCTION -->
 <!--
@@ -37,8 +35,22 @@
 <link rel="stylesheet" href="../css/community.css" />
 -->
 
+<script>
+	$(document).ready(function () {
+		param.titleArray = ["Georgia"]
+		param.headerLogo = "<img src='/community/img/logo/georgia-icon.png' style='width:64px'>";
+
+	    $(window).scroll(function(){$(".herocenter").css("opacity", 1 - $(window).scrollTop() / 200);});
+	});
+</script>
 
 <style>
+#logoholder { margin-top: -8px; }
+#headerLocTitleHolder { margin-left: 10px !important; margin-top: 2px !important; }
+
+.headerOffset2 {
+	display: none !important;
+}
 /* Temp overrides */
 .mock-up {
 	displayX: inline-block !important;
@@ -63,7 +75,7 @@
 	display: block !important;
 }
 #map1 {
-	height:350px !important;
+	height:350px;
 }
 #data {
 	displayX: none !important;
@@ -82,23 +94,12 @@ code {
 	margin-bottom:5px;
 }
 
-h1 {
-	margin-bottom: 1px;
-	padding-bottom: 1px;
-}
+
 .module_h1XX {
 	font-size:28px;
 	font-weight: 200;
 	padding-top:0px;
 	margin-top:0px;
-	margin-bottom:20px;
-	border-bottom: 1px solid #ddd;
-}
-h2 {
-	font-size:28px;
-	font-weight: 200;
-	padding-top:0px;
-	margin-top:0px !important; /* Oddly community.css has priority otherwise */
 	margin-bottom:20px;
 	border-bottom: 1px solid #ddd;
 }
@@ -219,13 +220,16 @@ function refreshWidgets() {
 			$("#aboutToolsDiv").hide();
 			$("#infoColumn").show();
 			$("#geomap").show();
-			//if(location.host.indexOf('localhost') >= 0) { // Temp
-				loadScript('/localsite/js/leaflet.js', function(results) {
-					//setTimeout( function() {
-						renderMapShapes("geomap", hash);
-					//}, 3000 );
-				});
-			//}
+			/*
+			alert("show map")
+			if (document.querySelector('#geomap')._leaflet_map) {
+				alert("redraw map")
+				document.querySelector('#geomap')._leaflet_map.invalidateSize(); // Refresh map tiles.
+			}
+			*/
+			loadScript('/localsite/js/leaflet.js', function(results) {
+				renderMapShapes("geomap", hash);
+			});
 		} else {
 			$("#geomap").hide();
 			$("#aboutToolsDiv").show();
@@ -270,7 +274,7 @@ function refreshWidgets() {
 
 	if (hash.geo != priorHash.geo) {
 		//$(".regiontitle").text(""); //Clear
-		//$(".regionsubtitle").text(""); //Clear
+		//$(".location_titles").text(""); //Clear
 		//updateLoc(hash.geo); // Check counties. (map-filters.js)
 	}
 	
@@ -295,34 +299,123 @@ function refreshWidgets() {
 
 <body>
 
+<!-- top hero -->
+<div style="background:#fff; min-height:150px; width:100%; position: relative">
+    <div class="herocenter" style="position: absolute; z-index:2; top:42%">
+
+        <div class="fade-in text-flowX" style="position:fixed; 
+        left:0px; right:0px; 
+        text-align:center; 
+        margin-top:50px; color:#fff; font-size:28px; text-shadow: 2px 2px 8px #333;">
+            Georgia's <span style="font-weight:800; opacity:1">environmentally-enabled</span> input-output
+
+            <br><br>
+            <div id="play-button" style="font-size: 68px; margin-left:2px">
+            	<a onClick="goHash({}); return false;"  href="#industries">▶️</a>
+            </div>
+        </div>
+    </div>
+    <div class="lazy bgimg bgimg-notfixed" data-src="../../io/overview/img/hero/woman-table-computer.jpg" style="opacity:.85">
+        <img src="../../io/overview/img/hero/woman-table-computer.jpg" style="opacity:0;width:100%">
+    </div>
+</div>
+<!-- /top hero -->
+
+
+<!-- map and list -->
 <script type="text/javascript" src="../js/map-embed.js?show=smart"></script>
+<!-- /map and list -->
 
-<div id="top-content-columns" class="content contentpadding" style="padding-top:20px">
+<div style="clear:both"></div>
 
-<!-- two columns -->
-<div class="pageColumns">
-	<div style="display:table-row;">
-		
-		<!--
-			class="mainColumn mainColumn1" 
-		-->
-	     <div id="pageLinksInsert" style="display:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
-	          <a href="./">Overview</a> | 
-	          <a onClick="goHash({'go':'bioeconomy','show':''}); return false;" href="./#go=bioeconomy">Bioeconomy</a> | 
-	          <span class="local" style="display:none">
-	          <a onClick="go({'go':'','show':'farmfresh'}); return false;" href="./#show=farmfresh">Fresh Produce</a> | 
-	      	  </span>
-	          <a onClick="goHash({'go':'manufacturing','show':''}); return false;" href="./#go=manufacturing">Manufacturing</a> | 
-	          <a onClick="goHash({'go':'parts','show':''}); return false;" href="./#go=parts">Automotive Parts</a> | 
-	          <span class="local" style="display:none">
-	          <a onClick="goHash({'go':'','show':'suppliers'}); return false;" href="./#show=suppliers">PPE Suppliers</a> | 
-	      	  </span>
-	          <a onClick="goHash({'geomap':'US13'}); return false;" href="./#geomap=US13">County&nbsp;Map</a>
-	          <br>
+
+<div class="content contentpadding">
+    <div class="pageColumns">
+
+        <div class="pageColumn">
+          <div class="pageColumnInside">
+
+            <h2>Local Supply Chains</h2>
+            Yilun Zha
+            
+          </div>
         </div>
 
-	</div>
+        <div class="pageColumn">
+          <div class="pageColumnInside">
+              <h2>Environmental Indicators</h2>
+              Nazanin Tabatabaei
+          </div>
+        </div>
+
+        <div class="pageColumn">
+          <div class="pageColumnInside">
+
+            <h2>Sustainable Bioeconomies</h2>
+            Cindy Azuero
+            
+          </div>
+        </div>
+
+    </div>
 </div>
+
+
+<div class="content contentpadding" style="padding-bottom:20px;">
+    <div id="localDiv"></div>
+    How will local economies be impacted as the transition occurs from gas vehicles to electric and hydrogen vehicles?<br><br>
+    <script>
+        loadMarkdown("../../io/overview/README.md", "localDiv", "_parent");
+    </script>
+</div>
+
+<div classX="widthColumns" class="content contentpadding contentwide" style="padding-bottom:20px; background: #fff">
+    
+    <img src="../../io/overview/img/hero/sankey.png" style="width:100%; bottom:0px;">
+    <br>
+</div>
+<br>
+
+<div class="lazy bgimg bgimg-notfixed" data-src="../../io/overview/img/hero/board-masks.jpg" style="top:auto; bottom:0px; opacity:.85; line-height: 0px">
+    <img src="../../io/overview/img/hero/board-masks.jpg" style="opacity:0; width:100%; bottom:0px;">
+</div>
+
+
+
+<div id="top-content-columns" class="content contentpadding" style="padding-top:0px; padding-bottom:0px">
+
+	<br>
+	<!-- two columns -->
+	<div class="pageColumns">
+		<div style="display:table-row;">
+			
+			<!--
+				class="mainColumn mainColumn1" 
+			-->
+		     <div id="pageLinksInsert" style="display:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
+		          <a onClick="go({}); return false;"  href="./">Overview</a> | 
+		          <a onClick="goHash({'go':'bioeconomy','show':''}); return false;" href="./#go=bioeconomy">Bioeconomy</a> | 
+		          <span class="local" style="display:none">
+		          <a onClick="go({'go':'','show':'farmfresh'}); return false;" href="./#show=farmfresh">Fresh Produce</a> | 
+		      	  </span>
+		          <a onClick="goHash({'go':'manufacturing','show':''}); return false;" href="./#go=manufacturing">Manufacturing</a> | 
+		          <a onClick="goHash({'go':'parts','show':''}); return false;" href="./#go=parts">Automotive Parts</a> | 
+		          <span class="local" style="display:none">
+		          <a onClick="goHash({'go':'','show':'suppliers'}); return false;" href="./#show=suppliers">PPE Suppliers</a> | 
+		      	  </span>
+		          <a onClick="goHash({'geomap':'US13'}); return false;" href="./#geomap=US13">County&nbsp;Map</a>
+		          <br>
+	        </div>
+
+		</div>
+	</div>
+	<br>
+
+</div>
+
+
+
+<div class="content contentpadding" style="padding-top:0px; padding-bottom:0px">
 
 <div class="pageColumns">
 	<div style="display:table-row">
@@ -348,7 +441,7 @@ function refreshWidgets() {
 		
 			<div>
 				<h2 class="regiontitle">Loading Industries...</h2>
-				<h4 class="regionsubtitle" style="font-size:16px;color:#555;"></h4>
+				<h4 class="location_titles" style="font-size:16px;color:#555;display:none"></h4>
 			</div>
 
 			<!--
@@ -418,7 +511,7 @@ function refreshWidgets() {
 <div class="content contentpadding litePanel" style="width:95% !important; max-width:95%; margin-top:20px; border:1px solid #aaa">
 
 <div style="margin-right:45px">
-	<h2 style="border:0px" id="infoHeaderX">Supply Chain</h2>
+	<h2 style="border:0px" id="infoHeaderX">Supply Chain Impact</h2>
 	<hr>
 
 	<div style="float:right;margin-bottom:16px">
@@ -939,7 +1032,6 @@ function loadScriptXXXXXX(url, callback)
 
 function updateText(go) {
 	$("#aboutToolsDiv").text("");
-	//$("#geomap").hide();
 	if (go == "bioeconomy") {
 		loadMarkdown("../../io/tools/bioeconomy-planner/about.md", "aboutToolsDiv", "_parent");
 		//loadMarkdown("../../io/tools/bioeconomy-planner/bioenergy/README.md", "bioenergySummaryDiv", "_parent");
@@ -1007,7 +1099,8 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
     function handler(){
 
     if(req.readyState === XMLHttpRequest.DONE) {
-
+//alert("render")
+//map.invalidateSize();
       //map.addLayer(OpenStreetMap_BlackAndWhite)
 
       // try and catch json parsing of the responseText
@@ -1203,7 +1296,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
       // Make a layer active. 
       geojsonLayer.addTo(map);
-
+      
       
 
       // To add additional layers:

@@ -282,7 +282,7 @@ function renderIndustryChart(dataObject,values,params) {
     }
 
     // Reduce params to only those used
-    const filteredKeys = ['go','geo','catsort','catsize','catmethod','census_scope'];
+    const filteredKeys = ['go','geo','catsort','catsize','catmethod','catpage','catcount','census_scope'];
     params = filteredKeys.reduce((obj, key) => ({ ...obj, [key]: params[key] }), {});
 
     console.log("params used by naics.js:")
@@ -359,7 +359,7 @@ function renderIndustryChart(dataObject,values,params) {
         fips = dataObject.stateshown;
     }
     console.log("renderIndustryChart calls topRatesInFips with fips: " + fips)
-    topRatesInFips(dataObject, dataObject.industryNames, fips, 40, params);
+    topRatesInFips(dataObject, dataObject.industryNames, fips, params);
     priorHash_Naics = params;
 }
 
@@ -419,7 +419,7 @@ function geoChanged(dataObject,params){
 
         })
     }
-    topRatesInFips(dataObject, dataObject.industryNames, fips, 40, params)
+    topRatesInFips(dataObject, dataObject.industryNames, fips, params)
     console.log('fips: '+fips)
 }
 
@@ -492,8 +492,9 @@ function keyFound(this_key, cat_filter,params) {
 }
 
 // Top rows of for a specific set of fips (states and counties)
-function topRatesInFips(dataSet, dataNames, fips, howMany, params){
-  
+function topRatesInFips(dataSet, dataNames, fips, params){
+    let catcount = params.catcount || 20;
+
     $("#econ_list").html("");
     console.log("topRatesInFips")
     d3.csv(dual_map.community_data_root() + "us/id_lists/state_fips.csv").then( function(consdata) {
@@ -643,7 +644,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                 top_data_ids = []
                 naCount = 1
                 let naicscode = [];
-                x=Math.min(howMany,rates_list.length)
+                x=Math.min(catcount,rates_list.length)
 
                 if(Array.isArray(fips)){
 
@@ -691,39 +692,39 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                 }else{
                     if(fips==dataObject.stateshown){
                     
-                            if(params['census_scope']=="state"){
-                                for (var i=0; i<rates_list.length; i++) {
-                                    id = parseInt(getKeyByValue(rates_dict, rates_list[i]))
-                                    delete rates_dict[id]
-
-                                    if (dataSet.industryDataStateApi.ActualRate[id].hasOwnProperty(fips)) {
-                                        rateInFips = dataSet.industryDataStateApi.ActualRate[id][fips][which_state_api]
-                                        naicscode = dataSet.industryDataStateApi.ActualRate[id][fips]['relevant_naics']
-                                    } else {
-                                        rateInFips = 0
-                                        naicscode = 1
-                                    }
-                                    
-                                    if (keyFound(naicscode, cat_filter,params)){
-                                        if (rateInFips == null) {
-                                            rateInFips = 1
-                                            top_data_list.push(
-                                                {'data_id': dataNames[id], [which_state_api]: 1,'NAICScode': 1, 'rank': i}
-                                            )
-                                        }  else {
-                                            top_data_list.push(
-                                                {'data_id': dataNames[id], [which_state_api]: rateInFips,'NAICScode': naicscode, 'rank': i}
-                                            )
-                                            top_data_ids.push(id)
-                                        }
-                                    }
-                                }
-                            }else{
+                        if(params['census_scope']=="state"){
                             for (var i=0; i<rates_list.length; i++) {
                                 id = parseInt(getKeyByValue(rates_dict, rates_list[i]))
                                 delete rates_dict[id]
 
-                                if (dataSet.industryDataState.ActualRate[id].hasOwnProperty(fips)) {
+                                if (dataSet.industryDataStateApi.ActualRate[id].hasOwnProperty(fips)) {
+                                    rateInFips = dataSet.industryDataStateApi.ActualRate[id][fips][which_state_api]
+                                    naicscode = dataSet.industryDataStateApi.ActualRate[id][fips]['relevant_naics']
+                                } else {
+                                    rateInFips = 0
+                                    naicscode = 1
+                                }
+                                
+                                if (keyFound(naicscode, cat_filter,params)){
+                                    if (rateInFips == null) {
+                                        rateInFips = 1
+                                        top_data_list.push(
+                                            {'data_id': dataNames[id], [which_state_api]: 1,'NAICScode': 1, 'rank': i}
+                                        )
+                                    }  else {
+                                        top_data_list.push(
+                                            {'data_id': dataNames[id], [which_state_api]: rateInFips,'NAICScode': naicscode, 'rank': i}
+                                        )
+                                        top_data_ids.push(id)
+                                    }
+                                }
+                            }
+                        } else {
+                            for (var i=0; i<rates_list.length; i++) {
+                                id = parseInt(getKeyByValue(rates_dict, rates_list[i]))
+                                delete rates_dict[id]
+
+                                if (dataSet.industryDataState.ActualRate[id] && dataSet.industryDataState.ActualRate[id].hasOwnProperty(fips)) {
                                     rateInFips = dataSet.industryDataState.ActualRate[id][fips][which_state]
                                     naicscode = dataSet.industryDataState.ActualRate[id][fips]['relevant_naics']
                                 } else {
@@ -815,11 +816,12 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                                 })
                             }
                         }
-                        text = "<div class='row'><div class='cell'><!-- col 1 --></div><div class='cell'><!-- col 2 --></div>" + text + "<div class='cell-right'>" + totalLabel + "</div><div></div class='cell mock-up' style='display:none'></div>"; // #676464
+                        text = "<div class='row'><div class='cell'><!-- col 1 -->NAICS</div><div class='cell' style='min-width:300px'><!-- col 2 -->Industry</div>" + text + "<div class='cell-right'>" + totalLabel + "</div><div></div class='cell mock-up' style='display:none'></div>"; // #676464
                         
                         // INDUSTRY ROWS
-                        y=Math.min(howMany, top_data_ids.length)
+                        y=Math.min(catcount, top_data_ids.length)
                         naicshash=""
+                        $("#econ_list").html("<div><br>No results found.</div><br>");
                         for (i = 0; i < y; i++) { // Naics
                             rightCol="";
                             midCol="";
@@ -828,7 +830,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                                 let latitude = "";
                                 let longitude = "";
                                 //let county = "Coweta" + " County"; // Replace "Coweta" with county name from dataset
-                                let county = ""; // Delete this line
+                                //let county = ""; // Delete this line
                                 
                                 //d3.csv(dual_map.community_data_root() + "us/id_lists/county_id_list.csv").then( function(consdata) {
                                     if(Array.isArray(fips) && statelength!=fips.length){
@@ -1018,7 +1020,7 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                             }
                             
                             // use GoHash()
-                            let alertStr = "<p class='mapinfo'>Grey text indicates approximated values. <a href='https://github.com/modelearth/community-data/'>Learn more</a></p>"
+                            let alertStr = "<p class='mapinfo'>Grey text indicates approximated values. <a href='#go=dataprep'>Learn more</a></p>"
                             $("#econ_list").html("<div id='sector_list'>" + text + "</div><br>" + alertStr);
                             if(i<=20){
                                 if(i==0){
@@ -1041,29 +1043,28 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                 })
                 d3.csv(dual_map.community_data_root() + "us/id_lists/county_id_list.csv").then( function(consdata) {
                     //document.getElementById("industryheader").text = ""; // Clear initial.
-                    $(".regionsubtitle").text(""); //Clear
+                    $(".location_titles").text(""); //Clear
                     if (params.go == "bioeconomy") {
-                        $(".regiontitle").text("Bioeconomy vs Fossil Fuel Industries");
+                        $(".regiontitle").text("Bioeconomy and Fossil Fuel Industries");
                     } else if (params.go == "parts") {
                         $(".regiontitle").text("Automotive Parts Manufacturing");
                     } else if (params.go == "manufacturing") {
                         $(".regiontitle").text("Manufacturing");
                     }
                     if(Array.isArray(fips) && statelength!=fips.length){
+
                         fipslen=fips.length
-                        if (params.regiontitle == "") {
+                        if (!params.regiontitle) {
                             $(".regiontitle").text("Industries within "+fipslen+" counties");
                         } else if (params.regiontitle) {
-                            if (params.go) {
-                                $(".regiontitle").text(params.regiontitle.replace(/\+/g," ") + " - " + params.go.toTitleCase());
-                            } else {
+                            
                                 $(".regiontitle").text(params.regiontitle.replace(/\+/g," "));
-                            }
+                            
                         }
                         for(var i=0; i<fipslen; i++){
                             var filteredData = consdata.filter(function(d) {
-                                if(d["id"]==fips[i] && params.regiontitle == ""){
-                                    $(".regiontitle").text("Industries within "+fipslen+" counties");
+                                if(d["id"]==fips[i]){
+                                    
                                     /*
                                     if(i==fipslen-1){
                                         document.getElementById("industryheader").innerHTML=document.getElementById("industryheader").innerHTML+'<font size="3">'+d["county"]+'</font>'
@@ -1073,13 +1074,19 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                                     document.getElementById("industryheader").innerHTML=document.getElementById("industryheader").innerHTML+'<font size="3">'+d["county"]+', '+'</font>'
                                     }
                                     */
-                                    $(".regionsubtitle").text($(".regionsubtitle").text() + d["county"] + ", ");
+
+                                    $(".location_titles").text($(".location_titles").text() + d["county"] + ", ");
                                 }
                             })
                         }
+                        $(".location_titles").text($(".location_titles").text().replace(/,\s*$/, ""));
+                        if (fipslen >= 2 && fipslen <= 3) {
+                            $(".regiontitle").text($(".location_titles").text());
+                        }
+
                     }else if(fips==dataObject.stateshown){
                         if (params.go == "bioeconomy") {
-                            $(".regiontitle").text("Bioeconomy vs Fossil Fuel Industries");
+                            $(".regiontitle").text("Bioeconomy and Fossil Fuel Industries");
                         } else if (params.go == "parts") {
                             $(".regiontitle").text("Automotive Parts");
                         } else if (params.go == "manufacturing") {
@@ -1088,8 +1095,13 @@ function topRatesInFips(dataSet, dataNames, fips, howMany, params){
                             $(".regiontitle").text(String(d['Name'])+"'s Top Industries");
                         }
                     }else{
+
                         var filteredData = consdata.filter(function(d) {
-                            if(d["id"]==fips )
+                            if (params.go) {
+                                // Remove " County" from this .replace(" County","")
+                                $(".regiontitle").text(d["county"] + " - " + params.go.toTitleCase());
+                            }
+                            else if(d["id"]==fips )
                             {      
                                 $(".regiontitle").text(d["county"] + " Industries");
                             }

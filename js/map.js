@@ -1564,19 +1564,28 @@ $(window).scroll(function() {
   if (revealHeader == false) {
     $('.headerbar').hide();
     $('.headerOffset').hide();
+    if (!$("#filterFieldsHolder").is(':visible')) { // Retain search filters space at top, unless they are already hidden
+      $('#headerFixed').hide();
+    }
     revealHeader = true; // For next manual scroll
   } else if ($(window).scrollTop() > previousScrollTop) { // Scrolling Up
     if ($(window).scrollTop() > previousScrollTop + 20) { // Scrolling Up fast
       $('.headerbar').hide();
       $('.headerOffset').hide();
+      if (!$("#filterFieldsHolder").is(':visible')) { // Retain search filters space at top, unless they are already hidden
+        $('#headerFixed').hide();
+      }
     }
   } else { // Scrolling Down
     if ($(window).scrollTop() < (previousScrollTop - 20)) { // Reveal if scrolling down fast
       $('.headerbar').show();
       $('.headerOffset').show();
+      $('#headerFixed').show();
     } else if ($(window).scrollTop() == 0) { // At top
       $('.headerbar').show();
       $('.headerOffset').show();
+
+        $('#headerFixed').show();
     }
   }
   previousScrollTop = $(window).scrollTop();

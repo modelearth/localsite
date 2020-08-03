@@ -122,7 +122,13 @@ $(document).ready(function(){
 	 		$('.neighborhood').css('display', 'block');
 	 	}
 	 	if (param.titleArray) {
-	 		$('#headerSiteTitle').html("<span style='float:left'><a href='" + climbpath + "' style='text-decoration:none'><span style='color: #777;'>" + param.titleArray[0] + "</span><span style='color:#bbb;margin-left:1px'>" + param.titleArray[1] + "</span></a></span>");
+	 		let titleValue = "<span style='float:left'><a href='" + climbpath + "' style='text-decoration:none'>";
+	 		titleValue += "<span style='color: #777;'>" + param.titleArray[0] + "</span>";
+	 		for (var i = 1; i < param.titleArray.length; i++) {
+	 			titleValue += "<span style='color:#bbb;margin-left:1px'>" + param.titleArray[1] + "</span>";
+	 		}
+	 		titleValue += "</a></span>";
+	 		$('#headerSiteTitle').html(titleValue);
 	 	}
 	 	
 
@@ -151,7 +157,8 @@ $(document).ready(function(){
 	 		$('#logoholder').css('background-position', 'center');
 
 	 		$('#state_select').on('change', function() {
-			    window.location = "/localsite/info/?state=" + this.value + "#show=mockup";
+			    //window.location = "/localsite/info/?state=" + this.value + "#show=mockup";
+			    goHash({'state':this.value,'sorry':'not_yet_activated','geo':'US10'})
 			});
 	 		$('.showMenu').click(function () {
 				//$(".showMenu").hide();

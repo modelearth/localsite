@@ -71,7 +71,7 @@ callback(
 		"mobiletitle": "Farm Fresh",
 		"section": "Farm Fresh",
 		"provider": "Admin",
-		"image": "/site/docs/hurricane/img/shelf_cloud_road.jpg",
+		"image": "/community/img/overview/farmfresh-eggs.jpg",
 		"siteHeaderHeight": "10px",
 		"siteHeaderHeightMax": "230px",
 		"icon": "<i class='material-icons'>&#xE87A;</i>",
@@ -79,7 +79,7 @@ callback(
 		"sectionTitle": "leftNav",
 		"topnavaccess": "10",
 		"menuaccess": "0",
-		"directlink": "/localsite/#show=farmfresh",
+		"directlink": "/localsite/info/#show=farmfresh",
 		"caption": ""
 	},
 

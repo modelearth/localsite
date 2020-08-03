@@ -756,16 +756,31 @@ function updateLoc(geo) {
     }
 }
 // INIT
-locationFilterChange("counties"); 
+locationFilterChange("counties"); // Display county list
 $("#filterClickLocation .filterSelected").html("Counties");
 $(".filterUL li").removeClass("selected");
 $(".filterUL li").find("[data-id='counties']").addClass("selected"); // Not working
+$(".showSearch").css("display","inline-block");
+$(".showSearch").removeClass("local");
 
 function showSearchClick() {
 	
-	$(".filterFields").hide();
-	$(".headerOffset2").hide();
-    
+	if ($("#filterFieldsHolder").is(':visible')) {
+		$("#filterFieldsHolder").hide();
+		$(".headerOffset2").hide();
+	} else {
+		$("#filterFieldsHolder").show();
+		$(".headerOffset2").show();
+	}
+    return;
+
+
+    // NOT CURRENTLY USED
+
+
+    //$(".filterFields").hide();
+	
+
     //$(".moduleBackgroundImage").addClass("moduleBackgroundImageDarken"); // Not needed since filters are not over image.
     //$(".siteHeaderImage").addClass("siteHeaderImageDarken"); // Not needed since filters are not over image.
 
@@ -1066,7 +1081,9 @@ $(document).ready(function () {
       //displayMap(layerName,siteObject);
       console.log(".refreshMap ");
       
-      map1.invalidateSize(); // Force Leaflet map to reload
+      document.querySelector('#geomap')._leaflet_map.invalidateSize(); // Force Leaflet map to reload
+      //document.querySelector('#map1')._leaflet_map.invalidateSize(); 
+      //document.querySelector('#map2')._leaflet_map.invalidateSize(); 
   });
 
   if (window.self == window.top && param["show"] == "suppliers") {
