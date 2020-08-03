@@ -192,7 +192,7 @@ $(document).ready(function(){
 
 
 	if(document.getElementById("footer") == null) {
-		$("body").append( "<div id='footer' class='flexfooter hideprint'></div>\r" );
+		$("body").append( "<div id='footer' class='flexfooter noprint'></div>\r" );
 	} else {
 		//$("#footer").addClass("flexfooter");
 	}
