@@ -329,36 +329,75 @@ function refreshWidgets() {
 <div style="clear:both"></div>
 
 
-<div class="content contentpadding">
+<!-- bios -->
+<style>
+.bio {
+  clear:both;
+  display:block;
+}
+.bioimage {
+  clear:both;
+}
+.bioimage img {
+    padding: 0px !important;
+    margin: 0px !important;
+    margin-right: 30px !important;
+    background-size: cover !important;
+    border-radius: 50% !important;
+    width: 120px !important;
+    height: 120px !important;
+    min-width: 120px !important;
+    min-height: 120px !important;
+}
+.biotext {
+  overflow: auto;
+  font-size: 18px;
+}
+.biotext h2 {
+  font-size: 20px;
+  margin-top: 0px;
+}
+</style>
+<br>
+<div class="content contentpadding biotext">
     <div class="pageColumns">
 
         <div class="pageColumn">
           <div class="pageColumnInside">
-
-            <h2>Local Supply Chains</h2>
-            Yilun Zha
+            <div class="bioimage">
+                <img src="../../io/team/img/Yilun-Zha.jpg">
+            </div>
+            <h2>Yilun Zha</h2>
+            Local Supply Chains
             
           </div>
         </div>
 
         <div class="pageColumn">
           <div class="pageColumnInside">
-              <h2>Environmental Indicators</h2>
-              Nazanin Tabatabaei
+
+            <div class="bioimage">
+                <img src="../../io/team/img/Nazanin-Tabatabaei.jpg">
+            </div>
+              <h2>Nazanin Tabatabaei</h2>
+              Environmental Indicators
           </div>
         </div>
 
         <div class="pageColumn">
           <div class="pageColumnInside">
-
-            <h2>Sustainable Bioeconomies</h2>
-            Cindy Azuero
-            
+            <div class="bioimage">
+                <img src="../../io/team/img/Cindy-Giselle-Azuero-Pedraza.jpg">
+            </div>
+            <h2>Cindy Azuero</h2>
+            Sustainable Bioeconomies
           </div>
         </div>
 
     </div>
 </div>
+<div style="clear:both"></div>
+<!-- /bios -->
 
 
 <div class="content contentpadding" style="padding-bottom:20px;">
@@ -655,7 +694,11 @@ Choose commodities below to view upstream input and downstream output.<br>
 <!-- MOSAIC HEATMAP -->
 <br><br>
 <div class="content contentadding">
-	<h2 style="border-bottom: 0px">Impact Heatmap</h2>
+	<div style="float:right;margin-bottom:16px">
+		<a href="../../io/charts/">About Mosaic</a>
+	</div>
+
+	<h2 style="border-bottom: 0px">Environmental Indicators</h2>
     <div class="io">
         <div style="margin: 0 auto;">
             <div class="matrix-title">Goods & Services</div>
@@ -821,7 +864,11 @@ https://www.epa.gov/enviroatlas
 
 	<div class="bubble-graph">
 
-        <h2>Impact Bubble Chart</h2>
+		<div style="float:right;margin-bottom:16px">
+			<a href="../../io/charts/">About Bubble Chart</a>
+		</div>
+
+        <h2 style="border-bottom: 0px">Impact Bubble Chart</h2>
         <div id="bubble-graph-title"></div>
         <text id="bubble-graph-equation"></text>
 
