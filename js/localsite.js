@@ -30,6 +30,11 @@ var dual_map = dual_map || (function(){
             }
             return (root);
         },
+        modelearth_data_root : function() { // General US states and eventually some international
+            // These repos will typically reside on github, so no localhost.
+            let root = "https://modelearth.github.io"; // Probably will also remove slash from the ends of others.
+            return (root);
+        },
         custom_data_root : function() { // Unique US states - will use javascript, domain, cookies and json.
             let root = location.protocol + '//' + location.host + '/georgia-data/';
             if (location.host.indexOf('localhost') < 0) {

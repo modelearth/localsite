@@ -1071,8 +1071,15 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
     // Topo data source
     //https://github.com/deldersveld/topojson/tree/master/countries/us-states
 
+    // TOPO Files: https://github.com/modelearth/topojson
     var url = dual_map.custom_data_root() + '/counties/GA-13-georgia-counties.json';
+    if(location.host.indexOf('localhost') >= 0) {
+    	// https://github.com/modelearth/topojson/blob/master/countries/us-states/AL-01-alabama-counties.json
+    	url = dual_map.modelearth_data_root() + "/topojson/countries/us-states/AL-01-alabama-counties.json";
+    	//url = dual_map.modelearth_data_root() + "/opojson/countries/us-states/GA-13-georgia-counties.json";
 
+    	// IMPORTANT: ALSO change localhost setting that uses cb_2015_alabama_county_20m below
+	}
     var layerControl_CountyMap = {}; // Object containing one control for each map on page.
 
     req.open('GET', url, true);
@@ -1109,8 +1116,14 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
             //topodata = topojson.feature(topoob, topoob.objects.data)
 
             //topodata = topojson.feature(topoob, topoob.transform)
-            topodata = topojson.feature(topoob, topoob.objects.cb_2015_georgia_county_20m)
 
+            // 
+            
+            if(location.host.indexOf('localhost') >= 0) {
+            	topodata = topojson.feature(topoob, topoob.objects.cb_2015_alabama_county_20m)
+        	} else {
+        		topodata = topojson.feature(topoob, topoob.objects.cb_2015_georgia_county_20m)
+        	}
 
             // ADD 
             // For region colors
