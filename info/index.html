@@ -29,6 +29,9 @@
 <script type="text/javascript" src="../js/naics.js"></script>
 <link type="text/css" href="../css/naics.css" rel="stylesheet" />
 
+<!-- Has to be included for county map recall withou error, since loading from dual map widget does not work. -->
+<script type="text/javascript" src="/localsite/js/leaflet.js" id="/localsite/js/leaflet.js"></script>
+
 <!-- After USEEIO to alter css -->
 <!--
 <link type="text/css" href="../../localsite/css/base.css" rel="stylesheet" />
@@ -37,9 +40,11 @@
 
 <script>
 	$(document).ready(function () {
-		param.titleArray = ["Georgia"]
-		param.headerLogo = "<img src='/community/img/logo/georgia-icon.png' style='width:64px'>";
-
+		let startsWith13 = true; // To do - change to check array
+		if (!param.geo || startsWith13) {
+			param.titleArray = ["Georgia"]
+			param.headerLogo = "<img src='/community/img/logo/georgia-icon.png' style='width:64px'>";
+		}
 	    $(window).scroll(function(){$(".herocenter").css("opacity", 1 - $(window).scrollTop() / 200);});
 	});
 </script>
@@ -218,7 +223,7 @@ var priorHash = {};
 function refreshWidgets() {
 	param = loadParams(location.search,location.hash); // param is declared in localsite.js
 	let hash = getHash();
-	//alert("refreshWidgets from prior go: " + priorHash.go + " to " + hash.go);
+	//alert("refreshWidgets from prior geo: " + priorHash.geo + " to " + hash.geo);
 	
 	// NOTE: params after ? are not included, just the hash.
 	if (hash.go != priorHash.go) {
@@ -226,6 +231,11 @@ function refreshWidgets() {
 			hash.show = ""; // Clear the suppliers display
 		}
 		updateText(hash.go);
+	}
+	if (hash.geomap) {
+		$("#infoColumn").show();
+        $(".mainColumn1").show();
+        //alert("showed?")
 	}
 	if (hash.geomap != priorHash.geomap) {
 		if (hash.geomap) {
@@ -240,7 +250,7 @@ function refreshWidgets() {
 			}
 			*/
 			loadScript('/localsite/js/leaflet.js', function(results) {
-				renderMapShapes("geomap", hash);
+				//renderMapShapes("geomap", hash);
 			});
 		} else {
 			$("#geomap").hide();
@@ -258,21 +268,26 @@ function refreshWidgets() {
 			$(".suppliers").hide();
 		}
 	}
-	if (hash.geomap) {
-		$("#infoColumn").show();
-        $(".mainColumn1").show();
-        //alert("showed?")
-	}
 	if (hash.geo != priorHash.geo) {
+		if (hash.geo && hash.geo.length > 4) { 
+			$(".state-view").hide();
+        	$(".county-view").show();
+        	$(".industry_filter_settings").show(); // temp
+		} else {
+			$(".county-view").hide();
+        	$(".state-view").show();
+        	$(".industry_filter_settings").hide(); // temp
+		}
 		if (hash.geo && hash.geo.split(",").length > 4) {
 	        //$("#infoColumn").hide();
 	        $("#top-content-columns").addClass("top-content-columns-wide");
+
 		} else {
 	        $("#infoColumn").show();
 	        $(".mainColumn1").show();
 	    }
 	    if (hash.geomap == priorHash.geomap) { // Since otherwise called above
-	    	renderMapShapes("geomap", hash);
+	    	//renderMapShapes("geomap", hash);
 		}
 	}
 	//alert(hash.regiontitle)
@@ -1176,19 +1191,9 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
       let map = document.querySelector('#' + whichmap)._leaflet_map; // Recall existing map
       var container = L.DomUtil.get(map);
-  	  if (container == null) { // Initialize map
+      //if (container == null || map == undefined || map == null) { // Does not work
+  	  if ($('#' + whichmap).html().length == 0) { // Note: Avoid putting loading icon within map div.
 
-	      //let map = document.querySelector('#' + whichmap)._leaflet_map; // Recall existing map
-	      //alert("init map")
-	      /*
-	      map = new L.Map(whichmap,
-	      {
-	          scrollWheelZoom: false,
-	          center: new L.LatLng(lat,lon),
-	          zoom: zoom,
-	          //layers: [streets, dataParameters[0].group] // Indicates default layer
-	      });
-			*/
 	      map = L.map(whichmap, {
 		      center: new L.LatLng(lat,lon),
 		      scrollWheelZoom: false,
@@ -1229,12 +1234,15 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
       }
 
       if (typeof layerControl != "undefined") {
-      	//alert("SURPRISE: layerControl is available to CountyMap.")
+      	//alert("OKAY: layerControl is available to CountyMap.")
 
       	// layerControl is declaired in map.js
       	if (layerControl[whichmap] != undefined) {
-	      	if (overlays["Counties"]) {
-	          layerControl[whichmap].removeLayer(overlays["Counties"]);
+      		if (overlays["Counties"]) {
+	      		// Reached on county click, but shapes are not removed.
+	      		console.log("overlays: ");
+	      		console.log(overlays);
+	        	layerControl[whichmap].removeLayer(overlays["Counties"]);
 	       	}
 	    }
       	// layerControl wasn't yet available in loading sequence.
@@ -1242,11 +1250,12 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
       	// Or only declare layerControl object if not yet declared.
 
       	if (layerControl[whichmap] == undefined) {
-	      layerControl[whichmap] = L.control.layers(basemaps1, overlays).addTo(map); // Push multple layers
-	      //basemaps1["Satellite"].addTo(map);
-	      basemaps1["Streets"].addTo(map);
+	    	layerControl[whichmap] = L.control.layers(basemaps1, overlays).addTo(map); // Push multple layers
+	    	//basemaps1["Satellite"].addTo(map);
+	    	basemaps1["Streets"].addTo(map);
 	    } else {
-	      layerControl[whichmap].addOverlay(dp.group, dp.dataTitle); // Appends to existing layers
+	    	// Error: Cannot read property 'on' of undefined
+	    	//layerControl[whichmap].addOverlay(dp.group, dp.dataTitle); // Appends to existing layers
 	    }
 
 
@@ -1260,10 +1269,11 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
        //if (map.hasLayer(overlays1[dp.dataTitle])){
        //   overlays1[dp.dataTitle].remove();
        //}
-       if (map.hasLayer(overlays["Counties"])){
-       	  alert("found layer")
-          overlays["Counties"].remove();
-       }
+       //if (map.hasLayer(overlays["Counties"])){
+       //	  alert("found layer")
+       		//no effect
+          	overlays["Counties"].remove();
+       //}
 
       // Make a layer active. 
       geojsonLayer.addTo(map);
@@ -1295,12 +1305,21 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
         }
 
         function mapFeatureClick(e) {
+        	param = loadParams(location.search,location.hash); // param is declared in localsite.js
             var layer = e.target;
             //map.fitBounds(e.target.getBounds()); // Zoom to boundary area clicked
             var fips = "US13" + layer.feature.properties.COUNTYFP;
-            goHash({'geo':fips});
-            //window.top.location.href = "#" + newHash;
-            //window.top.location.href="#geo=" + fips;
+            //var fipsString = fips;
+            if (param.geo && param.geo.split(",").includes(fips)) {
+        		// Remove clicked fips from array, then convert back to string
+        		param.geo = jQuery.grep(param.geo.split(","), function(value) {return value != fips;}).toString();
+        		//fipsString = param.geo;
+        	} else if (param.geo && param.geo.split(",").length > 0) {
+        		param.geo = param.geo + "," + fips;
+        	} else {
+        		param.geo = fips;
+        	}
+            goHash({'geo':param.geo});
         }
 
         function onEachFeature(feature, layer){
@@ -1496,7 +1515,8 @@ function loadIOWidgets(param) {
 
 }
 refreshWidgets();
-
+// INIT
+renderMapShapes("geomap", param);
 </script>
 
 
