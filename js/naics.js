@@ -287,7 +287,7 @@ function displayTopIndustries() { // Not currently called
             var filteredData = consdata.filter(function(d) {
                 if(d["FIPS"]==String(dataObject.stateshown)) {
                     var promises = [
-                    d3.csv(dual_map.community_data_root() + "data/industry_id_list.csv"),
+                    d3.csv(dual_map.community_data_root() + "us/id_lists/industry_id_list.csv"),
                     d3.tsv(dual_map.community_data_root() + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
                     //d3.tsv(dual_map.community_data_root() + "data/c3.tsv"),
                     d3.tsv(dual_map.community_data_root() + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
@@ -422,7 +422,7 @@ fips = getFipsFromParams(params,dataObject.stateshown);
             var filteredData = consdata.filter(function(d) {
                 if(d["FIPS"]==String(dataObject.stateshown)) {
                     var promises = [
-                    d3.csv(dual_map.community_data_root() + "data/industry_id_list.csv"),
+                    d3.csv(dual_map.community_data_root() + "us/id_lists/industry_id_list.csv"),
                     d3.tsv(dual_map.community_data_root() + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
                     //d3.tsv(dual_map.community_data_root() + "data/c3.tsv"),
                     d3.tsv(dual_map.community_data_root() + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
