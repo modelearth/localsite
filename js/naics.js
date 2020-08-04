@@ -11,6 +11,8 @@ dataObject.stateshown = getStateFromParams(params,13); // Default to Georgia
 
 let fips = getFipsFromParams(params,dataObject.stateshown);
 
+
+
 function getStateFromParams(params, stateshown) {
     if(params.geo){
         if (params.geo.includes(",")){
@@ -19,12 +21,35 @@ function getStateFromParams(params, stateshown) {
             //for (var i = 0; i<geos.length; i++){
             //    fips.push(geos[i].split("US")[1])
             //}
-            stateshown=(geos[0].split("US")[1]).slice(0,2)
+            st=(geos[0].split("US")[1]).slice(0,2)
+            if(st.startsWith("0")){
+                stateshown=(geos[0].split("US0")[1]).slice(0,1)
+            }else{
+                if(geos[0].split("US")[1].length==4){
+                    stateshown=(geos[0].split("US")[1]).slice(0,1)
+                }else{
+                    stateshown=(geos[0].split("US")[1]).slice(0,2)
+                }
+                
+            }
+            
         }else{
             //fips = geo.split("US")[1]
-            stateshown=(params.geo.split("US")[1]).slice(0,2)
+            st=(params.geo.split("US")[1]).slice(0,2)
+            if(st.startsWith("0")){
+                stateshown=(params.geo.split("US0")[1]).slice(0,1)
+            }else{
+                if(params.geo.split("US")[1].length==4){
+                        stateshown=(params.geo.split("US")[1]).slice(0,1)
+                }else{
+                        stateshown=(params.geo.split("US")[1]).slice(0,2)
+                }
+                
+            }
+            
         }
     }
+    console.log("state"+stateshown)
     return stateshown;
 }
 function getFipsFromParams(params, stateshown) {
@@ -34,14 +59,28 @@ function getFipsFromParams(params, stateshown) {
             let geos=params.geo.split(",")
             fips=[]
             for (var i = 0; i < geos.length; i++){
-                fips.push(geos[i].split("US")[1])
+                fip=geos[i].split("US")[1]
+                if(fip.startsWith("0")){
+                    fips.push(geos[i].split("US0")[1])
+                }else{
+                    fips.push(geos[i].split("US")[1])
+                }
+                
             }
             //dataObject.stateshown=(geos[0].split("US")[1]).slice(0,2)
         }else{
-            fips = params.geo.split("US")[1]
+            fip=params.geo.split("US")[1]
+            if(fip.startsWith("0")){
+                fips = params.geo.split("US0")[1]
+            }else{
+                fips = params.geo.split("US")[1]
+            }
+            
             //dataObject.stateshown=(geo.split("US")[1]).slice(0,2)
         }
     }
+    console.log("fips"+fips)
+    fips=parseInt(fips)
     return fips;
 }
 // Get the levels below root
@@ -63,6 +102,8 @@ function getFipsFromParams(params, stateshown) {
 d3.csv(dual_map.community_data_root() + "us/id_lists/state_fips.csv").then( function(consdata) {
     var filteredData = consdata.filter(function(d) {
         if(d["FIPS"]==String(dataObject.stateshown)) {
+            console.log(d['Postal Code'])
+            console.log(dataObject.stateshown)
             var promises = [
                 d3.csv(dual_map.community_data_root() + "us/id_lists/industry_id_list.csv"),
                 d3.tsv(dual_map.community_data_root() + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
@@ -164,23 +205,11 @@ function ready(values) {
                 })
                 dataObject.counties=counties;
                 statelength=dataObject.counties.length
-                if(params["geo"]){
-                    geo=params["geo"]
-                    if (geo.includes(",")){
-                        geos=geo.split(",")
-                        fips=[]
-                        for (var i = 0; i<geos.length; i++){
-                            fips.push(geos[i].split("US")[1])
-                        }
-                        dataObject.stateshown=(geos[0].split("US")[1]).slice(0,2)
-                    }else{
-                        fips = geo.split("US")[1]
-                        dataObject.stateshown=(geo.split("US")[1]).slice(0,2)
-                    }
+                dataObject.stateshown = getStateFromParams(params,13); // Default to Georgia
 
-                }else{
-                    fips = dataObject.stateshown;
-                }
+                fips = getFipsFromParams(params,dataObject.stateshown);
+
+
 
                 /*
                 let geo_list={}
@@ -246,14 +275,10 @@ function displayTopIndustries() { // Not currently called
 
     // Both call topRatesInFips(). Might be good to move geoChanged processing into renderIndustryChart()
     
-    if(params.geo){
-        if (params.geo.includes(",")){
-            geos=params.geo.split(",")
-            dataObject.stateshown=(geos[0].split("US")[1]).slice(0,2)
-        }else{
-            dataObject.stateshown=(params.geo.split("US")[1]).slice(0,2)
-        }
-    }
+    dataObject.stateshown = getStateFromParams(params,13); // Default to Georgia
+
+
+
 
 
     
@@ -361,21 +386,10 @@ function renderIndustryChart(dataObject,values,params) {
     }
         
     dataObject.industryDataStateApi=industryDataStateApi;
-    if (params.geo){
-        if (params.geo.includes(",")){
-            let geos=params.geo.split(",")
-            fips=[]
-            for (var i = 0; i<geos.length; i++){
-                fips.push(geos[i].split("US")[1])
-            }
-            dataObject.stateshown=(geos[0].split("US")[1]).slice(0,2)
-        }else{
-            fips = params.geo.split("US")[1]
-            dataObject.stateshown=(params.geo.split("US")[1]).slice(0,2)
-        }
-    }else{
-        fips = dataObject.stateshown;
-    }
+    dataObject.stateshown = getStateFromParams(params,13); // Default to Georgia
+
+    fips = getFipsFromParams(params,dataObject.stateshown);
+
     console.log("renderIndustryChart calls topRatesInFips with fips: " + fips)
     topRatesInFips(dataObject, dataObject.industryNames, fips, params);
     priorHash_Naics = params;
@@ -388,21 +402,10 @@ function geoChanged(dataObject,params){
     if (!params) {
         params = loadParams(location.search,location.hash); // Pull from updated hash
     }
-    if (params.geo) {
-        if (params.geo.includes(",")) {
-            geos=params.geo.split(",")
-            fips=[]
-            for (var i = 0; i<geos.length; i++){
-                fips.push(geos[i].split("US")[1])
-            }
-            dataObject.stateshown=(geos[0].split("US")[1]).slice(0,2)
-        } else {
-            fips = params.geo.split("US")[1]
-            dataObject.stateshown=(params.geo.split("US")[1]).slice(0,2)
-        }
-    } else {
-        fips = dataObject.stateshown;
-    }
+    dataObject.stateshown = getStateFromParams(params,13); // Default to Georgia
+
+fips = getFipsFromParams(params,dataObject.stateshown);
+
     if (fips == dataObject.stateshown) {
         $(".county-view").hide();
         $(".state-view").show();
@@ -511,6 +514,7 @@ function keyFound(this_key, cat_filter,params) {
 
 // Top rows of for a specific set of fips (states and counties)
 function topRatesInFips(dataSet, dataNames, fips, params){
+    
     let catcount = params.catcount || 20;
 
     $("#econ_list").html("");
@@ -871,6 +875,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                                             mapLink = "https://www.google.com/maps/search/" + top_data_list[i]['data_id'].replace(/ /g,"+") + "/@32.9406955,-84.5411485,8z"
                                             //mapLink = "https://bing.com/maps/?q=" + top_data_list[i]['data_id'].replace(/ /g,"+") + "&cp=32.94~-84.54&z=8"; // lvl not working
                                     }else{
+                                        console.log("stttt"+d['Postal Code'])
                                         var filteredData = consdata.filter(function(d) {
                                             var filteredData = latdata.filter(function(e) {
                                                 if(d["id"]==fips ){      
