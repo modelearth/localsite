@@ -1321,7 +1321,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
         	param = loadParams(location.search,location.hash); // param is declared in localsite.js
             var layer = e.target;
             //map.fitBounds(e.target.getBounds()); // Zoom to boundary area clicked
-            var fips = "US13" + layer.feature.properties.COUNTYFP;
+            var fips = "US" + layer.feature.properties.STATEFP + layer.feature.properties.COUNTYFP;
             //var fipsString = fips;
             if (param.geo && param.geo.split(",").includes(fips)) {
         		// Remove clicked fips from array, then convert back to string
