@@ -149,7 +149,7 @@ function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,callback) {
        }
        if (overlays2[dp.dataTitle]) {
           // Not working, multiple checkboxes appear
-          layerControl[whichmap2].removeLayer(overlays2[dp.dataTitle]); // Not sure why, but 1 needs to be used instead of 2
+          layerControl[whichmap2].removeLayer(overlays2[dp.dataTitle]);
           //controlLayers.removeLayer(overlays2[dp.dataTitle]);
        }
 
@@ -873,8 +873,9 @@ function loadMap1(dp) { // Also called by map-filters.js
   }
 
   // Load the map using settings above
+  // This is required (even though it appears to contain nothing. Do not remove.
   loadFromCSV('map1','map2', dp1, basemaps1, basemaps2, function(results) {
-      console.log("This is used by c19 map. Can we remove this from map.js?")
+
       // CALLED WHENEVER FILTERS CHANGE
 
       //loadFromCSV('map1', 'map2', "/community/tools/map.csv", basemaps1, basemaps2, function(results) {

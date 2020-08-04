@@ -29,6 +29,9 @@
 <script type="text/javascript" src="../js/naics.js"></script>
 <link type="text/css" href="../css/naics.css" rel="stylesheet" />
 
+<!-- Has to be included for county map recall withou error, since loading from dual map widget does not work. -->
+<script type="text/javascript" src="/localsite/js/leaflet.js" id="/localsite/js/leaflet.js"></script>
+
 <!-- After USEEIO to alter css -->
 <!--
 <link type="text/css" href="../../localsite/css/base.css" rel="stylesheet" />
@@ -37,9 +40,11 @@
 
 <script>
 	$(document).ready(function () {
-		param.titleArray = ["Georgia"]
-		param.headerLogo = "<img src='/community/img/logo/georgia-icon.png' style='width:64px'>";
-
+		let startsWith13 = true; // To do - change to check array
+		if (!param.geo || startsWith13) {
+			param.titleArray = ["Georgia"]
+			param.headerLogo = "<img src='/community/img/logo/georgia-icon.png' style='width:64px'>";
+		}
 	    $(window).scroll(function(){$(".herocenter").css("opacity", 1 - $(window).scrollTop() / 200);});
 	});
 </script>
@@ -218,7 +223,7 @@ var priorHash = {};
 function refreshWidgets() {
 	param = loadParams(location.search,location.hash); // param is declared in localsite.js
 	let hash = getHash();
-	//alert("refreshWidgets from prior go: " + priorHash.go + " to " + hash.go);
+	//alert("refreshWidgets from prior geo: " + priorHash.geo + " to " + hash.geo);
 	
 	// NOTE: params after ? are not included, just the hash.
 	if (hash.go != priorHash.go) {
@@ -226,6 +231,11 @@ function refreshWidgets() {
 			hash.show = ""; // Clear the suppliers display
 		}
 		updateText(hash.go);
+	}
+	if (hash.geomap) {
+		$("#infoColumn").show();
+        $(".mainColumn1").show();
+        //alert("showed?")
 	}
 	if (hash.geomap != priorHash.geomap) {
 		if (hash.geomap) {
@@ -240,7 +250,7 @@ function refreshWidgets() {
 			}
 			*/
 			loadScript('/localsite/js/leaflet.js', function(results) {
-				renderMapShapes("geomap", hash);
+				//renderMapShapes("geomap", hash);
 			});
 		} else {
 			$("#geomap").hide();
@@ -258,21 +268,26 @@ function refreshWidgets() {
 			$(".suppliers").hide();
 		}
 	}
-	if (hash.geomap) {
-		$("#infoColumn").show();
-        $(".mainColumn1").show();
-        //alert("showed?")
-	}
 	if (hash.geo != priorHash.geo) {
+		if (hash.geo && hash.geo.length > 4) { 
+			$(".state-view").hide();
+        	$(".county-view").show();
+        	$(".industry_filter_settings").show(); // temp
+		} else {
+			$(".county-view").hide();
+        	$(".state-view").show();
+        	$(".industry_filter_settings").hide(); // temp
+		}
 		if (hash.geo && hash.geo.split(",").length > 4) {
 	        //$("#infoColumn").hide();
 	        $("#top-content-columns").addClass("top-content-columns-wide");
+
 		} else {
 	        $("#infoColumn").show();
 	        $(".mainColumn1").show();
 	    }
 	    if (hash.geomap == priorHash.geomap) { // Since otherwise called above
-	    	renderMapShapes("geomap", hash);
+	    	//renderMapShapes("geomap", hash);
 		}
 	}
 	//alert(hash.regiontitle)
@@ -340,203 +355,6 @@ function refreshWidgets() {
 
 <div style="clear:both"></div>
 
-
-<!-- bios -->
-<style>
-.bio {
-  clear:both;
-  display:block;
-}
-.bioimage {
-  clear:both;
-}
-.bioimage img {
-    padding: 0px !important;
-    margin: 0px !important;
-    margin-right: 30px !important;
-    background-size: cover !important;
-    border-radius: 50% !important;
-    width: 120px !important;
-    height: 120px !important;
-    min-width: 120px !important;
-    min-height: 120px !important;
-}
-.biotext {
-  overflow: auto;
-  font-size: 16px;
-}
-.biotext h2 {
-  font-size: 20px;
-  margin-top: 0px;
-  padding-bottom: 0px;
-  margin-bottom: 8px;
-}
-</style>
-<br>
-
-<div class="content contentpadding biotext">
-    <a href="../../io/team/" style="float:right" class="noprint">View Team Bios</a>
-    <h1 style="margin-bottom:35px">Our Team</h1>
-    <div class="pageColumns">
-
-        <div class="pageColumn">
-          <div class="pageColumnInside">
-            <div class="bioimage">
-                <img src="../../io/team/img/Yilun-Zha.jpg">
-            </div>
-            <h2>Yilun Zha</h2>
-            Local Supply Chains
-            
-          </div>
-        </div>
-
-        <div class="pageColumn">
-          <div class="pageColumnInside">
-
-            <div class="bioimage">
-                <img src="../../io/team/img/Nazanin-Tabatabaei.jpg">
-            </div>
-              <h2>Nazanin Tabatabaei</h2>
-              Industries and Indicators
-          </div>
-        </div>
-
-        <div class="pageColumn">
-          <div class="pageColumnInside">
-            <div class="bioimage">
-                <img src="../../io/team/img/Cindy-Giselle-Azuero-Pedraza.jpg">
-            </div>
-            <h2>Cindy Azuero</h2>
-            Sustainable Bioeconomies
-          </div>
-        </div>
-
-        <div style="clear:both; height:40px"></div>
-
-        <div class="pageColumn">
-          <div class="pageColumnInside">
-            <div class="bioimage">
-                <img src="../../io/team/img/Wesley-Ingwersen.jpg">
-            </div>
-            <h2>Wesley Ingwersen</h2>
-            US EPA Lead
-            
-          </div>
-        </div>
-
-        <div class="pageColumn">
-          <div class="pageColumnInside">
-
-            <div class="bioimage">
-                <img src="../../io/team/img/Loren-Kevin-Heyns.jpg">
-            </div>
-              <h2>Loren Heyns</h2>
-              GA Economic Development
-          </div>
-        </div>
-
-        <div class="pageColumn">
-          <div class="pageColumnInside">
-            <div class="bioimage">
-                <img src="../../io/team/img/Valerie-Thomas.png">
-            </div>
-            <h2>Valerie Thomas</h2>
-            Georgia Tech Advisor
-          </div>
-        </div>
-
-        <div style="clear:both; height:40px"></div>
-
-        <div style="display:none">
-	        <div class="pageColumn">
-	          <div class="pageColumnInside">
-	            <div class="bioimage">
-	                <img src="../../io/team/img/Barbara-Alfano.jpg">
-	            </div>
-	            <h2>Barbara Alfano</h2>
-	            US EPA
-	            
-	          </div>
-	        </div>
-
-	        <div class="pageColumn">
-	          <div class="pageColumnInside">
-
-	            <div class="bioimage">
-	                <img src="../../io/team/img/Costas-Simoglou.jpg">
-	            </div>
-	              <h2>Costas Simoglou</h2>
-	              GA Economic Development
-	          </div>
-	        </div>
-
-	        <div class="pageColumn">
-	          <div class="pageColumnInside">
-	            <div class="bioimage">
-	                <img src="../../io/team/img/Dawn-Price.jpg">
-	            </div>
-	            <h2>Dawn Price</h2>
-	            GA Economic Development
-	          </div>
-	        </div>
-	    </div>
-
-
-    </div>
-
-    
-<div style="clear:both"></div><br>
-
-
-</div>
-
-<!-- /bios -->
-
-
-<div class="content contentpadding" style="padding-bottom:20px;">
-    <div id="localDiv"></div>
-    <script>
-        loadMarkdown("../../io/overview/README.md", "localDiv", "_parent");
-    </script>
-</div>
-
-<div classX="widthColumns" class="content contentpadding contentwide" style="padding-bottom:20px; background: #fff">
-    
-    <img src="../../io/overview/img/hero/sankey.png" style="width:100%; bottom:0px;">
-    <br>
-</div>
-<br>
-
-<style>
-	.storybox {
-        position: absolute;
-        left: 60px;
-        bottom: 40px;
-        height: 420px;
-        width: 420px;
-        background-color: rgba(35, 35, 35, .85);
-        padding: 60px;
-        padding-top: 50px;
-        padding-bottom: 40px;
-        color:#fff;
-        line-height: 2.6em;
-        font-size: 16px;
-    }
-    .storybox-right {
-        left: auto;
-        right: 60px;
-    }
-    @media (max-width: 1400px) {
-	  .storybox {display:none;}
-	}
-</style>
-<div class="lazy bgimg bgimg-notfixed" data-src="../../io/overview/img/hero/board-masks.jpg" style="top:auto; bottom:0px; opacity:.85; line-height: 0px">
-    <img src="../../io/overview/img/hero/board-masks.jpg" style="opacity:0; width:100%; bottom:0px;">
-
-    <div class="storybox storybox-right hideMobile">
-           <h2 style="color:#eee">Local Economies</h2>
-    </div>
-</div>
 
 
 
@@ -1373,19 +1191,9 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
       let map = document.querySelector('#' + whichmap)._leaflet_map; // Recall existing map
       var container = L.DomUtil.get(map);
-  	  if (container == null) { // Initialize map
+      //if (container == null || map == undefined || map == null) { // Does not work
+  	  if ($('#' + whichmap).html().length == 0) { // Note: Avoid putting loading icon within map div.
 
-	      //let map = document.querySelector('#' + whichmap)._leaflet_map; // Recall existing map
-	      //alert("init map")
-	      /*
-	      map = new L.Map(whichmap,
-	      {
-	          scrollWheelZoom: false,
-	          center: new L.LatLng(lat,lon),
-	          zoom: zoom,
-	          //layers: [streets, dataParameters[0].group] // Indicates default layer
-	      });
-			*/
 	      map = L.map(whichmap, {
 		      center: new L.LatLng(lat,lon),
 		      scrollWheelZoom: false,
@@ -1426,12 +1234,15 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
       }
 
       if (typeof layerControl != "undefined") {
-      	//alert("SURPRISE: layerControl is available to CountyMap.")
+      	//alert("OKAY: layerControl is available to CountyMap.")
 
       	// layerControl is declaired in map.js
       	if (layerControl[whichmap] != undefined) {
-	      	if (overlays["Counties"]) {
-	          layerControl[whichmap].removeLayer(overlays["Counties"]);
+      		if (overlays["Counties"]) {
+	      		// Reached on county click, but shapes are not removed.
+	      		console.log("overlays: ");
+	      		console.log(overlays);
+	        	layerControl[whichmap].removeLayer(overlays["Counties"]);
 	       	}
 	    }
       	// layerControl wasn't yet available in loading sequence.
@@ -1439,11 +1250,12 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
       	// Or only declare layerControl object if not yet declared.
 
       	if (layerControl[whichmap] == undefined) {
-	      layerControl[whichmap] = L.control.layers(basemaps1, overlays).addTo(map); // Push multple layers
-	      //basemaps1["Satellite"].addTo(map);
-	      basemaps1["Streets"].addTo(map);
+	    	layerControl[whichmap] = L.control.layers(basemaps1, overlays).addTo(map); // Push multple layers
+	    	//basemaps1["Satellite"].addTo(map);
+	    	basemaps1["Streets"].addTo(map);
 	    } else {
-	      layerControl[whichmap].addOverlay(dp.group, dp.dataTitle); // Appends to existing layers
+	    	// Error: Cannot read property 'on' of undefined
+	    	//layerControl[whichmap].addOverlay(dp.group, dp.dataTitle); // Appends to existing layers
 	    }
 
 
@@ -1457,10 +1269,11 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
        //if (map.hasLayer(overlays1[dp.dataTitle])){
        //   overlays1[dp.dataTitle].remove();
        //}
-       if (map.hasLayer(overlays["Counties"])){
-       	  alert("found layer")
-          overlays["Counties"].remove();
-       }
+       //if (map.hasLayer(overlays["Counties"])){
+       //	  alert("found layer")
+       		//no effect
+          	overlays["Counties"].remove();
+       //}
 
       // Make a layer active. 
       geojsonLayer.addTo(map);
@@ -1492,12 +1305,21 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
         }
 
         function mapFeatureClick(e) {
+        	param = loadParams(location.search,location.hash); // param is declared in localsite.js
             var layer = e.target;
             //map.fitBounds(e.target.getBounds()); // Zoom to boundary area clicked
             var fips = "US13" + layer.feature.properties.COUNTYFP;
-            goHash({'geo':fips});
-            //window.top.location.href = "#" + newHash;
-            //window.top.location.href="#geo=" + fips;
+            //var fipsString = fips;
+            if (param.geo && param.geo.split(",").includes(fips)) {
+        		// Remove clicked fips from array, then convert back to string
+        		param.geo = jQuery.grep(param.geo.split(","), function(value) {return value != fips;}).toString();
+        		//fipsString = param.geo;
+        	} else if (param.geo && param.geo.split(",").length > 0) {
+        		param.geo = param.geo + "," + fips;
+        	} else {
+        		param.geo = fips;
+        	}
+            goHash({'geo':param.geo});
         }
 
         function onEachFeature(feature, layer){
@@ -1693,7 +1515,8 @@ function loadIOWidgets(param) {
 
 }
 refreshWidgets();
-
+// INIT
+renderMapShapes("geomap", param);
 </script>
 
 

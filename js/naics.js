@@ -5,27 +5,45 @@
 // This is commented out below, call heatmap widget instead.
 // goHash({"naics":naicshash});
 
-let dataObject={};
-dataObject.stateshown=13;
 let params = loadParams(location.search,location.hash);
-if(params["geo"]){
-    geo=params["geo"]
-    if (geo.includes(",")){
-        geos=geo.split(",")
-        fips=[]
-        for (var i = 0; i<geos.length; i++){
-            fips.push(geos[i].split("US")[1])
+let dataObject={};
+dataObject.stateshown = getStateFromParams(params,13); // Default to Georgia
+
+let fips = getFipsFromParams(params,dataObject.stateshown);
+
+function getStateFromParams(params, stateshown) {
+    if(params.geo){
+        if (params.geo.includes(",")){
+            let geos=params.geo.split(",")
+            //fips=[]
+            //for (var i = 0; i<geos.length; i++){
+            //    fips.push(geos[i].split("US")[1])
+            //}
+            stateshown=(geos[0].split("US")[1]).slice(0,2)
+        }else{
+            //fips = geo.split("US")[1]
+            stateshown=(params.geo.split("US")[1]).slice(0,2)
         }
-        dataObject.stateshown=(geos[0].split("US")[1]).slice(0,2)
-    }else{
-        fips = geo.split("US")[1]
-        dataObject.stateshown=(geo.split("US")[1]).slice(0,2)
     }
-
-}else{
-    fips = dataObject.stateshown;
+    return stateshown;
 }
-
+function getFipsFromParams(params, stateshown) {
+    let fips = stateshown;
+    if(params.geo){
+        if (params.geo.includes(",")){
+            let geos=params.geo.split(",")
+            fips=[]
+            for (var i = 0; i < geos.length; i++){
+                fips.push(geos[i].split("US")[1])
+            }
+            //dataObject.stateshown=(geos[0].split("US")[1]).slice(0,2)
+        }else{
+            fips = params.geo.split("US")[1]
+            //dataObject.stateshown=(geo.split("US")[1]).slice(0,2)
+        }
+    }
+    return fips;
+}
 // Get the levels below root
 /* Try something like this from navigation.js
     let foldercount = (location.pathname.split('/').length - 1); // - (location.pathname[location.pathname.length - 1] == '/' ? 1 : 0) // Removed because ending with slash or filename does not effect levels. Increased -1 to -2.
@@ -1053,13 +1071,12 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                     }
                     if(Array.isArray(fips) && statelength!=fips.length){
 
-                        fipslen=fips.length
-                        if (!params.regiontitle) {
-                            $(".regiontitle").text("Industries within "+fipslen+" counties");
-                        } else if (params.regiontitle) {
-                            
-                                $(".regiontitle").text(params.regiontitle.replace(/\+/g," "));
-                            
+                        fipslen=fips.length;
+                        //alert(params.regiontitle)
+                        if (params.regiontitle) {
+                            $(".regiontitle").text(params.regiontitle.replace(/\+/g," "));
+                        } else {
+                            //$(".regiontitle").text("Industries within "+fipslen+" counties");
                         }
                         for(var i=0; i<fipslen; i++){
                             var filteredData = consdata.filter(function(d) {

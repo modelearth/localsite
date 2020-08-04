@@ -744,15 +744,16 @@ function updateLoc(geo) {
         }
 		
     }
-    console.log('ALERT: Change to support state as GEO. Current geo: ' + geo)
-    if (!geo) {
-        $(".county-view").hide();
-        $(".state-view").show();
-        $(".industry_filter_settings").hide(); // temp
-    } else {
+    console.log('ALERT: Change to support multiple states as GEO. Current geo: ' + geo)
+    if (geo && geo.length > 4) // Then county or multiple states - Bug
+    {
         $(".state-view").hide();
         $(".county-view").show();
         $(".industry_filter_settings").show(); // temp
+    } else {
+        $(".county-view").hide();
+        $(".state-view").show();
+        $(".industry_filter_settings").hide(); // temp
     }
 }
 // INIT
