@@ -1078,13 +1078,14 @@ $(document).ready(function () {
   // If this does not work, may need to call when map1 is initially loaded, but only once.
   $('.refreshMap').click(function(event) {
 
-      $("#map1").show();
+      //$("#map1").show();
       //displayMap(layerName,siteObject);
       console.log(".refreshMap ");
       
+      // Could check if visible...
       document.querySelector('#geomap')._leaflet_map.invalidateSize(); // Force Leaflet map to reload
-      //document.querySelector('#map1')._leaflet_map.invalidateSize(); 
-      //document.querySelector('#map2')._leaflet_map.invalidateSize(); 
+      document.querySelector('#map1')._leaflet_map.invalidateSize(); 
+      document.querySelector('#map2')._leaflet_map.invalidateSize(); 
   });
 
   if (window.self == window.top && param["show"] == "suppliers") {
