@@ -340,7 +340,8 @@ function refreshWidgets() {
             Georgia's <span style="font-weight:800; opacity:1">environmentally-enabled</span> input-output
 
             <br><br>
-            <div id="play-button" style="font-size: 68px; margin-left:2px">
+            <!-- bug: this is overlapping left link in http://localhost:8887/localsite/info/#go=bioeconomy -->
+            <div id="play-button" style="display:none; font-size: 68px; margin-left:2px">
             	<a onClick="goHash({}); return false;"  href="#industries">▶️</a>
             </div>
         </div>
