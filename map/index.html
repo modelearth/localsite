@@ -27,7 +27,6 @@
 <link rel="stylesheet" href="../css/leaflet.css" />
  <!-- Resides AFTER Leaflet's CSS -->
 <script src="../js/leaflet.js"></script>
-
 <script src="../js/d3.v5.min.js"></script>
 
 <!-- after d3 -->
@@ -1343,31 +1342,6 @@ window.onhashchange = function() {
   console.log("user changed hash");
   loadMap1();
 }
-
-
-// WORK IN PROGRESS
-/*
-  $("#detaillist").text(""); // Clear prior results
-  // map1 = 
-  loadFromCSV('map1','map2', dp1, basemaps1, basemaps2, function(dp) { // Called on success
-      
-      if (!overlays2["Railroads"]) {
-        overlays2["Railroads"] = dp.group; // Allows us to check if layer already added. Setting to db.group not currently user.
-        layerControl['map1'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
-      } 
-  });
-*/
-
-/*
-  // Return to top for mobile users on search.
-  if (document.body.clientWidth <= 500) {
-    window.scrollTo({
-      top: 0,
-      left: 0
-    });
-*/
-
-
 </script>
 
 </body>
