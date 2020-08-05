@@ -41,195 +41,205 @@ var localsite_map = localsite_map || (function(){
     };
 }());
 
-function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,callback) {
-
-  if (!dp.dataset) {
-    console.log('CANCEL loadFromCSV - no dataset selected for top map.');
-    $('#' + whichmap).hide();
-    return;
-  } else {
-    console.log('loadFromCSV into #' + whichmap + '._leaflet_map');
-    $('#' + whichmap).show();
-  }
-  let defaults = {};
-  defaults.zoom = 7;
-  defaults.numColumns = ["zip","lat","lon"];
-  defaults.nameColumn = "name";
-  defaults.valueColumn = "name"; // For color coding
-  defaults.latColumn = "latitude";
-  defaults.lonColumn = "longitude";
-  //defaults.scaleType = "scaleQuantile";
-  defaults.scaleType = "scaleOrdinal";
-  defaults.dataTitle = "Data Projects"; // Must match "map.addLayer(overlays" below.
-  if (dp.latitude && dp.longitude) {
-      mapCenter = [dp.latitude,dp.longitude]; 
-  }
-  dp = mix(dp,defaults); // Gives priority to dp
-  if (dp.addLink) {
-    //console.log("Add Link: " + dp.addLink)
-  }
-  let map = document.querySelector('#' + whichmap)._leaflet_map; // Recall existing map
-  var container = L.DomUtil.get(map);
-  if (container == null) { // Initialize map
-    map = L.map(whichmap, {
-      center: mapCenter,
-      scrollWheelZoom: false,
-      zoom: dp.zoom,
-      dragging: !L.Browser.mobile, 
-      tap: !L.Browser.mobile
-    });
-    
-    
-    // setView does not seem to have an effect triggering map.on below
-    /*
-    map = L.map(whichmap,{
-      center: mapCenter,
-      scrollWheelZoom: false,
-      zoom: dp.zoom,
-      zoomControl: false
-    });
-    // Placing map.whenReady or map.on('load') here did not resolve
-    map.setView(mapCenter,dp.zoom);
-    */
-  }
-  let map2 = {};
-  if (whichmap2) {
-    map2 = document.querySelector('#' + whichmap2)._leaflet_map; // Recall existing map
-    var container2 = L.DomUtil.get(map2);
-    if (container2 == null) { // Initialize map
-      map2 = L.map(whichmap2, {
+function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback) {
+  // To Do: Map background could be loaded while waiting for D3 file. 
+  // Move "d3.csv(dp.dataset).then" further down into a new function that starts with the following line.
+  if (typeof d3 !== 'undefined') {
+    if (!dp.dataset) {
+      console.log('CANCEL loadFromCSV - no dataset selected for top map.');
+      $('#' + whichmap).hide();
+      return;
+    } else {
+      console.log('loadFromCSV into #' + whichmap + '._leaflet_map');
+      $('#' + whichmap).show();
+    }
+    let defaults = {};
+    defaults.zoom = 7;
+    defaults.numColumns = ["zip","lat","lon"];
+    defaults.nameColumn = "name";
+    defaults.valueColumn = "name"; // For color coding
+    defaults.latColumn = "latitude";
+    defaults.lonColumn = "longitude";
+    //defaults.scaleType = "scaleQuantile";
+    defaults.scaleType = "scaleOrdinal";
+    defaults.dataTitle = "Data Projects"; // Must match "map.addLayer(overlays" below.
+    if (dp.latitude && dp.longitude) {
+        mapCenter = [dp.latitude,dp.longitude]; 
+    }
+    dp = mix(dp,defaults); // Gives priority to dp
+    if (dp.addLink) {
+      //console.log("Add Link: " + dp.addLink)
+    }
+    let map = document.querySelector('#' + whichmap)._leaflet_map; // Recall existing map
+    var container = L.DomUtil.get(map);
+    if (container == null) { // Initialize map
+      map = L.map(whichmap, {
         center: mapCenter,
         scrollWheelZoom: false,
-        zoom: 5,
+        zoom: dp.zoom,
         dragging: !L.Browser.mobile, 
         tap: !L.Browser.mobile
       });
+      
+      
+      // setView does not seem to have an effect triggering map.on below
+      /*
+      map = L.map(whichmap,{
+        center: mapCenter,
+        scrollWheelZoom: false,
+        zoom: dp.zoom,
+        zoomControl: false
+      });
+      // Placing map.whenReady or map.on('load') here did not resolve
+      map.setView(mapCenter,dp.zoom);
+      */
     }
-  }
-
-  // 5. Load Layers Asynchronously
-  //var dataset = "../community/map/zip/basic/places.csv";
-
-  // Change below
-  // latColumn: "lat",
-  //      lonColumn: "lon",
-  //var dataset = "https://datascape.github.io/community/map/zip/basic/places.csv";
-
-  // ADD DATASET TO DUAL MAPS
-
-  // We are currently loading dp.dataset from a CSV file.
-  // Later we will check if the filename ends with .csv
-
-  d3.csv(dp.dataset).then(function(data) {
-      //console.log("To do: store data in browser to avoid repeat loading from CSV.");
-
-      dp.data = readCsvData(data, dp.numColumns, dp.valueColumn);
-      // Make element key always lowercase
-
-      dp.data_lowercase_key
-
-      dp.scale = getScale(dp.data, dp.scaleType, dp.valueColumn);
-      dp.group = L.layerGroup();
-      dp.group2 = L.layerGroup();
-      dp.iconName = 'star';
-      //dataParameters.push(dp);
-
-      // Remove - clear the markers from the map for the layer
-       if (map.hasLayer(overlays1[dp.dataTitle])){
-          overlays1[dp.dataTitle].remove();
-       }
-       if (map2.hasLayer(overlays2[dp.dataTitle])){
-          overlays2[dp.dataTitle].remove();
-       }
-
-       // Prevents dups of layer from appearing
-       // Each dup shows a data subset when filter is being applied.
-       if (overlays1[dp.dataTitle]) {
-          layerControl[whichmap].removeLayer(overlays1[dp.dataTitle]);
-       }
-       if (overlays2[dp.dataTitle]) {
-          // Not working, multiple checkboxes appear
-          layerControl[whichmap2].removeLayer(overlays2[dp.dataTitle]);
-          //controlLayers.removeLayer(overlays2[dp.dataTitle]);
-       }
-
-      // Allows for use of dp.dataTitle with removeLayer and addLayer
-      overlays1[dp.dataTitle] = dp.group;
-      overlays2[dp.dataTitle] = dp.group2;
-
-      if (layerControl[whichmap] != undefined) {
-        // Remove existing instance of layer
-        //layerControl[whichmap].removeLayer(overlays[dp.dataTitle]); // Remove from control 
-        //map.removeLayer(overlays[dp.dataTitle]); // Remove from map
+    let map2 = {};
+    if (whichmap2) {
+      map2 = document.querySelector('#' + whichmap2)._leaflet_map; // Recall existing map
+      var container2 = L.DomUtil.get(map2);
+      if (container2 == null) { // Initialize map
+        map2 = L.map(whichmap2, {
+          center: mapCenter,
+          scrollWheelZoom: false,
+          zoom: 5,
+          dragging: !L.Browser.mobile, 
+          tap: !L.Browser.mobile
+        });
       }
+    }
 
-      if (layerControl[whichmap] != undefined && dp.group) {
-          //layerControl[whichmap].removeLayer(dp.group);
-      }
+    // 5. Load Layers Asynchronously
+    //var dataset = "../community/map/zip/basic/places.csv";
+
+    // Change below
+    // latColumn: "lat",
+    //      lonColumn: "lon",
+    //var dataset = "https://datascape.github.io/community/map/zip/basic/places.csv";
+
+    // ADD DATASET TO DUAL MAPS
+
+    // We are currently loading dp.dataset from a CSV file.
+    // Later we will check if the filename ends with .csv
+
+    d3.csv(dp.dataset).then(function(data) {
+        //console.log("To do: store data in browser to avoid repeat loading from CSV.");
+
+        dp.data = readCsvData(data, dp.numColumns, dp.valueColumn);
+        // Make element key always lowercase
+
+        dp.data_lowercase_key
+
+        dp.scale = getScale(dp.data, dp.scaleType, dp.valueColumn);
+        dp.group = L.layerGroup();
+        dp.group2 = L.layerGroup();
+        dp.iconName = 'star';
+        //dataParameters.push(dp);
+
+        // Remove - clear the markers from the map for the layer
+         if (map.hasLayer(overlays1[dp.dataTitle])){
+            overlays1[dp.dataTitle].remove();
+         }
+         if (map2.hasLayer(overlays2[dp.dataTitle])){
+            overlays2[dp.dataTitle].remove();
+         }
+
+         // Prevents dups of layer from appearing
+         // Each dup shows a data subset when filter is being applied.
+         if (overlays1[dp.dataTitle]) {
+            layerControl[whichmap].removeLayer(overlays1[dp.dataTitle]);
+         }
+         if (overlays2[dp.dataTitle]) {
+            // Not working, multiple checkboxes appear
+            layerControl[whichmap2].removeLayer(overlays2[dp.dataTitle]);
+            //controlLayers.removeLayer(overlays2[dp.dataTitle]);
+         }
+
+        // Allows for use of dp.dataTitle with removeLayer and addLayer
+        overlays1[dp.dataTitle] = dp.group;
+        overlays2[dp.dataTitle] = dp.group2;
+
+        if (layerControl[whichmap] != undefined) {
+          // Remove existing instance of layer
+          //layerControl[whichmap].removeLayer(overlays[dp.dataTitle]); // Remove from control 
+          //map.removeLayer(overlays[dp.dataTitle]); // Remove from map
+        }
+
+        if (layerControl[whichmap] != undefined && dp.group) {
+            //layerControl[whichmap].removeLayer(dp.group);
+        }
 
 
-      // Still causes jump
-      //overlays2["Intermodal Ports 2"] = overlays["Intermodal Ports"];
+        // Still causes jump
+        //overlays2["Intermodal Ports 2"] = overlays["Intermodal Ports"];
 
-      // ADD BACKGROUND BASEMAP
-      if (layerControl[whichmap] == undefined) {
-        layerControl[whichmap] = L.control.layers(basemaps1, overlays1).addTo(map); // Init layer checkboxes
-        basemaps1["Grayscale"].addTo(map); // Set the initial baselayer.
-      } else {
-        layerControl[whichmap].addOverlay(dp.group, dp.dataTitle); // Add layer checkbox
-      }
-      // ADD BACKGROUND BASEMAP to Side Map
-      if (layerControl[whichmap2] == undefined) {
-        layerControl[whichmap2] = L.control.layers(basemaps2, overlays2).addTo(map2); // Init layer checkboxes
-        basemaps2["OpenStreetMap"].addTo(map2); // Set the initial baselayer.
-      } else {
-        layerControl[whichmap2].addOverlay(dp.group2, dp.dataTitle); // Add layer checkbox
-      }
+        // ADD BACKGROUND BASEMAP
+        if (layerControl[whichmap] == undefined) {
+          layerControl[whichmap] = L.control.layers(basemaps1, overlays1).addTo(map); // Init layer checkboxes
+          basemaps1["Grayscale"].addTo(map); // Set the initial baselayer.
+        } else {
+          layerControl[whichmap].addOverlay(dp.group, dp.dataTitle); // Add layer checkbox
+        }
+        // ADD BACKGROUND BASEMAP to Side Map
+        if (layerControl[whichmap2] == undefined) {
+          layerControl[whichmap2] = L.control.layers(basemaps2, overlays2).addTo(map2); // Init layer checkboxes
+          basemaps2["OpenStreetMap"].addTo(map2); // Set the initial baselayer.
+        } else {
+          layerControl[whichmap2].addOverlay(dp.group2, dp.dataTitle); // Add layer checkbox
+        }
 
-      if (dp.showLegend != false) {
-        //addLegend(dp.scale, dp.scaleType, dp.name); // To big and d3-legend.js file is not available in embed, despite 
-      }
-  
-      // ADD ICONS TO MAP
-      // All layers reside in this object:
-      //console.log("dataParameters:");
-      //console.log(dataParameters);
+        if (dp.showLegend != false) {
+          //addLegend(dp.scale, dp.scaleType, dp.name); // To big and d3-legend.js file is not available in embed, despite 
+        }
+    
+        // ADD ICONS TO MAP
+        // All layers reside in this object:
+        //console.log("dataParameters:");
+        //console.log(dataParameters);
 
-      if (dp.showLayer != false) {
-        $("#widgetTitle").text(dp.dataTitle);
-        dp = showList(dp,map); // Reduces list based on filters
-        addIcons(dp,map,map2);
-        // These do not effect the display of layer checkboxes
-        map.addLayer(overlays1[dp.dataTitle]);
-        map2.addLayer(overlays2[dp.dataTitle]);
-      }
-      $("#activeLayer").text(dp.dataTitle); // Resides after showList
+        if (dp.showLayer != false) {
+          $("#widgetTitle").text(dp.dataTitle);
+          dp = showList(dp,map); // Reduces list based on filters
+          addIcons(dp,map,map2);
+          // These do not effect the display of layer checkboxes
+          map.addLayer(overlays1[dp.dataTitle]);
+          map2.addLayer(overlays2[dp.dataTitle]);
+        }
+        $("#activeLayer").text(dp.dataTitle); // Resides after showList
 
-      //callback(map); // Sends to function(results).  "var map =" can be omitted when calling this function
+        //callback(map); // Sends to function(results).  "var map =" can be omitted when calling this function
 
 
-      // Runs too soon, unless placed within d3.csv.
-      // Otherwise causes: Cannot read property 'addOverlay' of undefined
+        // Runs too soon, unless placed within d3.csv.
+        // Otherwise causes: Cannot read property 'addOverlay' of undefined
 
-      //map.whenReady(function(){ 
-      //map.on('load',function(){ // Never runs
-        //alert("loaded")
-        callback(dp)
-      //});
+        //map.whenReady(function(){ 
+        //map.on('load',function(){ // Never runs
+          //alert("loaded")
+          callback(dp)
+        //});
 
-      // Neigher map.whenReady or map.on('load') seems to require SetView()
-      if (document.body.clientWidth > 500) { // Since map tiles do not fully load when below list. Could use a .5 sec timeout perhaps.
+        // Neigher map.whenReady or map.on('load') seems to require SetView()
+        if (document.body.clientWidth > 500) { // Since map tiles do not fully load when below list. Could use a .5 sec timeout perhaps.
+          setTimeout( function() {
+            $("#sidemapCard").hide(); // Hide after size is available for tiles.
+          }, 20 );
+        }
+    })
+    //.catch(function(error){ 
+    //     alert("Data loading error: " + error)
+    //})
+  } else {
+      attempts = attempts + 1;
+      if (attempts < 2000) {
+        // To do: Add a loading image after a coouple seconds. 2000 waits about 300 seconds.
         setTimeout( function() {
-          $("#sidemapCard").hide(); // Hide after size is available for tiles.
+          loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback);
         }, 20 );
+      } else {
+        alert("D3 javascript not available for loading map dataset.")
       }
-  })
-  //.catch(function(error){ 
-  //     alert("Data loading error: " + error)
-  //})
-
-
-
+  }
 }
 
 /////////// MAP SETTINGS ///////////
@@ -776,8 +786,8 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.listTitle = "Georgia COVID-19 Response";
     dp1.listTitle = "Georgia Suppliers of&nbsp;Critical Items <span style='white-space:nowrap'>to Fight COVID-19</span>"; // For iFrame site
 
-    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-07/ga_suppliers_list_7-29-2020.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
-    dp1.dataset = "https://georgiadata.github.io/display/products/suppliers/us_ga_suppliers_ppe_2020_07_29.csv";
+    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-08/ga_suppliers_list_8-5-2020.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
+    dp1.dataset = "https://georgiadata.github.io/display/products/suppliers/us_ga_suppliers_ppe_2020_08_05.csv";
     //dp1.dataset = "/display/products/suppliers/us_ga_suppliers_ppe_2020_06_17.csv";
 
     dp1.dataTitle = "Manufacturers and Distributors";
@@ -873,14 +883,9 @@ function loadMap1(dp) { // Also called by map-filters.js
   }
 
   // Load the map using settings above
-  // This is required (even though it appears to contain nothing. Do not remove.
-  loadFromCSV('map1','map2', dp1, basemaps1, basemaps2, function(results) {
+  loadFromCSV('map1','map2', dp1, basemaps1, basemaps2, 0, function(results) {
 
-      // CALLED WHENEVER FILTERS CHANGE
-
-      //loadFromCSV('map1', 'map2', "/community/tools/map.csv", basemaps1, basemaps2, function(results) {
-      // This function gets called by the geocode function on success
-      //makeMap(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+      // CALLED WHENEVER FILTERS CHANGES
 
       // AVOID HERE - would create duplicate checkboxes
       // Could check if overlay already exists

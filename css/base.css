@@ -235,6 +235,13 @@ summary::-webkit-details-marker {
 }
 .contentwide {
   max-width: 1400px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.contentfull {
+  max-width: 2000px;
+  padding-left: 34px;
+  padding-right: 20px;
 }
 .content li {
   margin-left: -10px;

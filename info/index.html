@@ -242,6 +242,9 @@ function refreshWidgets() {
 			$("#aboutToolsDiv").hide();
 			$("#infoColumn").show();
 			$("#geomap").show();
+			if ($('#geomap').html().length > 0) {
+				document.querySelector('#geomap')._leaflet_map.invalidateSize();
+			}
 			/*
 			alert("show map")
 			if (document.querySelector('#geomap')._leaflet_map) {
@@ -337,7 +340,8 @@ function refreshWidgets() {
             Georgia's <span style="font-weight:800; opacity:1">environmentally-enabled</span> input-output
 
             <br><br>
-            <div id="play-button" style="font-size: 68px; margin-left:2px">
+            <!-- bug: this is overlapping left link in http://localhost:8887/localsite/info/#go=bioeconomy -->
+            <div id="play-button" style="display:none; font-size: 68px; margin-left:2px">
             	<a onClick="goHash({}); return false;"  href="#industries">▶️</a>
             </div>
         </div>
@@ -365,6 +369,9 @@ function refreshWidgets() {
 	<div class="pageColumns">
 		<div style="display:table-row;">
 			
+			<div style="float:right; padding: 12px 0px 10px 0" class="noprint">
+				<a href="../../io/charts/">About Widgets</a>
+			</div>
 			<!--
 				class="mainColumn mainColumn1" 
 			-->
@@ -843,7 +850,7 @@ https://www.epa.gov/enviroatlas
 
 
       <div>
-        
+       
         <label  style="float:left; margin-right:6px" class="switch">
           <input id="mySelect" type="checkbox" checked>
           <span class="slider round"></span>
@@ -856,7 +863,7 @@ https://www.epa.gov/enviroatlas
 
 
   	</div>
-  	<button onclick="clearSelection()">Clear Selection</button>
+  	<button onclick="clearBubbleSelection()">Clear Selection</button>
   	<div style="clear:both"></div>
 
 </div>
@@ -873,7 +880,7 @@ https://www.epa.gov/enviroatlas
 	<script type="text/javascript" src="../../input-output/bubbles/js/bubble.js"></script>
 
 
-	<div class="io" style="display:none; max-width: 750px; margin: auto;">
+	<div class="io" style=" max-width: 850px; margin: auto;">
 	        <h1 class="text-center">Impact chart</h1>
 	        <p>
 	            The impact chart widget shows the environmental profile of one or more sectors.
@@ -1071,8 +1078,15 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
     // Topo data source
     //https://github.com/deldersveld/topojson/tree/master/countries/us-states
 
+    // TOPO Files: https://github.com/modelearth/topojson
     var url = dual_map.custom_data_root() + '/counties/GA-13-georgia-counties.json';
+    if(location.host.indexOf('localhost') >= 0) {
+    	// https://github.com/modelearth/topojson/blob/master/countries/us-states/AL-01-alabama-counties.json
+    	url = dual_map.modelearth_data_root() + "/topojson/countries/us-states/AL-01-alabama-counties.json";
+    	//url = dual_map.modelearth_data_root() + "/opojson/countries/us-states/GA-13-georgia-counties.json";
 
+    	// IMPORTANT: ALSO change localhost setting that uses cb_2015_alabama_county_20m below
+	}
     var layerControl_CountyMap = {}; // Object containing one control for each map on page.
 
     req.open('GET', url, true);
@@ -1109,8 +1123,14 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
             //topodata = topojson.feature(topoob, topoob.objects.data)
 
             //topodata = topojson.feature(topoob, topoob.transform)
-            topodata = topojson.feature(topoob, topoob.objects.cb_2015_georgia_county_20m)
 
+            // 
+            
+            if(location.host.indexOf('localhost') >= 0) {
+            	topodata = topojson.feature(topoob, topoob.objects.cb_2015_alabama_county_20m)
+        	} else {
+        		topodata = topojson.feature(topoob, topoob.objects.cb_2015_georgia_county_20m)
+        	}
 
             // ADD 
             // For region colors
@@ -1308,7 +1328,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
         	param = loadParams(location.search,location.hash); // param is declared in localsite.js
             var layer = e.target;
             //map.fitBounds(e.target.getBounds()); // Zoom to boundary area clicked
-            var fips = "US13" + layer.feature.properties.COUNTYFP;
+            var fips = "US" + layer.feature.properties.STATEFP + layer.feature.properties.COUNTYFP;
             //var fipsString = fips;
             if (param.geo && param.geo.split(",").includes(fips)) {
         		// Remove clicked fips from array, then convert back to string

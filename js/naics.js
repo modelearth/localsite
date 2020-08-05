@@ -5,45 +5,76 @@
 // This is commented out below, call heatmap widget instead.
 // goHash({"naics":naicshash});
 
-let params = loadParams(location.search,location.hash);
 let dataObject={};
-dataObject.stateshown = getStateFromParams(params,13); // Default to Georgia
-
-let fips = getFipsFromParams(params,dataObject.stateshown);
-
-function getStateFromParams(params, stateshown) {
-    if(params.geo){
-        if (params.geo.includes(",")){
-            let geos=params.geo.split(",")
-            //fips=[]
-            //for (var i = 0; i<geos.length; i++){
-            //    fips.push(geos[i].split("US")[1])
-            //}
-            stateshown=(geos[0].split("US")[1]).slice(0,2)
-        }else{
-            //fips = geo.split("US")[1]
-            stateshown=(params.geo.split("US")[1]).slice(0,2)
-        }
+dataObject.stateshown=13;
+let params = loadParams(location.search,location.hash);
+if (params.geomap){
+    fip=params.geomap.split("US")[1]   
+    if(fip.startsWith("0")){
+        dataObject.stateshown=params.geomap.split("US0")[1]
+    }else{
+        dataObject.stateshown=params.geomap.split("US")[1]
     }
-    return stateshown;
+    
 }
-function getFipsFromParams(params, stateshown) {
-    let fips = stateshown;
-    if(params.geo){
-        if (params.geo.includes(",")){
-            let geos=params.geo.split(",")
+[fips,dataObject.stateshown]=getStateFips(params)
+function getStateFips(params){
+    if (params.geo) {
+        if (params.geo.includes(",")) {
+            geos=params.geo.split(",")
             fips=[]
-            for (var i = 0; i < geos.length; i++){
-                fips.push(geos[i].split("US")[1])
+            for (var i = 0; i<geos.length; i++){
+                fip=geos[i].split("US")[1]
+                if(fip.startsWith("0")){
+                    fips.push(parseInt(geos[i].split("US0")[1]))
+                }else{
+                    fips.push(parseInt(geos[i].split("US")[1]))
+                }
             }
-            //dataObject.stateshown=(geos[0].split("US")[1]).slice(0,2)
-        }else{
-            fips = params.geo.split("US")[1]
-            //dataObject.stateshown=(geo.split("US")[1]).slice(0,2)
+            st=(geos[0].split("US")[1]).slice(0,2)
+            if(st.startsWith("0")){
+                dataObject.stateshown=(geos[0].split("US0")[1]).slice(0,1)
+            }else{
+                if(geos[0].split("US")[1].length==4){
+                    dataObject.stateshown=(geos[0].split("US")[1]).slice(0,1)
+                }else{
+                    dataObject.stateshown=(geos[0].split("US")[1]).slice(0,2)
+                }
+                
+            }
+        } else {
+            fip=params.geo.split("US")[1]
+            
+            if(fip.startsWith("0")){
+                fips=parseInt(params.geo.split("US0")[1])
+            }else{
+                fips=parseInt(params.geo.split("US")[1])
+            }
+            st=(params.geo.split("US")[1]).slice(0,2)
+            if(st.startsWith("0")){
+                    dataObject.stateshown=(params.geo.split("US0")[1]).slice(0,1)
+            }else{
+                if(params.geo.split("US")[1].length==4){
+                    dataObject.stateshown=(params.geo.split("US")[1]).slice(0,1)
+                }else{
+                    dataObject.stateshown=(params.geo.split("US")[1]).slice(0,2)
+                }
+            
+            }
         }
+    } else {
+        fips = dataObject.stateshown;
     }
-    return fips;
+    stuff=[]
+    stuff.push(fips)
+    stuff.push(dataObject.stateshown)
+    return stuff
 }
+
+console.log("fips"+fips)
+console.log("dataObject.stateshown"+dataObject.stateshown)
+
+
 // Get the levels below root
 /* Try something like this from navigation.js
     let foldercount = (location.pathname.split('/').length - 1); // - (location.pathname[location.pathname.length - 1] == '/' ? 1 : 0) // Removed because ending with slash or filename does not effect levels. Increased -1 to -2.
@@ -164,23 +195,7 @@ function ready(values) {
                 })
                 dataObject.counties=counties;
                 statelength=dataObject.counties.length
-                if(params["geo"]){
-                    geo=params["geo"]
-                    if (geo.includes(",")){
-                        geos=geo.split(",")
-                        fips=[]
-                        for (var i = 0; i<geos.length; i++){
-                            fips.push(geos[i].split("US")[1])
-                        }
-                        dataObject.stateshown=(geos[0].split("US")[1]).slice(0,2)
-                    }else{
-                        fips = geo.split("US")[1]
-                        dataObject.stateshown=(geo.split("US")[1]).slice(0,2)
-                    }
-
-                }else{
-                    fips = dataObject.stateshown;
-                }
+                [fips,dataObject.stateshown]=getStateFips(params)
 
                 /*
                 let geo_list={}
@@ -246,14 +261,7 @@ function displayTopIndustries() { // Not currently called
 
     // Both call topRatesInFips(). Might be good to move geoChanged processing into renderIndustryChart()
     
-    if(params.geo){
-        if (params.geo.includes(",")){
-            geos=params.geo.split(",")
-            dataObject.stateshown=(geos[0].split("US")[1]).slice(0,2)
-        }else{
-            dataObject.stateshown=(params.geo.split("US")[1]).slice(0,2)
-        }
-    }
+    [fips,dataObject.stateshown]=getStateFips(params)
 
 
     
@@ -262,7 +270,7 @@ function displayTopIndustries() { // Not currently called
             var filteredData = consdata.filter(function(d) {
                 if(d["FIPS"]==String(dataObject.stateshown)) {
                     var promises = [
-                    d3.csv(dual_map.community_data_root() + "data/industry_id_list.csv"),
+                    d3.csv(dual_map.community_data_root() + "us/id_lists/industry_id_list.csv"),
                     d3.tsv(dual_map.community_data_root() + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
                     //d3.tsv(dual_map.community_data_root() + "data/c3.tsv"),
                     d3.tsv(dual_map.community_data_root() + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
@@ -361,21 +369,7 @@ function renderIndustryChart(dataObject,values,params) {
     }
         
     dataObject.industryDataStateApi=industryDataStateApi;
-    if (params.geo){
-        if (params.geo.includes(",")){
-            let geos=params.geo.split(",")
-            fips=[]
-            for (var i = 0; i<geos.length; i++){
-                fips.push(geos[i].split("US")[1])
-            }
-            dataObject.stateshown=(geos[0].split("US")[1]).slice(0,2)
-        }else{
-            fips = params.geo.split("US")[1]
-            dataObject.stateshown=(params.geo.split("US")[1]).slice(0,2)
-        }
-    }else{
-        fips = dataObject.stateshown;
-    }
+    [fips,dataObject.stateshown]=getStateFips(params)
     console.log("renderIndustryChart calls topRatesInFips with fips: " + fips)
     topRatesInFips(dataObject, dataObject.industryNames, fips, params);
     priorHash_Naics = params;
@@ -388,21 +382,7 @@ function geoChanged(dataObject,params){
     if (!params) {
         params = loadParams(location.search,location.hash); // Pull from updated hash
     }
-    if (params.geo) {
-        if (params.geo.includes(",")) {
-            geos=params.geo.split(",")
-            fips=[]
-            for (var i = 0; i<geos.length; i++){
-                fips.push(geos[i].split("US")[1])
-            }
-            dataObject.stateshown=(geos[0].split("US")[1]).slice(0,2)
-        } else {
-            fips = params.geo.split("US")[1]
-            dataObject.stateshown=(params.geo.split("US")[1]).slice(0,2)
-        }
-    } else {
-        fips = dataObject.stateshown;
-    }
+    [fips,dataObject.stateshown]=getStateFips(params)
     if (fips == dataObject.stateshown) {
         $(".county-view").hide();
         $(".state-view").show();
@@ -419,7 +399,7 @@ function geoChanged(dataObject,params){
             var filteredData = consdata.filter(function(d) {
                 if(d["FIPS"]==String(dataObject.stateshown)) {
                     var promises = [
-                    d3.csv(dual_map.community_data_root() + "data/industry_id_list.csv"),
+                    d3.csv(dual_map.community_data_root() + "us/id_lists/industry_id_list.csv"),
                     d3.tsv(dual_map.community_data_root() + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
                     //d3.tsv(dual_map.community_data_root() + "data/c3.tsv"),
                     d3.tsv(dual_map.community_data_root() + "us/state/"+d['Postal Code']+"/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
@@ -1071,12 +1051,13 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                     }
                     if(Array.isArray(fips) && statelength!=fips.length){
 
-                        fipslen=fips.length;
-                        //alert(params.regiontitle)
-                        if (params.regiontitle) {
-                            $(".regiontitle").text(params.regiontitle.replace(/\+/g," "));
-                        } else {
-                            //$(".regiontitle").text("Industries within "+fipslen+" counties");
+                        fipslen=fips.length
+                        if (!params.regiontitle) {
+                            $(".regiontitle").text("Industries within "+fipslen+" counties");
+                        } else if (params.regiontitle) {
+                            
+                                $(".regiontitle").text(params.regiontitle.replace(/\+/g," "));
+                            
                         }
                         for(var i=0; i<fipslen; i++){
                             var filteredData = consdata.filter(function(d) {
@@ -1135,5 +1116,3 @@ function topRatesInFips(dataSet, dataNames, fips, params){
 function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value)
 }
-
-

@@ -545,7 +545,7 @@ function locationFilterChange(selectedValue) {
         }
     }
     if (selectedValue == 'counties') {
-        showCounties();
+        showCounties(0);
     }
     if (selectedValue == 'city') {
         $("#distanceField").show();
@@ -587,136 +587,150 @@ function locClick(which) {
 	let regiontitle = ""; // Remove from hash. Later associate existing regions.
 	goHash({"geo":geo,"regiontitle":regiontitle});
 }
-function showCounties() {
+function showCounties(attempts) {
 	if ($(".output_table > table").length) {
 		return; // Avoid reloading
 	}
-	//Load in contents of CSV file
-	d3.csv(dual_map.community_data_root() + "us/state/GA/GAcounties.csv").then(function(myData,error) {
-		if (error) {
-			alert("error")
-			console.log("Error loading file. " + error);
-		}
 
-		// Data as values, not objects.
-		var myArray = [];
+	if (typeof d3 !== 'undefined') {
 
-		// Add a new variable, to make it easier to do a color scale.
-		// Alternately, you could extract these values with a map function.
-		var allDifferences = [];
+		//Load in contents of CSV file
+		d3.csv(dual_map.community_data_root() + "us/state/GA/GAcounties.csv").then(function(myData,error) {
+			if (error) {
+				alert("error")
+				console.log("Error loading file. " + error);
+			}
 
-		myData.forEach(function(d, i) {
+			// Data as values, not objects.
+			var myArray = [];
 
-			d.difference =  d.US_2007_Demand_$;
+			// Add a new variable, to make it easier to do a color scale.
+			// Alternately, you could extract these values with a map function.
+			var allDifferences = [];
 
-			// OBJECTID,STATEFP10,COUNTYFP10,GEOID10,NAME10,NAMELSAD10,totalpop18,Reg_Comm,Acres,sq_miles,Label,lat,lon
-			//d.name = ;
-			d.idname = "US" + d.GEOID + "-" + d.NAME + " County";
+			myData.forEach(function(d, i) {
 
-			//d.perMile = Math.round(d.totalpop18 / d.sq_miles).toLocaleString(); // Breaks sort
-			d.perMile = Math.round(d.totalpop18 / d.sq_miles);
+				d.difference =  d.US_2007_Demand_$;
 
-			d.sq_miles = Number(Math.round(d.sq_miles).toLocaleString());
+				// OBJECTID,STATEFP10,COUNTYFP10,GEOID10,NAME10,NAMELSAD10,totalpop18,Reg_Comm,Acres,sq_miles,Label,lat,lon
+				//d.name = ;
+				d.idname = "US" + d.GEOID + "-" + d.NAME + " County";
 
-		 	// Add an array to the empty array with the values of each:
-		 	// d.difference, 
-		 	// , d.sq_miles
-	 	 	myArray.push([d.idname, d.totalpop18, d.perMile]);
+				//d.perMile = Math.round(d.totalpop18 / d.sq_miles).toLocaleString(); // Breaks sort
+				d.perMile = Math.round(d.totalpop18 / d.sq_miles);
 
-				// this is just a convenience, another way would be to use a function to get the values in the d3 scale.
-	 	 	allDifferences.push(d.difference);
+				d.sq_miles = Number(Math.round(d.sq_miles).toLocaleString());
 
-		});
-		//console.log(allDifferences);
+			 	// Add an array to the empty array with the values of each:
+			 	// d.difference, 
+			 	// , d.sq_miles
+		 	 	myArray.push([d.idname, d.totalpop18, d.perMile]);
 
-		var table = d3.select(".output_table").append("table").attr("id", "county-table");
+					// this is just a convenience, another way would be to use a function to get the values in the d3 scale.
+		 	 	allDifferences.push(d.difference);
 
-		var header = table.append("thead").append("tr");
+			});
+			//console.log(allDifferences);
 
-		// Objects to construct the header in code:
-		// The sort_type is for the Jquery sorting function.
+			var table = d3.select(".output_table").append("table").attr("id", "county-table");
 
-		var headerObjs = [
-			{ class: "", column: "name", label: "County", sort_type: "string" },
-			//{ class: "", column: "Reg_Comm,", label: "Region", sort_type: "string" },
-			{ class: "", column: "Population", label: "Population", sort_type: "int" },
-			{ class: "", column: "Per Mile", label: "Per Mile", labelfull: "", sort_type: "int" },
-			//{ class: "", column: "Sq Miles", label: "Sq Miles", labelfull: "", sort_type: "int" },
-		];
+			var header = table.append("thead").append("tr");
 
-		header
-			.selectAll("th")
-			.data(headerObjs)
-			.enter()
-			.append("th")
+			// Objects to construct the header in code:
+			// The sort_type is for the Jquery sorting function.
 
-			.attr("data-sort", function (d) { return d.sort_type; })
-			.attr("class", function (d) { return d.class; })
-			.append("div")
-			.append("span")
-				.text(function(d) { return d.label; });
+			var headerObjs = [
+				{ class: "", column: "name", label: "County", sort_type: "string" },
+				//{ class: "", column: "Reg_Comm,", label: "Region", sort_type: "string" },
+				{ class: "", column: "Population", label: "Population", sort_type: "int" },
+				{ class: "", column: "Per Mile", label: "Per Mile", labelfull: "", sort_type: "int" },
+				//{ class: "", column: "Sq Miles", label: "Sq Miles", labelfull: "", sort_type: "int" },
+			];
 
-		var tablebody = table.append("tbody");
+			header
+				.selectAll("th")
+				.data(headerObjs)
+				.enter()
+				.append("th")
 
-		rows = tablebody
-			.selectAll("tr")
-			.data(myArray)
-			.enter()
-			.append("tr");
+				.attr("data-sort", function (d) { return d.sort_type; })
+				.attr("class", function (d) { return d.class; })
+				.append("div")
+				.append("span")
+					.text(function(d) { return d.label; });
 
-		// We built the rows using the nested array - now each row has its own array.
+			var tablebody = table.append("tbody");
 
-		// The scale - start at 0 or at lowest number
-		console.log('Extent is ', d3.extent(allDifferences));
+			rows = tablebody
+				.selectAll("tr")
+				.data(myArray)
+				.enter()
+				.append("tr");
 
-		var colorScale = d3.scaleLinear()
-			.domain(d3.extent(allDifferences)) // To Do: Limit color scale to each column
-			.range(["#bcdbf7","#c00"]);
+			// We built the rows using the nested array - now each row has its own array.
 
-		cells = rows.selectAll("td")
-			// each row has data associated; we get it and enter it for the cells.
-			.data(function(d) {
-				return d;
-			})
-			.enter()
-			.append("td")
-			.append("div")
-			.style("border-left-color", function(d,i) { // Was background-color
-				// for the last elements in the row, we color the background:
-				if (i >= 2) { // All the columns with colored boxes
-					return colorScale(d);
-				}
-			})
+			// The scale - start at 0 or at lowest number
+			console.log('Extent is ', d3.extent(allDifferences));
 
-			.append("div")
-			//.text(function(d,i) { // All columns have a div with a value from CSV data
-			//		return d;
-			//})
-			.html(function(d,i) {
-				if (i == 0) {
-					return "<input type='checkbox' id='" + d.split('-')[0] + "' class='geo' onclick='locClick(this)'/> <label for='" + d.split('-')[0] + "'>" + d.split('-')[1] + "</label>";
-				} else {
+			var colorScale = d3.scaleLinear()
+				.domain(d3.extent(allDifferences)) // To Do: Limit color scale to each column
+				.range(["#bcdbf7","#c00"]);
+
+			cells = rows.selectAll("td")
+				// each row has data associated; we get it and enter it for the cells.
+				.data(function(d) {
 					return d;
-				}
-			})			
-			;
+				})
+				.enter()
+				.append("td")
+				.append("div")
+				.style("border-left-color", function(d,i) { // Was background-color
+					// for the last elements in the row, we color the background:
+					if (i >= 2) { // All the columns with colored boxes
+						return colorScale(d);
+					}
+				})
 
-		// load the function file you need before you call it...
-		// Not available here
-		
-		// loadScript is not available here, only in calling page.
-		//loadScript('/community/js/table-sort.js', function(results) { 
-			// jquery sorting applied to it - could be done with d3 and events.
-			applyStupidTable(1); 
-		//});
+				.append("div")
+				//.text(function(d,i) { // All columns have a div with a value from CSV data
+				//		return d;
+				//})
+				.html(function(d,i) {
+					if (i == 0) {
+						return "<input type='checkbox' id='" + d.split('-')[0] + "' class='geo' onclick='locClick(this)'/> <label for='" + d.split('-')[0] + "'>" + d.split('-')[1] + "</label>";
+					} else {
+						return d;
+					}
+				})			
+				;
 
-		$(".geo").change(function(e) {
-            console.log("Adjust if this line appears multiple times.");
-        });
-		// INIT AT TIME OF INITIAL COUNTY LIST DISPLAY
-		// Set checkboxes based on param (which may be a hash, query or include parameter)
-		updateLoc(param.geo); // Needed here to check county boxes.  BUGBUG: Might be reloading data. This also gets called from info/
-	});
+			// load the function file you need before you call it...
+			// Not available here
+			
+			// loadScript is not available here, only in calling page.
+			//loadScript('/community/js/table-sort.js', function(results) { 
+				// jquery sorting applied to it - could be done with d3 and events.
+				applyStupidTable(1); 
+			//});
+
+			$(".geo").change(function(e) {
+	            console.log("Adjust if this line appears multiple times.");
+	        });
+			// INIT AT TIME OF INITIAL COUNTY LIST DISPLAY
+			// Set checkboxes based on param (which may be a hash, query or include parameter)
+			updateLoc(param.geo); // Needed here to check county boxes.  BUGBUG: Might be reloading data. This also gets called from info/
+		});
+	} else {
+		attempts = attempts + 1;
+	      if (attempts < 2000) {
+	      	// To do: Add a loading image after a coouple seconds. 2000 waits about 300 seconds.
+	        setTimeout( function() {
+	          showCounties(attempts);
+	        }, 20 );
+	      } else {
+	        alert("D3 javascript not available for loading counties csv.")
+	      }
+	}
 }
 function applyStupidTable(count) {
 	console.log("applyStupidTable attempt " + count);
@@ -1078,13 +1092,14 @@ $(document).ready(function () {
   // If this does not work, may need to call when map1 is initially loaded, but only once.
   $('.refreshMap').click(function(event) {
 
-      $("#map1").show();
+      //$("#map1").show();
       //displayMap(layerName,siteObject);
       console.log(".refreshMap ");
       
+      // Could check if visible...
       document.querySelector('#geomap')._leaflet_map.invalidateSize(); // Force Leaflet map to reload
-      //document.querySelector('#map1')._leaflet_map.invalidateSize(); 
-      //document.querySelector('#map2')._leaflet_map.invalidateSize(); 
+      document.querySelector('#map1')._leaflet_map.invalidateSize(); 
+      document.querySelector('#map2')._leaflet_map.invalidateSize(); 
   });
 
   if (window.self == window.top && param["show"] == "suppliers") {

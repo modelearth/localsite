@@ -40,7 +40,7 @@ strVar += "";
 strVar += "  <div id=\"activeLayer\" style=\"display: none\"><\/div>";
 strVar += "";
 strVar += " ";
-strVar += "  <div id=\"filterFieldsHolder\" class=\"content-wide noprint\" style=\"padding-top:0px;\">";
+strVar += "  <div id=\"filterFieldsHolder\" class=\"contentwide noprint\" style=\"padding-top:0px;\">";
 strVar += "    <div class=\"filterFields\" style=\"min-height:54px; padding:2px 0 4px 0; float:left\">";
 strVar += "";
 strVar += "      <div class=\"showApps local\" style=\"display:none;float:left;\">";
@@ -282,10 +282,10 @@ strVar += "                                      }); $('.fieldSelector').hide();
 strVar += "";
 strVar += "                                      <li><a onClick=\"goHash({";
 strVar += "                                      'regiontitle':'West+Central+Georgia',";
-strVar += "                                      'geo':'US13077,US13145,US13149,US13199,US13263,US13285', ";
+strVar += "                                      'geo':'US13045,US13077,US13143,US13145,US13149,US13199,US13223,US13233,US13263,US13285,US01111,US01017', ";
 strVar += "                                      'lat':'33.0362',";
 strVar += "                                      'lon':'-85.0322'";
-strVar += "                                      }); $('.fieldSelector').hide(); return false;\" href=\"#regiontitle=West+Central+Georgia&geo=US13045,US13077,US13143,US13145,US13149,US13199,US13223,US13233,US13263,US13285\">West&nbsp;Central&nbsp;Georgia<\/a><\/li>";
+strVar += "                                      }); $('.fieldSelector').hide(); return false;\" href=\"#regiontitle=West+Central+Georgia&geo=US13045,US13077,US13143,US13145,US13149,US13199,US13223,US13233,US13263,US13285,US01111,US01017\">West&nbsp;Central&nbsp;Georgia<\/a><\/li>";
 strVar += "";
 strVar += "                                      <!--     US13077,US13145,US13149,US13199,US13263,US13285 -->";
 strVar += "                                <\/ul>";
@@ -442,7 +442,7 @@ strVar += "";
 strVar += "";
 strVar += "";
 strVar += "    <!-- Right Links -->";
-strVar += "        <div style=\"float:right; padding-top:10px; padding-right:10px\">";
+strVar += "        <div style=\"float:right; padding-top:10px;\">";
 strVar += "          <div class=\"sendfeedback pagebutton\" style=\"float:left;\">";
 strVar += "            <div style=\"margin:10px 5px 0 3px;white-space: nowrap; float:left\"> ";
 strVar += "            Feedback";
@@ -1470,17 +1470,6 @@ function dualmapLoaded(param, root, count) {
 		console.log("ERROR: dualmapLoaded exceeded 100 attempts.");
 	}
 }
-
-
-/*
-loadFromCSV('map1', 'map2', "/localsite/tools/map.csv", function(results) {
-    // This function gets called by the geocode function on success
-    //makeMap(results[0].geometry.location.lat(), results[0].geometry.location.lng());
-
-    layerControl['map2'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers      
-});
-*/
-
 
 
 
