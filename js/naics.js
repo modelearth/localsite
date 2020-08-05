@@ -8,6 +8,15 @@
 let dataObject={};
 dataObject.stateshown=13;
 let params = loadParams(location.search,location.hash);
+if (params.geomap){
+    fip=params.geomap.split("US")[1]   
+    if(fip.startsWith("0")){
+        dataObject.stateshown=params.geomap.split("US0")[1]
+    }else{
+        dataObject.stateshown=params.geomap.split("US")[1]
+    }
+    
+}
 [fips,dataObject.stateshown]=getStateFips(params)
 function getStateFips(params){
     if (params.geo) {
