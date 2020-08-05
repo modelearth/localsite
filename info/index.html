@@ -242,6 +242,7 @@ function refreshWidgets() {
 			$("#aboutToolsDiv").hide();
 			$("#infoColumn").show();
 			$("#geomap").show();
+			document.querySelector('#geomap')._leaflet_map.invalidateSize();
 			/*
 			alert("show map")
 			if (document.querySelector('#geomap')._leaflet_map) {
