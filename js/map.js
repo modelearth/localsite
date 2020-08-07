@@ -714,7 +714,8 @@ function loadMap1(dp) { // Also called by map-filters.js
   });
 
   let community_root = dual_map.community_data_root();
-  let state_root = "/georgia-data/";
+  //let state_root = "/georgia-data/";
+  //let state_root = dual_map.custom_data_root();
   let state_abbreviation = "ga";
   let dp1 = {}
   // Might use when height it 280px
@@ -729,17 +730,17 @@ function loadMap1(dp) { // Also called by map-filters.js
 
   if (dp) { // Parameters set in page or layer json
     dp1 = dp;
-  } else if (param["show"] == "smart" || param["data"] == "smart") {
+  } else if (param["show"] == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
     dp1.listTitle = "Data Driven Decision Making";
     dp1.listSubtitle = "Smart & Sustainable Movement of Goods & Services";
     // Green Locations offer <span style="white-space: nowrap">prepared food<br>Please call ahead to arrange pickup or delivery</span>
 
     
     //community_root = "https://model.earth/community/"; // CORS would need to be adjusted on server
-    //alert(community_root + "tools/map.csv");
+    console.log("map.js loading " + dual_map.custom_data_root() + "communities/map-georgia-smart.csv");
 
-    dp1.shortTitle = "Communities";
-    dp1.dataset =  state_root + "communities/map-georgia-smart.csv";
+    dp1.dataset =  dual_map.custom_data_root() + "communities/map-georgia-smart.csv";
+    //alert(dp1.dataset)
     dp1.listInfo = "Includes Georgia Smart Community Projects";
     dp1.search = {"In Title": "title", "In Description": "description", "In Website URL": "website", "In Address": "address", "In City Name": "city", "In Zip Code" : "zip"};
 
@@ -919,8 +920,6 @@ function showList(dp,map) {
   var products_array = [];
   var productcode_array = [];
 
-  // Need to show this somewhere else
-  //if (dp.shortTitle) {$(".shortTitle").html(dp.shortTitle); $(".shortTitle").show()};
   if (dp.listTitle) {$(".listTitle").html(dp.listTitle); $(".listTitle").show()};
   if (dp.listSubtitle) {$(".listSubtitle").html(dp.listSubtitle); $(".listSubtitle").show()};
 

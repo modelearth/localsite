@@ -269,10 +269,12 @@ summary::-webkit-details-marker {
 
 .container {
   position: relative;
-  /* max-width: 1200px; */ /* makes video in rotation to short */ /* max-width will conflict with sites that use bootstrap */
   margin: 0 auto;
+  /* max-width: 1200px; */ /* makes video in rotation to short */ /* max-width will conflict with sites that use bootstrap */
+  /* Conflicts with Drupal footer
   padding-left: 55px;
   padding-right: 55px;
+  */
 }
 .lead {
     font-family: 'PT Sans', sans-serif;

@@ -14,6 +14,7 @@
 <script src="https://unpkg.com/topojson-client@3"></script>
 
 <!-- PRODUCTION -->
+<!-- resides before base.css -->
 <!--
 <link rel="stylesheet" type="text/css" href="../../localsite/css/bootstrap.darkly.min.css"/>
 -->
@@ -205,9 +206,6 @@ code {
 	margin-bottom: 8px;
 	display: none;
 }
-#pageLinks a {
-	color: #aaa;
-}
 </style>
   
 
@@ -242,8 +240,16 @@ function refreshWidgets() {
 			$("#aboutToolsDiv").hide();
 			$("#infoColumn").show();
 			$("#geomap").show();
+			
 			if ($('#geomap').html().length > 0) {
-				document.querySelector('#geomap')._leaflet_map.invalidateSize();
+				if (document.querySelector('#geomap')._leaflet_map) { // Give time for next line to be found.
+					document.querySelector('#geomap')._leaflet_map.invalidateSize();
+				} else {
+					//console.log("Delay so _leaflet_map is available.")
+					setTimeout( function() {
+						document.querySelector('#geomap')._leaflet_map.invalidateSize();
+   					}, 50 );
+				}
 			}
 			/*
 			alert("show map")
@@ -329,28 +335,7 @@ function refreshWidgets() {
 
 <body>
 
-<!-- top hero -->
-<div style="background:#fff; min-height:150px; width:100%; position: relative">
-    <div class="herocenter" style="position: absolute; z-index:2; top:42%">
-
-        <div class="fade-in noprint" style="position:fixed; 
-        left:0px; right:0px; 
-        text-align:center; 
-        margin-top:50px; color:#fff; font-size:28px; text-shadow: 2px 2px 8px #333;">
-            Georgia's <span style="font-weight:800; opacity:1">environmentally-enabled</span> input-output
-
-            <br><br>
-            <!-- bug: this is overlapping left link in http://localhost:8887/localsite/info/#go=bioeconomy -->
-            <div id="play-button" style="display:none; font-size: 68px; margin-left:2px">
-            	<a onClick="goHash({}); return false;"  href="#industries">▶️</a>
-            </div>
-        </div>
-    </div>
-    <div class="lazy bgimg bgimg-notfixed" data-src="../../io/overview/img/hero/woman-table-computer.jpg" style="opacity:.85">
-        <img src="../../io/overview/img/hero/woman-table-computer.jpg" style="opacity:0;width:100%">
-    </div>
-</div>
-<!-- /top hero -->
+<!-- to do: load top hero here when no go or geo. -->
 
 
 <!-- map and list -->
@@ -360,9 +345,12 @@ function refreshWidgets() {
 <div style="clear:both"></div>
 
 
+<!--
+To do: make the links below an optional widget
+<div id="pageLinks"></div>
+-->
 
-
-<div id="top-content-columns" class="content contentpadding noprint" style="padding-top:0px; padding-bottom:0px">
+<div id="top-content-columns" class="content contentpadding noprint" style="margin-top:40px; padding-top:0px; padding-bottom:0px">
 
 	<br>
 	<!-- two columns -->
@@ -375,7 +363,7 @@ function refreshWidgets() {
 			<!--
 				class="mainColumn mainColumn1" 
 			-->
-		     <div id="pageLinksInsert" style="display:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
+		     <div id="pageLinksInsert" style="displayX:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
 		          <a onClick="go({}); return false;"  href="./">Overview</a> | 
 		          <a onClick="goHash({'go':'bioeconomy','show':''}); return false;" href="./#go=bioeconomy">Bioeconomy</a> | 
 		          <span class="local" style="display:none">
@@ -386,13 +374,13 @@ function refreshWidgets() {
 		          <span class="local" style="display:none">
 		          <a onClick="goHash({'go':'','show':'suppliers'}); return false;" href="./#show=suppliers">PPE Suppliers</a> | 
 		      	  </span>
-		          <a onClick="goHash({'geomap':'US13'}); return false;" href="./#geomap=US13">County&nbsp;Map</a>
+		          <a onClick="goHash({'geomap':'true'}); return false;" href="./#geomap=US13">County&nbsp;Map</a>
 		          <br>
 	        </div>
 
 		</div>
 	</div>
-	<br>
+	
 
 </div>
 
@@ -1080,7 +1068,8 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
     // TOPO Files: https://github.com/modelearth/topojson
     var url = dual_map.custom_data_root() + '/counties/GA-13-georgia-counties.json';
-    if(location.host.indexOf('localhost') >= 0) {
+    //if(location.host.indexOf('localhost') >= 0) {
+    if (param.geo == "US01") { // Bug, change to get state from string, also below.
     	// https://github.com/modelearth/topojson/blob/master/countries/us-states/AL-01-alabama-counties.json
     	url = dual_map.modelearth_data_root() + "/topojson/countries/us-states/AL-01-alabama-counties.json";
     	//url = dual_map.modelearth_data_root() + "/opojson/countries/us-states/GA-13-georgia-counties.json";
@@ -1126,7 +1115,8 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
             // 
             
-            if(location.host.indexOf('localhost') >= 0) {
+            //if(location.host.indexOf('localhost') >= 0) {
+            if (param.geo == "US01") {
             	topodata = topojson.feature(topoob, topoob.objects.cb_2015_alabama_county_20m)
         	} else {
         		topodata = topojson.feature(topoob, topoob.objects.cb_2015_georgia_county_20m)
@@ -1192,7 +1182,9 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
       var zoom = 7;
 
       //var layer = "terrain";
-
+      if (param.geo == "US01") { // Temp
+      	lon = -86.7;
+      }
       var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
           '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
           'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',

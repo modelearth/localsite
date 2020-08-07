@@ -8,12 +8,12 @@
 let dataObject={};
 dataObject.stateshown=13;
 let params = loadParams(location.search,location.hash);
-if (params.geomap){
-    fip=params.geomap.split("US")[1]   
+if (params.geo){
+    fip=params.geo.split("US")[1]   
     if(fip.startsWith("0")){
-        dataObject.stateshown=params.geomap.split("US0")[1]
+        dataObject.stateshown=params.geo.split("US0")[1]
     }else{
-        dataObject.stateshown=params.geomap.split("US")[1]
+        dataObject.stateshown=params.geo.split("US")[1]
     }
     
 }

@@ -24,6 +24,12 @@ html, body, .litePanel, #header, #footer, #fullcolumn, .headerbar, #sidecolumn, 
     background-color: #333;
     color: #fff;
 }
+a:link {
+  color: #CF6679;
+}
+a:visited {
+  color: #CF6679;
+}
 .headerbar {
 	background: #222;
 	border-bottom-color: #222;
