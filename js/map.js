@@ -730,7 +730,7 @@ function loadMap1(dp) { // Also called by map-filters.js
 
   if (dp) { // Parameters set in page or layer json
     dp1 = dp;
-  } else if (param["show"] == "smart" || param["data"] == "smart") {
+  } else if (param["show"] == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
     dp1.listTitle = "Data Driven Decision Making";
     dp1.listSubtitle = "Smart & Sustainable Movement of Goods & Services";
     // Green Locations offer <span style="white-space: nowrap">prepared food<br>Please call ahead to arrange pickup or delivery</span>
