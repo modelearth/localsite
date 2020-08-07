@@ -737,7 +737,7 @@ function loadMap1(dp) { // Also called by map-filters.js
 
     
     //community_root = "https://model.earth/community/"; // CORS would need to be adjusted on server
-    //alert(community_root + "tools/map.csv");
+    console.log("map.js loading " + dual_map.custom_data_root() + "communities/map-georgia-smart.csv");
 
     dp1.dataset =  dual_map.custom_data_root() + "communities/map-georgia-smart.csv";
     //alert(dp1.dataset)
