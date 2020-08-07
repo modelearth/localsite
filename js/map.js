@@ -714,7 +714,8 @@ function loadMap1(dp) { // Also called by map-filters.js
   });
 
   let community_root = dual_map.community_data_root();
-  let state_root = "/georgia-data/";
+  //let state_root = "/georgia-data/";
+  //let state_root = dual_map.custom_data_root();
   let state_abbreviation = "ga";
   let dp1 = {}
   // Might use when height it 280px
@@ -738,7 +739,8 @@ function loadMap1(dp) { // Also called by map-filters.js
     //community_root = "https://model.earth/community/"; // CORS would need to be adjusted on server
     //alert(community_root + "tools/map.csv");
 
-    dp1.dataset =  state_root + "communities/map-georgia-smart.csv";
+    dp1.dataset =  dual_map.custom_data_root() + "communities/map-georgia-smart.csv";
+    alert(dp1.dataset)
     dp1.listInfo = "Includes Georgia Smart Community Projects";
     dp1.search = {"In Title": "title", "In Description": "description", "In Website URL": "website", "In Address": "address", "In City Name": "city", "In Zip Code" : "zip"};
 
