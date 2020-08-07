@@ -338,15 +338,6 @@
   color: #fff;
 }
 
-.pagebuttonHolder {
-  padding: 4px;
-  padding-top: 6px;
-  padding-bottom: 11px;
-  overflow: auto;
-  background-color:#fff;
-  width:100%;
-  overflow: visible;
-}
 .pagebutton {
   margin-left: 8px;
   border-radius: 7px;

@@ -1387,10 +1387,11 @@ function leafletLoaded(root, count) {
 	} else {
 		console.log("ERROR: leafletLoaded exceeded 100 attempts.");
 	}
-	$(document).ready(function () {
-		$("#pageLinks").append($("#pageLinksInsert"));
-		$("#pageLinksInsert").show();
-	});
+	// To do: make part of an optional widget
+	//$(document).ready(function () {
+	//	$("#pageLinks").append($("#pageLinksInsert"));
+	//	$("#pageLinksInsert").show();
+	//});
 }
 
 function loadSearchFilters(root, count) {
