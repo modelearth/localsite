@@ -40,7 +40,7 @@ strVar += "";
 strVar += "  <div id=\"activeLayer\" style=\"display: none\"><\/div>";
 strVar += "";
 strVar += " ";
-strVar += "  <div id=\"filterFieldsHolder\" class=\"contentwide noprint\" style=\"padding-top:0px;\">";
+strVar += "  <div id=\"filterFieldsHolder\" class=\"contentfull noprint\" style=\"margin:0 auto; padding-top:0px;\">";
 strVar += "    <div class=\"filterFields\" style=\"min-height:54px; padding:2px 0 4px 0; float:left\">";
 strVar += "";
 strVar += "      <div class=\"showApps local\" style=\"display:none;float:left;\">";
@@ -286,8 +286,15 @@ strVar += "                                      'geo':'US13045,US13077,US13143,
 strVar += "                                      'lat':'33.0362',";
 strVar += "                                      'lon':'-85.0322'";
 strVar += "                                      }); $('.fieldSelector').hide(); return false;\" href=\"#regiontitle=West+Central+Georgia&geo=US13045,US13077,US13143,US13145,US13149,US13199,US13223,US13233,US13263,US13285,US01111,US01017\">West&nbsp;Central&nbsp;Georgia<\/a><\/li>";
+strVar += "                                      <!-- Smaller region: US13077,US13145,US13149,US13199,US13263,US13285 -->";
 strVar += "";
-strVar += "                                      <!--     US13077,US13145,US13149,US13199,US13263,US13285 -->";
+strVar += "                                      <li><a onClick=\"goHash({";
+strVar += "                                      'regiontitle':'Central+Georgia',";
+strVar += "                                      'geo':'US13023,US13043,US13091,US13109,US13167,US13175,US13209,US13267,US13271,US13279,US13283,US13309,US13315,US13107,US13235', ";
+strVar += "                                      'lat':'33.0362',";
+strVar += "                                      'lon':'-85.0322'";
+strVar += "                                      }); $('.fieldSelector').hide(); return false;\" href=\"#regiontitle=Central+Georgia&geo=US13023,US13043,US13091,US13109,US13167,US13175,US13209,US13267,US13271,US13279,US13283,US13309,US13315,US13107,US13235\">Central&nbsp;Georgia<\/a><\/li>";
+strVar += "";
 strVar += "                                <\/ul>";
 strVar += "                                Click column headers to sort:<br>";
 strVar += "                              <\/div>";
@@ -1211,7 +1218,6 @@ strVar += "  <\/div>";
 strVar += "<\/div>";
 strVar += "";
 strVar += "<!-- End HTML -->";
-
 
 
 

@@ -55,6 +55,7 @@ body {
   -webkit-font-smoothing: antialiased;
   font-family: 'Nunito Sans', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color:#777;
+  color:#555;
   line-heightX:0; /* prevents gaps betweet images, but 0 caused text to overlap on start and nav icons. */
 }
 .flexbody {
