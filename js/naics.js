@@ -308,7 +308,7 @@ function renderIndustryChart(dataObject,values,params) {
     }
 
     // Reduce params to only those used
-    const filteredKeys = ['go','geo','catsort','catsize','catmethod','catpage','catcount','census_scope'];
+    const filteredKeys = ['go','geo','catsort','catsize','catmethod','catpage','catcount','census_scope','naics','hs']; // hs not yet implemented for Harmonized System codes
     params = filteredKeys.reduce((obj, key) => ({ ...obj, [key]: params[key] }), {});
 
     console.log("params used by naics.js:")
@@ -377,8 +377,6 @@ function renderIndustryChart(dataObject,values,params) {
 
 //function for when the geo hash changes
 function geoChanged(dataObject,params){
-    
-
     if (!params) {
         params = loadParams(location.search,location.hash); // Pull from updated hash
     }
@@ -457,7 +455,7 @@ function formatIndustryData(rawData,subsetKeys) {
 }
 
 
-function keyFound(this_key, cat_filter,params) {
+function keyFound(this_key, cat_filter, params) {
     if (this_key <= 1) {
         return false;
     } else if (cat_filter.length == 0) { // No filter
@@ -466,7 +464,7 @@ function keyFound(this_key, cat_filter,params) {
         return true;
     } else if (params.go == "manufacturing" && (this_key.startsWith("31") || this_key.startsWith("32") || this_key.startsWith("33") )) { // All manufacturing
         return true;
-    } else if ( (params.go == "bioeconomy" || params.go=="parts")&& params.catsize== 2){ // Our 4 digit array matches key
+    } else if ( (params.go == "bioeconomy" || params.go=="parts")&& params.catsize == 2) { // Our 4 digit array matches key
         cat_filt=[]
         for(i=0;i<cat_filter.length;i++){
             cat_filt.push(cat_filter[i].slice(0,2))
@@ -474,7 +472,7 @@ function keyFound(this_key, cat_filter,params) {
         if(cat_filt.includes(this_key.slice(0,2))){
             return true;
         }
-    }  else if ( (params.go == "bioeconomy" || params.go=="parts")&& params.catsize== 4 ) { // Our 4 digit array matches key
+    } else if ( (params.go == "bioeconomy" || params.go=="parts") && params.catsize == 4 ) { // Our 4 digit array matches key
         cat_filt=[]
         for(i=0;i<cat_filter.length;i++){
             cat_filt.push(cat_filter[i].slice(0,4))
@@ -482,9 +480,10 @@ function keyFound(this_key, cat_filter,params) {
         if(cat_filt.includes(this_key.slice(0,4))){
             return true;
         }
-    }else if ( (params.go == "bioeconomy" || params.go=="parts")&& params.catsize == 6 && cat_filter.includes(this_key.slice(0,6))) { // Our 4 digit array matches key
+    } else if ( (params.go == "bioeconomy" || params.go=="parts" || cat_filter.length > 0) && params.catsize == 6 && cat_filter.includes(this_key.slice(0,6))) { // Our 6 digit array matches key
         return true;
-    }else {
+    } else {
+        console.log("NO CAT MATCH FOUND");
         return false;
     }
 }
@@ -530,7 +529,10 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                 var parts_carpets = "314110,313110,313210"
 
                 var cat_filter = [];
-                if (params.go){
+                if (params.naics) {
+                    cat_filter = params.naics;
+                }
+                else if (params.go){
                     if (params.go == "bioeconomy") {
                         cat_filter = (bio_input + bio_output + green_energy + fossil_energy).split(',');
                     }
