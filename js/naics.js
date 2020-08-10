@@ -308,7 +308,7 @@ function renderIndustryChart(dataObject,values,params) {
     }
 
     // Reduce params to only those used
-    const filteredKeys = ['go','geo','catsort','catsize','catmethod','catpage','catcount','census_scope','naics','hs']; // hs not yet implemented for Harmonized System codes
+    const filteredKeys = ['go','geo','regiontitle','catsort','catsize','catmethod','catpage','catcount','census_scope','naics','hs']; // hs not yet implemented for Harmonized System codes
     params = filteredKeys.reduce((obj, key) => ({ ...obj, [key]: params[key] }), {});
 
     console.log("params used by naics.js:")
@@ -800,13 +800,12 @@ function topRatesInFips(dataSet, dataNames, fips, params){
 
                         if(Array.isArray(fips) && statelength != fips.length){
 
-                            fipslen=fips.length
-                            for(var i=0; i<fipslen; i++){
+                            for(var i=0; i < fips.length; i++){
 
                                 var filteredData = consdata.filter(function(d) {
 
                                     if(d["id"]==fips[i]){
-                                        if(i==fipslen-1){
+                                        if(i == fips.length-1){
                                            text += "<div class='cell-right'>" + d["county"].split("County")[0] + " County</div>";
                                         
                                         }else{
@@ -835,7 +834,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                                 //d3.csv(dual_map.community_data_root() + "us/id_lists/county_id_list.csv").then( function(consdata) {
                                     if(Array.isArray(fips) && statelength!=fips.length){
                                         mapLink=[]
-                                        for(var j=0; j<fipslen; j++){
+                                        for(var j=0; j<fips.length; j++){
                                             var filteredData = consdata.filter(function(d) {
                                                 var filteredData = latdata.filter(function(e) {
                                                     if(d["id"]==fips[j]){
@@ -1051,22 +1050,28 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                     } else if (params.go == "manufacturing") {
                         $(".regiontitle").text("Manufacturing");
                     }
-                    if(Array.isArray(fips) && statelength!=fips.length){
+                    if(Array.isArray(fips) && statelength != fips.length){
 
-                        fipslen=fips.length
                         if (!params.regiontitle) {
-                            $(".regiontitle").text("Industries within "+fipslen+" counties");
+                            //if (params.go && fips.length == 1) {
+                            //    // Remove " County" from this .replace(" County","")
+                            //    $(".regiontitle").text(d["county"] + " - " + params.go.toTitleCase());
+                            //} else {
+                                $(".regiontitle").text("Industries within "+ fips.length +" counties");
+                            //}
                         } else if (params.regiontitle) {
-                            
+                            if (params.go) {
+                                $(".regiontitle").text(params.regiontitle.replace(/\+/g," ") + " - " + params.go.toTitleCase());
+                            } else {
                                 $(".regiontitle").text(params.regiontitle.replace(/\+/g," "));
-                            
+                            }
                         }
-                        for(var i=0; i<fipslen; i++){
+                        for(var i=0; i < fips.length; i++){
                             var filteredData = consdata.filter(function(d) {
                                 if(d["id"]==fips[i]){
                                     
                                     /*
-                                    if(i==fipslen-1){
+                                    if(i==fips.length-1){
                                         document.getElementById("industryheader").innerHTML=document.getElementById("industryheader").innerHTML+'<font size="3">'+d["county"]+'</font>'
                                     }else if(i==0){
                                         document.getElementById("industryheader").innerHTML=document.getElementById("industryheader").innerHTML+'<font size="3">'+d["county"]+', '+'</font>'
@@ -1080,7 +1085,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                             })
                         }
                         $(".location_titles").text($(".location_titles").text().replace(/,\s*$/, ""));
-                        if (fipslen >= 2 && fipslen <= 3) {
+                        if (fips.length >= 2 && fips.length <= 3) {
                             $(".regiontitle").text($(".location_titles").text());
                         }
 
