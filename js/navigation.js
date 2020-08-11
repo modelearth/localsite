@@ -75,6 +75,9 @@ $(document).ready(function(){
  		if(location.host.indexOf('atlanta') >= 0) {
   			param.titleArray = []
   			param.headerLogo = "<img src='https://scienceatl.org/wp-content/uploads/2020/04/code.png' style='width:150px;margin-top:-12px'>";
+	 	} else if(location.host.indexOf('georgia') >= 0) { 
+	 		param.titleArray = [];
+	 		param.headerLogo = "<a href='https://georgia.org'><img src='" + climbpath + "../community/img/logo/georgia_usa_gray.png' style='width:130px;padding-top:4px'></a>";
 	 	}
 
  		if(location.host.indexOf('georgia') >= 0) { // || location.host.indexOf('localhost') >= 0
