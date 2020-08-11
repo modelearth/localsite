@@ -12,7 +12,7 @@ Widgets for the Sustainable Communities Web Challenge.
 
 The localsite framework is designed to allow multiple Github repos (using React,&nbsp;Vue, etc.) to communicate using hash values.  
 
-Place the "localsite" repo adjacent to the "io" repo and other repos that reference it within your root folder.
+Place the "localsite" repo and other repos that reference it within the root of your local web folder.  
 
 
 [Get Started](start/) 
