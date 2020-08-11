@@ -1,7 +1,23 @@
-# Welcome
+# Localsite Framework  
 
-Localsite is built for builders.  
+Widgets for the Sustainable Communities Web Challenge.   
 
-Replace this page with your own welcome page.  
 
-BUG: backing up shows black rectangle instead of video.  
+[About Web Challenge](https://model.earth/community/challenge/)  
+
+[Embeddable IO Widgets](https://model.earth/io/charts/)
+
+[Team Project Areas](https://model.earth/community/)  
+
+
+The localsite framework is designed to allow multiple Github repos (using React,&nbsp;Vue, etc.) to communicate using hash values.  
+
+Place the "localsite" repo adjacent to the "io" repo and other repos that reference it within your root folder.
+
+
+[Get Started](start/) 
+
+<!--
+
+To do: backing up shows black rectangle instead of video.  
+-->
