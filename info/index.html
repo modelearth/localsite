@@ -75,7 +75,8 @@
 }
 .top-content-columns-wide {
 	width:100% !important;
-	max-width:5000px !important;
+	max-width: 3000px !important;
+	margin-left: 20px !important;
 }
 .indicator-row {
     height: auto;
@@ -206,6 +207,13 @@ code {
 	margin-bottom: 8px;
 	display: none;
 }
+.leaflet-top > .info {
+	background-color: rgba(33, 33, 33, 0.5);
+	color: #fff;
+	padding: 10px;
+	text-align: center;
+	min-width: 130px;
+}
 </style>
   
 
@@ -233,7 +241,6 @@ function refreshWidgets() {
 	if (hash.geomap) {
 		$("#infoColumn").show();
         $(".mainColumn1").show();
-        //alert("showed?")
 	}
 	if (hash.geomap != priorHash.geomap) {
 		if (hash.geomap) {
@@ -258,9 +265,7 @@ function refreshWidgets() {
 				document.querySelector('#geomap')._leaflet_map.invalidateSize(); // Refresh map tiles.
 			}
 			*/
-			loadScript('/localsite/js/leaflet.js', function(results) {
-				//renderMapShapes("geomap", hash);
-			});
+			
 		} else {
 			$("#geomap").hide();
 			$("#aboutToolsDiv").show();
@@ -295,8 +300,12 @@ function refreshWidgets() {
 	        $("#infoColumn").show();
 	        $(".mainColumn1").show();
 	    }
-	    if (hash.geomap == priorHash.geomap) { // Since otherwise called above
-	    	//renderMapShapes("geomap", hash);
+
+	    if (hash.geomap == "true") { // Since otherwise called above
+	    	loadScript('/localsite/js/leaflet.js', function(results) {
+	    		//alert("update map")
+				renderMapShapesSimple("geomap", hash);
+			});
 		}
 	}
 	//alert(hash.regiontitle)
@@ -382,97 +391,99 @@ To do: make the links below an optional widget
 	</div>
 	
 
-</div>
 
 
 
-<div class="content contentpadding" style="padding-top:0px; padding-bottom:0px">
 
-<div class="pageColumns">
-	<div style="display:table-row">
-		<div id="infoColumn" class="mainColumn mainColumn1" style="font-size: 15px; position: relative">
+	<div style="padding-top:0px; padding-bottom:0px">
 
-			<!--
-			<div style="max-width:400px; margin-bottom:10px">
-			Adjust your local industry mix to maximize job quality, 
-			value added revenue and positive environmental&nbsp;impacts.
-			</div>
-			-->
-			<div id="geomap" style="height:550px; border:1px solid blue; display:none; position: relative"></div>
+	<div class="pageColumns">
+		<div style="display:table-row">
+			<div id="infoColumn" class="mainColumn mainColumn1" style="font-size: 15px; position: relative">
 
-			
-			<div id="aboutToolsDiv" style="position: relative;"></div>
-			
-		</div>
-
-		<div class="mainColumn mainColumn2 input-output">
-		
-			<div>
-				<h2 class="regiontitle">Loading Industries...</h2>
-				<h4 class="location_titles" style="font-size:16px;color:#555;display:none"></h4>
-			</div>
-
-			<!--
-			<div style="max-width:700px">
-				<b>Adjust Industry Levels</b> to reflect technology initiatives that generate new revenue streams, create jobs and increase your community's positive environmental impact.
-			</div>
-			<br><br>
-			-->
-
-			<div id="detail_selection">
-				<div id="show_industry_settings" style="float:right;cursor:pointer" onclick="$('.industry_filter_settings').toggle();">
-					<span class="material-icons" style="font-size:24px;color:#777">
-					settings
-					</span>
+				<!--
+				<div style="max-width:400px; margin-bottom:10px">
+				Adjust your local industry mix to maximize job quality, 
+				value added revenue and positive environmental&nbsp;impacts.
 				</div>
-				<select id="catsort" class="picklist" onchange="goHash({'catsort':this.value});">
-		          <option value="payann" selected>By Annual Payroll</option>
-		          <option value="emp" >By Employee Count</option>
-		          <option value="estab">By Establishments</option>
-		        </select>
-		        <select id="catsize" class="picklist" onchange="goHash({'catsize':this.value});">
-		          <option value="2">Sectors - 2 digits</option>
-		          <!--option value="2">Subsectors - 3 digits</option-->
-		          <option value="4">Industry Group - 4 digits</option>
-		          <!--option value="4">NAICS Industry - 5 digits</option-->
-		          <option value="6" selected>National Code - 6 digits</option>
-		        </select>
-		        <div style="clear:both;margin-bottom:2px"></div>
+				-->
+				<div id="geomap" style="height:550px; border:1px solid blue; display:none; position: relative"></div>
 
-		        <div class="industry_filter_settings">
-			        <div class="state-view">
-			        	Choose a county or region above to view filter settings.
-			        </div>
-			        <div class="county-view" style="display:none">
-				        <select id="catmethod" class="picklist" onchange="goHash({'catmethod':this.value});">
-				          <option value="1" selected>Average of unallocated county payrolls</option>
-				          <option value="2" >Average of all state payrolls (less accurate)</option>
-				          <option value="0" >Leave unpublished values blank</option>
-				        </select>
-				    </div>
+				
+				<div id="aboutToolsDiv" style="position: relative;"></div>
+				
+			</div>
+
+			<div class="mainColumn mainColumn2 input-output">
+			
+				<div>
+					<h2 class="regiontitle">Loading Industries...</h2>
+					<h4 class="location_titles" style="font-size:16px;color:#555;display:none"></h4>
 				</div>
 
 				<!--
-				The US Census does not provide stats for 2-digit manufacturing NAICS 31, 32&nbsp;and&nbsp;33.<br><br>
+				<div style="max-width:700px">
+					<b>Adjust Industry Levels</b> to reflect technology initiatives that generate new revenue streams, create jobs and increase your community's positive environmental impact.
+				</div>
+				<br><br>
 				-->
+
+				<div id="detail_selection">
+					<div id="show_industry_settings" style="float:right;cursor:pointer" onclick="$('.industry_filter_settings').toggle();">
+						<span class="material-icons" style="font-size:24px;color:#777">
+						settings
+						</span>
+					</div>
+					<select id="catsort" class="picklist" onchange="goHash({'catsort':this.value});">
+			          <option value="payann" selected>By Annual Payroll</option>
+			          <option value="emp" >By Employee Count</option>
+			          <option value="estab">By Establishments</option>
+			        </select>
+			        <select id="catsize" class="picklist" onchange="goHash({'catsize':this.value});">
+			          <option value="2">Sectors - 2 digits</option>
+			          <!--option value="2">Subsectors - 3 digits</option-->
+			          <option value="4">Industry Group - 4 digits</option>
+			          <!--option value="4">NAICS Industry - 5 digits</option-->
+			          <option value="6" selected>National Code - 6 digits</option>
+			        </select>
+			        <div style="clear:both;margin-bottom:2px"></div>
+
+			        <div class="industry_filter_settings">
+				        <div class="state-view">
+				        	Choose a county or region above to view filter settings.
+				        </div>
+				        <div class="county-view" style="display:none">
+					        <select id="catmethod" class="picklist" onchange="goHash({'catmethod':this.value});">
+					          <option value="1" selected>Average of unallocated county payrolls</option>
+					          <option value="2" >Average of all state payrolls (less accurate)</option>
+					          <option value="0" >Leave unpublished values blank</option>
+					        </select>
+					    </div>
+					</div>
+
+					<!--
+					The US Census does not provide stats for 2-digit manufacturing NAICS 31, 32&nbsp;and&nbsp;33.<br><br>
+					-->
+				</div>
+
+				
+				
+				<div id="econ_list"></div>
+				<br>
+				<div class="mock-up" style="display:none">
+					Change scales to view the impact of different industry mixes. (Not yet activated)<br>
+				</div>
+				<!-- /Sector List Format -->
+
+				
+
 			</div>
-
-			
-			
-			<div id="econ_list"></div>
-			<br>
-			<div class="mock-up" style="display:none">
-				Change scales to view the impact of different industry mixes. (Not yet activated)<br>
-			</div>
-			<!-- /Sector List Format -->
-
-			
-
+		
 		</div>
-	
 	</div>
+	<!-- /two columns -->
+
 </div>
-<!-- /two columns -->
 </div>
 
 <!-- INPUT OUTPUT -->
@@ -1055,6 +1066,11 @@ document.getElementById('showValues').onclick = function() {
 
 // These is missing var promises = [] and ready.
 // Let's look at Industry Mix first: http://localhost:8887/community/zip/leaflet/#columns=JobsAgriculture:50;JobsManufacturing:50
+var geojsonLayer;
+function renderMapShapesSimple(whichmap, hash) {
+	let map = document.querySelector('#' + whichmap)._leaflet_map; 
+	
+}
 function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 	var req = new XMLHttpRequest();
 	const whichGeoRegion = hash.geomap;
@@ -1071,7 +1087,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
     	// IMPORTANT: ALSO change localhost setting that uses cb_2015_alabama_county_20m below
 	}
-    var layerControl_CountyMap = {}; // Object containing one control for each map on page.
+    //var layerControl_CountyMap = {}; // Object containing one control for each map on page.
 
     req.open('GET', url, true);
     req.onreadystatechange = handler;
@@ -1149,7 +1165,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
             //geojsonLayer.clearLayers(); // Clear prior
             //        layerControl_CountyMap.clearLayers();
 
-            let geojsonLayer = L.geoJson(topodata, {style:styleShape, onEachFeature: onEachFeature}); // Called within addTo(map)
+            
 
             //console.log('neigh', neighbors)
          //}
@@ -1197,6 +1213,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
       let dataParameters = {}; // Temp
 
       let map = document.querySelector('#' + whichmap)._leaflet_map; // Recall existing map
+
       var container = L.DomUtil.get(map);
       //if (container == null || map == undefined || map == null) { // Does not work
   	  if ($('#' + whichmap).html().length == 0) { // Note: Avoid putting loading icon within map div.
@@ -1210,6 +1227,14 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 		    });
 
 	  }
+
+	  if (geojsonLayer) {
+	  	//alert("Remove the prior topo layer")
+	  	// To do: 
+	  	map.removeLayer(geojsonLayer); // Remove the prior topo layer
+	  }
+
+	  geojsonLayer = L.geoJson(topodata, {style:styleShape, onEachFeature: onEachFeature}).addTo(map); // Called within addTo(map)
 
       var baseLayers = {
         "Open Street Map": OpenStreetMap_BlackAndWhite,
@@ -1235,10 +1260,11 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
         //overlays[ele.name] = ele.group; // Allows for use of dp.name with removeLayer and addLayer
         //console.log("Layer added: " + ele.name);
       //})
-      if(layerControl_CountyMap === false) { // First time, add new layer
+
+      //if(layerControl_CountyMap === false) { // First time, add new layer
         // Add the layers control to the map
-        layerControl_CountyMap = L.control.layers(baseLayers, overlays).addTo(map);
-      }
+      //  layerControl_CountyMap = L.control.layers(baseLayers, overlays).addTo(map);
+      //}
 
       if (typeof layerControl != "undefined") {
       	//alert("OKAY: layerControl is available to CountyMap.")
@@ -1249,7 +1275,17 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 	      		// Reached on county click, but shapes are not removed.
 	      		console.log("overlays: ");
 	      		console.log(overlays);
-	        	layerControl[whichmap].removeLayer(overlays["Counties"]);
+	      		
+	      		//resetHighlight(layerControl[whichmap].);
+	      		// No effect
+	        	//layerControl[whichmap].removeLayer(overlays["Counties"]);
+
+	        	//geojsonLayer.remove();
+
+	        	// Might work a little
+
+	        	//alert("Remove the prior topo layer")
+	        	//map.removeLayer(geojsonLayer); // Remove the prior topo layer
 	       	}
 	    }
       	// layerControl wasn't yet available in loading sequence.
@@ -1279,11 +1315,12 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
        //if (map.hasLayer(overlays["Counties"])){
        //	  alert("found layer")
        		//no effect
-          	overlays["Counties"].remove();
+          	//overlays["Counties"].remove();
        //}
 
       // Make a layer active. 
-      geojsonLayer.addTo(map);
+      // Seems to prevent error
+      //geojsonLayer.addTo(map);
       
       
 
@@ -1339,6 +1376,8 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
 
         var info = L.control();
+
+        // TEMP - reactivate
         info.onAdd = function(map) {
             this._div = L.DomUtil.create('div', 'info');
             this.update();
@@ -1355,7 +1394,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
             //this._div.innerHTML = "<h4>Zip code</h4>" + (props ? props.zip + '</br>' + props.name + ' ' + props.state + '</br>' : "Hover over map")
             
             this._div.innerHTML = "" 
-            + (props ? "<h4>" + props.NAME + " County</h4>" : "Hover over map<br>") 
+            + (props ? "<b>" + props.NAME + " County</b><br>" : "Hover over map") 
             + (props ? "FIPS 13" + props.COUNTYFP : "")
             
 
@@ -1521,9 +1560,13 @@ function loadIOWidgets(param) {
 	// http://localhost:8887/localsite/info/#go=manufacturing&catsize=6
 
 }
-refreshWidgets();
+
 // INIT
-renderMapShapes("geomap", param);
+refreshWidgets();
+//if (!param.geo) { // Others gets called by refreshWidgets on init.
+	renderMapShapes("geomap", param);
+//}
+
 </script>
 
 
