@@ -6,5 +6,5 @@
 
 **loadMarkdown** - Pulls readme files into html and converts links and image tags based on folder levels.  
 
-**lazy** - A class that wait to load images until just before they scroll into view. Uses file path set in image's data-src attribute.  
+**lazy** - A class that waits to load images until just before they scroll into view. Uses file path set in image's data-src attribute.  
 

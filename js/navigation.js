@@ -72,7 +72,11 @@ $(document).ready(function(){
  		// Set here so path works at all levels.
 
  		// To do: fetch the existing background-image.
- 		
+ 		if(location.host.indexOf('atlanta') >= 0) {
+  			param.titleArray = []
+  			param.headerLogo = "<img src='https://scienceatl.org/wp-content/uploads/2020/04/code.png' style='width:150px;margin-top:-12px'>";
+	 	}
+
  		if(location.host.indexOf('georgia') >= 0) { // || location.host.indexOf('localhost') >= 0
  			$(".siteTitleShort").text("Model Georgia");
 	 		//imageUrl = climbpath + "../community/img/logo/georgia-icon-rect.png"; // georgia-icon-on-gray.png
