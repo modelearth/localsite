@@ -1090,7 +1090,11 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                         }
                         $(".location_titles").text($(".location_titles").text().replace(/,\s*$/, ""));
                         if (fips.length >= 2 && fips.length <= 3) {
-                            $(".regiontitle").text($(".location_titles").text());
+                            if (params.go) {
+                                $(".regiontitle").text($(".location_titles").text() + " - " + params.go.toTitleCase());
+                            } else {
+                                $(".regiontitle").text($(".location_titles").text());
+                            }
                         }
 
                     }else if(fips==dataObject.stateshown){
