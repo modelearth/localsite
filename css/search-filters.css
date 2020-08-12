@@ -121,7 +121,11 @@
     display: block;
     background-color: #fff;
 }
-
+.close-X {
+  color:#333;
+  font-size:16px;
+  cursor:pointer;
+}
 
 
 .bigThumbUl {

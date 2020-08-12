@@ -460,7 +460,7 @@ function keyFound(this_key, cat_filter, params) {
         return false;
     } else if (cat_filter.length == 0) { // No filter
         return true;
-    } else if (params.go == "bioeconomy" && this_key.startsWith("11")) { // Quick hack, always include Agriculture
+    } else if (params.go == "bioeconomy" && this_key.startsWith("11") || this_key.startsWith("311")) { // Quick hack, always include Agriculture
         return true;
     } else if (params.go == "manufacturing" && (this_key.startsWith("31") || this_key.startsWith("32") || this_key.startsWith("33") )) { // All manufacturing
         return true;
@@ -1056,8 +1056,12 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                             //if (params.go && fips.length == 1) {
                             //    // Remove " County" from this .replace(" County","")
                             //    $(".regiontitle").text(d["county"] + " - " + params.go.toTitleCase());
-                            //} else {
-                                $(".regiontitle").text("Industries within "+ fips.length +" counties");
+                            //} else 
+                            if (params.go) {
+                                $(".regiontitle").text(params.go.toTitleCase() + " Industries within "+ fips.length + " counties");
+                            } else {
+                                $(".regiontitle").text("Industries within "+ fips.length + " counties");
+                            }
                             //}
                         } else if (params.regiontitle) {
                             if (params.go) {
@@ -1086,7 +1090,11 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                         }
                         $(".location_titles").text($(".location_titles").text().replace(/,\s*$/, ""));
                         if (fips.length >= 2 && fips.length <= 3) {
-                            $(".regiontitle").text($(".location_titles").text());
+                            if (params.go) {
+                                $(".regiontitle").text($(".location_titles").text() + " - " + params.go.toTitleCase());
+                            } else {
+                                $(".regiontitle").text($(".location_titles").text());
+                            }
                         }
 
                     }else if(fips==dataObject.stateshown){
