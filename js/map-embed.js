@@ -1229,6 +1229,7 @@ document.write("<div id=\"filterEmbedHolder\" style=\"display:none;position:rela
 // COMMON
 function loadScript(url, callback)
 {
+	url = url.replace(/^.*\/\/[^\/]+/, ''); // Allows id's to always omit the domain.
 	if (!document.getElementById(url)) { // Prevents multiple loads.
 		var script = document.createElement('script');
 	    script.type = 'text/javascript';
