@@ -233,6 +233,10 @@ function reloadMapTiles(whichmap,attempt) {
 				setTimeout( function() {
 					reloadMapTiles(whichmap,attempt+1)
 				}, 50 );
+			} else {
+				// Try anyway
+				console.log("reloadMapTiles - try anyway");
+				document.querySelector(whichmap)._leaflet_map.invalidateSize();
 			}
 		}
 	}
