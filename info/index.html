@@ -228,7 +228,7 @@ function reloadMapTiles(whichmap,attempt) {
 		if (document.querySelector(whichmap)._leaflet_map) { // Give time for next line to be found.
 			document.querySelector(whichmap)._leaflet_map.invalidateSize();
 		} else {
-			//console.log("Delay so _leaflet_map is available.")
+			console.log("reloadMapTiles " + whichmap + ". Attempt " + attempt);
 			if (attempt < 100) {
 				setTimeout( function() {
 					reloadMapTiles(whichmap,attempt+1)
