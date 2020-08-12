@@ -223,6 +223,20 @@ document.addEventListener('hashChangeEvent', function (elem) {
  	refreshWidgets();
 }, false);
 
+function reloadMapTiles(whichmap,attempt) {
+	if ($('#geomap').html().length > 0) {
+		if (document.querySelector(whichmap)._leaflet_map) { // Give time for next line to be found.
+			document.querySelector(whichmap)._leaflet_map.invalidateSize();
+		} else {
+			//console.log("Delay so _leaflet_map is available.")
+			if (attempt < 100) {
+				setTimeout( function() {
+					reloadMapTiles(whichmap,attempt+1)
+				}, 50 );
+			}
+		}
+	}
+}
 // INIT
 //var hash = getHash(); // Include all existing
 var priorHash = {};
@@ -247,17 +261,8 @@ function refreshWidgets() {
 			$("#aboutToolsDiv").hide();
 			$("#infoColumn").show();
 			$("#geomap").show();
+			reloadMapTiles('#geomap',1);
 			
-			if ($('#geomap').html().length > 0) {
-				if (document.querySelector('#geomap')._leaflet_map) { // Give time for next line to be found.
-					document.querySelector('#geomap')._leaflet_map.invalidateSize();
-				} else {
-					//console.log("Delay so _leaflet_map is available.")
-					setTimeout( function() {
-						document.querySelector('#geomap')._leaflet_map.invalidateSize();
-   					}, 50 );
-				}
-			}
 			/*
 			alert("show map")
 			if (document.querySelector('#geomap')._leaflet_map) {
