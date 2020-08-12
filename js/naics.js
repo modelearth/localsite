@@ -460,7 +460,7 @@ function keyFound(this_key, cat_filter, params) {
         return false;
     } else if (cat_filter.length == 0) { // No filter
         return true;
-    } else if (params.go == "bioeconomy" && this_key.startsWith("11")) { // Quick hack, always include Agriculture
+    } else if (params.go == "bioeconomy" && this_key.startsWith("11") || this_key.startsWith("311")) { // Quick hack, always include Agriculture
         return true;
     } else if (params.go == "manufacturing" && (this_key.startsWith("31") || this_key.startsWith("32") || this_key.startsWith("33") )) { // All manufacturing
         return true;
