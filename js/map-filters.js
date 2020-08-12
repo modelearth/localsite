@@ -328,6 +328,10 @@ $(document).ready(function () {
    		clearHash("cat,search,q,geo");
    		//history.pushState("", document.title, window.location.pathname);
    		//loadHtmlTable(true); // New list
+
+   		let hash = getHash();
+   		renderMapShapes("geomap", hash); // County select map
+
    		loadMap1();
    		event.stopPropagation();
    	});

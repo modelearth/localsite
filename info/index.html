@@ -292,10 +292,12 @@ function refreshWidgets() {
         	$(".state-view").show();
         	$(".industry_filter_settings").hide(); // temp
 		}
-		if (hash.geo && hash.geo.split(",").length > 4) {
-	        //$("#infoColumn").hide();
-	        $("#top-content-columns").addClass("top-content-columns-wide");
-
+		if (hash.geo) {
+			if (hash.geo.split(",").length >= 3) {
+		        $("#top-content-columns").addClass("top-content-columns-wide");
+		    } else {
+		    	$("#top-content-columns").removeClass("top-content-columns-wide");
+		    }
 		} else {
 	        $("#infoColumn").show();
 	        $(".mainColumn1").show();
@@ -304,7 +306,19 @@ function refreshWidgets() {
 	    if (hash.geomap == "true") { // Since otherwise called above
 	    	loadScript('/localsite/js/leaflet.js', function(results) {
 	    		//alert("update map")
-				renderMapShapesSimple("geomap", hash);
+				//renderMapShapesSimple("geomap", hash);
+
+				// Clear here so clicking a new region redraws map.
+				// This can be avoided once we figure out how to update an individal shape using renderMapShapesSimple.
+				let whichmap = "geomap";
+				let map = document.querySelector('#' + whichmap)._leaflet_map; 
+				if (geojsonLayer) {
+					// removes the whole layer until 
+					map.removeLayer(geojsonLayer); // Remove the prior topo layer
+				}
+				
+				renderMapShapes("geomap", hash); // Temp here
+
 			});
 		}
 	}
@@ -1068,10 +1082,20 @@ document.getElementById('showValues').onclick = function() {
 // Let's look at Industry Mix first: http://localhost:8887/community/zip/leaflet/#columns=JobsAgriculture:50;JobsManufacturing:50
 var geojsonLayer;
 function renderMapShapesSimple(whichmap, hash) {
+	console.log("renderMapShapesSimple " + whichmap);
 	let map = document.querySelector('#' + whichmap)._leaflet_map; 
-	
+	//alert("renderMapShapesSimple " + whichmap);
+	if (geojsonLayer) {
+		//alert("found geojsonLayer")
+	  	// Problem, this removes the whole layer, shapes and all.
+		//map.removeLayer(geojsonLayer); // Remove the prior topo layer
+
+
+	}
+
 }
 function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
+	console.log("renderMapShapes " + whichmap);
 	var req = new XMLHttpRequest();
 	const whichGeoRegion = hash.geomap;
     // Topo data source
@@ -1363,7 +1387,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
         	} else {
         		param.geo = fips;
         	}
-            goHash({'geo':param.geo});
+            goHash({'geo':param.geo,'regiontitle':''});
         }
 
         function onEachFeature(feature, layer){
@@ -1379,8 +1403,19 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
         // TEMP - reactivate
         info.onAdd = function(map) {
-            this._div = L.DomUtil.create('div', 'info');
-            this.update();
+        	//alert("attempt")
+        	if ($(".info.leaflet-control").length) {
+        		$(".info.leaflet-control").remove(); // Prevent adding multiple times
+        	}
+        	//if (!$(".info.leaflet-control").length) { // Prevent adding multiple times
+        	//	alert("does not exist")
+        		this._div = L.DomUtil.create('div', 'info');
+        	//} else {
+        		//$(".info.leaflet-control").text("bug");
+
+        		//this._div = $(".info.leaflet-control"); // Does not work
+        	//}
+        	this.update();
             return this._div;
         }
 
@@ -1408,6 +1443,8 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
      }
   }
 }
+
+// This could be reactivated to merge another dataset to map popups
 function mergeInDetailData(topodata,detail_data) {
   var data_by_id = d3.nest() // where id is a zipcode or countyID
     .key(function(d){return d.zcta;})
@@ -1425,6 +1462,7 @@ function mergeInDetailData(topodata,detail_data) {
   });
   return cluster_data;
 }
+
 function styleShape(feature) {
 
 	let hash = getHash(); // To do: pass in as parameter
@@ -1563,9 +1601,9 @@ function loadIOWidgets(param) {
 
 // INIT
 refreshWidgets();
-//if (!param.geo) { // Others gets called by refreshWidgets on init.
+if (!param.geo) { // Others gets called by refreshWidgets on init.
 	renderMapShapes("geomap", param);
-//}
+}
 
 </script>
 

@@ -728,7 +728,7 @@ function loadMap1(dp) { // Also called by map-filters.js
   dp1.zoom = 7;
   dp1.listLocation = false; // Hides Waze direction link in list, remains in popup.
 
-  if (dp) { // Parameters set in page or layer json
+  if (dp && dp[0]) { // Parameters set in page or layer json
     dp1 = dp;
   } else if (param["show"] == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
     dp1.listTitle = "Data Driven Decision Making";
@@ -783,7 +783,6 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.listLocation = false;
     dp1.addLink = "https://www.georgia.org/covid19response"; // Not yet used
   } else if (param["show"] == "suppliers") { // "http://" + param["domain"]
-
     dp1.listTitle = "Georgia COVID-19 Response";
     dp1.listTitle = "Georgia Suppliers of&nbsp;Critical Items <span style='white-space:nowrap'>to Fight COVID-19</span>"; // For iFrame site
 
