@@ -235,8 +235,8 @@ function reloadMapTiles(whichmap,attempt) {
 				}, 50 );
 			} else {
 				// Try anyway
-				console.log("reloadMapTiles - try anyway");
-				document.querySelector(whichmap)._leaflet_map.invalidateSize();
+				//console.log("reloadMapTiles - try anyway");
+				//document.querySelector(whichmap)._leaflet_map.invalidateSize(); // Still returns error.
 			}
 		}
 	}
