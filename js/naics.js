@@ -1056,8 +1056,12 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                             //if (params.go && fips.length == 1) {
                             //    // Remove " County" from this .replace(" County","")
                             //    $(".regiontitle").text(d["county"] + " - " + params.go.toTitleCase());
-                            //} else {
-                                $(".regiontitle").text("Industries within "+ fips.length +" counties");
+                            //} else 
+                            if (params.go) {
+                                $(".regiontitle").text(params.go.toTitleCase() + " Industries within "+ fips.length + " counties");
+                            } else {
+                                $(".regiontitle").text("Industries within "+ fips.length + " counties");
+                            }
                             //}
                         } else if (params.regiontitle) {
                             if (params.go) {
