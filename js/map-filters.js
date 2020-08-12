@@ -1100,8 +1100,11 @@ $(document).ready(function () {
       //displayMap(layerName,siteObject);
       console.log(".refreshMap ");
       
-      // Could check if visible...
-      document.querySelector('#geomap')._leaflet_map.invalidateSize(); // Force Leaflet map to reload
+      if (document.querySelector('#geomap')._leaflet_map) {
+      	document.querySelector('#geomap')._leaflet_map.invalidateSize(); // Force Leaflet map to reload
+	  } else {
+	  	console.log("document.querySelector('#geomap')._leaflet_map not found");
+	  }
       document.querySelector('#map1')._leaflet_map.invalidateSize(); 
       document.querySelector('#map2')._leaflet_map.invalidateSize(); 
   });

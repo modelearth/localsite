@@ -53,6 +53,7 @@
 <style>
 #logoholder { margin-top: -8px; }
 #headerLocTitleHolder { margin-left: 10px !important; margin-top: 2px !important; }
+#pageLinksHolder { display:block !important; margin-top: 55px;}
 
 .fade-in {
   animation: fadeIn ease 4s;
@@ -245,6 +246,7 @@ function reloadMapTiles(whichmap,attempt) {
 //var hash = getHash(); // Include all existing
 var priorHash = {};
 function refreshWidgets() {
+	let reloadedMap = false;
 	param = loadParams(location.search,location.hash); // param is declared in localsite.js
 	let hash = getHash();
 	//alert("refreshWidgets from prior geo: " + priorHash.geo + " to " + hash.geo);
@@ -265,8 +267,25 @@ function refreshWidgets() {
 			$("#aboutToolsDiv").hide();
 			$("#infoColumn").show();
 			$("#geomap").show();
-			reloadMapTiles('#geomap',1);
 			
+			// DOES NOT WORK - document.querySelector(whichmap)._leaflet_map not found
+			//reloadMapTiles('#geomap',1);
+			
+			// Reload map instead
+			if (reloadedMap == false) {
+				loadScript('/localsite/js/leaflet.js', function(results) {
+					let whichmap = "geomap";
+						let map = document.querySelector('#' + whichmap)._leaflet_map; 
+						if (map) {
+							if (geojsonLayer) {
+								// removes the whole layer until 
+								map.removeLayer(geojsonLayer); // Remove the prior topo layer
+							}
+						}
+					renderMapShapes(whichmap, hash); // Temp here
+					reloadedMap = true;
+				});
+			}
 			/*
 			alert("show map")
 			if (document.querySelector('#geomap')._leaflet_map) {
@@ -313,22 +332,25 @@ function refreshWidgets() {
 	    }
 
 	    if (hash.geomap == "true") { // Since otherwise called above
-	    	loadScript('/localsite/js/leaflet.js', function(results) {
-	    		//alert("update map")
-				//renderMapShapesSimple("geomap", hash);
+	    	if (reloadedMap == false) {
+		    	loadScript('/localsite/js/leaflet.js', function(results) {
+		    		//alert("update map")
+					//renderMapShapesSimple("geomap", hash);
 
-				// Clear here so clicking a new region redraws map.
-				// This can be avoided once we figure out how to update an individal shape using renderMapShapesSimple.
-				let whichmap = "geomap";
-				let map = document.querySelector('#' + whichmap)._leaflet_map; 
-				if (geojsonLayer) {
-					// removes the whole layer until 
-					map.removeLayer(geojsonLayer); // Remove the prior topo layer
-				}
-				
-				renderMapShapes("geomap", hash); // Temp here
+					// Clear here so clicking a new region redraws map.
+					// This can be avoided once we figure out how to update an individal shape using renderMapShapesSimple.
+					let whichmap = "geomap";
+					let map = document.querySelector('#' + whichmap)._leaflet_map; 
+					if (geojsonLayer) {
+						// removes the whole layer until 
+						map.removeLayer(geojsonLayer); // Remove the prior topo layer
+					}
+					
+					renderMapShapes(whichmap, hash); // Temp here
 
-			});
+				});
+				reloadedMap = true;
+			}
 		}
 	}
 	//alert(hash.regiontitle)
@@ -370,6 +392,8 @@ function refreshWidgets() {
 <!-- to do: load top hero here when no go or geo. -->
 
 
+
+
 <!-- map and list -->
 <script type="text/javascript" src="../js/map-embed.js?show=smart"></script>
 <!-- /map and list -->
@@ -382,44 +406,11 @@ To do: make the links below an optional widget
 <div id="pageLinks"></div>
 -->
 
-<div id="top-content-columns" class="content contentpadding noprint" style="margin-top:40px; padding-top:0px; padding-bottom:0px">
-
-	<br>
-	<!-- two columns -->
-	<div class="pageColumns">
-		<div style="display:table-row;">
-			
-			<div style="float:right; padding: 12px 0px 10px 0" class="noprint">
-				<a href="../../io/charts/">About Widgets</a>
-			</div>
-			<!--
-				class="mainColumn mainColumn1" 
-			-->
-		     <div id="pageLinksInsert" style="displayX:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
-		          <a onClick="go({}); return false;"  href="./">Overview</a> | 
-		          <a onClick="goHash({'go':'bioeconomy','show':''}); return false;" href="./#go=bioeconomy">Bioeconomy</a> | 
-		          <span class="local" style="display:none">
-		          <a onClick="go({'go':'','show':'farmfresh'}); return false;" href="./#show=farmfresh">Fresh Produce</a> | 
-		      	  </span>
-		          <a onClick="goHash({'go':'manufacturing','show':''}); return false;" href="./#go=manufacturing">Manufacturing</a> | 
-		          <a onClick="goHash({'go':'parts','show':''}); return false;" href="./#go=parts">Automotive Parts</a> | 
-		          <span class="local" style="display:none">
-		          <a onClick="goHash({'go':'','show':'suppliers'}); return false;" href="./#show=suppliers">PPE Suppliers</a> | 
-		      	  </span>
-		          <a onClick="goHash({'geomap':'true'}); return false;" href="./#geomap=US13">County&nbsp;Map</a>
-		          <br>
-	        </div>
-
-		</div>
-	</div>
-	
-
-
-
-
+<div id="top-content-columns" class="content contentpadding noprint" style="margin-top:20px; padding-top:0px; padding-bottom:0px">
 
 	<div style="padding-top:0px; padding-bottom:0px">
 
+	<!-- two columns -->
 	<div class="pageColumns">
 		<div style="display:table-row">
 			<div id="infoColumn" class="mainColumn mainColumn1" style="font-size: 15px; position: relative">
@@ -430,7 +421,9 @@ To do: make the links below an optional widget
 				value added revenue and positive environmental&nbsp;impacts.
 				</div>
 				-->
-				<div id="geomap" style="height:550px; border:1px solid blue; display:none; position: relative"></div>
+
+				<!-- Must be displayed initiallly so tiles are visible -->
+				<div id="geomap" style="height:550px; border:1px solid blue; position: relative"></div>
 
 				
 				<div id="aboutToolsDiv" style="position: relative;"></div>
@@ -1261,13 +1254,17 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
 	  }
 
-	  if (geojsonLayer) {
-	  	//alert("Remove the prior topo layer")
-	  	// To do: 
-	  	map.removeLayer(geojsonLayer); // Remove the prior topo layer
-	  }
+	  if (map) {
+		  if (geojsonLayer) {
+		  	//alert("Remove the prior topo layer")
+		  	// To do: 
+		  	map.removeLayer(geojsonLayer); // Remove the prior topo layer
+		  }
 
-	  geojsonLayer = L.geoJson(topodata, {style:styleShape, onEachFeature: onEachFeature}).addTo(map); // Called within addTo(map)
+		  geojsonLayer = L.geoJson(topodata, {style:styleShape, onEachFeature: onEachFeature}).addTo(map); // Called within addTo(map)
+	  } else {
+	  	console.log("WARNING - map not available from _leaflet_map")
+	  }
 
       var baseLayers = {
         "Open Street Map": OpenStreetMap_BlackAndWhite,
@@ -1446,9 +1443,9 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
             // Also, other state files may need to have primary node renamed to "data"
             //this._div.innerHTML = "<h4>Zip code</h4>" + (1==1 ? id + '</br>' : "Hover over map")
         }
-
-        info.addTo(map);
-
+        if (map) {
+        	info.addTo(map);
+    	}
      }
   }
 }

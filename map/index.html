@@ -717,6 +717,33 @@
 <!-- Matches filterFields and headerFixed height -->
 <div class="headerOffset2" style="height:56px">&nbsp;</div>
 
+<div id="pageLinksHolder" class="contentpadding" style="display:none; padding-top:0; padding-bottom:0">
+  <br>
+  <div style="display:table-row;">
+    
+    <div style="float:right; padding: 12px 0px 10px 0" class="noprint">
+      <a href="../../io/charts/">About Widgets</a>
+    </div>
+    <!--
+      class="mainColumn mainColumn1" 
+    -->
+       <div id="pageLinksInsert" style="displayX:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
+            <a onClick="go({}); return false;"  href="./">Overview</a> | 
+            <a onClick="goHash({'go':'bioeconomy','show':''}); return false;" href="./#go=bioeconomy">Bioeconomy</a> | 
+            <span class="local" style="display:none">
+            <a onClick="go({'go':'','show':'farmfresh'}); return false;" href="./#show=farmfresh">Fresh Produce</a> | 
+            </span>
+            <a onClick="goHash({'go':'manufacturing','show':''}); return false;" href="./#go=manufacturing">Manufacturing</a> | 
+            <a onClick="goHash({'go':'parts','show':''}); return false;" href="./#go=parts">Automotive Parts</a> | 
+            <span class="local" style="display:none">
+            <a onClick="goHash({'go':'','show':'suppliers'}); return false;" href="./#show=suppliers">PPE Suppliers</a> | 
+            </span>
+            <a onClick="goHash({'geomap':'true'}); return false;" href="./#geomap=US13">County&nbsp;Map</a>
+            <br>
+        </div>
+
+  </div>
+</div>
 
 <!-- Settings Panel -->
 <div class="settingsPanel topMenuOffset floater" style="display:none; position:fixed">
