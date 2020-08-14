@@ -26,7 +26,11 @@ var dual_map = dual_map || (function(){
         community_data_root : function() { // General US states and eventually some international
             let root = location.protocol + '//' + location.host + '/community-data/';
             if (location.host.indexOf('localhost') < 0) {
-              root = "https://modelearth.github.io/community-data/";
+              if (location.host.indexOf('model.earth') >= 0) {
+                root = "https://model.earth/community-data/"; 
+              } else {
+                root = "https://modelearth.github.io/community-data/"; // Blocked by CORS policy: on Github model.earth.
+              }
             }
             return (root);
         },
