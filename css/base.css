@@ -581,3 +581,230 @@ content .js, pre code { /* Prevents .js from impacting js class within Drupal bo
     margin-right: 15px;
     padding: 0 5px 0 10px;
 }
+
+
+#logospace {
+  float:left;
+  borderX: 1px solid blue;
+  line-heightX:32px;
+  margin-leftX:-19px;
+  vertical-align:middle;
+}
+/*
+.logoholder {
+  background-size: 100% 100%;
+  background-position:center;
+  height:50px;
+    width:70px;
+    margin-top: -40px;
+}
+*/
+#logoholder {
+  /*
+  background-size: 100% 100%;
+  margin:0 auto;
+  */
+  float:left;
+  display: block;
+
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+}
+#headerLogo {
+  margin-right: 4.5px;
+  float: left;
+}
+
+/* phase out? */
+.logoholder-state {
+  background:url(img/logo/georgia-icon-on-gray.png) no-repeat;
+  margin-top: 5px;
+  height: 50px;
+  width: 70px;
+}
+.logoholder-modelearth {
+  background-image:url(../../../community/img/logo/favicon.png) no-repeat;
+  margin-top: 15px;
+  margin-right: 24px;
+  height:25px; 
+  width:25px;
+}
+.logolink:hover{
+  text-decoration: none;
+}
+
+#headerLocTitleHolder {
+  float:left;
+  /*
+  padding:10px 0 0 0px;
+  font-size: 22px;
+  height:45px;
+  */
+}
+/*
+.headerLocTitleHolder-state {
+  margin-top: 7px;
+}
+
+, #headerLocTitle
+*/
+#headerSiteTitle {
+  font-size: 24px;
+  font-family: Helvetica !important;
+  font-weight: 100;
+  color: #777;
+  letter-spacing: 2px;
+  padding-bottom: 6px;
+
+  /* Align vertically */
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+}
+
+#headerLocTitle {
+  float:left;
+  padding-top:1px;
+  color:#9c9c9c;
+  font-size: 22px;
+}
+#homeMenu {
+  display: none;
+  border: 1px solid #ccc;
+}
+#homeMenu div {
+  height: 40px;
+  background-color: #fff;
+  padding:20px;
+}
+.headerbar {
+  /* box-shadow: 0 1px 7px rgba(0, 0, 0, 0.1); */
+  border-bottom: 1px solid #eee;
+}
+.headerbarheight {
+  height:100px;
+}
+.filters-margin {
+  margin: 0 auto;
+  max-width:1000px;
+}
+.headerDropdown {
+  float:left;
+  display:none;
+  margin-left: 10px;
+}
+.headerDropdown select {
+  font-size: 18px;
+  color: #999;
+  border: 1px #ccc solid;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+/* HEADER */
+.upperIcons > div {
+  border-left:1px solid #ddd;
+  height:100px;
+  padding:32px;
+  padding-left:37px;
+}
+.upperIcons > div:hover {
+  cursor: pointer;
+}
+#menuHolder {
+  height:100%;
+  position:fixed;
+  right:0px;
+
+  margin-leftX:-10px;
+  overflow: auto;
+  background: #fff;
+
+  width:250px;
+  margin-right:-250px;
+  -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+
+    box-sizing: border-box;
+    z-index: 9999;
+}
+#menuTop {
+  margin-left:20px;
+}
+#menuNav {
+  margin-top:20px;
+}
+#menuNav a {
+  display: block;
+  padding-left: 40px !important;
+  padding-top: 15px !important;
+  min-height: 50px;
+  box-sizing: border-box;
+}
+/*
+#menuNav a:hover {
+  background-color: #ddd;
+}
+*/
+#menuNav a {
+  font-size:16px;
+  font-weight: 500;
+  color: #ccc;
+}
+#menuNav a:hover {
+  background-color: #000;
+}
+
+
+@media (max-width: 600px) {
+  #menuNav a {
+    font-size:20px;
+  }
+}
+#menuHolder a {
+  padding: 10px;
+  text-decoration: none;
+}
+.hideMenu {
+  margin-top:15px;
+  margin-right:17px;
+  cursor:pointer;
+  border: 2px solid #AEAEAE;
+  border-radius: 30px;
+  font-size: 32px;
+  font-weight: 100;
+  display: inline-block;
+  line-height: 0px;
+  padding: 11px 3px;
+  width: 27px;
+  position: relative;
+  float: right;
+}
+.hideMenu:hover {
+  color:#fff;
+  border-color: #fff;
+}
+.hideMenuInner {
+  position:absolute;
+  top:3px;
+  left:4px;
+  color:#555;
+  display: none;
+  font-size: 20px;
+  display: inline-block;
+  line-height: 17px;
+}
+.hideMenuInner:hover {
+  color:#fff;
+}
+/* @media handheld { */
+@media only screen and (max-width: 479px) { /* Since Lato font not available on Android */
+  .hideMenu:after {
+      top: 12px;
+      left: 4px;
+  }
+}
+/* END HEADER */

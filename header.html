@@ -2,200 +2,6 @@
 /*
 Could use these state shapes: https://github.com/coryetzkorn/state-svg-defs
 */
-.logoholder {
-	background-size: 100% 100%;
-	background-position:center;
-	height:50px;
-  	width:70px;
-  	margin-top: -40px;
-}
-
-#logoholder {
-  background-size: 100% 100%;
-  float:left; 
-}
-
-.logoholder-state {
-	background:url(img/logo/georgia-icon-on-gray.png) no-repeat;
-	margin-top: 5px;
-	height:50px;
-  	width:70px;
-}
-.logoholder-modelearth {
-	background-image:url(../../../community/img/logo/favicon.png) no-repeat;
-	margin-top: 15px;
-	margin-right: 24px;
-	height:25px; 
-	width:25px;
-}
-.logolink:hover{
-	text-decoration: none;
-}
-#headerLocTitleHolder {
-	float:left;
-	padding:10px 0 0 0px;
-	font-size: 22px;
-	height:45px; 
-	margin-left:-16px;
-	
-}
-.headerLocTitleHolder-state {
-	margin-top: 7px;
-}
-#headerSiteTitle, #headerLocTitle {
-	font-size: 24px;
-	font-family: Helvetica !important;
-	font-weight: 100;
-	color: #777;
-	letter-spacing: 2px;
-}
-#headerLocTitle {
-	float:left;
-	padding-top:1px;
-	color:#9c9c9c;
-	font-size: 22px;
-}
-#homeMenu {
-	display: none;
-	border: 1px solid #ccc;
-}
-#homeMenu div {
-	height: 40px;
-	background-color: #fff;
-	padding:20px;
-}
-.headerbar {
-  /* box-shadow: 0 1px 7px rgba(0, 0, 0, 0.1); */
-  border-bottom: 1px solid #eee;
-}
-.headerbar-margin {
-	marginX: 0 auto;
-	margin-top: 22px;
-}
-.filters-margin {
-	margin: 0 auto;
-	max-width:1000px;
-}
-.headerDropdown {
-	float:left;
-	display:none;
-	margin-left: 10px;
-}
-.headerDropdown select {
-	font-size: 18px;
-	color: #999;
-	border: 1px #ccc solid;
-	padding: 5px;
-	border-radius: 4px;
-}
-
-/* HEADER */
-.upperIcons > div {
-  border-left:1px solid #ddd;
-  height:100px;
-  padding:32px;
-  padding-left:37px;
-}
-.upperIcons > div:hover {
-  cursor: pointer;
-}
-#menuHolder {
-  height:100%;
-  position:fixed;
-  right:0px;
-
-  margin-leftX:-10px;
-  overflow: auto;
-  background: #fff;
-
-  width:250px;
-  margin-right:-250px;
-  -webkit-transition-duration: 0.3s;
-    -moz-transition-duration: 0.3s;
-    -o-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-
-    box-sizing: border-box;
-    z-index: 9999;
-}
-#menuTop {
-  margin-left:20px;
-}
-#menuNav {
-  margin-top:20px;
-}
-#menuNav a {
-  display: block;
-  padding-left: 40px !important;
-  padding-top: 15px !important;
-  min-height: 50px;
-  box-sizing: border-box;
-}
-/*
-#menuNav a:hover {
-  background-color: #ddd;
-}
-*/
-#menuNav a {
-  font-size:16px;
-  font-weight: 500;
-  color: #ccc;
-}
-#menuNav a:hover {
-  background-color: #000;
-}
-
-
-@media (max-width: 600px) {
-  #menuNav a {
-    font-size:20px;
-  }
-}
-#menuHolder a {
-  padding: 10px;
-  text-decoration: none;
-}
-.hideMenu {
-  margin-top:15px;
-  margin-right:17px;
-  cursor:pointer;
-  border: 2px solid #AEAEAE;
-  border-radius: 30px;
-  font-size: 32px;
-  font-weight: 100;
-  display: inline-block;
-  line-height: 0px;
-  padding: 11px 3px;
-  width: 27px;
-  position: relative;
-  float: right;
-}
-.hideMenu:hover {
-  color:#fff;
-  border-color: #fff;
-}
-.hideMenuInner {
-  position:absolute;
-  top:3px;
-  left:4px;
-  color:#555;
-  display: none;
-  font-size: 20px;
-  display: inline-block;
-  line-height: 17px;
-}
-.hideMenuInner:hover {
-  color:#fff;
-}
-/* @media handheld { */
-@media only screen and (max-width: 479px) { /* Since Lato font not available on Android */
-  .hideMenu:after {
-      top: 12px;
-      left: 4px;
-  }
-}
-/* END HEADER */
-
 </style>
 
 <div id="menuHolder" style="background:#333; display:none">
@@ -264,7 +70,7 @@ Could use these state shapes: https://github.com/coryetzkorn/state-svg-defs
 	</div>
 </div>
 
-<div class="headerbar headerbarheight" style="height:100px;background:#fff;width:100%;position:fixed;overflow:visible;z-index:1002;">
+<div class="headerbar headerbarheight" style="background:#fff;width:100%;position:fixed;overflow:visible;z-index:1002;">
 
 	<div class="upperIcons noprint" style="float:right;">
 		<div class="showSearch local" style="display:none;float:left">
@@ -292,37 +98,14 @@ Could use these state shapes: https://github.com/coryetzkorn/state-svg-defs
 		</div>
 	</div>
 
-	<div class="contentpadding headerbar-margin" style="padding-top:0px">
-		<div id="logospace" style="line-height:32px; margin-left:-19px">
-			<a href="" id="logoholder"></a>
-
-			<div style="display:none; float:left; padding:8px 20px 0 20px">
-
+	<div class="contentpadding" style="padding-top:0px">
+		<div id="logospace" class="headerbarheight">
+			<div id="logoholder">
 				
-				<div style="font-size: 22px">
-					<a href="" class="logolink" style="display:none; color:#777; line-height:32px">
-
-						<!-- Resides in navigation.js -->
-						<span style="color:#555">model</span><span style="color:#999">earth1</span> 
-
-						<span style="display:none;color:#999">Georgia</span> 
-						<span style="display:none;color:#777">IO</span>
-						<!--
-						<span style="color:#777">LaGrange,</span> <span style="color:#999">Georgia</span>
-						-->
-					</a>
+				<div id="headerLogo">
 				</div>
-				
 
-				<div style="font-size: 24px; border-right:1px solid #ccc;"><a href="" class="logolink" style="color:#999; line-height:30px">model<span style="color:#777">georgia</span></a></div>
-				
-				
-				<!--
-				<div style="font-size: 24px"><a href="" class="logolink" style="color:#999; line-height:30px">model<span style="color:#777">earth</span></a></div>
-				-->
-
-			</div>
-			<div id="headerLocTitleHolder">
+				<div id="headerLocTitleHolder">
 
 					<span id="headerSiteTitle"></span>
 					<div style="padding-top:8px; float:right; display:none" class="mock-up">
@@ -336,6 +119,8 @@ Could use these state shapes: https://github.com/coryetzkorn/state-svg-defs
 					<a href="../community/tools" class="logolink">
 					<span id="headerLocTitle"></span>
 					</a>
+				</div>
+
 			</div>
 		</div>
 		

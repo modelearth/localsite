@@ -2,6 +2,11 @@
 
 Create a website using markdown with GitHub for free hosting.  
 
+The localsite framework is designed to allow multiple Github repos (using React,&nbsp;Vue, etc.) to communicate using hash values.  
+
+Place the <a href='https://github.com/localsite/localsite/'>localsite</a> repo within the root of your local web folder, along with other repos that reference it.  
+
+
 ## 1. Start a localhost server on your computer
 
 Go to the folder where you'd like your webroot to reside and run the following to view pages on localhost:

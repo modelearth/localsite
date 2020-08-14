@@ -51,8 +51,7 @@
 </script>
 
 <style>
-#logoholder { margin-top: -8px; }
-#headerLocTitleHolder { margin-left: 10px !important; margin-top: 2px !important; }
+#logoholderX { margin-top: -8px; }
 #pageLinksHolder { display:block !important; margin-top: 55px;}
 
 .fade-in {
@@ -331,27 +330,31 @@ function refreshWidgets() {
 	        $(".mainColumn1").show();
 	    }
 
-	    if (hash.geomap == "true") { // Since otherwise called above
+	    //if (hash.geomap == "true") { // Since otherwise called above
 	    	if (reloadedMap == false) {
 		    	loadScript('/localsite/js/leaflet.js', function(results) {
-		    		//alert("update map")
-					//renderMapShapesSimple("geomap", hash);
 
-					// Clear here so clicking a new region redraws map.
-					// This can be avoided once we figure out how to update an individal shape using renderMapShapesSimple.
-					let whichmap = "geomap";
-					let map = document.querySelector('#' + whichmap)._leaflet_map; 
-					if (geojsonLayer) {
-						// removes the whole layer until 
-						map.removeLayer(geojsonLayer); // Remove the prior topo layer
-					}
-					
-					renderMapShapes(whichmap, hash); // Temp here
+			    		// ._leaflet_map Only works if alert occurs here
+			    		//alert("reloadedMap2 " + reloadedMap)
+
+			    		//alert("update map")
+						//renderMapShapesSimple("geomap", hash);
+
+						// Clear here so clicking a new region redraws map.
+						// This can be avoided once we figure out how to update an individal shape using renderMapShapesSimple.
+						let whichmap = "geomap";
+						let map = document.querySelector('#' + whichmap)._leaflet_map; 
+						if (geojsonLayer) {
+							// removes the whole layer until 
+							map.removeLayer(geojsonLayer); // Remove the prior topo layer
+						}
+						//alert("render")
+						renderMapShapes(whichmap, hash); // Temp here
 
 				});
 				reloadedMap = true;
 			}
-		}
+		//}
 	}
 	//alert(hash.regiontitle)
 	if (hash.regiontitle != priorHash.regiontitle) {

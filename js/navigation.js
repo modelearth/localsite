@@ -72,12 +72,30 @@ $(document).ready(function(){
  		// Set here so path works at all levels.
 
  		// To do: fetch the existing background-image.
- 		if(location.host.indexOf('atlanta') >= 0) {
+ 		if (param.startTitle == "Code for Atlanta" ||  location.host.indexOf('atlanta') >= 0) {
   			param.titleArray = []
-  			param.headerLogo = "<img src='https://scienceatl.org/wp-content/uploads/2020/04/code.png' style='width:150px;margin-top:-12px'>";
-	 	} else if(location.host.indexOf('georgia') >= 0) { 
+  			param.headerLogo = "<img src='https://scienceatl.org/wp-content/uploads/2020/04/code.png' style='width:150px;'>";
+	 		document.title = "Code for Atlanta - " + document.title
+	 		changeFavicon("https://lh3.googleusercontent.com/HPVBBuNWulVbWxHAT3Nk_kIhJPFpFObwNt4gU2ZtT4m89tqjLheeRst_cMnO8mSrVt7FOSlWXCdg6MGcGV6kwSyjBVxk5-efdw")
+	 	} else if (param.startTitle == "Georgia.org" || location.host.indexOf('georgia') >= 0) {
 	 		param.titleArray = [];
 	 		param.headerLogo = "<a href='https://georgia.org'><img src='" + climbpath + "../community/img/logo/georgia_usa_gray.png' style='width:130px;padding-top:4px'></a>";
+	 		document.title = "Georgia.org - " + document.title
+	 		changeFavicon("https://www.georgia.org/sites/default/files/logo-georgia-peach-notext_0.png")
+	 	} else if (param.startTitle == "Neighborhood.org" || location.host.indexOf('neighborhood.org') >= 0) {
+	 		param.titleArray = ["neighbor","hood"]
+  			param.headerLogo = "<img src='/atlanta/img/logo/neighborhood-icon.png' style='width:40px;opacity:0.7'>"
+  			document.title = "Neighborhood.org - " + document.title
+  			changeFavicon("/atlanta/img/logo/neighborhood-icon.png")
+	 	} else if (param.startTitle == "Model Earth" || location.host.indexOf('model') >= 0) {
+	 		param.titleArray = ["model","earth"]
+  			param.headerLogo = "<img src='/community/img/logo/favicon.png' style='width:26px;opacity:0.9;margin-right:0.8px'>"
+  			document.title = "Model Earth - " + document.title
+  			changeFavicon(climbpath + "../community/img/logo/favicon.png")
+	 	} else {
+	 		param.titleArray = ["neighbor","hood"]
+	 		param.headerLogo = "<img src='/atlanta/img/logo/neighborhood-icon.png' style='width:40px;opacity:0.7'>"
+	 		changeFavicon("/atlanta/img/logo/neighborhood-icon.png")
 	 	}
 
  		if(location.host.indexOf('georgia') >= 0) { // || location.host.indexOf('localhost') >= 0
@@ -86,34 +104,37 @@ $(document).ready(function(){
 	 		//imageUrl = climbpath + "../io/img/logo/georgia_usa.png";
 	 		
 	 		//imageUrlSide = climbpath + "../community/img/logo/georgia-icon-rect.png";
- 			//$('#logoholder').addClass('logoholder-state');
+ 			//$('#headerLogo').addClass('logoholder-state');
 	 		//$('#headerLocTitleHolder').addClass('headerLocTitleHolder-state');
 
-	 		$('#logoholder').html("<a href='https://georgia.org'><img src='" + climbpath + "../community/img/logo/georgia_usa_gray.png' style='width:130px;padding-top:4px'></a>");
+	 		$('#headerLogo').html("<a href='https://georgia.org'><img src='" + climbpath + "../community/img/logo/georgia_usa_gray.png' style='width:130px;padding-top:4px'></a>");
 	 		//$('.georgia').show(); // For nav menu
 	 		$('.georgia').css('display', 'inline');
 	 	} else if(1==2 && location.host.indexOf('neighborhood') >= 0) {
 	 		// Something here causes distorted logo live on neighborhood
 	 		$(".siteTitleShort").text("Model Building");
-	 		$('#logoholder').html("<a href='/'><img style='height: 25px;margin: 30px 10px 4px 10px;' src='" + climbpath + "../localsite/img/logo/favicon.png' style='width:140px;padding-top:4px'></a>");
+	 		$('#headerLogo').html("<a href='/'><img style='height: 25px;margin: 30px 10px 4px 10px;' src='" + climbpath + "../localsite/img/logo/favicon.png' style='width:140px;padding-top:4px'></a>");
 	 		$('.headerbar').css('height', '80px');
 	 		$('.headerOffsetOne').css('height', '80px');
 	 		$('.headerbarheight').css('height', '80px');
 	 		//$('.neighborhood').show(); // Not yet implemented
 	 		$('.neighborhood').css('display', 'block');
-	 	} else {
+	 	} else if (1==2) {
 	 		$(".siteTitleShort").text("Model Earth");
 	 		imageUrl = climbpath + "../community/img/logo/favicon.png"; // model earth
 	 		imageUrlSide = climbpath + "../community/img/logo/favicon.png";
-	 		$('#logoholderside').css('width', '24px');
-	 		$('#logoholderside').css('height', '24px');
+	 		$('#headerlogoside').css('width', '24px');
+	 		$('#headerlogoside').css('height', '24px');
  			//$('#logospace').css('margin-top','2px');
-	 		$('#logoholder').addClass('logoholder-modelearth');
+	 		$('#headerLogo').addClass('logoholder-modelearth');
 	 		$('#headerSiteTitle').html("<span style='float:left'><a href='/community/' style='text-decoration:none'><span style='color: #777;'>model</span><span style='color:#bbb;margin-left:1px'>earth</span></a></span>");
 	 		//$('#headerLocTitle').html("<span style='float:left'>model<span style='color:#bbb;margin-left:1px'>earth</span></span><i class='material-icons' style='float:left; font-size:24px; margin:4px 2px 0px 2px; color:#bbb;'>keyboard_arrow_right</i><div style='float:left;font-size:21px; padding:0 14px 0 14px; letter-spacing: 1.5px; color:#999; border:1px solid #ccc'>Georgia,USA</div>");
 	 		//$('.earth').show(); // For nav menu
 	 		$('.earth').css('display', 'block'); 
 	 	}
+
+
+
 	 	if (param["show"] == "mockup") {
 	 		if(location.host.indexOf('georgia') >= 0) {
 	 			$('#headerLocTitle').html("Troup County");
@@ -145,27 +166,33 @@ $(document).ready(function(){
 
 
 		// WAS LIMITED TO HEADER
+
+			/*
 			if (param.favicon) {
 		 		imageUrl = climbpath + ".." + param.favicon;
-		 		//$('#logoholderside').css('width', '40px');
-		 		//$('#logoholderside').css('height', '40px');
+		 		//$('#headerlogoside').css('width', '40px');
+		 		//$('#headerlogoside').css('height', '40px');
 		 		$('.logoholder-modelearth').css('width', '40px');
 		 		$('.logoholder-modelearth').css('height', '40px');
 		 		$('.logoholder-modelearth').css('margin-top', '7px');
 		 		$('.logoholder-modelearth').css('margin-right', '20px');
 		 	}
+		 	*/
 		 	if (param.headerLogo) {
-		 		$('#logoholder').html(param.headerLogo);
+		 		$('#headerLogo').html("<a href='" + climbpath + "' style='text-decoration:none'>" + param.headerLogo + "</a>");
 		 	} else {
-			 	$('#logoholder').css('background-image', 'url(' + imageUrl + ')');
-				$('#logoholder').css('background-repeat', 'no-repeat');
+			 	$('#headerLogo').css('background-image', 'url(' + imageUrl + ')');
+				$('#headerLogo').css('background-repeat', 'no-repeat');
 			}
-	 		//$('#logoholder').css('background-size', '70% 70%');
 
-	 		$('#logoholder').css('margin-left', '20px');
+			/*
+	 		//$('#headerLogo').css('background-size', '70% 70%');
 
-	 		//$('#logoholder').css('background-size', '70% 70%');
-	 		$('#logoholder').css('background-position', 'center');
+	 		$('#headerLogo').css('margin-left', '20px');
+
+	 		//$('#headerLogo').css('background-size', '70% 70%');
+	 		$('#headerLogo').css('background-position', 'center');
+			*/
 
 	 		$('#state_select').on('change', function() {
 			    //window.location = "/localsite/info/?state=" + this.value + "#show=mockup";
@@ -219,14 +246,14 @@ $(document).ready(function(){
 	if (param["sidecolumn"]) {
 	$("#sidecolumn").load( climbpath + "../community/nav.html", function( response, status, xhr ) {
 
-		$('#logoholderside').css('background-image', 'url(' + imageUrlSide + ')');
-		$('#logoholderside').css('background-repeat', 'no-repeat');
+		$('#headerlogoside').css('background-image', 'url(' + imageUrlSide + ')');
+		$('#headerlogoside').css('background-repeat', 'no-repeat');
 		if(location.host.indexOf('georgia') >= 0) { // || location.host.indexOf('localhost') >= 0
 
 	 	} else {
-	 		$('#logoholderside').css('margin-top', '-67px');
-	 		$('#logoholderside').css('width', '25px');
-	 		$('#logoholderside').css('height', '25px');
+	 		$('#headerlogoside').css('margin-top', '-67px');
+	 		$('#headerlogoside').css('width', '25px');
+	 		$('#headerlogoside').css('height', '25px');
 	 	}
 		// Make paths relative to current page
 		
@@ -412,4 +439,18 @@ function getPageFolder(pagePath) {
     pageFolder = "";
   }
   return pageFolder;
+}
+const changeFavicon = link => {
+  let $favicon = document.querySelector('link[rel="icon"]')
+  // If a <link rel="icon"> element already exists,
+  // change its href to the given link.
+  if ($favicon !== null) {
+    $favicon.href = link
+  // Otherwise, create a new element and append it to <head>.
+  } else {
+    $favicon = document.createElement("link")
+    $favicon.rel = "icon"
+    $favicon.href = link
+    document.head.appendChild($favicon)
+  }
 }
