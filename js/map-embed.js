@@ -1136,7 +1136,7 @@ strVar += "          <div>";
 strVar += "";
 strVar += "            <div style=\"margin-bottom:14px\">";
 strVar += "              <b style=\"font-size:16px\">About<\/b><br>";
-strVar += "              <a href=\"https:\/\/modelearth.github.io\/io\/charts\">Embeddable  charts<\/a> - ";
+strVar += "              <a href=\"https:\/\/model.earth\/io\/charts\">Embeddable  charts<\/a> - ";
 strVar += "              <a href=\".\/?show=pickup&design=1\">Design Ideas<\/a> - ";
 strVar += "              <a href=\".\/?show=suppliers\">C19 Logistics<\/a>";
 strVar += "            <\/div>";
