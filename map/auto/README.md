@@ -5,6 +5,7 @@ Search utilizes Google Places API autocomplete functionality, returning Google's
 ## Usage
 
 1. Aquire a [Google API Key](https://developers.google.com/maps/documentation/javascript/get-api-key)
+- update `./config.json -> googleAPIKey to aquired key value`
 2. Restrict the API key to only allow specific origin access (website domain)
 - [Google Cloud Console](https://console.cloud.google.com/) > your project > APIs & Services > Credentials > your API Key > Application restrictions > HTTP referers
 - you can use a wildcard before the domain `(*.example.com)` to allow all subdomains, likewise a wildcard after the domain `(.example.com/*)` to allow all paths
