@@ -6,21 +6,28 @@
   <title>Search</title>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <!-- Need to enable Google Maps Javascript API and Google Places API for provided API key  -->
+  <!-- https://developers.google.com/maps/documentation/javascript/overview?hl=en_US -->
   <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places"></script>
 </head>
 <body>
   <div id="app">
     <input 
       id="search"
+      style="display: block; width: 60vw; margin: 0 auto; margin-top: 4rem; font-size: 1rem; font-weight: 400; line-height: 2rem; text-align: center;"
       placeholder="Search"
       onfocus="value = ''" 
       type="text" />
-    <div class="gps">
+    <div 
+      class="place_details"
+      style="width: 60vw; margin: 0 auto; padding-top: 4rem;"
+      >
       <h3 class>Latitude: &nbsp; {{ lat }}</h3>
       <br>
       <h3>Longitude: &nbsp; {{ lng }}</h3>
       <br>
       <h3>Address: &nbsp; {{ address }}</h3>
+      <br>
+      <h3>State: &nbsp; {{ state }}</h3>
       <br>
       <h3>Phone: &nbsp; {{ phone }}</h3>
       <br>
@@ -43,14 +50,21 @@
         lng: '',
         address: '',
         phone: '',
-        website: ''
+        website: '',
+        state: ''
       },
       methods: {
+        deriveState (addr_components) {
+          for (let c of addr_components) {
+            if (c.types.includes('administrative_area_level_1')) return c.short_name;
+          }
+        },
         getPlaceData () {
           const place = this.autocomplete.getPlace();
           this.lat = place.geometry.location.lat();
           this.lng = place.geometry.location.lng();
           this.address = place.formatted_address;
+          this.state = this.deriveState(place.address_components);
           this.phone = place.formatted_phone_number;
           this.website = place.website;
         }
@@ -63,24 +77,6 @@
       margin: 0;
       padding: 0;
       box-sizing: inherit;
-    }
-​
-    #search {
-      display: block;
-      width: 60vw;
-      margin: 0 auto;
-      margin-top: 4rem;
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 2rem;
-      text-align: center;
-    }
-​
-    .gps {
-      width: 60vw;
-      margin: 0 auto;
-      padding-top: 4rem;
-      
     }
   </style>
 </body>
