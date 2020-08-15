@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <!-- Need to enable Google Maps Javascript API and Google Places API for provided API key  -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places"></script>
+</head>
+<body>
+  <div id="app">
+    <input 
+      id="search"
+      placeholder="Search"
+      onfocus="value = ''" 
+      type="text" />
+    <div class="gps">
+      <h3 class>Latitude: &nbsp; {{ lat }}</h3>
+      <br>
+      <h3>Longitude: &nbsp; {{ lng }}</h3>
+      <br>
+      <h3>Address: &nbsp; {{ address }}</h3>
+      <br>
+      <h3>Phone: &nbsp; {{ phone }}</h3>
+      <br>
+      <h3>Website: &nbsp; {{ website }}</h3>
+    </div>
+  </div>
+​
+  <script>
+    new Vue({ 
+      el: '#app',
+      mounted() {
+        this.autocomplete = new google.maps.places.Autocomplete(
+          document.getElementById('search'),
+          {types: ['establishment', 'geocode']}
+        );
+        this.autocomplete.addListener('place_changed', this.getPlaceData);
+      },
+      data: {
+        lat: '',
+        lng: '',
+        address: '',
+        phone: '',
+        website: ''
+      },
+      methods: {
+        getPlaceData () {
+          const place = this.autocomplete.getPlace();
+          this.lat = place.geometry.location.lat();
+          this.lng = place.geometry.location.lng();
+          this.address = place.formatted_address;
+          this.phone = place.formatted_phone_number;
+          this.website = place.website;
+        }
+      }
+    });
+  </script>
+​
+  <style>
+    *, *::after, *::before {
+      margin: 0;
+      padding: 0;
+      box-sizing: inherit;
+    }
+​
+    #search {
+      display: block;
+      width: 60vw;
+      margin: 0 auto;
+      margin-top: 4rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 2rem;
+      text-align: center;
+    }
+​
+    .gps {
+      width: 60vw;
+      margin: 0 auto;
+      padding-top: 4rem;
+      
+    }
+  </style>
+</body>
+</html>

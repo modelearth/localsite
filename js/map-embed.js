@@ -661,7 +661,7 @@ strVar += "            <span class=\"local\" style=\"display:none\">";
 strVar += "            <a onClick=\"go({'go':'','show':'farmfresh'}); return false;\" href=\".\/#show=farmfresh\">Fresh Produce<\/a> | ";
 strVar += "            <\/span>";
 strVar += "            <a onClick=\"goHash({'go':'manufacturing','show':''}); return false;\" href=\".\/#go=manufacturing\">Manufacturing<\/a> | ";
-strVar += "            <a onClick=\"goHash({'go':'parts','show':''}); return false;\" href=\".\/#go=parts\">Automotive Parts<\/a> | ";
+strVar += "            <a onClick=\"goHash({'go':'parts','show':''}); return false;\" href=\".\/#go=parts\">Parts Manufacturing<\/a> | ";
 strVar += "            <span class=\"local\" style=\"display:none\">";
 strVar += "            <a onClick=\"goHash({'go':'','show':'suppliers'}); return false;\" href=\".\/#show=suppliers\">PPE Suppliers<\/a> | ";
 strVar += "            <\/span>";
