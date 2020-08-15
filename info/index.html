@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Community Info</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/x-icon" href="../img/logo/favicon.png" />
+<link rel="icon" type="image/x-icon" href="../img/logo/neighborhood-icon.png" />
 
 <script type="text/javascript" src="../js/jquery/jquery-1.12.4.min.js" id="http://localhost:8887/localsite/js/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="../js/localsite.js" id="http://localhost:8887/localsite/js/localsite.js"></script>
@@ -43,8 +43,8 @@
 	$(document).ready(function () {
 		let startsWith13 = true; // To do - change to check array
 		if (!param.geo || startsWith13) {
-			param.titleArray = ["Georgia"]
-			param.headerLogo = "<img src='/community/img/logo/georgia-icon.png' style='width:64px'>";
+			//param.titleArray = ["Georgia"]
+			//param.headerLogo = "<img src='/community/img/logo/georgia-icon.png' style='width:64px'>";
 		}
 	    $(window).scroll(function(){$(".herocenter").css("opacity", 1 - $(window).scrollTop() / 200);});
 	});

@@ -26,17 +26,13 @@ var dual_map = dual_map || (function(){
         community_data_root : function() { // General US states and eventually some international
             let root = location.protocol + '//' + location.host + '/community-data/';
             if (location.host.indexOf('localhost') < 0) {
-              if (location.host.indexOf('model.earth') >= 0) {
-                root = "https://model.earth/community-data/"; 
-              } else {
-                root = "https://modelearth.github.io/community-data/"; // Blocked by CORS policy: on Github model.earth.
-              }
+              root = "https://model.earth/community-data/"; 
             }
             return (root);
         },
         modelearth_data_root : function() { // General US states and eventually some international
             // These repos will typically reside on github, so no localhost.
-            let root = "https://modelearth.github.io"; // Probably will also remove slash from the ends of others.
+            let root = "https://model.earth"; // Probably will also remove slash from the ends of others.
             return (root);
         },
         custom_data_root : function() { // Unique US states - will use javascript, domain, cookies and json.
