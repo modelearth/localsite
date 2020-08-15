@@ -81,25 +81,29 @@ $(document).ready(function(){
 	 		param.titleArray = [];
 	 		//param.headerLogo = "<a href='https://georgia.org'><img src='" + climbpath + "../community/img/logo/georgia_usa_gray.png' style='width:130px;padding-top:4px'></a>";
 	 		param.headerLogo = "<a href='https://georgia.org'><img src='https://model.earth/community/img/logo/georgia_usa_gray.png' style='width:130px;padding-top:4px'></a>";
-	 		
 	 		document.title = "Georgia.org - " + document.title
 	 		changeFavicon("https://www.georgia.org/sites/default/files/logo-georgia-peach-notext_0.png")
+	 		$('.georgia').css('display', 'inline');
+	 		$('.georgia-hide').css('display', 'none');
 	 	} else if (param.startTitle == "Neighborhood.org" || location.host.indexOf('neighborhood.org') >= 0) {
 	 		param.titleArray = ["neighbor","hood"]
   			param.headerLogo = "<img src='/localsite/img/logo/neighborhood-icon.png' style='width:40px;opacity:0.7'>"
   			document.title = "Neighborhood.org - " + document.title
   			changeFavicon("/localsite/img/logo/neighborhood-icon.png")
+  			$('.neighborhood').css('display', 'inline');
 	 	} else if (param.startTitle == "Model Earth" || location.host.indexOf('model') >= 0) {
 	 		param.titleArray = ["model","earth"]
   			param.headerLogo = "<img src='/community/img/logo/neighborhood-icon.png' style='width:26px;opacity:0.9;margin-right:0.8px'>"
   			document.title = "Model Earth - " + document.title
   			changeFavicon(climbpath + "../localsite/img/logo/neighborhood-icon.png")
+  			$('.earth').css('display', 'inline'); 
 	 	} else if (!Array.isArray(param.titleArray)) {
 	 		param.titleArray = ["neighbor","hood"]
 	 		param.headerLogo = "<img src='/atlanta/img/logo/neighborhood-icon.png' style='width:40px;opacity:0.7'>"
 	 		changeFavicon("/atlanta/img/logo/neighborhood-icon.png")
 	 	}
 
+	 	/*
  		if(location.host.indexOf('georgia') >= 0) { // || location.host.indexOf('localhost') >= 0
  			$(".siteTitleShort").text("Model Georgia");
 	 		//imageUrl = climbpath + "../community/img/logo/georgia-icon-rect.png"; // georgia-icon-on-gray.png
@@ -134,7 +138,7 @@ $(document).ready(function(){
 	 		//$('.earth').show(); // For nav menu
 	 		$('.earth').css('display', 'block'); 
 	 	}
-
+		*/
 
 
 	 	if (param["show"] == "mockup") {
