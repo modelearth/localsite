@@ -78,21 +78,22 @@ $(document).ready(function(){
 	 		document.title = "Code for Atlanta - " + document.title
 	 		changeFavicon("https://lh3.googleusercontent.com/HPVBBuNWulVbWxHAT3Nk_kIhJPFpFObwNt4gU2ZtT4m89tqjLheeRst_cMnO8mSrVt7FOSlWXCdg6MGcGV6kwSyjBVxk5-efdw")
 	 	} else if (param.startTitle == "Georgia.org" || location.host.indexOf('georgia') >= 0) {
+	 		alert("GA")
 	 		param.titleArray = [];
 	 		param.headerLogo = "<a href='https://georgia.org'><img src='" + climbpath + "../community/img/logo/georgia_usa_gray.png' style='width:130px;padding-top:4px'></a>";
 	 		document.title = "Georgia.org - " + document.title
 	 		changeFavicon("https://www.georgia.org/sites/default/files/logo-georgia-peach-notext_0.png")
 	 	} else if (param.startTitle == "Neighborhood.org" || location.host.indexOf('neighborhood.org') >= 0) {
 	 		param.titleArray = ["neighbor","hood"]
-  			param.headerLogo = "<img src='/atlanta/img/logo/neighborhood-icon.png' style='width:40px;opacity:0.7'>"
+  			param.headerLogo = "<img src='/localsite/img/logo/neighborhood-icon.png' style='width:40px;opacity:0.7'>"
   			document.title = "Neighborhood.org - " + document.title
-  			changeFavicon("/atlanta/img/logo/neighborhood-icon.png")
+  			changeFavicon("/localsite/img/logo/neighborhood-icon.png")
 	 	} else if (param.startTitle == "Model Earth" || location.host.indexOf('model') >= 0) {
 	 		param.titleArray = ["model","earth"]
-  			param.headerLogo = "<img src='/community/img/logo/favicon.png' style='width:26px;opacity:0.9;margin-right:0.8px'>"
+  			param.headerLogo = "<img src='/community/img/logo/neighborhood-icon.png' style='width:26px;opacity:0.9;margin-right:0.8px'>"
   			document.title = "Model Earth - " + document.title
-  			changeFavicon(climbpath + "../community/img/logo/favicon.png")
-	 	} else {
+  			changeFavicon(climbpath + "../localsite/img/logo/neighborhood-icon.png")
+	 	} else if (!Array.isArray(param.titleArray)) {
 	 		param.titleArray = ["neighbor","hood"]
 	 		param.headerLogo = "<img src='/atlanta/img/logo/neighborhood-icon.png' style='width:40px;opacity:0.7'>"
 	 		changeFavicon("/atlanta/img/logo/neighborhood-icon.png")
@@ -113,7 +114,7 @@ $(document).ready(function(){
 	 	} else if(1==2 && location.host.indexOf('neighborhood') >= 0) {
 	 		// Something here causes distorted logo live on neighborhood
 	 		$(".siteTitleShort").text("Model Building");
-	 		$('#headerLogo').html("<a href='/'><img style='height: 25px;margin: 30px 10px 4px 10px;' src='" + climbpath + "../localsite/img/logo/favicon.png' style='width:140px;padding-top:4px'></a>");
+	 		$('#headerLogo').html("<a href='/'><img style='height: 25px;margin: 30px 10px 4px 10px;' src='" + climbpath + "../localsite/img/logo/neighborhood-icon.png' style='width:140px;padding-top:4px'></a>");
 	 		$('.headerbar').css('height', '80px');
 	 		$('.headerOffsetOne').css('height', '80px');
 	 		$('.headerbarheight').css('height', '80px');
@@ -121,8 +122,8 @@ $(document).ready(function(){
 	 		$('.neighborhood').css('display', 'block');
 	 	} else if (1==2) {
 	 		$(".siteTitleShort").text("Model Earth");
-	 		imageUrl = climbpath + "../community/img/logo/favicon.png"; // model earth
-	 		imageUrlSide = climbpath + "../community/img/logo/favicon.png";
+	 		imageUrl = climbpath + "../community/img/logo/neighborhood-icon.png"; // model earth
+	 		imageUrlSide = climbpath + "../community/img/logo/neighborhood-icon.png";
 	 		$('#headerlogoside').css('width', '24px');
 	 		$('#headerlogoside').css('height', '24px');
  			//$('#logospace').css('margin-top','2px');
