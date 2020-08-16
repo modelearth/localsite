@@ -1,4 +1,8 @@
 // Maintained in localsite/js/navigation.js
+const page_scripts = document.getElementsByTagName("script");
+const current_code_path = page_scripts[page_scripts.length-1].src;
+const slash_count = (current_code_path.match(/\//g) || []).length; // To set path to header.html
+
 if (window.location.protocol != 'https:' && location.host.indexOf('localhost') < 0) {
 	location.href = location.href.replace("http://", "https://");
 }
@@ -54,6 +58,11 @@ $(document).ready(function(){
  	} else {
  		// LOAD HEADER.HTML
  		let headerFile = climbpath + "../localsite/header.html";
+ 		if (slash_count <= 4) { // Folder is the root of site
+ 			headerFile = climbpath + "../header.html";
+ 		}
+ 		// But what if we are at the root of a site and there is no localhost folder?
+
 		if (param.header) headerFile = param.header;
 	 	$("#header").load(headerFile, function( response, status, xhr ) {
 
