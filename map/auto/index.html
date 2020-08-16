@@ -24,6 +24,7 @@
     var GOOGLE_MAP_KEY;
     $.getJSON("./config.json", function(json) {
       GOOGLE_MAP_KEY = json.googleAPIKey;
+      loadScript();
     });
     
     function loadScript() {
@@ -32,7 +33,7 @@
       document.head.appendChild(script);
     }
   
-    window.onload = loadScript;
+    //window.onload = loadScript;
   </script>
 </head>
 <body>
