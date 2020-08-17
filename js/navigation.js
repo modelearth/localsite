@@ -6,7 +6,7 @@ const slash_count = (current_code_path.match(/\//g) || []).length; // To set pat
 if (window.location.protocol != 'https:' && location.host.indexOf('localhost') < 0) {
 	location.href = location.href.replace("http://", "https://");
 }
-var imageUrl, imageUrlSide;
+var imageUrl;
 
 $(document).ready(function(){
 
@@ -37,8 +37,8 @@ $(document).ready(function(){
  		climbpath += "./"; // Eliminates ? portion of URL
  	}
 
- 	if (param["showhero"] != "false") {
- 		if(location.host.indexOf('model.georgia') >= 0) { 
+ 	if (param.showhero != "false") {
+ 		if(location.host.indexOf('georgia') >= 0) { 
 	 		$("body").prepend( "<div class='headerImage'><img src='" + climbpath + "../io/img/hero/sustainable-communities.jpg' style='width:100%'></div>");
 	 	}
 	 }
@@ -266,17 +266,7 @@ $(document).ready(function(){
 	if (param["sidecolumn"]) {
 	$("#sidecolumn").load( climbpath + "../community/nav.html", function( response, status, xhr ) {
 
-		$('#headerlogoside').css('background-image', 'url(' + imageUrlSide + ')');
-		$('#headerlogoside').css('background-repeat', 'no-repeat');
-		if(location.host.indexOf('georgia') >= 0) { // || location.host.indexOf('localhost') >= 0
-
-	 	} else {
-	 		$('#headerlogoside').css('margin-top', '-67px');
-	 		$('#headerlogoside').css('width', '25px');
-	 		$('#headerlogoside').css('height', '25px');
-	 	}
 		// Make paths relative to current page
-		
  		$("#sidecolumn a[href]").each(function() {
  			if($(this).attr("href").toLowerCase().indexOf("http") < 0){
 	      		$(this).attr("href", climbpath + $(this).attr('href'));
@@ -286,6 +276,9 @@ $(document).ready(function(){
 	      $(this).attr("src", climbpath + $(this).attr('src'));
 	    })
 		
+		// Clone after path change
+		$("#headerLogo").clone().appendTo("#logoholderside");
+ 		
 
  		// ALL SIDE COLUMN ITEMS
  		var topMenu = $("#sidecolumnContent");
