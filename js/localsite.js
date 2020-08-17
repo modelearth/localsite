@@ -447,6 +447,72 @@ String.prototype.toTitleCase = function () {
     return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
 
+
+
+// Called from header.html files
+function toggleFullScreen() {
+  if (document.fullscreenElement) { // Already fullscreen
+    console.log("Already fullscreenElement");
+    if (document.exitFullscreen) {
+      console.log("Attempt to exit fullscreen")
+      document.exitFullscreen();
+      $('.reduceFromFullscreen').hide();
+      $('.expandToFullscreen').show();
+      return;
+    }
+  }
+  if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
+   (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+    // Only if video is not visible. Otherwise become black.
+    $('.moduleBackground').css({'z-index':'0'});   
+    $('.expandFullScreen span').text("Shrink");
+    // To do: Change icon to &#xE5D1;
+    if (document.documentElement.requestFullScreen) {  
+      document.documentElement.requestFullScreen();  
+    } else if (document.documentElement.mozRequestFullScreen) {  
+      document.documentElement.mozRequestFullScreen();  
+    } else if (document.documentElement.webkitRequestFullScreen) {  
+      document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
+    }
+    $('.expandToFullscreen').hide();
+    $('.reduceFromFullscreen').show(); 
+  } else {
+    
+    $('.moduleBackground').css({'z-index':'-1'}); // Allows video to overlap.
+    $('.expandFullScreen span').text("Expand");
+    if (document.cancelFullScreen) {  
+      document.cancelFullScreen();  
+    } else if (document.mozCancelFullScreen) {  
+      document.mozCancelFullScreen();  
+    } else if (document.webkitCancelFullScreen) {  
+      document.webkitCancelFullScreen();  
+    }
+    $('.reduceFromFullscreen').hide();
+    $('.expandToFullscreen').show();
+  }
+}
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+
+/* Avoiding because disqus places doubleclick cookie */
+/* Uncomment to reactivate
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://locally.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+*/
+
+
 /*
 <link rel="stylesheet" href="css/reveal.css">
 <link rel="stylesheet" href="css/theme/night.css">

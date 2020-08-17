@@ -7,6 +7,7 @@ if (window.location.protocol != 'https:' && location.host.indexOf('localhost') <
 	location.href = location.href.replace("http://", "https://");
 }
 var imageUrl, imageUrlSide;
+
 $(document).ready(function(){
 
 	// Might move back to localsite.js after removing use of jquery
@@ -60,6 +61,10 @@ $(document).ready(function(){
  		let headerFile = climbpath + "../localsite/header.html";
  		if (slash_count <= 4) { // Folder is the root of site
  			headerFile = climbpath + "../header.html";
+ 		}
+ 		if (param.headerFile) {
+ 			//alert(param.headerFile)
+ 			headerFile = param.headerFile;
  		}
  		// But what if we are at the root of a site and there is no localhost folder?
 
