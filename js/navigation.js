@@ -36,7 +36,10 @@ $(document).ready(function(){
  	if (climbpath == "") {
  		climbpath += "./"; // Eliminates ? portion of URL
  	}
-
+ 	if(location.host.indexOf('localhost') < 0) {
+ 		// To do: allow "Input-Output Map" link in footer to remain relative.
+ 		climbpath = "https://model.earth/" + climbpath;
+ 	}
  	if (param.showhero != "false") {
  		if(location.host.indexOf('georgia') >= 0) { 
 	 		$("body").prepend( "<div class='headerImage'><img src='" + climbpath + "../io/img/hero/sustainable-communities.jpg' style='width:100%'></div>");
@@ -63,10 +66,8 @@ $(document).ready(function(){
  			headerFile = climbpath + "../header.html";
  		}
  		if (param.headerFile) {
- 			//alert(param.headerFile)
  			headerFile = param.headerFile;
  		}
- 		// But what if we are at the root of a site and there is no localhost folder?
 
 		if (param.header) headerFile = param.header;
 	 	$("#header").load(headerFile, function( response, status, xhr ) {

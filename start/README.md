@@ -1,15 +1,16 @@
 # Getting Started  
 
-Create a website using markdown with GitHub for free hosting.  
+### Create a website using markdown with free GitHub hosting  
 
-The localsite framework is designed to allow multiple Github repos (using React,&nbsp;Vue, etc.) to communicate using hash values.  
+[The Localsite Framework](https://github.com/localsite/localsite/) is designed to allow multiple Github repos (using JQuery, React,&nbsp;Vue, etc.) to communicate using hash values.  
 
 Place the <a href='https://github.com/localsite/localsite/'>localsite</a> repo within the root of your local web folder, along with other repos that reference it.  
 
 
 ## 1. Start a localhost server on your computer
 
-Go to the folder where you'd like your webroot to reside and run the following to view pages on localhost:
+OPTION 1: Go to the folder where you'd like your webroot to reside and run the following to view pages on localhost:  
+(This first option may not work on some computers.)
 
 	python -m http.server 8887
 
@@ -19,7 +20,7 @@ Go to the folder where you'd like your webroot to reside and run the following t
 
 You'll need to run this command to start localhost whenever you restart your computer.
 
- Alternatively, you can install [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en) to view and develop pages offline using https://localhost:8777 on your computer. Web Server for Chrome also allows you to [load a custom domain](https://medium.com/@jmatix/using-chrome-as-a-local-web-server-af04baffd581). Web Server for Chrome does not work as a Brave browser extension on Mac (as of December 2019), but you can add as a Chrome extension, then utilize from within Brave.
+ OPTION 2: Alternatively, you can install [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en) to view and develop pages offline using https://localhost:8777 on your computer. Web Server for Chrome also allows you to [load a custom domain](https://medium.com/@jmatix/using-chrome-as-a-local-web-server-af04baffd581). Web Server for Chrome does not work as a Brave browser extension on Mac (as of December 2019), but you can add as a Chrome extension, then utilize from within Brave.
 
 ## 2. Clone the "localsite" repo into your webroot 
 
