@@ -44,7 +44,7 @@ $(document).ready(function(){
  		if(location.host.indexOf('georgia') >= 0) { 
 	 		$("body").prepend( "<div class='headerImage'><img src='" + climbpath + "../io/img/hero/sustainable-communities.jpg' style='width:100%'></div>");
 	 	}
-	 }
+	}
  	$("body").wrapInner( "<div id='fullcolumn'></div>"); // Creates space for sidecolumn
  	if(document.getElementById("sidecolumn") == null) {
  		$("body").prepend( "<div id='sidecolumn' class='hideprint'></div>\r" );
@@ -63,7 +63,8 @@ $(document).ready(function(){
  		// LOAD HEADER.HTML
  		let headerFile = climbpath + "../localsite/header.html";
  		if (slash_count <= 4) { // Folder is the root of site
- 			headerFile = climbpath + "../header.html";
+ 			// Currently avoid since "https://model.earth/" is prepended to climbpath above.
+ 			//headerFile = climbpath + "../header.html";
  		}
  		if (param.headerFile) {
  			headerFile = param.headerFile;
