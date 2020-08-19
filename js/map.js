@@ -859,6 +859,7 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.valueColumnLabel = "Delivery";
     dp1.valueColumn = "Delivery";
     dp1.listLocation = true;
+    
   } else if (param["show"] == "farmfresh") { // || param["show"] == "" || param["show"] == "mockup"
     dp1.listTitle = "USDA Farm Produce (mockup)";
     dp1.dataset = dual_map.custom_data_root()  + "farmfresh/farmersmarkets-" + state_abbreviation + ".csv";
