@@ -786,8 +786,8 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.listTitle = "Georgia COVID-19 Response";
     dp1.listTitle = "Georgia Suppliers of&nbsp;Critical Items <span style='white-space:nowrap'>to Fight COVID-19</span>"; // For iFrame site
 
-    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-08/ga_suppliers_list_8-12-2020.pdf ' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
-    dp1.dataset = "https://georgiadata.github.io/display/products/suppliers/us_ga_suppliers_ppe_2020_08_12.csv";
+    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-08/ga_suppliers_list_8-19-2020.pdf ' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
+    dp1.dataset = "https://georgiadata.github.io/display/products/suppliers/us_ga_suppliers_ppe_2020_08_19.csv";
     //dp1.dataset = "/display/products/suppliers/us_ga_suppliers_ppe_2020_06_17.csv";
 
     dp1.dataTitle = "Manufacturers and Distributors";
@@ -859,6 +859,7 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.valueColumnLabel = "Delivery";
     dp1.valueColumn = "Delivery";
     dp1.listLocation = true;
+
   } else if (param["show"] == "farmfresh") { // || param["show"] == "" || param["show"] == "mockup"
     dp1.listTitle = "USDA Farm Produce (mockup)";
     dp1.dataset = dual_map.custom_data_root()  + "farmfresh/farmersmarkets-" + state_abbreviation + ".csv";
@@ -1566,7 +1567,7 @@ var previousScrollTop = $(window).scrollTop();
 
 $(window).scroll(function() {
   if (revealHeader == false) {
-    $('.headerbar').hide();
+    $('.headerbar').hide(); $('#logoholderside').show();
     $('.headerOffset').hide();
     if (!$("#filterFieldsHolder").is(':visible')) { // Retain search filters space at top, unless they are already hidden
       $('#headerFixed').hide();
@@ -1574,7 +1575,7 @@ $(window).scroll(function() {
     revealHeader = true; // For next manual scroll
   } else if ($(window).scrollTop() > previousScrollTop) { // Scrolling Up
     if ($(window).scrollTop() > previousScrollTop + 20) { // Scrolling Up fast
-      $('.headerbar').hide();
+      $('.headerbar').hide(); $('#logoholderside').show();
       $('.headerOffset').hide();
       if (!$("#filterFieldsHolder").is(':visible')) { // Retain search filters space at top, unless they are already hidden
         $('#headerFixed').hide();
@@ -1582,13 +1583,12 @@ $(window).scroll(function() {
     }
   } else { // Scrolling Down
     if ($(window).scrollTop() < (previousScrollTop - 20)) { // Reveal if scrolling down fast
-      $('.headerbar').show();
+      $('.headerbar').show(); $('#logoholderside').hide();
       $('.headerOffset').show();
       $('#headerFixed').show();
     } else if ($(window).scrollTop() == 0) { // At top
-      $('.headerbar').show();
+      $('.headerbar').show(); $('#logoholderside').hide();
       $('.headerOffset').show();
-
         $('#headerFixed').show();
     }
   }

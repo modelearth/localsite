@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/x-icon" href="../img/logo/favicon.png" />
+<link rel="icon" type="image/x-icon" href="../img/logo/neighborhood-icon.png" />
 
 <!--
   To create a widget from this page, see map-embed.js.
@@ -46,7 +46,7 @@
 <!-- For Facebook -->
 <meta property="og:title" content="Community Map Resources" />
 <meta property="og:type" content="article" />
-<meta property="og:image" content="https://data.georgia.org/img/logo/georgia_link_share_center.png" />
+<meta property="og:image" content="https://georgiadata.github.io/img/logo/georgia_link_share_center.png" />
 <!-- To do: populate with the current page and path
 <meta property="og:url" content="" />
 -->
@@ -56,7 +56,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Community Map Resources" />
 <meta name="twitter:description" content="Input-Output Modeling" />
-<meta name="twitter:image" content="https://data.georgia.org/img/logo/georgia_link_share_center.png" />
+<meta name="twitter:image" content="https://georgiadata.github.io/img/logo/georgia_link_share_center.png" />
 
 </head>
 
@@ -717,12 +717,11 @@
 <!-- Matches filterFields and headerFixed height -->
 <div class="headerOffset2" style="height:56px">&nbsp;</div>
 
-<div id="pageLinksHolder" class="contentpadding" style="display:none; padding-top:0; padding-bottom:0">
+<div id="pageLinksHolder" class="content contentpadding" style="display:none; padding-top:0; padding-bottom:0">
   <br>
-  <div style="display:table-row;">
     
     <div style="float:right; padding: 12px 0px 10px 0" class="noprint">
-      <a href="../../io/charts/">About Widgets</a>
+      <a href="https://neighborhood.org/io/charts/">About Widgets</a>
     </div>
     <!--
       class="mainColumn mainColumn1" 
@@ -742,7 +741,7 @@
             <br>
         </div>
 
-  </div>
+  
 </div>
 
 <!-- Settings Panel -->
@@ -883,7 +882,7 @@
 
   <!--
   <div><strong>Link</strong></div>
-  <input type="text" value='https://data.georgia.org/site/' style='line-height:18pt;display:block;width:100%;font-size:12pt;color:#333;background:#fff;border:1px solid #aaa;'><br>
+  <input type="text" value='https://georgiadata.github.io/site/' style='line-height:18pt;display:block;width:100%;font-size:12pt;color:#333;background:#fff;border:1px solid #aaa;'><br>
   -->
 
     <!-- Embed Directory -->
@@ -900,7 +899,7 @@
       <div style="margin-bottom:4px"><a href="widget.html#aerospace&sitelook=coi">Get HTML</a> - view source</div>
 
 
-      <input type="text" value='<script src="//data.georgia.org/site/js/embed.js?site=georgia&v=0.1"></script><div id="map"></div>' 
+      <input type="text" value='<script src="//georgiadata.github.io/site/js/embed.js?site=georgia&v=0.1"></script><div id="map"></div>' 
       style='display:none;line-height:18pt;width:100%;font-size:12pt;color:#333;background:#fff;border:1px solid #aaa;'>
     </div>
     -->
@@ -1209,7 +1208,7 @@
 
             <div style="margin-bottom:14px">
               <b style="font-size:16px">About</b><br>
-              <a href="https://modelearth.github.io/io/charts">Embeddable  charts</a> - 
+              <a href="https://model.earth/io/charts">Embeddable  charts</a> - 
               <a href="./?show=pickup&design=1">Design Ideas</a> - 
               <a href="./?show=suppliers">C19 Logistics</a>
             </div>
@@ -1365,12 +1364,14 @@ dual_map.init(["somevalue", 1, "controlId"]); // Used by link to feedback form
 //dual_map.helloWorld();
 //dual_map.community_root();
 
-console.log("This page replaces community/impact. Call loadMap1() in map.js but we need dp. Also below.")
-loadMap1(dp);
+console.log("This page replaces community/impact. Call loadMap1() in map.js but we need dp. Also below.");
+param.show = "farmfresh"; // Used by loadFromCSV which is called by loadMap1
+var map = loadMap1(dp);
 
 // Append railroads here, somehow
 //layerControl['map1'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
 //layerControl['map2'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
+//map.addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
 
 window.onhashchange = function() {
   //param = loadParam(location.search,location.hash);

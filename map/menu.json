@@ -129,7 +129,7 @@ callback(
 		"icon": "<i class='material-icons'>&#xE87A;</i>",
 		"hideOverlaysButton": "true",
 		"sectionTitle": "leftNav",
-		"directlink": "https://data.georgia.org/info/",
+		"directlink": "https://georgiadata.github.io/info/",
 		"caption": "Find lodging, check traffic conditions, view gas prices, search maps and follow weather forecasts.",
 		"menuaccess": "10"
 	},
@@ -173,7 +173,7 @@ callback(
 		"where": "name != ''",
 		"exportaccess": "6",
 		"menuaccess": "0",
-		"directlink": "https://data.georgia.org/#lodging",
+		"directlink": "https://georgiadata.github.io/#lodging",
 		"overlaylevel": "2"
 	},
 	{
@@ -272,7 +272,7 @@ callback(
 		"mainiframe": "/site/docs/traffic",
 		"iframeheight": "650",
 		"admin": "GDOT server is not secure.",
-		"directlink": "http://data.georgia.org/directory/#traffic",
+		"directlink": "http://georgiadata.github.io/directory/#traffic",
 		"menuaccess": "0"
 	},
 	{
@@ -696,7 +696,7 @@ callback(
 		"headericoncolor": "#999",
 		"feedname": "Georgia Economic Regions",
 		"icon": "<i class='fa fa-recycle'></i>",
-		"mainiframe": "https://modelearth.github.io/community/recycling/ga/",
+		"mainiframe": "https://model.earth/community/recycling/ga/",
 		"footerlogos": "Residential recycling center content from <a href='https://RecycleSearch.com' target='recyclesearch'>recyclesearch.com</a>",
 		"caption": "Residential recycling center content from <a href='https://RecycleSearch.com' target='recyclesearch'>recyclesearch.com</a>"
 	},
@@ -1361,7 +1361,7 @@ callback(
 		"icon": "<i class='material-icons'>&#xE80B;</i>",
 		"directlink": "https://catalog.data.gov/dataset?q=Georgia&sort=views_recent+desc&as_sfid=AAAAAAXPPVapPOOhugpyA1kkyKStyXrMOSvQla_4spcJbiOnQosmo4JAIjz3LhA-uvGSz9P03hY0ImvaUXemRZhnaSCeta7JebQ1jJUFuxQYg-hnDR_kQNIXLtRIlSJZzv4cDp4%3D&as_fid=6d2ad65c70c823f901676555de95b302fc12b2e3&ext_location=&ext_bbox=&ext_prev_extent=-142.03125%2C8.754794702435618%2C-59.0625%2C61.77312286453146#topic=uncategorized_navigation",
 		"iframeheight": "800",
-		"admin": "Not working in iFrame, try testing on https://data.georgia.org",
+		"admin": "Not working in iFrame, try testing on https://georgiadata.github.io",
 		"menuaccess": "0"
 	},
 	{
@@ -1570,14 +1570,14 @@ callback(
 		"skips": "pdf,carto_old,georgiadirectory_id,source,contactfirst,firstname,contactlast,lastname,contactemail,renewaldate,probationexp,lastconfirmed,minutestocomplete,exportinterest,submittedby_first,submittedby_last,defensecontractor",
 		"skipdetails": "createdatetimezone,cat,latitude,longitude,createdate,region,locationname,georgiabased,contactphone",
 		"directoryframeX": "http://prod.georgia.atlas-advertising.com/search-insite.aspx?searchArea=SearchCompanies&searchCompaniesKeyIndustry=Aerospace",
-		"addlistingX-notsecure": "http://data.georgia.org/directory/add",
+		"addlistingX-notsecure": "http://georgiadata.github.io/directory/add",
 		"addlisting": "https://www.cognitoforms.com/GDECD1/GeorgiaDirectory",
 		"cognitoform": "https://services.cognitoforms.com/s/cileRMJMNEWcb6ZO8yEtXg",
 		"cognitoformid": "36",
 		"where": "(industries iLike '%aerospace%' OR source = 'aerospace')",
 		"orderby": "name",
 		"icon": "<i class='material-icons'>&#xE7FB;</i>",
-		"not_used_here": "<a href='http://data.georgia.org/directory/add/' target='_blank' style='white-space:nowrap' class='hidePrint'>Add Listing</a>",
+		"not_used_here": "<a href='http://georgiadata.github.io/directory/add/' target='_blank' style='white-space:nowrap' class='hidePrint'>Add Listing</a>",
 		"intro": "The Aerospace Directory is a free listing service provided by the Center of Innovation for Aerospace for any aerospace-related company or organization in Georgia. Participating in this directory gives a company/organization visibility to national, regional, and state partners who are looking for local suppliers or potential suppliers for new economic development prospects.",
 		"caption": "Search aerospace-related companies in the Georgia Center of Innovation's directory of aerospace suppliers."
 	},
@@ -1599,7 +1599,7 @@ callback(
 		"skipdetails": "cat,latitude,longitude,createdate,region,locationname,georgiabased",
 		"export": "off",
 		"directoryframe": "http://prod.georgia.atlas-advertising.com/search-insite.aspx?searchArea=SearchCompanies&searchCompaniesKeyIndustry=Aerospace",
-		"addlistingX-notsecure": "http://data.georgia.org/directory/add",
+		"addlistingX-notsecure": "http://georgiadata.github.io/directory/add",
 		"addlisting": "https://www.cognitoforms.com/GDECD1/GeorgiaDirectory",
 		"cognitoform": "https://services.cognitoforms.com/s/cileRMJMNEWcb6ZO8yEtXg",
 		"cognitoformid": "36",
@@ -1628,7 +1628,7 @@ callback(
 		"skips": "pdf,carto_old,georgiadirectory_id,source,contactfirst,firstname,contactlast,lastname,contactemail,renewaldate,probationexp,lastconfirmed,minutestocomplete,exportinterest,submittedby_first,submittedby_last,defensecontractor",
 		"skipdetails": "createdatetimezone,cat,latitude,longitude,createdate,region,locationname,georgiabased,contactphone",
 		"directoryframeX": "http://prod.georgia.atlas-advertising.com/search-insite.aspx?searchArea=SearchCompanies&searchCompaniesKeyIndustry=Aerospace",
-		"addlistingX-notsecure": "http://data.georgia.org/directory/add",
+		"addlistingX-notsecure": "http://georgiadata.github.io/directory/add",
 		"addlisting": "https://www.cognitoforms.com/GDECD1/GeorgiaDirectory",
 		"cognitoform": "https://services.cognitoforms.com/s/cileRMJMNEWcb6ZO8yEtXg",
 		"cognitoformid": "36",
@@ -1698,7 +1698,7 @@ callback(
 		"skips": "pdf,carto_old,georgiadirectory_id,source,contactfirst,firstname,contactlast,lastname,contactemail,renewaldate,probationexp,lastconfirmed,minutestocomplete,exportinterest,submittedby_first,submittedby_last,defensecontractor",
 		"skipdetails": "createdatetimezone,cat,latitude,longitude,createdate,region,locationname,georgiabased,contactphone",
 		"exportX": "off",
-		"addlistingX-notsecure": "http://data.georgia.org/directory/add",
+		"addlistingX-notsecure": "http://georgiadata.github.io/directory/add",
 		"addlisting": "https://www.cognitoforms.com/GDECD1/GeorgiaDirectory",
 		"cognitoform": "https://services.cognitoforms.com/s/cileRMJMNEWcb6ZO8yEtXg",
 		"cognitoformid": "36",
@@ -1733,7 +1733,7 @@ callback(
 		"icon": "<i class='fa fa-fighter-jet'></i>",
 		"where": "state = 'GA'",
 		"orderby": "NULLIF(regexp_replace(dodcontractrevenue, '\\D', '', 'g'), '')::bigint DESC NULLS LAST",
-		"addlistingX-notsecure": "http://data.georgia.org/directory/add",
+		"addlistingX-notsecure": "http://georgiadata.github.io/directory/add",
 		"addlisting": "https://www.cognitoforms.com/GDECD1/GeorgiaDirectory",
 		"cognitoform": "https://services.cognitoforms.com/s/cileRMJMNEWcb6ZO8yEtXg",
 		"cognitoformid": "36",
@@ -1746,9 +1746,9 @@ callback(
 		"directoryframeX": "/gdx-v2/guard_contractors.html",
 		"directorylinkaccess": "0",
 
-		"intro": "<b>Georgia Defense Contractors</b><br>Connect with other Georgia defense contractors in our <a style='white-space:nowrap' href='https://data.georgia.org/defense'>Georgia Defense Exchange</a>.<br>Search <a style='white-space:nowrap' href='https://data.georgia.org/defense/contract-history'>DOD Contract History</a> and explore current <a style='white-space:nowrap' href='https://data.georgia.org/defense/opportunities'>Contract Opportunities</a>.",
+		"intro": "<b>Georgia Defense Contractors</b><br>Connect with other Georgia defense contractors in our <a style='white-space:nowrap' href='https://georgiadata.github.io/defense'>Georgia Defense Exchange</a>.<br>Search <a style='white-space:nowrap' href='https://georgiadata.github.io/defense/contract-history'>DOD Contract History</a> and explore current <a style='white-space:nowrap' href='https://georgiadata.github.io/defense/opportunities'>Contract Opportunities</a>.",
 		
-		"noteX": "<a class='topButton' style='float:left; color: #fff !important;background-color: #4586f6 !important;text-decoration:none; padding-left:10px; padding-right:10px' href='/defense'>Defense Exchange</a> <a class='topButton' style='float:left; color: #fff !important;background-color: #4586f6 !important;text-decoration:none; padding-left:10px; padding-right:10px; white-space:nowrap' href='https://data.georgia.org/directory/add/' target='_blank' class='hidePrint'>Add Listing</a>",
+		"noteX": "<a class='topButton' style='float:left; color: #fff !important;background-color: #4586f6 !important;text-decoration:none; padding-left:10px; padding-right:10px' href='/defense'>Defense Exchange</a> <a class='topButton' style='float:left; color: #fff !important;background-color: #4586f6 !important;text-decoration:none; padding-left:10px; padding-right:10px; white-space:nowrap' href='https://georgiadata.github.io/directory/add/' target='_blank' class='hidePrint'>Add Listing</a>",
 		"menuaccess": "10"
 	},
 	{
@@ -1775,7 +1775,7 @@ callback(
 		"css": ".cartodb-legend:before {content: 'DoD-Related Awards (millions)';display: block;}.cartodb-legend li:nth-child(odd):before {content: '$';margin-right:-2px;}",
 		"googlesheet": "https://docs.google.com/spreadsheets/d/1mVH-jQd5_Nvov6EJygQw4Uxi8V0zxmkElsSPaflYGpU/edit?usp=sharing",
 		"intro1": "<a href='https://docs.google.com/spreadsheets/d/1mVH-jQd5_Nvov6EJygQw4Uxi8V0zxmkElsSPaflYGpU/edit?usp=sharing' target='defense'>Google Sheet</a>",
-		"intro": "View all Georgia defense contractors, contract histories and opportunites in the <a href='https://data.georgia.org/defense' target='defense' style='white-space:nowrap'>Georgia Defense Exchange</a>.",
+		"intro": "View all Georgia defense contractors, contract histories and opportunites in the <a href='https://georgiadata.github.io/defense' target='defense' style='white-space:nowrap'>Georgia Defense Exchange</a>.",
 		"menuaccessmax": "0"
 	},
 	{
@@ -1867,7 +1867,7 @@ callback(
 		"skipdetails": "createdatetimezone,cat,latitude,longitude,createdate,region,locationname,georgiabased,contactphone",
 		"exportaccess": "4",
 		"directoryframeX": "http://prod.georgia.atlas-advertising.com/search-insite.aspx?searchArea=SearchCompanies&searchCompaniesKeyIndustry=Logistics%20and%20Transportaion",
-		"addlistingX-notsecure": "http://data.georgia.org/directory/add",
+		"addlistingX-notsecure": "http://georgiadata.github.io/directory/add",
 		"addlisting": "https://www.cognitoforms.com/GDECD1/GeorgiaDirectory",
 		"cognitoform": "https://services.cognitoforms.com/s/cileRMJMNEWcb6ZO8yEtXg",
 		"cognitoformid": "36",
@@ -1899,7 +1899,7 @@ callback(
 		"skipdetails": "cat,latitude,longitude,createdate,region,georgiabased",
 		"export": "off",
 		"directoryframe": "http://prod.georgia.atlas-advertising.com/search-insite.aspx?searchArea=SearchCompanies&searchCompaniesKeyIndustry=Logistics%20and%20Transportaion&searchCompanies=",
-		"addlistingX-notsecure": "http://data.georgia.org/directory/add",
+		"addlistingX-notsecure": "http://georgiadata.github.io/directory/add",
 		"addlisting": "https://www.cognitoforms.com/GDECD1/GeorgiaDirectory",
 		"cognitoform": "https://services.cognitoforms.com/s/cileRMJMNEWcb6ZO8yEtXg",
 		"cognitoformid": "36",
@@ -1925,7 +1925,7 @@ callback(
 		"skips": "contactfirst,firstname,contactlast,lastname,contactemail,renewaldate,probationexp",
 		"skipdetails": "cat,latitude,longitude,createdate,region,georgiabased",
 		"export": "off",
-		"addlistingX-notsecure": "http://data.georgia.org/directory/add",
+		"addlistingX-notsecure": "http://georgiadata.github.io/directory/add",
 		"addlisting": "https://www.cognitoforms.com/GDECD1/GeorgiaDirectory",
 		"cognitoform": "https://services.cognitoforms.com/s/cileRMJMNEWcb6ZO8yEtXg",
 		"cognitoformid": "36",
@@ -1949,7 +1949,7 @@ callback(
 		"skips": "pdf,carto_old,georgiadirectory_id,source,contactfirst,firstname,contactlast,lastname,contactemail,renewaldate,probationexp,lastconfirmed,minutestocomplete,exportinterest,submittedby_first,submittedby_last,defensecontractor",
 		"skipdetails": "createdatetimezone,cat,latitude,longitude,createdate,region,locationname,georgiabased,contactphone",
 		"export": "off",
-		"addlistingX-notsecure": "http://data.georgia.org/directory/add",
+		"addlistingX-notsecure": "http://georgiadata.github.io/directory/add",
 		"addlisting": "https://www.cognitoforms.com/GDECD1/GeorgiaDirectory",
 		"cognitoform": "https://services.cognitoforms.com/s/cileRMJMNEWcb6ZO8yEtXg",
 		"cognitoformid": "36",
@@ -1976,7 +1976,7 @@ callback(
 		"skips": "pdf,carto_old,georgiadirectory_id,source,contactfirst,firstname,contactlast,lastname,contactemail,renewaldate,probationexp,lastconfirmed,minutestocomplete,exportinterest,submittedby_first,submittedby_last,defensecontractor",
 		"skipdetails": "createdatetimezone,cat,latitude,longitude,createdate,region,locationname,georgiabased,contactphone",
 		"export": "off",
-		"addlistingX-notsecure": "http://data.georgia.org/directory/add",
+		"addlistingX-notsecure": "http://georgiadata.github.io/directory/add",
 		"addlisting": "https://www.cognitoforms.com/GDECD1/GeorgiaDirectory",
 		"cognitoform": "https://services.cognitoforms.com/s/cileRMJMNEWcb6ZO8yEtXg",
 		"cognitoformid": "36",
@@ -2173,7 +2173,7 @@ callback(
 		"layerset": "georgia",
 		"icon": "<i class='material-icons'>&#xE869;</i>",
 		"menuaccess": "8",
-		"intro": "Work in Progress. View <a href='https://data.georgia.org/documentation/region/regions.html' target='County-Region'>County-Region filter</a>"
+		"intro": "Work in Progress. View <a href='https://georgiadata.github.io/documentation/region/regions.html' target='County-Region'>County-Region filter</a>"
 	},
 	{
 		"item": "counties",
@@ -2220,7 +2220,7 @@ callback(
 		"css": ".cartodb-legend:before {content: 'Active and NonActive Duty';display: block;}",
 		"googlesheet": "https://docs.google.com/spreadsheets/d/11vAcolhTW1ZJ7qbQtIg6w2cEwfTuYxOBUg5sjoXaupk/edit?usp=sharing",
 		"intro1": "If a military installation has a value in the ActiveDuty population column, the ActiveAndNon population column will be blank, and vice versa.  Same for ActivePay and ActiveAndNonPay.",
-		"intro": "Search contractors, contract history and opportunites in the <a href='https://data.georgia.org/defense' target='defense'>Georgia Defense Exchange</a>"
+		"intro": "Search contractors, contract history and opportunites in the <a href='https://georgiadata.github.io/defense' target='defense'>Georgia Defense Exchange</a>"
 	},
 	{
 		"item": "defense-exchange-link",

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Community Info</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/x-icon" href="../img/logo/favicon.png" />
+<link rel="icon" type="image/x-icon" href="../img/logo/neighborhood-icon.png" />
 
 <script type="text/javascript" src="../js/jquery/jquery-1.12.4.min.js" id="http://localhost:8887/localsite/js/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="../js/localsite.js" id="http://localhost:8887/localsite/js/localsite.js"></script>
@@ -18,8 +18,8 @@
 <!--
 <link rel="stylesheet" type="text/css" href="../../localsite/css/bootstrap.darkly.min.css"/>
 -->
-<link rel="stylesheet" type="text/css" href="../../io/charts/useeio/widgets.css">
-<script src="../../io/charts/useeio/lib/useeio_widgets.js"></script>
+<link rel="stylesheet" type="text/css" href="https://neighborhood.org/io/charts/useeio/widgets.css">
+<script src="https://neighborhood.org/io/charts/useeio/lib/useeio_widgets.js"></script>
 
 <!-- LOCAL DEV -->
 <!--
@@ -43,8 +43,8 @@
 	$(document).ready(function () {
 		let startsWith13 = true; // To do - change to check array
 		if (!param.geo || startsWith13) {
-			param.titleArray = ["Georgia"]
-			param.headerLogo = "<img src='/community/img/logo/georgia-icon.png' style='width:64px'>";
+			//param.titleArray = ["Georgia"]
+			//param.headerLogo = "<img src='/community/img/logo/georgia-icon.png' style='width:64px'>";
 		}
 	    $(window).scroll(function(){$(".herocenter").css("opacity", 1 - $(window).scrollTop() / 200);});
 	});
@@ -513,7 +513,7 @@ To do: make the links below an optional widget
 	<hr>
 
 	<div style="float:right;margin-bottom:16px" class="noprint">
-		<a href="../../io/charts/">About Widgets</a>
+		<a href="https://neighborhood.org/io/charts/">About Widgets</a>
 	</div>
 </div>
 
@@ -654,7 +654,7 @@ Choose commodities below to view upstream input and downstream output.<br>
 <br><br>
 <div class="content contentadding">
 	<div style="float:right;margin-bottom:16px" class="noprint">
-		<a href="../../io/charts/">About Mosaic</a>
+		<a href="https://neighborhood.org/io/charts/">About Mosaic</a>
 	</div>
 
 	<h2 style="border-bottom: 0px">Environmental Indicators</h2>
@@ -824,7 +824,7 @@ https://www.epa.gov/enviroatlas
 	<div class="bubble-graph">
 
 		<div style="float:right;margin-bottom:16px" class="noprint">
-			<a href="../../io/charts/">About Bubble Chart</a>
+			<a href="https://neighborhood.org/io/charts/">About Bubble Chart</a>
 		</div>
 
         <h2 style="border-bottom: 0px">Impact Bubble Chart</h2>
@@ -1039,14 +1039,14 @@ function loadScriptXXXXXX(url, callback)
 function updateText(go) {
 	$("#aboutToolsDiv").text("");
 	if (go == "bioeconomy") {
-		loadMarkdown("../../io/tools/bioeconomy-planner/about.md", "aboutToolsDiv", "_parent");
-		//loadMarkdown("../../io/tools/bioeconomy-planner/bioenergy/README.md", "bioenergySummaryDiv", "_parent");
+		loadMarkdown("https://neighborhood.org/io/tools/bioeconomy-planner/about.md", "aboutToolsDiv", "_parent");
+		//loadMarkdown("https://neighborhood.org/io/tools/bioeconomy-planner/bioenergy/README.md", "bioenergySummaryDiv", "_parent");
 	} else if (go == "dataprep") {
 		loadMarkdown("../../localsite/info/data/README.md", "aboutToolsDiv", "_parent");
 	} else if (go == "parts") {
-		loadMarkdown("../../io/tools/localized-economy/about.md", "aboutToolsDiv", "_parent");
+		loadMarkdown("https://neighborhood.org/io/tools/localized-economy/about.md", "aboutToolsDiv", "_parent");
 	} else {
-		loadMarkdown("../../io/tools/industry-impact/about.md", "aboutToolsDiv", "_parent");
+		loadMarkdown("https://neighborhood.org/io/tools/industry-impact/about.md", "aboutToolsDiv", "_parent");
 	}
 
 }

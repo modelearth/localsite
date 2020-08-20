@@ -1019,7 +1019,8 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                             }
                             
                             // use GoHash()
-                            let alertStr = "<p class='mapinfo'>Grey text indicates approximated values. <a href='#go=dataprep'>Learn more</a></p>"
+                            let alertStr = "<p class='mapinfo'>Grey text indicates approximated values.";
+                            alertStr += "<p class='mapinfo'><b>Project opportunity:</b> The list above does not yet include all industries tracked by the census. Industries with only extablishment counts at both the state and county level still need to be estimated from national data. <a href='#go=dataprep'>Learn&nbsp;more</a></p></p>";
                             $("#econ_list").html("<div id='sector_list'>" + text + "</div><br>" + alertStr);
                             if(i<=20){
                                 if(i==0){
