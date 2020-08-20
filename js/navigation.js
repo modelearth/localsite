@@ -101,19 +101,20 @@ $(document).ready(function(){
 	 		changeFavicon("https://www.georgia.org/sites/default/files/logo-georgia-peach-notext_0.png")
 	 		$('.georgia').css('display', 'inline');
 	 		$('.georgia-hide').css('display', 'none');
-	 	} else if (param.startTitle == "Neighborhood.org" || location.host.indexOf('neighborhood.org') >= 0) {
-	 		param.titleArray = ["neighbor","hood"]
-  			param.headerLogo = "<img src='/localsite/img/logo/neighborhood-icon.png' style='width:40px;opacity:0.7'>"
-  			document.title = "Neighborhood.org - " + document.title
-  			changeFavicon("/localsite/img/logo/neighborhood-icon.png")
-  			$('.neighborhood').css('display', 'inline');
 	 	} else if (param.startTitle == "Model Earth" || location.host.indexOf('model') >= 0) {
 	 		param.titleArray = ["model","earth"]
   			param.headerLogo = "<img src='/community/img/logo/favicon.png' style='width:26px;opacity:0.9;margin-right:0.8px'>"
   			document.title = "Model Earth - " + document.title
   			changeFavicon(climbpath + "../community/img/logo/favicon.png")
   			$('.earth').css('display', 'inline'); 
+	 	} else if (!Array.isArray(param.titleArray) && (param.startTitle == "Neighborhood.org" || location.host.indexOf('neighborhood.org') >= 0)) {
+	 		param.titleArray = ["neighbor","hood"]
+  			param.headerLogo = "<img src='/localsite/img/logo/neighborhood-icon.png' style='width:40px;opacity:0.7'>"
+  			document.title = "Neighborhood.org - " + document.title
+  			changeFavicon("/localsite/img/logo/neighborhood-icon.png")
+  			$('.neighborhood').css('display', 'inline');
 	 	} else if (!Array.isArray(param.titleArray)) {
+	 		consult.log('To customize, add param.titleArray')
 	 		param.titleArray = ["neighbor","hood"]
 	 		param.headerLogo = "<img src='/localsite/img/logo/neighborhood-icon.png' style='width:40px;opacity:0.7'>"
 	 		changeFavicon("/atlanta/img/logo/neighborhood-icon.png")
