@@ -114,7 +114,7 @@ $(document).ready(function(){
   			changeFavicon("/localsite/img/logo/neighborhood-icon.png")
   			$('.neighborhood').css('display', 'inline');
 	 	} else if (!Array.isArray(param.titleArray)) {
-	 		consult.log('To customize, add param.titleArray')
+	 		console.log('To customize, add param.titleArray')
 	 		param.titleArray = ["neighbor","hood"]
 	 		param.headerLogo = "<img src='/localsite/img/logo/neighborhood-icon.png' style='width:40px;opacity:0.7'>"
 	 		changeFavicon("/atlanta/img/logo/neighborhood-icon.png")

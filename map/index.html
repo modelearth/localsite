@@ -6,11 +6,10 @@
 <link rel="icon" type="image/x-icon" href="../img/logo/neighborhood-icon.png" />
 
 <!--
-  To create a widget from this page, see map-embed.js.
+  To create a widget from this page, see steps in map-embed.js.
 -->
 
 <title>Community Map</title>
-
 
 <link type="text/css" rel="stylesheet" href="../css/base.css" />
 <link rel="stylesheet" href="../css/search-filters.css" />
@@ -1366,12 +1365,12 @@ dual_map.init(["somevalue", 1, "controlId"]); // Used by link to feedback form
 
 console.log("This page replaces community/impact. Call loadMap1() in map.js but we need dp. Also below.");
 param.show = "farmfresh"; // Used by loadFromCSV which is called by loadMap1
-var map = loadMap1(dp);
+var localmap = loadMap1(dp);
 
 // Append railroads here, somehow
 //layerControl['map1'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
 //layerControl['map2'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
-//map.addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
+//localmap.addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
 
 window.onhashchange = function() {
   //param = loadParam(location.search,location.hash);
