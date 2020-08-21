@@ -36,3 +36,12 @@ On same tab, keep on "Automatic HTTPS Rewrites" (is now already ON by default)
 - Allows Cloudflare to automatically change all links in the HTML to https when appropriate, including links to external sites.  
 
 Optional: Test with ssllabs.com (after 24 hours)  
+
+### Add a wildcard redirect under "Page Rule"
+
+Choose "Forwarding URL"  
+
+*.yourdomain.com/*  
+https://yourdomain.com/#go=$2  
+
+Only works for subdomains that are in the DNS list.  
