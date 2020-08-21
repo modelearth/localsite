@@ -41,11 +41,6 @@ var dual_map = dual_map || (function(){
               root = "https://neighborhood.org/georgia-data/";
             }
             return (root);
-        },
-        absolute_root : function() {
-          // Curently only used for feedback form
-          let root = "https://map.georgia.org/community/"
-          return (root);
         }
     };
 }());
