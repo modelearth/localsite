@@ -1366,12 +1366,12 @@ dual_map.init(["somevalue", 1, "controlId"]); // Used by link to feedback form
 
 console.log("This page replaces community/impact. Call loadMap1() in map.js but we need dp. Also below.");
 param.show = "farmfresh"; // Used by loadFromCSV which is called by loadMap1
-var map = loadMap1(dp);
+var localmap = loadMap1(dp);
 
 // Append railroads here, somehow
 //layerControl['map1'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
 //layerControl['map2'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
-//map.addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
+localmap.addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
 
 window.onhashchange = function() {
   //param = loadParam(location.search,location.hash);
