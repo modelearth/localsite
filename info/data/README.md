@@ -18,7 +18,7 @@ For example: With option 1 “Temporary Help Services” is five times higher th
 
 This trend flips for industries that have larger revenue in counties where firms are concentrated, hence “Transportation Equipment Manufacturing” is estimated higher for McDuffie County, Georgia when using the average of all state payrolls because payrolls for similar firms in other counties with higher concentrations of equipment manufacturing skew the average upward, exceeding the value that is shared by the unallocated counties which have less concentration.  
 
-[More about data prep](https://github.com/modelearth/community-data/)
+[Community Data Github Repo](https://github.com/modelearth/community-data/)
 
 
 
