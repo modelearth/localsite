@@ -450,15 +450,20 @@ strVar += "";
 strVar += "";
 strVar += "";
 strVar += "    <!-- Right Links -->";
-strVar += "        <div style=\"float:right; padding-top:10px;\">";
+strVar += "        <div style=\"float:right; padding-top:10px;\" class=\"hideMobile\">";
 strVar += "          <div class=\"sendfeedback pagebutton\" style=\"float:left;\">";
-strVar += "            <div style=\"margin:10px 5px 0 3px;white-space: nowrap; float:left\"> ";
-strVar += "            Feedback";
+strVar += "            <!--";
+strVar += "            <div style=\"float:left\">";
+strVar += "              <i class=\"material-icons\" style=\"font-size:16pt;padding-top:7px\">&#xE2C3;<\/i>";
+strVar += "            <\/div>";
+strVar += "            -->";
+strVar += "            <div style=\"margin:10px 8px 0 6px;white-space: nowrap; float:left\"> ";
+strVar += "            Input";
 strVar += "            <\/div>";
 strVar += "          <\/div>";
 strVar += "          <div class=\"local downloadbutton showDownload pagebutton\" href=\"#\" style=\"float:left; display:none\">";
 strVar += "            <div style=\"float:left\">";
-strVar += "              <i class=\"material-icons\" style=\"font-size:19pt;padding-top:4px\">&#xE2C4;<\/i>";
+strVar += "              <i class=\"material-icons\" style=\"font-size:15pt;padding-top:8px\">&#xE2C4;<\/i>";
 strVar += "            <\/div>";
 strVar += "            <div class=\"downloadtext\" style=\"margin:10px 5px 0 3px;white-space: nowrap; float:left\"> ";
 strVar += "            Download";
@@ -644,12 +649,11 @@ strVar += "";
 strVar += "<!-- Matches filterFields and headerFixed height -->";
 strVar += "<div class=\"headerOffset2\" style=\"height:56px\">&nbsp;<\/div>";
 strVar += "";
-strVar += "<div id=\"pageLinksHolder\" class=\"contentpadding\" style=\"display:none; padding-top:0; padding-bottom:0\">";
+strVar += "<div id=\"pageLinksHolder\" class=\"content contentpadding\" style=\"display:none; padding-top:0; padding-bottom:0\">";
 strVar += "  <br>";
-strVar += "  <div style=\"display:table-row;\">";
 strVar += "    ";
-strVar += "    <div style=\"float:right; padding: 12px 0px 10px 0\" class=\"noprint\">";
-strVar += "      <a href=\"..\/..\/io\/charts\/\">About Widgets<\/a>";
+strVar += "    <div style=\"float:right; padding: 12px 0px 10px 0\" class=\"noprint hideMobile\">";
+strVar += "      <a href=\"https:\/\/neighborhood.org\/io\/charts\/\">About Widgets<\/a>";
 strVar += "    <\/div>";
 strVar += "    <!--";
 strVar += "      class=\"mainColumn mainColumn1\" ";
@@ -669,7 +673,7 @@ strVar += "            <a onClick=\"goHash({'geomap':'true'}); return false;\" h
 strVar += "            <br>";
 strVar += "        <\/div>";
 strVar += "";
-strVar += "  <\/div>";
+strVar += "  ";
 strVar += "<\/div>";
 strVar += "";
 strVar += "<!-- Settings Panel -->";
@@ -1246,7 +1250,6 @@ strVar += "  <\/div>";
 strVar += "<\/div>";
 strVar += "";
 strVar += "<!-- End HTML -->";
-
 
 
 
