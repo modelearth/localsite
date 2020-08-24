@@ -815,7 +815,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                                 })
                             }
                         }
-                        text = "<div class='row'><div class='cell'><!-- col 1 -->NAICS</div><div class='cell' style='min-width:300px'><!-- col 2 -->Industry</div>" + text + "<div class='cell-right'>" + totalLabel + "</div><div></div class='cell mock-up' style='display:none'></div>"; // #676464
+                        text = "<div class='row'><div class='cell'><!-- col 1 -->NAICS</div><div class='cell' style='min-width:300px'><!-- col 2 -->Industry</div>" + text + "<div class='cell-right'>" + totalLabel + "</div><div></div class='cell mock-up' style='display:none'></div>"; // #9933aa
                         
                         // INDUSTRY ROWS
                         y=Math.min(catcount, top_data_ids.length)
@@ -880,7 +880,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                                                 if(top_data_list[i]['Estimate'][j]){    
                                                     if(top_data_list[i]['Estimate'][j]>0){
                                                         
-                                                        midCol=midCol + "<div class='cell-right'>" + dollar +"<a href='" + mapLink[j] + "' target='_blank'>"+'<span style="color: #676464" >'+ String((top_data_list[i]['ratearray'][j]/1000).toFixed(2)) + " million</span></a></div>";
+                                                        midCol=midCol + "<div class='cell-right'>" + dollar +"<a href='" + mapLink[j] + "' target='_blank'>"+'<span style="color: #9933aa" >'+ String((top_data_list[i]['ratearray'][j]/1000).toFixed(2)) + " million</span></a></div>";
                                                     }else{
                                                         midCol=midCol + "<div class='cell-right'>" + dollar +"<a href='" + mapLink[j] + "' target='_blank'>"+ String((top_data_list[i]['ratearray'][j]/1000).toFixed(2)) + " million</a></div>";
                                                     }
@@ -905,7 +905,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                                                     midCol = midCol +"<div class='cell-right'>"+"<a href='" + mapLink[j] + "' target='_blank'>"+"0</a></div>";
                                             }   
                                         }
-                                        // <span style="color: #676464">
+                                        // <span style="color: #9933aa">
                                         rightCol += "<div class='cell-right'>" + dollar + String((top_data_list[i][which]/1000000).toFixed(2)) + " billion</div>";
                                     }
                                 }else{
@@ -913,7 +913,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
 
                                     if(top_data_list[i]['Estimate']){    
                                         if(top_data_list[i]['Estimate']>0){
-                                            rightCol = "<div class='cell-right'>" + dollar + "<a href='" + mapLink + "' target='_blank'>"+'<span style="color: #676464" >'+String((top_data_list[i][which]/1000).toFixed(2))+" million</span></a></div>";
+                                            rightCol = "<div class='cell-right'>" + dollar + "<a href='" + mapLink + "' target='_blank'>"+'<span style="color: #9933aa" >'+String((top_data_list[i][which]/1000).toFixed(2))+" million</span></a></div>";
                                         }else{
                                             rightCol = "<div class='cell-right'>" + dollar + "<a href='" + mapLink + "' target='_blank'>"+String((top_data_list[i][which]/1000).toFixed(2))+" million</a></div>";  
                                         }
@@ -950,7 +950,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                                             }else{
                                                 if(top_data_list[i]['Estimate'][j]){    
                                                         if(top_data_list[i]['Estimate'][j]>0){
-                                                            midCol += "<div class='cell-right'><a href='" + mapLink[j] + "' target='_blank'>" + '<span style="color: #676464" >'+String(Math.round(top_data_list[i]['ratearray'][j])) + "</span></a></div>";
+                                                            midCol += "<div class='cell-right'><a href='" + mapLink[j] + "' target='_blank'>" + '<span style="color: #9933aa" >'+String(Math.round(top_data_list[i]['ratearray'][j])) + "</span></a></div>";
                                                 
                                                         }else{
                                                             midCol += "<div class='cell-right'><a href='" + mapLink[j] + "' target='_blank'>" + String(Math.round(top_data_list[i]['ratearray'][j])) + "</a></div>";
@@ -987,7 +987,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                                         if(top_data_list[i]['Estimate']){    
                                             if(top_data_list[i]['Estimate']>0){
                                                 
-                                                rightCol = "<div class='cell-right'><a href='" + mapLink + "' target='_blank'>" +'<span style="color: #676464" >'+ String(Math.round(top_data_list[i][which])) + "</span></a></div>";
+                                                rightCol = "<div class='cell-right'><a href='" + mapLink + "' target='_blank'><span style='color:#9933aa'>" + String(Math.round(top_data_list[i][which])) + "</span></a></div>";
 
                                             }else{
                                                 rightCol = "<div class='cell-right'><a href='" + mapLink + "' target='_blank'>" + String(Math.round(top_data_list[i][which])) + "</a></div>";
@@ -1019,9 +1019,14 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                             }
                             
                             // use GoHash()
-                            let alertStr = "<p class='mapinfo'>Grey text indicates approximated values.";
-                            alertStr += "<p class='mapinfo'><b>Project opportunity:</b> The list above does not yet include all industries tracked by the census. Industries with only extablishment counts at both the state and county level still need to be estimated from national data. <a href='#go=dataprep'>Learn&nbsp;more</a></p></p>";
-                            $("#econ_list").html("<div id='sector_list'>" + text + "</div><br>" + alertStr);
+                            let topMessage = "<p class='mapinfo'><b>Work in Progress</b> - The industry list below does not yet include estimates for industries without state-level payroll data. <a href='/localsite/info/data/'>Learn&nbsp;more&nbsp;and&nbsp;get&nbsp;involved</a></p>";
+                            $("#topMessage").html(topMessage);
+
+                            let lowerMessage = "";
+                            // If none estimated
+                                lowerMessage = "<p class='mapinfo'>Purple text indicates approximated values.</p>";
+                            
+                            $("#econ_list").html("<div id='sector_list'>" + text + "</div><br>" + lowerMessage);
                             if(i<=20){
                                 if(i==0){
                                     naicshash=naicshash+top_data_list[i]['NAICScode']
