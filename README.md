@@ -6,7 +6,7 @@
 
 [Embeddable IO Widgets](https://model.earth/io/charts/)
 
-[Team Project Areas](https://model.earth/community/)  
+[Project Areas](https://model.earth/community/)  
 <br>
 
 [The Localsite Framework](https://github.com/localsite/localsite/) is designed to allow multiple Github repos (using JQuery, React,&nbsp;Vue, etc.) to communicate using hash values.  
