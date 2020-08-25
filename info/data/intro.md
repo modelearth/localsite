@@ -1,4 +1,4 @@
-# Census Industry Data Prep  
+# County Industry Data Prep  
 
 [Data Processing Python Script](https://github.com/modelearth/community-data/blob/master/process/python/us_econ.ipynb)  
 

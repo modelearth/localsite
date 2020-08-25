@@ -36,7 +36,7 @@ $(document).ready(function(){
  	if (climbpath == "") {
  		climbpath += "./"; // Eliminates ? portion of URL
  	}
- 	if(location.host.indexOf('localhost') < 0) {
+ 	if(location.host.indexOf('localhost') < 0) { // When not localhost.  localhost = 0
  		// To do: allow "Input-Output Map" link in footer to remain relative.
  		climbpath = "https://model.earth/" + climbpath;
  	}
