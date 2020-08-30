@@ -112,9 +112,11 @@ $(document).ready(function(){
 	 	// else if (param.startTitle == "Model Earth" || location.host.indexOf('model') >= 0) {
 	 		$(".siteTitleShort").text("Model Earth");
 	 		param.titleArray = ["model","earth"]
-  			param.headerLogo = "<img src='/community/img/logo/favicon.png' style='width:26px;opacity:0.9;margin-right:0.8px'>"
+  			//param.headerLogo = "<img src='/community/img/logo/favicon.png' style='width:26px;opacity:0.9;margin-right:0.8px'>"
+  			param.headerLogo = "<img src='/community/img/logo/model-earth.png' style='width:34px; margin-right:2px'>";
   			document.title = "Model Earth - " + document.title
-  			changeFavicon(climbpath + "../community/img/logo/favicon.png")
+  			//changeFavicon(climbpath + "../community/img/logo/favicon.png")
+  			changeFavicon(climbpath + "../community/img/logo/model-earth.png")
   			$('.earth').css('display', 'inline'); 
 	 	
 	 		/*
