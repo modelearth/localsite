@@ -653,7 +653,7 @@ strVar += "<div id=\"pageLinksHolder\" class=\"content contentpadding\" style=\"
 strVar += "  <br>";
 strVar += "    ";
 strVar += "    <div style=\"float:right; padding: 12px 0px 10px 0\" class=\"noprint hideMobile\">";
-strVar += "      <a href=\"https:\/\/neighborhood.org\/io\/charts\/\">About Widgets<\/a>";
+strVar += "      <a href=\"https:\/\/model.earth\/io\/charts\/\">About Widgets<\/a>";
 strVar += "    <\/div>";
 strVar += "    <!--";
 strVar += "      class=\"mainColumn mainColumn1\" ";
