@@ -19,7 +19,7 @@ var dual_map = dual_map || (function(){
         localsite_root : function() {
             let root = location.protocol + '//' + location.host + '/localsite/';
             if (location.host.indexOf('localhost') < 0) {
-              root = "https://neighborhood.org/localsite/";
+              //root = "https://neighborhood.org/localsite/";
             }
             return (root);
         },
