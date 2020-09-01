@@ -725,7 +725,7 @@
   <br>
     
     <div style="float:right; padding: 12px 0px 10px 0" class="noprint hideMobile">
-      <a href="https://neighborhood.org/io/charts/">About Widgets</a>
+      <a href="https://model.earth/io/charts/">About Widgets</a>
     </div>
     <!--
       class="mainColumn mainColumn1" 
@@ -922,10 +922,32 @@
 
 <div style="clear:both"></div>
 
+<!-- APP MENU -->
+<!-- From map-filters.js displayBigThumbnails function -->
+<!-- Currently map-filters.js limits loading to localhost -->
+<div id="honeycombPanelHolder" style="display:none; margin-top:30px; margin-bottom:25px; overflow:auto;">
+  
+  <!--div id="honeycombPanel"-->
+  <div id="honeycombPanel" style="display: block;">
+    <a name="sections"></a>
+    
+    <div class="bigThumbMenu widthColumns" style="margin:0 auto; "></div>
+
+    <div id="honeyMenuHolder" style="display:none">
+      <div id="honeycombMenu"></div>
+    </div>
+
+      <br><br>
+      
+  </div>
+</div>
+<div style="clear:both"></div>
+<!-- /APP MENU -->
+
 
 <div class="displayOnload" style="display:none;position:relative">
 <div id="map1"></div>
-<div id="legendHolder">
+<div id="legendHolder" style="">
   <div id="allLegends"></div>
 </div>
 </div>
@@ -1032,27 +1054,6 @@
 
 <div id="list_main" style="overflow:auto; background: #fff">
 
-<!-- APP MENU -->
-<!-- From map-filters.js displayBigThumbnails function -->
-<!-- Currently map-filters.js limits loading to localhost -->
-<div id="honeycombPanelHolder" style="display:none; margin-top:30px; margin-bottom:50px;">
-  
-  <!--div id="honeycombPanel"-->
-  <div id="honeycombPanel" style="display: block;">
-    <a name="sections"></a>
-    
-    <div class="bigThumbMenu widthColumns" style="margin:0 auto; "></div>
-
-    <div id="honeyMenuHolder" style="display:none">
-      <div id="honeycombMenu"></div>
-    </div>
-
-      <br><br>
-      
-  </div>
-</div>
-<div style="clear:both"></div>
-<!-- /APP MENU -->
 
 
 <section class="data-section" id="data" style="overflow:auto">

@@ -259,6 +259,9 @@ summary::-webkit-details-marker {
   }
 }
 @media (max-width: 500px) {
+  .content {
+    line-height: 1.2;
+  }
   .contentpadding {
     padding-left: 20px;
     padding-right: 20px;

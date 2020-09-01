@@ -18,8 +18,8 @@
 <!--
 <link rel="stylesheet" type="text/css" href="../../localsite/css/bootstrap.darkly.min.css"/>
 -->
-<link rel="stylesheet" type="text/css" href="https://neighborhood.org/io/charts/useeio/widgets.css">
-<script src="https://neighborhood.org/io/charts/useeio/lib/useeio_widgets.js"></script>
+<link rel="stylesheet" type="text/css" href="https://model.earth/io/charts/useeio/widgets.css">
+<script src="https://model.earth/io/charts/useeio/lib/useeio_widgets.js"></script>
 
 <!-- LOCAL DEV -->
 <!--
@@ -522,7 +522,7 @@ To do: make the links below an optional widget
 	<hr>
 
 	<div style="float:right;margin-bottom:16px" class="noprint">
-		<a href="https://neighborhood.org/io/charts/">About Widgets</a>
+		<a href="https://model.earth/io/charts/">About Widgets</a>
 	</div>
 </div>
 
@@ -660,14 +660,25 @@ Choose commodities below to view upstream input and downstream output.<br>
 
 
 <!-- MOSAIC HEATMAP -->
+<style>
+::-webkit-scrollbar {
+   -webkit-appearance: none;
+   width: 7px;
+}
+::-webkit-scrollbar-thumb {
+   border-radius: 4px;
+   background-color: rgba(0,0,0,.5);
+   -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+</style>
 <br><br>
 <div class="content contentadding">
 	<div style="float:right;margin-bottom:16px" class="noprint">
-		<a href="https://neighborhood.org/io/charts/">About Mosaic</a>
+		<a href="https://model.earth/io/charts/">About Mosaic</a>
 	</div>
 
 	<h2 style="border-bottom: 0px">Environmental Indicators</h2>
-    <div class="io">
+    <div class="io" style="overflow-x: scroll">
         <div style="margin: 0 auto;">
             <div class="matrix-title">Goods & Services</div>
             <div style="clear:both"></div>
@@ -833,7 +844,7 @@ https://www.epa.gov/enviroatlas
 	<div class="bubble-graph">
 
 		<div style="float:right;margin-bottom:16px" class="noprint">
-			<a href="https://neighborhood.org/io/charts/">About Bubble Chart</a>
+			<a href="https://model.earth/io/charts/">About Bubble Chart</a>
 		</div>
 
         <h2 style="border-bottom: 0px">Impact Bubble Chart</h2>
@@ -1048,14 +1059,14 @@ function loadScriptXXXXXX(url, callback)
 function updateText(go) {
 	$("#aboutToolsDiv").text("");
 	if (go == "bioeconomy") {
-		loadMarkdown("https://neighborhood.org/io/tools/bioeconomy-planner/about.md", "aboutToolsDiv", "_parent");
-		//loadMarkdown("https://neighborhood.org/io/tools/bioeconomy-planner/bioenergy/README.md", "bioenergySummaryDiv", "_parent");
+		loadMarkdown("https://model.earth/io/tools/bioeconomy-planner/about.md", "aboutToolsDiv", "_parent");
+		//loadMarkdown("https://model.earth/io/tools/bioeconomy-planner/bioenergy/README.md", "bioenergySummaryDiv", "_parent");
 	} else if (go == "dataprep") {
 		loadMarkdown("../../localsite/info/data/README.md", "aboutToolsDiv", "_parent");
 	} else if (go == "parts") {
-		loadMarkdown("https://neighborhood.org/io/tools/localized-economy/about.md", "aboutToolsDiv", "_parent");
+		loadMarkdown("https://model.earth/io/tools/localized-economy/about.md", "aboutToolsDiv", "_parent");
 	} else {
-		loadMarkdown("https://neighborhood.org/io/tools/industry-impact/about.md", "aboutToolsDiv", "_parent");
+		loadMarkdown("https://model.earth/io/tools/industry-impact/about.md", "aboutToolsDiv", "_parent");
 	}
 
 }
