@@ -1316,12 +1316,12 @@ function getDirectLink(directlink,rootfolder,layer) {
     if (directlink) {
         directlink = removeFrontFolder(directlink);
     } else if (rootfolder) {
-        if (rootfolder.indexOf('/site/docs/') < 0) {
-            rootfolder = "/site/docs/" + rootfolder;
+        if (rootfolder.indexOf('/explore/') < 0) {
+            rootfolder = "/explore/" + rootfolder;
         }
         directlink = removeFrontFolder(rootfolder + "#" + layer);
     } else {
-        directlink = removeFrontFolder("/site/docs/#" + layer);
+        directlink = removeFrontFolder("/explore/#" + layer);
     }
     return(directlink);
 }
