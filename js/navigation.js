@@ -38,7 +38,8 @@ $(document).ready(function(){
  	}
  	if(location.host.indexOf('localhost') < 0) { // When not localhost.  localhost = 0
  		// To do: allow "Input-Output Map" link in footer to remain relative.
- 		climbpath = "https://model.earth/" + climbpath;
+ 		climbpath = "https://model.earth/" + climbpath; // Avoid - gets applied to #headerSiteTitle
+ 		//climbpath = "/" + climbpath;
  	}
  	if (param.showhero != "false") {
  		if(location.host.indexOf('georgia') >= 0) { 
@@ -168,9 +169,8 @@ $(document).ready(function(){
 
 	 	if (param["show"] == "mockup") {
 	 		if(location.host.indexOf('georgia') >= 0) {
-	 			$('#headerLocTitle').html("Troup County");
-	 		} else {
-		 		$('#headerLocTitle').html("<span class='arrownext' style='margin:10px 10px 0 10px'></span><span style='float:left'> Troup County</span>");
+	 			$('#headerLocTitle').html("West Central Georgia");
+		 		//$('#headerLocTitle').html("<span class='arrownext' style='margin:10px 10px 0 10px'></span><span style='float:left'> West Central Georgia</span>");
 		 	}
 		 	// Hack, since called too early for header
 		 	$('.mock-up').css('display', 'block');
@@ -184,7 +184,9 @@ $(document).ready(function(){
 	 		if (param.titleArray[1] == undefined) {
 	 			$('#headerSiteTitle').html("");
 	 		} else {
-		 		let titleValue = "<span style='float:left'><a href='" + climbpath + "' style='text-decoration:none'>";
+		 		//let titleValue = "<span style='float:left'><a href='" + climbpath + "' style='text-decoration:none'>";
+		 		let titleValue = "<span style='float:left'><a href='/' style='text-decoration:none'>";
+		 		
 		 		titleValue += "<span style='color: #777;'>" + param.titleArray[0] + "</span>";
 		 		for (var i = 1; i < param.titleArray.length; i++) {
 		 			titleValue += "<span style='color:#bbb;margin-left:1px'>" + param.titleArray[i] + "</span>";
