@@ -411,6 +411,8 @@ content .js, pre code { /* Prevents .js from impacting js class within Drupal bo
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
     cursor: pointer;
+    margin-right:4px;
+    margin-bottom:8px;
 }
 .btn:link {
   color: #fff;
@@ -578,7 +580,12 @@ content .js, pre code { /* Prevents .js from impacting js class within Drupal bo
     borderX: 2px solid blue;
 
     opacityX: 0.2;
+}
+@media(max-width:1022px) {
+  .bgimg {
+    background-position: 0 0;
   }
+}
 /* Turn off parallax scrolling for tablets and phones */
 @media only screen and (max-device-width: 1024px) {
     .bgimg {
@@ -726,15 +733,6 @@ content .js, pre code { /* Prevents .js from impacting js class within Drupal bo
   padding-top:1px;
   color:#9c9c9c;
   font-size: 22px;
-}
-#homeMenu {
-  display: none;
-  border: 1px solid #ccc;
-}
-#homeMenu div {
-  height: 40px;
-  background-color: #fff;
-  padding:20px;
 }
 .headerbar {
   /* box-shadow: 0 1px 7px rgba(0, 0, 0, 0.1); */
