@@ -1,10 +1,10 @@
 ## Input-Output Widgets
 
-[Widgets for Community Websites](https://mygeorgia.org/)   
+[Widgets for Community Websites](https://model.earth/io/charts/)   
 
 [About Web Challenge](https://model.earth/community/challenge/)  
 
-[Embeddable IO Widgets](https://model.earth/io/charts/)
+[Press Release](https://model.earth/io/cooders/)
 
 [Project Areas](https://model.earth/community/)  
 <br>
