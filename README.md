@@ -4,7 +4,7 @@
 
 [About Web Challenge](https://model.earth/community/challenge/)  
 
-[Press Release](https://model.earth/io/cooders/)
+[Press Release](https://model.earth/io/coders/)
 
 [Project Areas](https://model.earth/community/)  
 <br>
