@@ -880,7 +880,7 @@ function loadMap1(dp) { // Also called by map-filters.js
 
     dp1.addlisting = "https://www.ams.usda.gov/services/local-regional/food-directories-update";
 
-    dp1.listInfo = "Green locations offer <span style='white-space: nowrap'>prepared food<br>Please call ahead to arrange pickup or delivery.</span><br>You can help keep this data current. <a style='white-space: nowrap' href='../farmfresh'>Learn about data</a>";
+    dp1.listInfo = "Green locations offer <span style='white-space: nowrap'>prepared food<br>Please call ahead to arrange pickup or delivery.</span><br>You can help keep this data current. <a style='white-space: nowrap' href='https://model.earth/community/farmfresh/'>Learn about data</a>";
   }
 
   // Load the map using settings above

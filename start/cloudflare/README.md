@@ -41,11 +41,12 @@ On same tab, keep on "Automatic HTTPS Rewrites" (is now already ON by default)
 
 Optional: Test with ssllabs.com (after 24 hours)  
 
-### Add a wildcard redirect under "Page Rule"
+### You won't be able to add a true wildcard redirect under "Page Rule"
+
+Redirects only works for subdomains that are entered in the Cloudflare DNS list.  
 
 Choose "Forwarding URL"  
 
-*.yourdomain.com/*  
+\*.yourdomain.com/\*  
 https://yourdomain.com/#go=$2  
 
-Only works for subdomains that are in the DNS list.  
