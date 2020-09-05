@@ -11,20 +11,20 @@
 
 var strVar="";
 
-// STYLE OVERRIDES
-strVar += "<style>";
+// STYLE OVERRIDES FOR DRUPAL
+strVar += "<style type='text/css'>";
 strVar += "#legendHolder {min-width: 270px;}";
 strVar += ".component--custom_markup > .content {max-width:100%}"; // Drupal container
 strVar += ".component--main_content, .component--single_column_content {padding:0px}"; // Remove padding between text and map in Drupal.
 //strVar += "p {margin: 0 0 2.2rem;}"; // Overrides Drupal 3.4rem bottom
+strVar += "svg {max-width:none;}"; // Fix for embedding material icon map points in Drupal
+strVar += ".visually-hidden {display: none !important;}"; // Hide text in c19 Drupal top nav
 strVar += "<\/style>";
 
 // Omit var strVar=""; here
 strVar += "<!-- Start HTML -->";
 strVar += "";
-strVar += "<style>";
-strVar += "  svg{ max-width:none; } \/* Fix for embedding material icon map points in Drupal *\/";
-strVar += "<\/style>";
+
 strVar += "";
 strVar += "<!-- FILTERS -->";
 strVar += "<!--";

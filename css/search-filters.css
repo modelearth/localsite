@@ -376,8 +376,3 @@
   top: 44px;
   width: 164px;
 }
-
-/* patch for c19 page header, move */
-.visually-hidden {
-  display: none !important;
-}

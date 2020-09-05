@@ -94,10 +94,6 @@
 
 <!-- Start HTML -->
 
-<style>
-  svg{ max-width:none; } /* Fix for embedding material icon map points in Drupal */
-</style>
-
 <!-- FILTERS -->
 <div id="headerFixed" class="filterPanel">
   <div class="headerOffset headerOffsetOne">&nbsp;</div>
@@ -1366,7 +1362,9 @@ dual_map.init(["somevalue", 1, "controlId"]); // Used by link to feedback form
 //dual_map.community_root();
 
 console.log("This page replaces community/impact. Call loadMap1() in map.js but we need dp. Also below.");
-param.show = "farmfresh"; // Used by loadFromCSV which is called by loadMap1
+if (!param.show) {
+  param.show = "farmfresh"; // Used by loadFromCSV which is called by loadMap1
+}
 var localmap = loadMap1(dp);
 
 // Append railroads here, somehow
