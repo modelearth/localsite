@@ -783,6 +783,7 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.listLocation = false;
     dp1.addLink = "https://www.georgia.org/covid19response"; // Not yet used
   } else if (param["show"] == "suppliers") { // "http://" + param["domain"]
+
     dp1.listTitle = "Georgia COVID-19 Response";
     dp1.listTitle = "Georgia Suppliers of&nbsp;Critical Items <span style='white-space:nowrap'>to Fight COVID-19</span>"; // For iFrame site
 
