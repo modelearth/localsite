@@ -1058,7 +1058,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                     if (params.go == "bioeconomy") {
                         $(".regiontitle").text("Bioeconomy and Fossil Fuel Industries");
                     } else if (params.go == "parts") {
-                        $(".regiontitle").text("Automotive Parts Manufacturing");
+                        $(".regiontitle").text("Parts Manufacturing");
                     } else if (params.go == "manufacturing") {
                         $(".regiontitle").text("Manufacturing");
                     }
@@ -1113,7 +1113,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                         if (params.go == "bioeconomy") {
                             $(".regiontitle").text("Bioeconomy and Fossil Fuel Industries");
                         } else if (params.go == "parts") {
-                            $(".regiontitle").text("Automotive Parts");
+                            $(".regiontitle").text("Parts Manufacturing");
                         } else if (params.go == "manufacturing") {
                             $(".regiontitle").text("Manufacturing");
                         } else {
