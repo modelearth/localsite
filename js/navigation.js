@@ -119,7 +119,7 @@ $(document).ready(function(){
   			//changeFavicon(climbpath + "../community/img/logo/favicon.png")
   			changeFavicon(climbpath + "../community/img/logo/model-earth.png")
   			$('.earth').css('display', 'inline'); 
-	 	
+	 		console.log(".earth display")
 	 		/*
 	 		console.log('To customize, add param.titleArray')
 	 		param.titleArray = ["neighbor","hood"]
