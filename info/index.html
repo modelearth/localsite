@@ -18,8 +18,8 @@
 <!--
 <link rel="stylesheet" type="text/css" href="../../localsite/css/bootstrap.darkly.min.css"/>
 -->
-<link rel="stylesheet" type="text/css" href="https://model.earth/io/build/widgets.css">
-<script src="https://model.earth/io/build/lib/useeio_widgets.js"></script>
+<link rel="stylesheet" type="text/css" href="../../io/build/widgets.css">
+<script src="../../io/build/lib/useeio_widgets.js"></script>
 
 <!-- LOCAL DEV -->
 <!--
@@ -586,9 +586,8 @@ Choose commodities below to view upstream input and downstream output.<br>
 <!-- change endpoint when adding to page -->
 
 <script>
-
-    var config = useeio.urlConfig();
-    var modelID = config.get().model || 'USEEIO';
+function applyIO(naics) { // Called from naics.js
+    var modelID = 'USEEIO';
 
     var model = useeio.model({
         endpoint: '/io/build/api',
@@ -611,13 +610,7 @@ Choose commodities below to view upstream input and downstream output.<br>
         selector: '#outputs',
     })
 
-    config.withDefaults({
-        count: 10,
-    });
-    config.join(inputs);
-    config.join(industryList);
-    config.join(outputs);
-
+    /*
     var naics = '11,45,62,211,314,331,425,452,488,521,561,721,925,1122,'
         + '1151,2213,2389,3121,3161,3251,3272,3322,3333,3346,'
         + '3366,4234,4245,4422,4482,4541,4851,4872,4922,5174,'
@@ -647,10 +640,44 @@ Choose commodities below to view upstream input and downstream output.<br>
         + '621493,622310,624210,711211,712190,713990,722330,'
         + '811121,811411,812210,812990,813920,921190,923130,'
         + '926150';
+	*/
+    //naics = '221100'; // TEMP
+    //naics = '';
 
-    document.querySelector('#industry-list')
-        .setAttribute('data-naics', naics);
+    // Add bioeconomy
+    //naics = naics + "311615,311812,321113,221112,113310,322110,311821,311612,325211,311813,311911,311919,311830,311119,322121,311824,311941,325991,311710,311930";
 
+    var naicsCodes = naics.split(',');
+    var handled = {};
+    var beaCodes = naicsCodes.map(useeio.toBEA)
+        .filter(function (code) {
+            // remove unmapped codes and duplicates
+            if (!code || handled[code])
+                return false;
+            handled[code] = true;
+            return true;
+        });
+
+    var config = {
+        count: 40,
+        naics: naicsCodes,
+        sectors: beaCodes,
+    };
+
+    inputs.update(config);
+    outputs.update(config);
+    industryList.update(config);
+    industryList.onChanged(function (change) {
+        for (var prop in change) {
+            if (change.hasOwnProperty(prop)) {
+                config[prop] = change[prop];
+            }
+        }
+        inputs.update(config);
+        outputs.update(config);
+        industryList.update(config);
+    });
+}
 </script>
 
 </div>
