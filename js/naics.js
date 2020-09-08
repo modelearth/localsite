@@ -219,6 +219,9 @@ function ready(values) {
                     if (document.getElementById("clearButton")) {
                         document.getElementById("clearButton").addEventListener("click", function(){
                             clearHash("geo,regiontitle");
+
+                            // BUGBUG - This causes industry list removal and commodity list reduction.
+                            // Problem occurred before adding applyIO function and the newer script it contains.
                             geoChanged(dataObject)
                         }); 
                     }
@@ -1038,8 +1041,11 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                         
                         } // End naics rows
 
+                        console.log('send naics to #industry-list data-naics attribute: ' + naicshash)
+
                         // Send to USEEIO Widget
-                        $('#industry-list').attr('data-naics', naicshash);
+                        //$('#industry-list').attr('data-naics', naicshash);
+                        applyIO(naicshash);
 
                         //updateHash({"naics":naicshash});
                         //params = loadParams(location.search,location.hash);
