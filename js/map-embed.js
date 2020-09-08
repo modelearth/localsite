@@ -146,7 +146,7 @@ strVar += "      <!-- LOCATION SEARCH - currently inactive - copy script from si
 strVar += "      <div style=\"float:left;\">";
 strVar += "";
 strVar += "";
-strVar += "            <div style=\"overflow: visible;display:none\" class=\"local filterField searchElements mock-up\">";
+strVar += "            <div style=\"overflow: visible;display:none\" class=\"local filterField searchElements mock-up earth\">";
 strVar += "                <div class=\"filterLabel\">";
 strVar += "                  <div class=\"filterLabelMain\">";
 strVar += "                    Where";
@@ -669,7 +669,7 @@ strVar += "            <a onClick=\"goHash({'go':'parts','show':''}); return fal
 strVar += "            <span class=\"local\" style=\"display:none\">";
 strVar += "            <a onClick=\"goHash({'go':'','show':'suppliers'}); return false;\" href=\".\/#show=suppliers\">PPE Suppliers<\/a> | ";
 strVar += "            <\/span>";
-strVar += "            <a onClick=\"goHash({'geomap':'true'}); return false;\" href=\".\/#geomap=US13\">County&nbsp;Map<\/a>";
+//strVar += "            <a onClick=\"goHash({'geomap':'true'}); return false;\" href=\".\/#geomap=US13\">County&nbsp;Map<\/a>";
 strVar += "            <br>";
 strVar += "        <\/div>";
 strVar += "";
