@@ -146,7 +146,7 @@ strVar += "      <!-- LOCATION SEARCH - currently inactive - copy script from si
 strVar += "      <div style=\"float:left;\">";
 strVar += "";
 strVar += "";
-strVar += "            <div style=\"overflow: visible;display:none\" class=\"local filterField searchElements mock-up earth\">";
+strVar += "            <div style=\"overflow: visible;display:none\" class=\"filterField searchElements mock-up earth\">";
 strVar += "                <div class=\"filterLabel\">";
 strVar += "                  <div class=\"filterLabelMain\">";
 strVar += "                    Where";
