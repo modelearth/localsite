@@ -1046,6 +1046,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                         // Send to USEEIO Widget
                         //$('#industry-list').attr('data-naics', naicshash);
                         applyIO(naicshash);
+                        updateMosic(naicshash);
 
                         //updateHash({"naics":naicshash});
                         //params = loadParams(location.search,location.hash);
