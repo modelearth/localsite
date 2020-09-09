@@ -710,7 +710,10 @@ function applyIO(naics) { // Called from naics.js
             <div class="matrix-title">Goods & Services</div>
             <div style="clear:both"></div>
 
-			<select id="indicators" class="filterClickX form-selectX picklist" onchange="goHash({'indicators':this.value});" style="width: 450px;margin-bottom:0px">
+            <!--
+            	location.reload() is a temporary fix since mosaic is not triggered by change to hash.
+            -->
+			<select id="indicators" class="filterClickX form-selectX picklist" onchange="goHash({'indicators':this.value});location.reload();" style="width: 450px;margin-bottom:0px">
 
 			<option value="">Industries with top impacts...</option>
 
@@ -793,7 +796,7 @@ function applyIO(naics) { // Called from naics.js
 </div>
 
 <script>
-function configMosaic() {
+function updateMosic(naics) {
     var config = useeio.urlConfig();
     var modelID = config.get().model || 'GAUSEEIO';
 
@@ -801,20 +804,73 @@ function configMosaic() {
         endpoint: '/io/build/api',
         model: modelID,
         asJsonFiles: true,
-        view: 'mosaic'
+        view: 'mosaic',
     });
+
+    //naics = "311615,311812,321113,221112,113310,322110,311821,311612,325211,311813,311911,311919,311830,311119,322121,311824,311941,325991,311710,311930";
+
+    var naicsCodes = naics.split(',');
 
     var industryListMosaic = useeio.industryList({
         model: model,
         selector: '.industry-list-mosaic',
     });
     config.withDefaults({
-    	view: ['mosaic'],
+    	view: 'mosaic',
         count: 15,
+        naics: naicsCodes,
     });
     config.join(industryListMosaic);
 }
-configMosaic();
+function updateMosicNew(naics) {
+	// Might not use this, unless it can be revised to allow the hash to trigger when indicators dropdown changes. Remove location.reload() above.
+	var modelID = 'USEEIO';
+
+    var model = useeio.model({
+        //endpoint: 'https://useeiowidgets.imfast.io/api',
+        endpoint: '/io/build/api',
+        model: modelID,
+        asJsonFiles: true,
+        view: 'mosaic'
+    });
+
+    var industryList = useeio.industryList({
+        model: model,
+        selector: '.industry-list-mosaic',
+    });
+
+    var naicsCodes = naics.split(',');
+    var handled = {};
+    var beaCodes = naicsCodes.map(useeio.toBEA)
+        .filter(function (code) {
+            // remove unmapped codes and duplicates
+            if (!code || handled[code])
+                return false;
+            handled[code] = true;
+            return true;
+        });
+
+    var config = {
+        count: 30,
+        view: 'mosaic',
+        naics: naicsCodes,
+        sectors: beaCodes,
+    };
+
+    //inputs.update(config);
+    //outputs.update(config);
+    industryList.update(config);
+    industryList.onChanged(function (change) {
+        for (var prop in change) {
+            if (change.hasOwnProperty(prop)) {
+                config[prop] = change[prop];
+            }
+        }
+        //inputs.update(config);
+        //outputs.update(config);
+        industryList.update(config);
+    });
+}
 </script>
 <!-- /MOSAIC HEATMAP -->
 
