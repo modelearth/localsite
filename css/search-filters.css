@@ -31,7 +31,6 @@
     cursor: pointer;
     border-radius: 6px;
     border: 1px solid #d9d9de;
-    line-heightX: 22px;
     padding: 0px 9px 0px 10px;
     min-height: 34px !important;
     vertical-align: baseline;
@@ -52,7 +51,6 @@
     line-height: 16px;
 
     cursor: pointer;
-    border: 1px solid #999;
     border-radius: 4px;
     padding: 9px 10px 0px 10px;
     
@@ -128,14 +126,6 @@
 }
 
 
-.bigThumbUl {
-    margin: 0px;
-    list-style-type: none;
-    /*
-    padding-right: -30px;
-    border:1px solid #fff;
-    */
-}
 .widthPercent { /* allows margin to reside within percent */
     float:left;
     position: relative;
@@ -146,23 +136,32 @@
   display: block;
   padding-bottom: 100%;
 }
+.bigThumbUl {
+    margin: 0px;
+    list-style-type: none;
+    /*
+    padding-right: -30px;
+    border:1px solid #fff;
+    */
+}
 .bigThumbHolder {
     width: 100%;
-    height: 100%;
+    height: 180px;
     position: absolute;
     float: left;
-
-    overflowX: hidden;
-    border:1px solid #fff;
-    marginX: 0 0px 30px 0;
-    /* padding-right: 30px; */
+    padding-top:20px;
+    text-align: center;
 }
 .bigThumb {
     background-color: #fff;
     background-size: cover;
     opacity: 0.7;
     cursor: pointer;
-    height: 100%;
+    width:110px;
+    height:110px;
+    border-radius: 50% !important;
+    margin: 40px;
+    margin: 0 auto;
 }
 .widthPercent {
     padding:0 20px 0 20px;
@@ -193,21 +192,20 @@
     left:0px;
     right:0px;
     bottom:0px;
-    color:#fff;
-    font-size:20px;
-    background-color: rgba(33, 33, 33, 0.5);
+    color:#333;
     min-height: 36px;
-    padding: 8px 8px 5px 14px;
-    font-size: 22px;
-    color: #5fab1b;
-    color: #fff;
+    font-size: 18px;
     font-family: 'Roboto Condensed', sans-serif;
+
+    /*
+    color: #fff;
     font-weight: bold;
     text-transform: uppercase;
     font-size: 18px;
+    */
 }
 .bigThumb:hover .bigThumbText{
-    background-color: rgba(33, 33, 33, 0.95);
+    font-weight: 400;
 }
 .bigThumbSecondary {
     color: #fff;
@@ -218,8 +216,10 @@
 .bigThumbMenu {
     clear:both; /* clear close X */
     display: block;
+    margin: 0 auto;
 }
 
+/*
 @media (min-width: 300px) {
     .primaryTitle {
         font-size: 40px;
@@ -260,16 +260,25 @@
         width:25%;
     }
 }
+*/
+
+
+.widthColumns{
+    max-width:1200px;
+}
+
+.widthPercent {
+    width: 140px;
+    height: 200px;
+}
+
 /* Full Screen */
 @media (min-width: 1000px) {
     .primaryTitle {
         font-size: 58px;
     }
     .widthPercent {
-        width: 16.66%;
-    }
-    .widthColumns{
-        max-width:1200px;
+      width: 16.66%;
     }
 }
 

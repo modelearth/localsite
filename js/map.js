@@ -728,7 +728,8 @@ function loadMap1(dp) { // Also called by map-filters.js
   dp1.zoom = 7;
   dp1.listLocation = false; // Hides Waze direction link in list, remains in popup.
 
-  if (dp && dp[0]) { // Parameters set in page or layer json
+  //if (dp && dp[0]) { // Parameters set in page or layer json
+  if (dp.dataset) { // Parameters set in page or layer json
     dp1 = dp;
   } else if (param["show"] == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
     dp1.listTitle = "Data Driven Decision Making";
@@ -1623,4 +1624,4 @@ function lockSidemap() {
     mapFixed = false;
   }
 }
-console.log('hello from dual map');
+console.log('hello from dual map in localsite/js/map.js');
