@@ -1236,7 +1236,7 @@ function displayBigThumbnails(layerName,siteObject) {
 	            consoleLog("displayLayerCheckboxes: no menuaccess");
 	        }
 	        
-	        var directlink = getDirectLink(thelayers[layer].directlink, thelayers[layer].rootfolder, thelayers[layer].item);
+	        var directlink = getDirectLink(thelayers[layer].livedomain, thelayers[layer].directlink, thelayers[layer].rootfolder, thelayers[layer].item);
 
 	        if (bigThumbSection == "main") {
 	            if (thelayers[layer].menulevel == "1") {
@@ -1312,7 +1312,7 @@ function displayBigThumbnails(layerName,siteObject) {
 		$("#honeycombPanelHolder").hide();
 	}
 }
-function getDirectLink(directlink,rootfolder,layer) {
+function getDirectLink(livedomain,directlink,rootfolder,layer) {
     if (directlink) {
         directlink = removeFrontFolder(directlink);
     } else if (rootfolder) {
@@ -1323,7 +1323,11 @@ function getDirectLink(directlink,rootfolder,layer) {
     } else {
         directlink = removeFrontFolder("/explore/#" + layer);
     }
-    return(directlink);
+    if (livedomain && location.host.indexOf('localhost') < 0) {
+    	return(livedomain + directlink);
+    } else {
+    	return(directlink);
+	}
 }
 function initSiteObject(layerName) {
 
