@@ -221,9 +221,14 @@
     margin: 0 auto;
     borderX: 1px solid #222;
 }
+@media (min-width: 500px) {
+  .bigThumbMenu {
+    width:400px;
+  }
+}
 @media (min-width: 800px) {
   .bigThumbMenu {
-    width:430px;
+    width:800px;
   }
 }
 @media (min-width: 1200px) {

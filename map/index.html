@@ -1333,6 +1333,16 @@ To add and update listings, download the <a href="map.csv">map.csv</a> file and 
 'use strict'; // Optional, makes sure we are declaring variables.
 
 
+
+$(document).ready(function () {
+  //alert(param.show)
+  //if(!param.show) {
+    setTimeout( function() {
+      $( ".showApps" ).trigger( "click" );
+    }, 500 );
+  //}
+});
+
 // COMMON - also resides in embed-map.js
 function loadScript(url, callback)
 {
