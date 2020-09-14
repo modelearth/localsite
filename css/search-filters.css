@@ -125,7 +125,9 @@
   cursor:pointer;
 }
 
-
+#honeycombPanel {
+    text-align: center;
+}
 .widthPercent { /* allows margin to reside within percent */
     float:left;
     position: relative;
@@ -157,8 +159,8 @@
     background-size: cover;
     opacity: 0.7;
     cursor: pointer;
-    width:110px;
-    height:110px;
+    width: 110px;
+    height: 110px;
     border-radius: 50% !important;
     margin: 40px;
     margin: 0 auto;
@@ -215,10 +217,25 @@
 }
 .bigThumbMenu {
     clear:both; /* clear close X */
-    display: block;
+    display: inline-block;
     margin: 0 auto;
+    borderX: 1px solid #222;
 }
-
+@media (min-width: 800px) {
+  .bigThumbMenu {
+    width:430px;
+  }
+}
+@media (min-width: 1200px) {
+  .bigThumbMenu {
+    width:1150px;
+  }
+}
+@media (min-width: 1800px) {
+  .bigThumbMenu {
+    width: 100%;
+  }
+}
 /*
 @media (min-width: 300px) {
     .primaryTitle {
@@ -264,11 +281,11 @@
 
 
 .widthColumns{
-    max-width:1200px;
+    max-widthX:1200px;
 }
 
 .widthPercent {
-    width: 140px;
+    width: 180px;
     height: 200px;
 }
 
@@ -278,7 +295,7 @@
         font-size: 58px;
     }
     .widthPercent {
-      width: 16.66%;
+      widthX: 16.66%;
     }
 }
 

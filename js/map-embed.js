@@ -963,7 +963,7 @@ strVar += "";
 strVar += "<!-- APP MENU -->";
 strVar += "<!-- From map-filters.js displayBigThumbnails function -->";
 strVar += "<!-- Currently map-filters.js limits loading to localhost -->";
-strVar += "<div id=\"honeycombPanelHolder\" style=\"display:none; margin-top:30px; margin-bottom:50px;\">";
+strVar += "<div id=\"honeycombPanelHolder\" style=\"display:none; margin-top:30px;\">";
 strVar += "  ";
 strVar += "  <!--div id=\"honeycombPanel\"-->";
 strVar += "  <div id=\"honeycombPanel\" style=\"display: block;\">";

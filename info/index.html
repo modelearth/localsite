@@ -541,6 +541,8 @@ To do: make the links below an optional widget
 
 
 Choose commodities below to view upstream input and downstream output.<br>
+Currently utilizes national USEEIO input-output data generated from the production API.<br>
+A Georgia input-output dataset is being developed by the EPA.<br><br>
 
 <div class="pageColumns">
 
@@ -601,7 +603,7 @@ function applyIO(naics) { // Called from naics.js
         selector: '#inputs',
     });
 
-    var industryList = useeio.industryList({
+    var sectorList = useeio.sectorList({
         model: model,
         selector: '#industry-list',
     });
@@ -667,8 +669,8 @@ function applyIO(naics) { // Called from naics.js
 
     inputs.update(config);
     outputs.update(config);
-    industryList.update(config);
-    industryList.onChanged(function (change) {
+    sectorList.update(config);
+    sectorList.onChanged(function (change) {
         for (var prop in change) {
             if (change.hasOwnProperty(prop)) {
                 config[prop] = change[prop];
@@ -676,7 +678,7 @@ function applyIO(naics) { // Called from naics.js
         }
         inputs.update(config);
         outputs.update(config);
-        industryList.update(config);
+        sectorList.update(config);
     });
 }
 </script>
@@ -812,7 +814,7 @@ function updateMosic(naics) {
 
     var naicsCodes = naics.split(',');
 
-    var industryListMosaic = useeio.industryList({
+    var sectorListMosaic = useeio.sectorList({
         model: model,
         selector: '.industry-list-mosaic',
     });
@@ -821,7 +823,7 @@ function updateMosic(naics) {
         count: 30,
         naics: naicsCodes,
     });
-    config.join(industryListMosaic);
+    config.join(sectorListMosaic);
 }
 function updateMosicNew(naics) {
 	// Might not use this, unless it can be revised to allow the hash to trigger when indicators dropdown changes. Remove location.reload() above.
@@ -835,7 +837,7 @@ function updateMosicNew(naics) {
         view: 'mosaic'
     });
 
-    var industryList = useeio.industryList({
+    var sectorList = useeio.sectorList({
         model: model,
         selector: '.industry-list-mosaic',
     });
@@ -860,8 +862,8 @@ function updateMosicNew(naics) {
 
     //inputs.update(config);
     //outputs.update(config);
-    industryList.update(config);
-    industryList.onChanged(function (change) {
+    sectorList.update(config);
+    sectorList.onChanged(function (change) {
         for (var prop in change) {
             if (change.hasOwnProperty(prop)) {
                 config[prop] = change[prop];
@@ -869,7 +871,7 @@ function updateMosicNew(naics) {
         }
         //inputs.update(config);
         //outputs.update(config);
-        industryList.update(config);
+        sectorList.update(config);
     });
 }
 </script>
@@ -881,7 +883,7 @@ config.withDefaults({
   view: ['mosaic'],
   count: 20,
 });
-config.join(industryList);
+config.join(sectorList);
 
 
 https://www.epa.gov/enviroatlas
@@ -1634,7 +1636,7 @@ function loadIOWidgets(param) {
     // LEFT - INPUT
  	//if (param["view"] == "io") {
 
-	    const heatmap_input = useeio.industryList({
+	    const heatmap_input = useeio.sectorList({
 	        model: model,
 	        selector: '#impact-heatmap-input',
 	        scope: 'input'
@@ -1651,7 +1653,7 @@ function loadIOWidgets(param) {
 	//}
 
 	// CENTER - MAIN SECTORS
-    const heatmap = useeio.industryList({
+    const heatmap = useeio.sectorList({
         model: model,
         selector: '#impact-heatmap-main',
         scope: 'main'
@@ -1667,7 +1669,7 @@ function loadIOWidgets(param) {
    
     // RIGHT - OUTPUT
     //if (param["view"] == "io") {
-	 	const heatmap_output = useeio.industryList({
+	 	const heatmap_output = useeio.sectorList({
 	        model: model,
 	        selector: '#impact-heatmap-output',
 	        scope: 'output'
