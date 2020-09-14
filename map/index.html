@@ -76,7 +76,7 @@
   if (param["intro"] || param["show"] == "farmfresh") {
     //document.getElementById("readmeHolder").style.display = "block";
     //document.getElementById("readmeEdit").style.display = "block";
-    loadMarkdown("../map/starter/README.md", "introDiv", "_parent");
+    //loadMarkdown("../map/starter/README.md", "introDiv", "_parent");
   }
   if (param["design"] && param["show"] != "farmfresh") {
     document.getElementById("readmeHolder").style.display = "block";
@@ -905,7 +905,7 @@
   <div class="user-5" style="display:none">
     <hr>Staff only - 
     <a href="/maps/leaflet/providers/preview/" target="basemaps">View Basemaps</a> | 
-    <a href="/community/impact/json/menu.json">View JSON</a><br>
+    <a href="/community-data/us/state/GA/ga-layers.json">View JSON</a><br>
     <div class="settingAdminNotes"></div>
   </div>
 
@@ -917,7 +917,7 @@
 <!-- APP MENU -->
 <!-- From map-filters.js displayBigThumbnails function -->
 <!-- Currently map-filters.js limits loading to localhost -->
-<div id="honeycombPanelHolder" style="display:none; margin-top:30px; margin-bottom:25px; overflow:auto;">
+<div id="honeycombPanelHolder" style="display:none; margin-top:30px; overflow:auto;">
   
   <!--div id="honeycombPanel"-->
   <div id="honeycombPanel" style="display: block;">
