@@ -1327,8 +1327,8 @@ function getDirectLink(directlink,rootfolder,layer) {
 }
 function initSiteObject(layerName) {
 
-	if(location.host.indexOf('localhost') >= 0) {
-	    // Also make a .json file sample for Greenville
+	//if(location.host.indexOf('localhost') >= 0) {
+	    // Greenville:
 	    // https://github.com/codeforgreenville/leaflet-google-sheets-template
 	    // https://data.openupstate.org/map-layers
 
@@ -1374,7 +1374,7 @@ function initSiteObject(layerName) {
 	    })(); // end siteObject
 
 	    
-	}
+	//}
 } // end initSiteObject
 
 function callInitSiteObject(attempt) { // wait for dual_map
