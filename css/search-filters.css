@@ -80,6 +80,9 @@
 .filterLabelMain {
     display: none;
 }
+#filterLocations {
+
+}
 .filterBubble {
     -webkit-transition: 0.3s ease-in-out;
     -moz-transition: 0.3s ease-in-out;
@@ -102,6 +105,7 @@
     background: #fff;
     padding: 15px;
     vertical-align: baseline;
+    pointer-events: auto; /* catch click through to keep open location filter */
 }
 .si-wrapper div {
     position: absolute;

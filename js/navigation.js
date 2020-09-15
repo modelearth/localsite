@@ -244,6 +244,9 @@ $(document).ready(function(){
 				//$("#itemMenu").appendTo($(this).parent().parent());
 				event.stopPropagation();
 			});
+			$('.filterBubble').click(function(e){
+			    e.stopPropagation(); // To keep location filter open when clicking
+			});
 			$(document).click(function(event) { // Hide open menus
 				if($("#menuHolder").css('display') !== 'none') {
 	            	$("#menuHolder").hide(); // Since menu motion may freeze when going to another page.
@@ -252,6 +255,7 @@ $(document).ready(function(){
 	            		//event.preventDefault(); // Using requires double click
 	            	}
 	        	}
+	        	$("#filterLocations").hide();
 			});
 		// END WAS LIMITED TO HEADER
 
