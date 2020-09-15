@@ -108,7 +108,7 @@
     <div class="filterFields" style="min-height:54px; padding:2px 0 4px 0; float:left">
 
       <div class="showApps local" style="display:none;float:left;">
-        <i class="material-icons" style="font-size:30px; color:#ccc; padding:10px 0px 4px 0px; cursor:pointer">&#xE5C3;</i>
+        <i class="material-icons" style="font-size:36px; color:#ccc; padding:6px 6px 4px 0px; cursor:pointer">&#xE5C3;</i>
       </div>
 
       <div style="display:none;" class="filterField mock-up suppliers exporter">
@@ -1342,6 +1342,10 @@ $(document).ready(function () {
       console.log(".showApps from map/index.html");
     }, 800 );
   //}
+
+  $(".showApps").removeClass("local");
+  $(".showApps").show();
+
 });
 
 // COMMON - also resides in embed-map.js
