@@ -969,7 +969,7 @@ strVar += "  <!--div id=\"honeycombPanel\"-->";
 strVar += "  <div id=\"honeycombPanel\" style=\"display: block;\">";
 strVar += "    <a name=\"sections\"><\/a>";
 strVar += "    ";
-strVar += "    <div class=\"bigThumbMenu widthColumns\" style=\"margin:0 auto; \"><\/div>";
+strVar += "    <div class=\"bigThumbMenu\" style=\"margin:0 auto; \"><\/div>";
 strVar += "";
 strVar += "    <div id=\"honeyMenuHolder\" style=\"display:none\">";
 strVar += "      <div id=\"honeycombMenu\"><\/div>";
