@@ -28,6 +28,9 @@
 <script src="../js/leaflet.js"></script>
 <script src="../js/d3.v5.min.js"></script>
 
+<!-- Resides in info/index.html and map/index.html -->
+<script src="https://unpkg.com/topojson-client@3"></script>
+
 <!-- after d3 -->
 <script type="text/javascript" src="../js/map-filters.js"></script>
 <script type="text/javascript" src="../js/table-sort.js"></script>
@@ -108,10 +111,10 @@
     <div class="filterFields" style="min-height:54px; padding:2px 0 4px 0; float:left">
 
       <div class="showApps local" style="display:none;float:left;">
-        <i class="material-icons" style="font-size:30px; color:#ccc; padding:10px 0px 4px 0px; cursor:pointer">&#xE5C3;</i>
+        <i class="material-icons" style="font-size:36px; color:#ccc; padding:6px 6px 4px 0px; cursor:pointer">&#xE5C3;</i>
       </div>
 
-      <div style="display:none;" class="filterField mock-up suppliers exporter">
+      <div style="display:none;" class="filterField layerclass mock-up suppliers exporter">
         <div id="catSearchHolder">
           <div class="filterLabel">
             <div class="filterLabelMain">
@@ -636,7 +639,7 @@
       <div style="clear:both"></div>
 
 
-      <div id="catsMobile" class="suppliers" style="display:none; margin:15px 20px 20px 0; float:left">
+      <div id="catsMobile" class="layerclass suppliers" style="display:none; margin:15px 20px 20px 0; float:left">
         <div id="catListClone" class="showMobileX" style="width:100%">
         </div>
       </div>
@@ -1017,7 +1020,7 @@
 </div>
 <!-- /INDUSTRIES -->
 
-<div style="display:none;margin:20px 10px 20px 17px; min-width:195px; line-height: 1.5em;" class="suppliers">
+<div style="display:none;margin:20px 10px 20px 17px; min-width:195px; line-height: 1.5em;" class="layerclass suppliers">
   <div class="catList" id="industryCatList">
     <div>All Categories</div>
     <div>Air Purifying Machines</div>
@@ -1058,21 +1061,23 @@
         <h1 class="listTitle" style="display:none;margin-bottom:12px"></h1>
         <h2 class="listSubtitle" style="display:none"></h2>
 
-        <div style="display:none" class="suppliers">
+        <div style="display:none" class="layerclass farmfresh">
           
 
           <div id="legendLingsHolder" class="localonly" style="display:none;margin-bottom: 20px">
             <div class="legendLink">
               <div class="legendLinkRect" style="background:#1f78b4;"></div>
-              <div style="margin-right:16px;float:left">MANUFACTURERS</div>
+              <div style="margin-right:16px;float:left">MARKETS</div>
             </div>
+            <!--
             <div class="legendLink">
               <div class="legendLinkRect" style="background:#b2df8a;"></div>
               <div style="margin-right:16px;float:left">DISTRIBUTORS</div>
             </div>
+            -->
             <div class="legendLink">
               <div class="legendLinkRect" style="background:#a6cee3;"></div>
-              <div style="margin-right:16px;float:left">BOTH</div>
+              <div style="margin-right:16px;float:left">FARMS</div>
             </div>
             <div style="clear:both"></div>
           </div>
@@ -1193,7 +1198,7 @@
 
         </div>
 
-        <div id="disclaimerText" class="suppliers" style="display:none;margin-right:20px;font-size: 12px;">
+        <div id="disclaimerText" class="layerclass suppliers" style="display:none;margin-right:20px;font-size: 12px;">
           <b>Disclaimer:</b>  The Georgia Department of Economic Development (GDEcD) is collecting information from Georgia companies that indicate they are producing essential medical supplies in response to the COVID-19 pandemic. GDEcD is sharing these companies’ information with Georgia’s units of local government and other potential in-state buyers of these essential medical supplies merely as a courtesy. The following product information and addresses were submitted by private companies to GDEcD, and this list does not constitute an endorsement of any particular company or product by the State or by GDEcD.  GDEcD does not make any representations or warranties as to the accuracy of this information, or as to the quality or quantity of the products offered by these companies. Buyers use this information at their own risk.  Buyers are encouraged to contact the companies directly, for product specifications, delivery options, and other information required for executing a purchase.  Buyers are cautioned to make their own determinations regarding supplier responsibility, including but not limited to assessing whether the supplier has appropriate financial, organization and operational capacity, appropriate legal authority to do business in Georgia, a satisfactory record of integrity, and an acceptable performance record on past contracts.
         </div>
 
@@ -1342,6 +1347,10 @@ $(document).ready(function () {
       console.log(".showApps from map/index.html");
     }, 800 );
   //}
+
+  $(".showApps").removeClass("local");
+  $(".showApps").show();
+
 });
 
 // COMMON - also resides in embed-map.js

@@ -179,7 +179,7 @@
     filter: alpha(opacity=100);
 }
 .bigThumb a {
-    positionX: absolute;
+    position: absolute; /* allows href to cover space */
     top: 0;
     right: 0;
     left: 0;
