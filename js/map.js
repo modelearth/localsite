@@ -885,6 +885,7 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.listTitle = "USDA Farm Produce";
     //if (location.host.indexOf('localhost') >= 0) {
       dp1.valueColumn = "type";
+      dp1.valueColumnLabel = "Type"; // was: Prepared Food
       dp1.dataset = "../../../community/farmfresh/scraper/out/states/ga/markets.csv";
     //} else {
     //  // Older data
@@ -899,16 +900,13 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.titleColumn = "marketname";
     dp1.searchFields = "marketname";
     dp1.addressColumn = "street";
-    
-    //dp1.valueColumn = "type";
-    dp1.valueColumnLabel = "Prepared Food";
     dp1.latColumn = "y";
     dp1.lonColumn = "x";
     dp1.stateColumn = "state";
 
     dp1.addlisting = "https://www.ams.usda.gov/services/local-regional/food-directories-update";
 
-    dp1.listInfo = "Green locations offer <span style='white-space: nowrap'>prepared food<br>Please call ahead to arrange pickup or delivery.</span><br>You can help keep this data current. <a style='white-space: nowrap' href='https://model.earth/community/farmfresh/'>Learn about data</a> and <a href='https://www.ams.usda.gov/local-food-directories/farmersmarkets'>submit updates</a>";
+    dp1.listInfo = "Farmers markets and local farms providing fresh produce directly to consumers. You can help keep this data current. <a style='white-space: nowrap' href='https://model.earth/community/farmfresh/'>Learn about data</a> and <a href='https://www.ams.usda.gov/local-food-directories/farmersmarkets'>submit updates</a>";
   }
 
   // Load the map using settings above
