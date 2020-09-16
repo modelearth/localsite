@@ -471,7 +471,13 @@ function addIcons(dp,map,map2) {
     }
 
     // MAP POPUP
-    var output = "<b>" + element[dp.nameColumn] + "</b><br>";
+    let name = element.name;
+    if (element[dp.nameColumn]) {
+      name = element[dp.nameColumn];
+    } else if (element.title) {
+      name = element.title;
+    }
+    var output = "<b>" + name + "</b><br>";
     if (element[dp.addressColumn]) {
       output +=  element[dp.addressColumn] + "<br>";
     } else if (element.address || element.city || element.state || element.zip) { 
@@ -514,6 +520,10 @@ function addIcons(dp,map,map2) {
     }
     if (element.items) {
       output += "<b>Items:</b> " + element.items + "<br>";
+    }
+
+    if (element.website && !element.website.toLowerCase().includes("http")) {
+        element.website = "http://" + element.website;
     }
     if (element.website) {
       if (element.website.length <= 50) {
@@ -662,8 +672,14 @@ function markerRadius(radiusValue,map) {
 
 // MAP 1
 // var map1 = {};
+var showprevious = param["show"];
 function loadMap1(dp) { // Also called by map-filters.js
   console.log('loadMap1');
+  if (param["show"] != showprevious) {
+    changeCat(""); // Clear side
+  }
+  // To do: limit to when layer changes
+  $(".layerclass").hide(); // Hides suppliers, and other layer-specific css
 
   // Note: light_nolabels does not work on https. Remove if so. Was positron_light_nolabels.
   var basemaps1 = {
@@ -728,6 +744,8 @@ function loadMap1(dp) { // Also called by map-filters.js
   dp1.zoom = 7;
   dp1.listLocation = false; // Hides Waze direction link in list, remains in popup.
 
+  $("." + param["show"]).show(); // Show layer's divs, after hiding all layer-specific above.
+
   //if (dp && dp[0]) { // Parameters set in page or layer json
   if (dp && dp.dataset) { // Parameters set in page or layer json
     dp1 = dp;
@@ -788,14 +806,15 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.listTitle = "Georgia COVID-19 Response";
     dp1.listTitle = "Georgia Suppliers of&nbsp;Critical Items <span style='white-space:nowrap'>to Fight COVID-19</span>"; // For iFrame site
 
-    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-09/ga_suppliers_list_9-9-2020.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
-    dp1.dataset = "https://mygeorgia.org/display/products/suppliers/us_ga_suppliers_ppe_2020_09_09.csv";
+    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-09/ga_suppliers_list_9-16-2020.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
+    dp1.dataset = "https://mygeorgia.org/display/products/suppliers/us_ga_suppliers_ppe_2020_09_16.csv";
     //dp1.dataset = "/display/products/suppliers/us_ga_suppliers_ppe_2020_06_17.csv";
 
     dp1.dataTitle = "Manufacturers and Distributors";
     dp1.itemsColumn = "items";
     dp1.valueColumn = "type";
     dp1.valueColumnLabel = "Type";
+    dp1.color = "#ff9819"; // orange
     dp1.markerType = "google";
     //dp1.keywords = "items";
     // "In Business Type": "type", "In State Name": "state", "In Postal Code" : "zip"
@@ -863,8 +882,15 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.listLocation = true;
 
   } else if (param["show"] == "farmfresh") { // || param["show"] == "" || param["show"] == "mockup"
-    dp1.listTitle = "USDA Farm Produce (mockup)";
-    dp1.dataset = dual_map.custom_data_root()  + "farmfresh/farmersmarkets-" + state_abbreviation + ".csv";
+    dp1.listTitle = "USDA Farm Produce";
+    //if (location.host.indexOf('localhost') >= 0) {
+      dp1.valueColumn = "type";
+      dp1.dataset = "../../../community/farmfresh/scraper/out/states/ga/markets.csv";
+    //} else {
+    //  // Older data
+    //  dp1.valueColumn = "Prepared";
+    //  dp1.dataset = dual_map.custom_data_root()  + "farmfresh/farmersmarkets-" + state_abbreviation + ".csv";
+    //}
     dp1.name = "Local Farms"; // To remove
     dp1.dataTitle = "Farm Fresh Produce";
     dp1.markerType = "google";
@@ -873,7 +899,7 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.titleColumn = "marketname";
     dp1.searchFields = "marketname";
     dp1.addressColumn = "street";
-    dp1.valueColumn = "Prepared";
+    
     //dp1.valueColumn = "type";
     dp1.valueColumnLabel = "Prepared Food";
     dp1.latColumn = "y";
@@ -904,6 +930,7 @@ function loadMap1(dp) { // Also called by map-filters.js
       left: 0
     });
   }
+  showprevious = param["show"];
 }
 
 
@@ -1189,6 +1216,9 @@ function showList(dp,map) {
         name = element.title;
       }
 
+      if (element.website && !element.website.toLowerCase().includes("http")) {
+        element.website = "http://" + element.website;
+      }
       // TO INVESTIGATE - elementRaw (not element) has to be used here for color scale.
 
       // DETAILS LIST
