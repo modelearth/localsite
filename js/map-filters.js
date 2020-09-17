@@ -787,6 +787,7 @@ function showSearchClick() {
 	if ($("#filterFieldsHolder").is(':visible')) {
 		$("#filterFieldsHolder").hide();
 		$(".headerOffset2").hide();
+		//$("#pageLinksHolder").hide();
 	} else {
 		$("#filterFieldsHolder").show();
 		$(".headerOffset2").show();
@@ -1789,9 +1790,6 @@ function initSiteObject(layerName) {
 	                
 	                // siteObjectFunctions(siteObject); // could add to keep simple here
 	          
-	          		$('.showSearch').click(function(event) {
-	          			showSearchClick();
-	          		});
 	          		$('#showApps, .hideApps').click(function(event) {
 	          			if ($("#honeycombPanelHolder").is(':visible')) {
 	          				$("#honeycombPanelHolder").hide();

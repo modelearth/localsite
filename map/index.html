@@ -108,7 +108,7 @@
   <div id="activeLayer" style="display: none"></div>
 
  
-  <div id="filterFieldsHolder" class="contentfull noprint" style="margin:0 auto; padding-top:0px;">
+  <div id="filterFieldsHolder" class="contentfull noprint" style="margin:0 auto; padding-top:0px; overflow:auto">
     <div class="filterFields" style="min-height:54px; padding:2px 0 4px 0; float:left">
 
       <div id="showApps" class="local" style="display:none;float:left;">
@@ -715,32 +715,7 @@
 </div>
 <!-- END FILTERS -->
 
-<div id="pageLinksHolder" class="content contentpadding" style="display:none; padding-top:0; padding-bottom:0">
-  <br>
-    
-    <div style="float:right; padding: 12px 0px 10px 0" class="noprint hideMobile">
-      <a href="https://model.earth/io/charts/">About Widgets</a>
-    </div>
-    <!--
-      class="mainColumn mainColumn1" 
-    -->
-       <div id="pageLinksInsert" style="displayX:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
-            <a onClick="go({}); return false;"  href="./">Overview</a> | 
-            <a onClick="goHash({'go':'bioeconomy','show':''}); return false;" href="./#go=bioeconomy">Bioeconomy</a> | 
-            <span class="local" style="display:none">
-            <a onClick="go({'go':'','show':'farmfresh'}); return false;" href="./#show=farmfresh">Fresh Produce</a> | 
-            </span>
-            <a onClick="goHash({'go':'manufacturing','show':''}); return false;" href="./#go=manufacturing">Manufacturing</a> | 
-            <a onClick="goHash({'go':'parts','show':''}); return false;" href="./#go=parts">Parts Manufacturing</a> 
-            <span class="local" style="display:none"> | 
-            <a onClick="goHash({'go':'','show':'suppliers'}); return false;" href="./#show=suppliers">PPE Suppliers</a> | 
-            </span>
-            <a style="display:none" onClick="goHash({'geomap':'true'}); return false;" href="./#geomap=US13">County&nbsp;Map</a>
-            <br>
-        </div>
 
-  
-</div>
 
 <!-- Settings Panel -->
 <div class="settingsPanel topMenuOffset floater" style="display:none; position:fixed">
@@ -948,6 +923,33 @@
 </div>
 <div style="clear:both"></div>
 <!-- /APP MENU -->
+
+
+
+<div id="pageLinksHolder" class="content contentpadding" style="display:none; padding-top:0; padding-bottom:0">
+  <br>
+    
+    <div style="float:right; padding: 12px 0px 10px 0" class="noprint hideMobile">
+      <a href="https://model.earth/io/charts/">About Widgets</a>
+    </div>
+    <!--
+      class="mainColumn mainColumn1" 
+    -->
+     <div id="pageLinksInsert" style="displayX:none; float:left; font-size: 15px; padding: 12px 30px 10px 0">
+          <a onClick="go({}); return false;"  href="./">Overview</a> | 
+          <a onClick="goHash({'go':'bioeconomy','show':''}); return false;" href="./#go=bioeconomy">Bioeconomy</a> | 
+          <span class="local" style="display:none">
+          <a onClick="go({'go':'','show':'farmfresh'}); return false;" href="./#show=farmfresh">Fresh Produce</a> | 
+          </span>
+          <a onClick="goHash({'go':'manufacturing','show':''}); return false;" href="./#go=manufacturing">Manufacturing</a> | 
+          <a onClick="goHash({'go':'parts','show':''}); return false;" href="./#go=parts">Parts Manufacturing</a> 
+          <span class="local" style="display:none"> | 
+          <a onClick="goHash({'go':'','show':'suppliers'}); return false;" href="./#show=suppliers">PPE Suppliers</a> | 
+          </span>
+          <a style="display:none" onClick="goHash({'geomap':'true'}); return false;" href="./#geomap=US13">County&nbsp;Map</a>
+          <br>
+      </div>
+</div>
 
 
 <div class="displayOnload" style="display:none;position:relative">

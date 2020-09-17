@@ -745,6 +745,7 @@ function loadMap1(dp) { // Also called by map-filters.js
   dp1.listLocation = false; // Hides Waze direction link in list, remains in popup.
 
   $("." + param["show"]).show(); // Show layer's divs, after hiding all layer-specific above.
+  $(".headerOffset2").height($("#filterFieldsHolder").height() + "px"); // Adjust incase reveal/hide changes height.
 
   //if (dp && dp[0]) { // Parameters set in page or layer json
   if (dp && dp.dataset) { // Parameters set in page or layer json
@@ -1653,4 +1654,7 @@ function lockSidemap() {
     mapFixed = false;
   }
 }
+$(window).resize(function() {
+  $(".headerOffset2").height($("#filterFieldsHolder").height() + "px");
+});
 console.log('hello from dual map in localsite/js/map.js');
