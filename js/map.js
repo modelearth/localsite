@@ -881,13 +881,13 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.valueColumn = "Delivery";
     dp1.listLocation = true;
 
-  } else if (param["show"] == "farmfresh") { // || param["show"] == "" || param["show"] == "mockup"
+  } else if (param["show"] == "farmfresh") {
     dp1.listTitle = "USDA Farm Produce";
     //if (location.host.indexOf('localhost') >= 0) {
       dp1.valueColumn = "type";
       dp1.valueColumnLabel = "Type"; // was: Prepared Food
       //dp1.dataset = "../../../community/farmfresh/scraper/out/states/ga/markets.csv";
-      dp1.dataset = "../../../community-data/us/state/" + state_abbreviation + "/" + state_abbreviation + "-farmfresh.csv";
+      dp1.dataset = "https://model.earth/community-data/us/state/" + state_abbreviation.toUpperCase() + "/" + state_abbreviation + "-farmfresh.csv";
     //} else {
     //  // Older data
     //  dp1.valueColumn = "Prepared";
