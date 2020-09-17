@@ -98,6 +98,7 @@
 <!-- Start HTML -->
 
 <!-- FILTERS -->
+<div class="search-filters-css" style="display:none">
 <div id="headerFixed" class="filterPanel">
   <div class="headerOffset headerOffsetOne">&nbsp;</div>
 
@@ -111,7 +112,7 @@
     <div class="filterFields" style="min-height:54px; padding:2px 0 4px 0; float:left">
 
       <div class="showApps local" style="display:none;float:left;">
-        <i class="material-icons" style="font-size:36px; color:#ccc; padding:6px 6px 4px 0px; cursor:pointer">&#xE5C3;</i>
+        <i class="material-icons">&#xE5C3;</i>
       </div>
 
       <div style="display:none;" class="filterField layerclass mock-up suppliers exporter">
@@ -707,14 +708,12 @@
 
   </div>
   <!-- END CATEGORIES -->
-
-
 </div>
-<!-- END FILTERS -->
-
 
 <!-- Matches filterFields and headerFixed height -->
 <div class="headerOffset2" style="height:56px">&nbsp;</div>
+</div>
+<!-- END FILTERS -->
 
 <div id="pageLinksHolder" class="content contentpadding" style="display:none; padding-top:0; padding-bottom:0">
   <br>
@@ -920,10 +919,14 @@
 <!-- APP MENU -->
 <!-- From map-filters.js displayBigThumbnails function -->
 <!-- Currently map-filters.js limits loading to localhost -->
-<div id="honeycombPanelHolder" style="display:none; margin-top:30px; overflow:auto;">
-  
+<div class="search-filters-css" style="display:none">
+<div id="honeycombPanelHolder" style="display:none; overflow:auto;">
+  <div class="hideApps showApps" style="float:right;cursor:pointer;padding:15px 20px 15px 15px;font-size:19px;color:#ccc">✕</div>
+
   <!--div id="honeycombPanel"-->
-  <div id="honeycombPanel" style="display: block;">
+  <div id="honeycombPanel" style="display: block;margin-top:30px;">
+    
+
     <a name="sections"></a>
     
     <div class="bigThumbMenu" style="margin:0 auto; "></div>
@@ -935,6 +938,7 @@
       <br><br>
       
   </div>
+</div>
 </div>
 <div style="clear:both"></div>
 <!-- /APP MENU -->

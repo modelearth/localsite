@@ -1,3 +1,6 @@
+.search-filters-css {
+  display: block !important;
+}
 #filterEmbedHolder {
     display: block !important;
 }
@@ -13,6 +16,15 @@
 }
 .select-menu-arrow-holder {
     position:absolute; right:5px; top:5px; pointer-events:none;bottom:2px;background:#fff;
+}
+.showApps > .material-icons {
+  color: #ccc;
+  font-size:36px;
+  padding:6px 6px 4px 0px;
+  cursor:pointer;
+}
+.showApps.active > .material-icons {
+  color: #eee;
 }
 .fieldSelector {
 	display: none;

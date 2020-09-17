@@ -1795,11 +1795,13 @@ function initSiteObject(layerName) {
 	          		$('.showApps').click(function(event) {
 	          			if ($("#honeycombPanelHolder").is(':visible')) {
 	          				$("#honeycombPanelHolder").hide();
+	          				$('.showApps').removeClass("active");
 	          			} else {
 	          				$("#honeycombPanelHolder").show();
 	          				if (!$(".bigThumbMenuContent").length) {
 	          					displayBigThumbnails("main",siteObject);
 							}
+							$('.showApps').addClass("active");
 	          			}
 	          			
 					  	event.stopPropagation();
