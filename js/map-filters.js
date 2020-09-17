@@ -1302,7 +1302,7 @@ function displayBigThumbnails(layerName,siteObject) {
 	        }
 	    }
 	    //alert(sectionMenu);
-	    $(".bigThumbMenu").append(sectionMenu);
+	    $(".bigThumbMenu").append("<div class='bigThumbMenuInner'>" + sectionMenu + "</div>");
 	    //$("#honeycombMenu").append("<ul class='bigThumbUl'>" + sectionMenu + "</ul>");
 	    
 	    $("#iconMenu").append(iconMenu);
@@ -1792,16 +1792,16 @@ function initSiteObject(layerName) {
 	          		$('.showSearch').click(function(event) {
 	          			showSearchClick();
 	          		});
-	          		$('.showApps').click(function(event) {
+	          		$('#showApps, .hideApps').click(function(event) {
 	          			if ($("#honeycombPanelHolder").is(':visible')) {
 	          				$("#honeycombPanelHolder").hide();
-	          				$('.showApps').removeClass("active");
+	          				$('#showApps').removeClass("active");
 	          			} else {
 	          				$("#honeycombPanelHolder").show();
 	          				if (!$(".bigThumbMenuContent").length) {
 	          					displayBigThumbnails("main",siteObject);
 							}
-							$('.showApps').addClass("active");
+							$('#showApps').addClass("active");
 	          			}
 	          			
 					  	event.stopPropagation();

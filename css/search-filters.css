@@ -17,13 +17,13 @@
 .select-menu-arrow-holder {
     position:absolute; right:5px; top:5px; pointer-events:none;bottom:2px;background:#fff;
 }
-.showApps > .material-icons {
+#showApps > .material-icons {
   color: #ccc;
   font-size:36px;
   padding:6px 6px 4px 0px;
   cursor:pointer;
 }
-.showApps.active > .material-icons {
+#showApps.active > .material-icons {
   color: #eee;
 }
 .fieldSelector {
@@ -143,6 +143,8 @@
 
 #honeycombPanel {
     text-align: center;
+    margin:50px 30px 0 30px;
+    max-width: 1200px;
 }
 .bigThumbWidth { /* allows margin to reside within percent */
     float:left;
@@ -180,7 +182,9 @@
     margin: 40px;
     margin: 0 auto;
 }
-
+.bigThumbMenuContent {
+  display:inline-block;
+}
 .bigThumbWidth {
     padding:0 20px 0 20px;
     padding:0px !important;
@@ -217,11 +221,21 @@
     font-size: 15px;
     font-weight: 400;
 }
-.bigThumbMenu {
+.bigThumbMenuX {
     clear: both; /* clear close X */
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    /*
     margin: 0 auto;
+    */
 }
+.bigThumbMenuInnerX {
+  displayX:inline;
+  float:left;
+  border:1px solid green;
+}
+/*
 @media (min-width: 500px) {
   .bigThumbMenu {
     width:400px;
@@ -242,6 +256,7 @@
     width: 100%;
   }
 }
+*/
 .bigThumbWidth {
     width: 180px;
     height: 170px;

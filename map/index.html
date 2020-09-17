@@ -111,7 +111,7 @@
   <div id="filterFieldsHolder" class="contentfull noprint" style="margin:0 auto; padding-top:0px;">
     <div class="filterFields" style="min-height:54px; padding:2px 0 4px 0; float:left">
 
-      <div class="showApps local" style="display:none;float:left;">
+      <div id="showApps" class="local" style="display:none;float:left;">
         <i class="material-icons">&#xE5C3;</i>
       </div>
 
@@ -920,23 +920,29 @@
 <!-- From map-filters.js displayBigThumbnails function -->
 <!-- Currently map-filters.js limits loading to localhost -->
 <div class="search-filters-css" style="display:none">
-<div id="honeycombPanelHolder" style="display:none; overflow:auto;">
-  <div class="hideApps showApps" style="float:right;cursor:pointer;padding:15px 20px 15px 15px;font-size:19px;color:#ccc">✕</div>
+<div id="honeycombPanelHolder" style="display:none;position: relative;">
+  <div class="hideApps" style="position:absolute;right:0;top:0;cursor:pointer;padding:15px 20px 15px 15px;font-size:19px;color:#ccc;z-index:1">✕</div>
 
-  <!--div id="honeycombPanel"-->
-  <div id="honeycombPanel" style="display: block;margin-top:30px;">
+  <div style="overflow:auto;position:relative">
+  <a name="sections"></a>
+  <div id="honeycombPanel" style="display: block;">
     
-
-    <a name="sections"></a>
-    
-    <div class="bigThumbMenu" style="margin:0 auto; "></div>
-
-    <div id="honeyMenuHolder" style="display:none">
-      <div id="honeycombMenu"></div>
-    </div>
-
-      <br><br>
+    <!--
+    <div style="float:left;display:flex;justify-content:left;">
       
+      </div>
+    -->
+
+      <div class="bigThumbMenu" style="margin:0 auto; "></div>
+
+      <div id="honeyMenuHolder" style="display:none">
+        <div id="honeycombMenu"></div>
+      </div>
+
+        <br><br>
+     
+
+  </div>
   </div>
 </div>
 </div>
@@ -1347,13 +1353,13 @@ $(document).ready(function () {
   //alert(param.show)
   //if(!param.show) {
     setTimeout( function() {
-      $( ".showApps" ).trigger( "click" );
+      $("#showApps").trigger( "click" );
       console.log(".showApps from map/index.html");
     }, 800 );
   //}
 
-  $(".showApps").removeClass("local");
-  $(".showApps").show();
+  $("#showApps").removeClass("local");
+  $("#showApps").show();
 
 });
 
