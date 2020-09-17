@@ -54,7 +54,7 @@
 
 <style>
 #logoholderX { margin-top: -8px; }
-#pageLinksHolder { display:block !important; margin-top: 55px;}
+#pageLinksHolder { display:block !important; }
 
 .fade-in {
   animation: fadeIn ease 4s;
@@ -68,13 +68,6 @@
   }
 }
 
-.headerOffset2 {
-	display: none !important;
-}
-/* Temp overrides */
-.mock-up {
-	displayX: inline-block !important;
-}
 .top-content-columns-wide {
 	width:100% !important;
 	max-width: 3000px !important;
@@ -1297,7 +1290,7 @@ function loadIOWidgets(param) {
 // INIT
 refreshWidgets();
 if (!param.geo) { // Others gets called by refreshWidgets on init.
-	renderMapShapes("geomap", param);
+	//renderMapShapes("geomap", param);
 }
 
 </script>
