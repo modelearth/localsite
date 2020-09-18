@@ -1350,12 +1350,10 @@ function renderMapShapesSimple(whichmap, hash) {
 		//alert("found geojsonLayer")
 	  	// Problem, this removes the whole layer, shapes and all.
 		//map.removeLayer(geojsonLayer); // Remove the prior topo layer
-
-
 	}
-
 }
 function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
+	//alert("renderMapShapes " + whichmap);
 	console.log("renderMapShapes " + whichmap);
 	var req = new XMLHttpRequest();
 	const whichGeoRegion = hash.geomap;
@@ -1499,12 +1497,16 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
       let map;
       if (document.querySelector('#' + whichmap)) {
+
       	map = document.querySelector('#' + whichmap)._leaflet_map; // Recall existing map
   	  }
       var container = L.DomUtil.get(map);
       //if (container == null || map == undefined || map == null) { // Does not work
-  	  if ($('#' + whichmap).html() && $('#' + whichmap).html().length == 0) { // Note: Avoid putting loading icon within map div.
 
+      // Prevented info page county map
+      // $('#' + whichmap).html() && 
+  	  if ($('#' + whichmap).html().length == 0) { // Note: Avoid putting loading icon within map div.
+  	  	  //alert("set " + whichmap)
 	      map = L.map(whichmap, {
 		      center: new L.LatLng(lat,lon),
 		      scrollWheelZoom: false,
@@ -1789,7 +1791,7 @@ function initSiteObject(layerName) {
 	                consoleLog("json loaded within initSiteObject. location.hash: " + location.hash);
 	                
 	                // siteObjectFunctions(siteObject); // could add to keep simple here
-	          
+
 	          		$('#showApps, .hideApps').click(function(event) {
 	          			if ($("#honeycombPanelHolder").is(':visible')) {
 	          				$("#honeycombPanelHolder").hide();
