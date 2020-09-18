@@ -1510,6 +1510,7 @@ function dualmapLoaded(param, root, count) {
 				console.log("embed-map.js detects hashChangeEvent");
 				loadMap1();
 			}, false);
+			renderMapShapes("geomap", param); // Resides in map-filters.js
 		});
 	} else if (count<100) { // Wait a 100th of a second and try again
 		setTimeout( function() {
