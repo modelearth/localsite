@@ -9,7 +9,7 @@ Place the <a href='https://github.com/localsite/localsite/'>localsite</a> repo w
 
 ## 1. Start a localhost server on your computer
 
-OPTION 1: Go to the folder where you'd like your webroot to reside and run the following to view pages on localhost:  
+WITH PYTHON: Go to the folder where you'd like your webroot to reside and run the following to view pages on localhost:  
 Run this command to start localhost whenever you restart your computer.
 
 	python -m http.server 8887
@@ -22,7 +22,10 @@ If the above do not work, you can also try:
 
 	python -m SimpleHTTPServer 8887
 
- OPTION 2: Alternatively, you can install [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en) to view and develop pages offline using https://localhost:8777 on your computer. Web Server for Chrome also allows you to [load a custom domain](https://medium.com/@jmatix/using-chrome-as-a-local-web-server-af04baffd581). Web Server for Chrome does not work as a Brave browser extension on Mac (as of December 2019), but you can add as a Chrome extension, then utilize from within Brave.
+ON A PC: [Install IIS](https://www.techwalla.com/articles/how-to-circumvent-mcafee-dlp) to view using http://localhost/  &nbsp; With this approach you'd avoid typing the port number.
+
+
+ WITH CHORME: Alternatively, you can install [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en) to view and develop pages offline using https://localhost:8777 on your computer. Web Server for Chrome also allows you to [load a custom domain](https://medium.com/@jmatix/using-chrome-as-a-local-web-server-af04baffd581). Web Server for Chrome does not work as a Brave browser extension on Mac (as of December 2019), but you can add as a Chrome extension, then utilize from within Brave.
 
 ## 2. Clone the "localsite" repo into your webroot 
 

@@ -43,8 +43,10 @@ function populateFieldsFromHash() {
 // var param = loadParams(location.search,location.hash); // This occurs in localsite.js
 
 
+renderMapShapes("geomap", param); // Resides in map-filters.js
 
 $(document).ready(function () {
+
 
 	//loadMarkupPage("intro.md", "introDiv", "_parent");
 	if (! ('webkitSpeechRecognition' in window) ) {
@@ -1503,9 +1505,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
       var container = L.DomUtil.get(map);
       //if (container == null || map == undefined || map == null) { // Does not work
 
-      // Prevented info page county map
-      // $('#' + whichmap).html() && 
-  	  if ($('#' + whichmap).html().length == 0) { // Note: Avoid putting loading icon within map div.
+  	  if ($('#' + whichmap) && $('#' + whichmap).html().length == 0) { // Note: Avoid putting loading icon within map div.
   	  	  //alert("set " + whichmap)
 	      map = L.map(whichmap, {
 		      center: new L.LatLng(lat,lon),
