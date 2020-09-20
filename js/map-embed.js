@@ -1387,9 +1387,11 @@ function jsLoaded(root) {
 
 			console.log("location.host: " + location.host);
 			//if(location.host.indexOf('georgia.org') >= 0) { 
+			if (location.host == 'georgia.org' || location.host == 'www.georgia.org') {
 	 			//$('.headerOffsetOne').css('height', '75px'); // Instead of 100px, for space above title.
+
 	 			strVarCss += ".headerOffsetOne {height:75px}"; 
-	 		//}
+	 		}
 			strVarCss += "h1 {font-size:38px;margin-top:20px}"; // Larger header for Drupal
 			//strVarCss += ".headerOffsetOne{display:none !important}";
 			strVarCss += ".component--main_content{margin-top:70px}";
@@ -1510,7 +1512,7 @@ function dualmapLoaded(param, root, count) {
 				console.log("embed-map.js detects hashChangeEvent");
 				loadMap1();
 			}, false);
-			renderMapShapes("geomap", param); // Resides in map-filters.js
+			
 		});
 	} else if (count<100) { // Wait a 100th of a second and try again
 		setTimeout( function() {

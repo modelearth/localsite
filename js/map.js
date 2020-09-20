@@ -669,6 +669,23 @@ function markerRadius(radiusValue,map) {
   //console.log("mapZoom:" + mapZoom + " radiusValu:" + radiusValue + " radiusOut:" + radiusOut);
   return radiusOut;
 }
+function changeCat(catTitle) {
+  $('#catSearch').val(catTitle);
+
+  $('#items').prop("checked", true); // Add front to parameter name.
+
+  $('#industryCatList > div').removeClass('catListSelected');
+
+  $('.catList > div').filter(function(){
+      return $(this).text() === catTitle
+  }).addClass('catListSelected');
+
+  $("#topPanel").hide();
+  $('#catListHolderShow').text('Product Categories');
+  //$('html,body').animate({
+  //    scrollTop: $("#hublist").offset().top - 250
+  //});
+}
 
 // MAP 1
 // var map1 = {};
@@ -907,8 +924,8 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.stateColumn = "state";
 
     dp1.addlisting = "https://www.ams.usda.gov/services/local-regional/food-directories-update";
-
-    dp1.listInfo = "Farmers markets and local farms providing fresh produce directly to consumers. You can help keep this data current. <a style='white-space: nowrap' href='https://model.earth/community/farmfresh/'>Learn about data</a> and <a href='https://www.ams.usda.gov/local-food-directories/farmersmarkets'>submit updates</a>";
+    // community/farmfresh/ 
+    dp1.listInfo = "Farmers markets and local farms providing fresh produce directly to consumers. You can help keep this data current. <a style='white-space: nowrap' href='https://model.earth/community/farmfresh/ga/'>Learn about data</a> and <a href='https://www.ams.usda.gov/local-food-directories/farmersmarkets'>submit updates</a>";
   }
 
   // Load the map using settings above
