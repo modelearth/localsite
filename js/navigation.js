@@ -288,7 +288,10 @@ $(document).ready(function(){
 		for (var i = 0; i < upLevelInstance; i++) { // Remove ../ for each found
 			removeClimb = removeClimb + "../";
 		}
+
+		console.log("climbpath before: " + climbpath);
 		climbpath = climbpath.replace(removeClimb,'');
+		console.log("climbpath after: " + climbpath);
 
 		//alert(climbpath)
 		/*
