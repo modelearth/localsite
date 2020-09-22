@@ -27,7 +27,7 @@ $(document).ready(function(){
  	foldercount = foldercount - 2;
  	var climbcount = foldercount;
  	if(location.host.indexOf('localhost') >= 0) {
- 		climbcount = foldercount - 0;
+ 		//climbcount = foldercount - 0;
  	}
  	var climbpath = "";
  	for (var i = 0; i < climbcount; i++) {
@@ -36,6 +36,8 @@ $(document).ready(function(){
  	if (climbpath == "") {
  		climbpath += "./"; // Eliminates ? portion of URL
  	}
+ 	console.log("climbpath " + climbpath);
+
  	var modelpath = climbpath;
  	if(location.host.indexOf('localhost') < 0) { // When not localhost.  localhost = 0
  		// To do: allow "Input-Output Map" link in footer to remain relative.
@@ -281,14 +283,20 @@ $(document).ready(function(){
 		footerFile = param.footer; // Custom
 
 		var footerFilePath = location.pathname + footerFile;
-		//alert(footerFilePath)
-		var upLevelInstance = (footerFilePath.match(/\.\.\//g) || []).length; // Instanced of ../
+		if (footerFile.indexOf("/") > 0) {
+			footerFilePath = footerFilePath.substr(0, footerFilePath.lastIndexOf("/") + 1); // Remove file name
+		}
+
+		console.log("footerFilePath " + footerFilePath);
+
+		var upLevelInstance = (footerFilePath.match(/\.\.\//g) || []).length; // count of ../ in path.
 
 		var removeClimb = ""
 		for (var i = 0; i < upLevelInstance; i++) { // Remove ../ for each found
 			removeClimb = removeClimb + "../";
 		}
 
+		console.log("upLevelInstance " + upLevelInstance);
 		console.log("climbpath before: " + climbpath);
 		climbpath = climbpath.replace(removeClimb,'');
 		console.log("climbpath after: " + climbpath);
@@ -318,8 +326,16 @@ $(document).ready(function(){
 	//climbpath = "../"; // TEMP
 
 	$("#footer").load(footerFile, function( response, status, xhr ) {
+
+		console.log("footerFile: " + footerFile);
 		let pageFolder = getPageFolder(footerFile);
-		makeLinksRelative("footer",climbpath,pageFolder);
+		console.log("pageFolder: " + pageFolder);
+
+		//var pathToFooter = 
+
+		//makeLinksRelative("footer",climbpath,pageFolder);
+		makeLinksRelative("footer",climbpath,footerFilePath);
+
 	});
 
 
