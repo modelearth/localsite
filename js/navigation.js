@@ -36,7 +36,7 @@ $(document).ready(function(){
  	if (climbpath == "") {
  		climbpath += "./"; // Eliminates ? portion of URL
  	}
- 	console.log("climbpath " + climbpath);
+ 	//console.log("climbpath " + climbpath);
 
  	var modelpath = climbpath;
  	if(location.host.indexOf('localhost') < 0) { // When not localhost.  localhost = 0
@@ -270,9 +270,6 @@ $(document).ready(function(){
 	}
 
 
-
-
-
 	if(document.getElementById("footer") == null) {
 		$("body").append( "<div id='footer' class='flexfooter noprint'></div>\r" );
 	} else {
@@ -292,18 +289,19 @@ $(document).ready(function(){
 
 		var upLevelInstance = (footerFilePath.match(/\.\.\//g) || []).length; // count of ../ in path.
 
-		var removeClimb = ""
+		var climbLevels = ""
 		for (var i = 0; i < upLevelInstance; i++) { // Remove ../ for each found
-			removeClimb = removeClimb + "../";
+			climbLevels = climbLevels + "../";
 		}
 
-		console.log("upLevelInstance " + upLevelInstance);
-		console.log("climbpath before: " + climbpath);
-		climbpath = climbpath.replace(removeClimb,'');
-		console.log("climbpath after: " + climbpath);
+		//console.log("upLevelInstance " + upLevelInstance);
+		//console.log("climbpath before: " + climbpath);
+		//climbpath = climbpath.replace(climbLevels,'');
+		//console.log("climbpath after: " + climbpath);
 
 		//alert(climbpath)
 		
+		/*
 		// Get the levels below root
 	 	var footerFoldercount = (footerFilePath.split('/').length - 1); // - (location.pathname[location.pathname.length - 1] == '/' ? 1 : 0) // Removed because ending with slash or filename does not effect levels. Increased -1 to -2.
 	 	footerFoldercount = footerFoldercount - 2;
@@ -312,20 +310,27 @@ $(document).ready(function(){
 	 	if(location.host.indexOf('localhost') >= 0) {
 	 		//footerClimbcount = footerFoldercount - 0;
 	 	}
-	 	//alert("footerClimbcount " + footerClimbcount);
+	 	console.log("footerClimbcount " + footerClimbcount);
 
+	 	
 	 	for (var i = 0; i < footerClimbcount; i++) {
 	 		footerClimbpath += "../";
 	 	}
 	 	if (footerClimbpath == "") {
 	 		//footerClimbpath = "./"; // Eliminates ? portion of URL
 	 	}
+		*/
+
+	 	
+	 	footerClimbpath = climbLevels; // Example: ../
+	 	console.log("footerClimbpath (Levels up to current page): " + footerClimbpath);
+	 	//alert(footerClimbpath)
 	} else {
 		footerClimbpath = climbpath;
 	}
 
 	if (location.host.indexOf('familytrees') >= 0) {
-		footerClimbpath = "../"; // TEMP FIX
+		//footerClimbpath = "../"; // TEMP FIX
 	}
 	$("#footer").load(footerFile, function( response, status, xhr ) {
 
@@ -337,7 +342,7 @@ $(document).ready(function(){
 		//var pathToFooter = 
 
 		// Append footerClimbpath to relative paths
-		makeLinksRelative("footer",footerClimbpath,pageFolder);
+		makeLinksRelative("footer", footerClimbpath, pageFolder);
 		//makeLinksRelative("footer",footerClimbpath,footerFilePath); // Not working on second level pages.
 
 	});
@@ -504,7 +509,6 @@ $(document).ready(function(){
 		});
 	}
 	// END SIDE NAV WITH HIGHLIGHT ON SCROLL
-	
 });
 
 function makeLinksRelative(divID,climbpath,pageFolder) {
