@@ -278,6 +278,7 @@ $(document).ready(function(){
 	} else {
 		//$("#footer").addClass("flexfooter");
 	}
+	var footerClimbpath = "";
 	let footerFile = climbpath + "../localsite/footer.html";
 	if (param.footer) {
 		footerFile = param.footer; // Custom
@@ -302,39 +303,42 @@ $(document).ready(function(){
 		console.log("climbpath after: " + climbpath);
 
 		//alert(climbpath)
-		/*
+		
 		// Get the levels below root
 	 	var footerFoldercount = (footerFilePath.split('/').length - 1); // - (location.pathname[location.pathname.length - 1] == '/' ? 1 : 0) // Removed because ending with slash or filename does not effect levels. Increased -1 to -2.
 	 	footerFoldercount = footerFoldercount - 2;
 
-	 	var footerClimbcount = footerFoldercount;
+	 	var footerClimbcount = footerFoldercount - 2;
 	 	if(location.host.indexOf('localhost') >= 0) {
-	 		footerClimbcount = footerFoldercount - 0;
+	 		//footerClimbcount = footerFoldercount - 0;
 	 	}
-	 	var footerClimbpath = "";
-	 	for (var i = 0; i < climbcount; i++) {
+	 	//alert("footerClimbcount " + footerClimbcount);
+
+	 	for (var i = 0; i < footerClimbcount; i++) {
 	 		footerClimbpath += "../";
 	 	}
 	 	if (footerClimbpath == "") {
-	 		footerClimbpath += "./"; // Eliminates ? portion of URL
+	 		//footerClimbpath = "./"; // Eliminates ? portion of URL
 	 	}
-		*/
-
+	} else {
+		footerClimbpath = climbpath;
 	}
 
-	//alert(climbpath);
-	//climbpath = "../"; // TEMP
-
+	if (location.host.indexOf('familytrees') >= 0) {
+		footerClimbpath = "../"; // TEMP FIX
+	}
 	$("#footer").load(footerFile, function( response, status, xhr ) {
 
 		console.log("footerFile: " + footerFile);
 		let pageFolder = getPageFolder(footerFile);
-		console.log("pageFolder: " + pageFolder);
+		//alert("footerClimbpath: " + footerClimbpath);
+		//alert("pageFolder: " + pageFolder);
 
 		//var pathToFooter = 
 
-		makeLinksRelative("footer",climbpath,pageFolder);
-		//makeLinksRelative("footer",climbpath,footerFilePath); // Not working on second level pages.
+		// Append footerClimbpath to relative paths
+		makeLinksRelative("footer",footerClimbpath,pageFolder);
+		//makeLinksRelative("footer",footerClimbpath,footerFilePath); // Not working on second level pages.
 
 	});
 
