@@ -36,15 +36,16 @@ $(document).ready(function(){
  	if (climbpath == "") {
  		climbpath += "./"; // Eliminates ? portion of URL
  	}
+ 	var modelpath = climbpath;
  	if(location.host.indexOf('localhost') < 0) { // When not localhost.  localhost = 0
  		// To do: allow "Input-Output Map" link in footer to remain relative.
- 		climbpath = "https://model.earth/" + climbpath; // Avoid - gets applied to #headerSiteTitle
+ 		modelpath = "https://model.earth/" + modelpath; // Avoid - gets applied to #headerSiteTitle
  		
- 		//climbpath = "/" + climbpath;
+ 		//modelpath = "/" + modelpath;
  	}
  	if (param.showhero != "false") {
  		if(location.host.indexOf('georgia') >= 0) { 
-	 		$("body").prepend( "<div class='headerImage'><img src='" + climbpath + "../io/img/hero/sustainable-communities.jpg' style='width:100%'></div>");
+	 		$("body").prepend( "<div class='headerImage'><img src='" + modelpath + "../io/img/hero/sustainable-communities.jpg' style='width:100%'></div>");
 	 	}
 	}
  	$("body").wrapInner( "<div id='fullcolumn'></div>"); // Creates space for sidecolumn
@@ -61,9 +62,12 @@ $(document).ready(function(){
 		$(".filterPanel").addClass("filterPanel_fixed");
 		$("#map1").addClass("filterPanel_fixed_maptop");
 	
+
+	// TO DO: Add support for custom headerpath
+
  	} else {
  		// LOAD HEADER.HTML
- 		let headerFile = climbpath + "../localsite/header.html";
+ 		let headerFile = modelpath + "../localsite/header.html";
  		if (slash_count <= 4) { // Folder is the root of site
  			// Currently avoid since "https://model.earth/" is prepended to climbpath above.
  			//headerFile = climbpath + "../header.html";
@@ -98,7 +102,7 @@ $(document).ready(function(){
 	 	} else if (param.startTitle == "Georgia.org" || location.host.indexOf('georgia') >= 0) {
 	 		$(".siteTitleShort").text("Model Georgia");
 	 		param.titleArray = [];
-	 		//param.headerLogo = "<a href='https://georgia.org'><img src='" + climbpath + "../community/img/logo/georgia_usa_gray.png' style='width:130px;padding-top:4px'></a>";
+	 		//param.headerLogo = "<a href='https://georgia.org'><img src='" + modelpath + "../community/img/logo/georgia_usa_gray.png' style='width:130px;padding-top:4px'></a>";
 	 		param.headerLogo = "<a href='https://georgia.org'><img src='https://model.earth/community/img/logo/georgia_usa_gray.png' style='width:130px;padding-top:4px'></a>";
 	 		document.title = "Georgia.org - " + document.title
 	 		changeFavicon("https://www.georgia.org/sites/default/files/logo-georgia-peach-notext_0.png")
@@ -117,8 +121,8 @@ $(document).ready(function(){
   			//param.headerLogo = "<img src='/community/img/logo/favicon.png' style='width:26px;opacity:0.9;margin-right:0.8px'>"
   			param.headerLogo = "<img src='/community/img/logo/model-earth.png' style='width:34px; margin-right:2px'>";
   			document.title = "Model Earth - " + document.title
-  			//changeFavicon(climbpath + "../community/img/logo/favicon.png")
-  			changeFavicon(climbpath + "../community/img/logo/model-earth.png")
+  			//changeFavicon(modelpath + "../community/img/logo/favicon.png")
+  			changeFavicon(modelpath + "../community/img/logo/model-earth.png")
   			$('.earth').css('display', 'inline'); 
 	 		console.log(".earth display")
 	 		/*
@@ -133,14 +137,14 @@ $(document).ready(function(){
 	 	/*
  		if(location.host.indexOf('georgia') >= 0) { // || location.host.indexOf('localhost') >= 0
  			$(".siteTitleShort").text("Model Georgia");
-	 		//imageUrl = climbpath + "../community/img/logo/georgia-icon-rect.png"; // georgia-icon-on-gray.png
-	 		//imageUrl = climbpath + "../io/img/logo/georgia_usa.png";
+	 		//imageUrl = modelpath + "../community/img/logo/georgia-icon-rect.png"; // georgia-icon-on-gray.png
+	 		//imageUrl = modelpath + "../io/img/logo/georgia_usa.png";
 	 		
-	 		//imageUrlSide = climbpath + "../community/img/logo/georgia-icon-rect.png";
+	 		//imageUrlSide = modelpath + "../community/img/logo/georgia-icon-rect.png";
  			//$('#headerLogo').addClass('logoholder-state');
 	 		//$('#headerLocTitleHolder').addClass('headerLocTitleHolder-state');
 
-	 		$('#headerLogo').html("<a href='https://georgia.org'><img src='" + climbpath + "../community/img/logo/georgia_usa_gray.png' style='width:130px;padding-top:4px'></a>");
+	 		$('#headerLogo').html("<a href='https://georgia.org'><img src='" + modelpath + "../community/img/logo/georgia_usa_gray.png' style='width:130px;padding-top:4px'></a>");
 	 		//$('.georgia').show(); // For nav menu
 	 		$('.georgia').css('display', 'inline');
 	 	} else if(1==2 && location.host.indexOf('neighborhood') >= 0) {
@@ -154,8 +158,8 @@ $(document).ready(function(){
 	 		$('.neighborhood').css('display', 'block');
 	 	} else if (1==2) {
 	 		$(".siteTitleShort").text("Model Earth");
-	 		imageUrl = climbpath + "../community/img/logo/neighborhood-icon.png"; // model earth
-	 		imageUrlSide = climbpath + "../community/img/logo/neighborhood-icon.png";
+	 		imageUrl = modelpath + "../community/img/logo/neighborhood-icon.png"; // model earth
+	 		imageUrlSide = modelpath + "../community/img/logo/neighborhood-icon.png";
 	 		$('#headerlogoside').css('width', '24px');
 	 		$('#headerlogoside').css('height', '24px');
  			//$('#logospace').css('margin-top','2px');
@@ -273,7 +277,7 @@ $(document).ready(function(){
 		//$("#footer").addClass("flexfooter");
 	}
 	let footerFile = climbpath + "../localsite/footer.html";
-	if (param.footer) footerFile = param.footer;
+	if (param.footer) footerFile = param.footer; // Custom
 	$("#footer").load(footerFile, function( response, status, xhr ) {
 		let pageFolder = getPageFolder(footerFile);
 		makeLinksRelative("footer",climbpath,pageFolder);
@@ -282,163 +286,163 @@ $(document).ready(function(){
 
  	// SIDE NAV WITH HIGHLIGHT ON SCROLL
 	if (param["sidecolumn"]) {
-	$("#sidecolumn").load( climbpath + "../community/nav.html", function( response, status, xhr ) {
+		$("#sidecolumn").load( modelpath + "../community/nav.html", function( response, status, xhr ) {
 
-		// Make paths relative to current page
- 		$("#sidecolumn a[href]").each(function() {
- 			if($(this).attr("href").toLowerCase().indexOf("http") < 0){
-	      		$(this).attr("href", climbpath + $(this).attr('href'));
-	  		}
-	    })
- 		$("#sidecolumn img[src]").each(function() {
-	      $(this).attr("src", climbpath + $(this).attr('src'));
-	    })
-		
-		// Clone after path change
-		$("#headerLogo").clone().appendTo("#logoholderside");
- 		
-
- 		// ALL SIDE COLUMN ITEMS
- 		var topMenu = $("#sidecolumnContent");
- 		//console.log("topMenu:");
- 		//console.log(topMenu);
-		var menuItems = topMenu.find("a");
-		var scrollItems = menuItems.map(function(){ // Only include "a" tag elements that have an href.
-
-			// Get the section using the names of hash tags (since id's start with #). Example: #intro, #objectives
-			if ($(this).attr("href").includes('#')) {
-				var sectionID = '#' + $(this).attr("href").split('#')[1].split('&')[0]; // Assumes first hash param does not use an equals sign.
+			// Make paths relative to current page
+	 		$("#sidecolumn a[href]").each(function() {
+	 			if($(this).attr("href").toLowerCase().indexOf("http") < 0){
+		      		$(this).attr("href", climbpath + $(this).attr('href'));
+		  		}
+		    })
+	 		$("#sidecolumn img[src]").each(function() {
+		      $(this).attr("src", climbpath + $(this).attr('src'));
+		    })
 			
-				//console.log('Get hash: ' + sectionID);
+			// Clone after path change
+			$("#headerLogo").clone().appendTo("#logoholderside");
+	 		
 
-			    var item = $(sectionID); //   .replace(/\//g, "").replace(/../g, "")    Use of replaces fixes error due to slash in path.
-			    if (item.length) {
-			    	return item;
+	 		// ALL SIDE COLUMN ITEMS
+	 		var topMenu = $("#sidecolumnContent");
+	 		//console.log("topMenu:");
+	 		//console.log(topMenu);
+			var menuItems = topMenu.find("a");
+			var scrollItems = menuItems.map(function(){ // Only include "a" tag elements that have an href.
+
+				// Get the section using the names of hash tags (since id's start with #). Example: #intro, #objectives
+				if ($(this).attr("href").includes('#')) {
+					var sectionID = '#' + $(this).attr("href").split('#')[1].split('&')[0]; // Assumes first hash param does not use an equals sign.
+				
+					//console.log('Get hash: ' + sectionID);
+
+				    var item = $(sectionID); //   .replace(/\//g, "").replace(/../g, "")    Use of replaces fixes error due to slash in path.
+				    if (item.length) {
+				    	return item;
+				    }
+				}
+			});
+			var bottomSection = "partners";
+
+	 		// BIND CLICK HANDLER TO MENU ITEMS
+			menuItems.click(function(e){
+			  var href = $(this).attr("href");
+			  /*
+			  console.log('Clicked ' + href);
+			  var offsetTop = href === "#" ? 0 : $(href).offset().top-topMenuHeight+1;
+			  */
+			  if (href.includes("#intro")) { 
+
+			  	// If current page contains a section called intro
+			  	if($('#intro').length > 0) {
+				  	//alert("intro click")
+				    $('html,body').scrollTop(0);
+
+				    // BUGBUG - still need to set URL since this is needed to override default position:
+				    e.preventDefault();
+				}
+			  }
+			});
+
+			/*
+			// Alternative to flaky $(this).scrollTop()+topMenuHeight; // this is the window
+			function getScrollTop(){
+			    if(typeof pageYOffset != 'undefined'){
+			        //most browsers except IE before #9
+			        return pageYOffset;
+			    }
+			    else{
+			        var B= document.body; //IE 'quirks'
+			        var D= document.documentElement; //IE with doctype
+			        D= (D.clientHeight)? D: B;
+			        return D.scrollTop;
 			    }
 			}
-		});
-		var bottomSection = "partners";
+			*/
 
- 		// BIND CLICK HANDLER TO MENU ITEMS
-		menuItems.click(function(e){
-		  var href = $(this).attr("href");
-		  /*
-		  console.log('Clicked ' + href);
-		  var offsetTop = href === "#" ? 0 : $(href).offset().top-topMenuHeight+1;
-		  */
-		  if (href.includes("#intro")) { 
-
-		  	// If current page contains a section called intro
-		  	if($('#intro').length > 0) {
-			  	//alert("intro click")
-			    $('html,body').scrollTop(0);
-
-			    // BUGBUG - still need to set URL since this is needed to override default position:
-			    e.preventDefault();
+			// HIGHLIGHT SIDE NAVIGATION ON SCROLL
+			function currentSideID() {
+				var scrollTop = window.pageYOffset || (document.documentElement.clientHeight ? document.documentElement.scrollTop : document.body.scrollTop) || 0;
+				var topMenuHeight = 150;
+				// Get container scroll position
+				var fromTop = scrollTop+topMenuHeight; // this is the window
+				//console.log('fromTop ' + fromTop);
+				// Get id of current scroll item
+				var cur = scrollItems.map(function(){
+					// scrollItems is the sections fron nav.html, but just return the current one.
+			   		//console.log('offset().top ' + $(this).offset().top)
+			     	if ($(this).offset().top < fromTop) {
+			     		//console.log('offset().top < fromTop ' + $(this).offset().top + ' < ' + fromTop);
+			     		return this;
+			       	}
+				});
+				if (cur.length == 0 && $("#allsections").length) {
+					// At top, above top of intro section
+					// To Do: Get the top most section
+					// allsections
+					return $("#allsections section:first").attr("id"); // "intro" when on tools page,
+				}
+				// Get the id of the last item fetched from scrollItems
+				cur = cur[cur.length-1];
+				var id = cur && cur.length ? cur[0].id : "";
+				//console.log('currentSideID id: ' + id);
+				return id;
 			}
-		  }
-		});
-
-		/*
-		// Alternative to flaky $(this).scrollTop()+topMenuHeight; // this is the window
-		function getScrollTop(){
-		    if(typeof pageYOffset != 'undefined'){
-		        //most browsers except IE before #9
-		        return pageYOffset;
-		    }
-		    else{
-		        var B= document.body; //IE 'quirks'
-		        var D= document.documentElement; //IE with doctype
-		        D= (D.clientHeight)? D: B;
-		        return D.scrollTop;
-		    }
-		}
-		*/
-
-		// HIGHLIGHT SIDE NAVIGATION ON SCROLL
-		function currentSideID() {
-			var scrollTop = window.pageYOffset || (document.documentElement.clientHeight ? document.documentElement.scrollTop : document.body.scrollTop) || 0;
-			var topMenuHeight = 150;
-			// Get container scroll position
-			var fromTop = scrollTop+topMenuHeight; // this is the window
-			//console.log('fromTop ' + fromTop);
-			// Get id of current scroll item
-			var cur = scrollItems.map(function(){
-				// scrollItems is the sections fron nav.html, but just return the current one.
-		   		//console.log('offset().top ' + $(this).offset().top)
-		     	if ($(this).offset().top < fromTop) {
-		     		//console.log('offset().top < fromTop ' + $(this).offset().top + ' < ' + fromTop);
-		     		return this;
-		       	}
+			var lastID;
+			
+			$(window).scroll(function() {
+				var id = currentSideID();
+				//console.log("id: " + id + " lastID: " + lastID);
+			   if($('#' + bottomSection).length > 0 && $(window).scrollTop() + $(window).height() == $(document).height()) { // If bottomSection exists and at bottom
+			      //console.log('at bottom');
+			      menuItems.removeClass("active");
+			      menuItems.filter("[href*='#"+bottomSection+"']").addClass("active");
+			      lastID = bottomSection;
+			   } else if (id && lastID !== id) { // Highlight side navigation
+			      //console.log("CURRENT ID: " + id);
+			      lastID = id;
+			      menuItems.removeClass("active");
+			      if (currentSection && currentSection.length) {
+			      	if (id.length == 0) {
+			      		// Page without sections
+			      	} else if (id == "intro") {
+			      		// To do: Change to highlight the uppermost section.
+			      		menuItems.filter("[href='..\/tools\/#']").addClass("active");
+			      	} else {
+			      		menuItems.filter("[href*='#"+id+"']").addClass("active"); // *= means contains
+			      	}
+			  	  }
+			      /*
+			      menuItems
+			         .parent().removeClass("active")
+			         .end().filter("[href*='#"+id+"']").parent().addClass("active");
+			       */
+			   } else {
+			   		//console.log("Scrolling, no action");
+			   }
+			   
+			  if (id == "intro") {
+			  	//console.log("headerbar show");
+			    $('.headerbar').show();
+			    // For when entering from a #intro link from another page.
+			    // Would be better to disable browser jump to #intro elsewhere.
+			    //$('html,body').scrollTop(0); 
+			  }
 			});
-			if (cur.length == 0 && $("#allsections").length) {
-				// At top, above top of intro section
-				// To Do: Get the top most section
-				// allsections
-				return $("#allsections section:first").attr("id"); // "intro" when on tools page,
-			}
-			// Get the id of the last item fetched from scrollItems
-			cur = cur[cur.length-1];
-			var id = cur && cur.length ? cur[0].id : "";
-			//console.log('currentSideID id: ' + id);
-			return id;
-		}
-		var lastID;
-		
-		$(window).scroll(function() {
-			var id = currentSideID();
-			//console.log("id: " + id + " lastID: " + lastID);
-		   if($('#' + bottomSection).length > 0 && $(window).scrollTop() + $(window).height() == $(document).height()) { // If bottomSection exists and at bottom
-		      //console.log('at bottom');
-		      menuItems.removeClass("active");
-		      menuItems.filter("[href*='#"+bottomSection+"']").addClass("active");
-		      lastID = bottomSection;
-		   } else if (id && lastID !== id) { // Highlight side navigation
-		      //console.log("CURRENT ID: " + id);
-		      lastID = id;
-		      menuItems.removeClass("active");
-		      if (currentSection && currentSection.length) {
-		      	if (id.length == 0) {
-		      		// Page without sections
-		      	} else if (id == "intro") {
-		      		// To do: Change to highlight the uppermost section.
-		      		menuItems.filter("[href='..\/tools\/#']").addClass("active");
-		      	} else {
-		      		menuItems.filter("[href*='#"+id+"']").addClass("active"); // *= means contains
-		      	}
-		  	  }
-		      /*
-		      menuItems
-		         .parent().removeClass("active")
-		         .end().filter("[href*='#"+id+"']").parent().addClass("active");
-		       */
-		   } else {
-		   		//console.log("Scrolling, no action");
-		   }
-		   
-		  if (id == "intro") {
-		  	//console.log("headerbar show");
-		    $('.headerbar').show();
-		    // For when entering from a #intro link from another page.
-		    // Would be better to disable browser jump to #intro elsewhere.
-		    //$('html,body').scrollTop(0); 
-		  }
-		});
 
-		// Initial page load
-		var currentSection = currentSideID();
-		if (currentSection && currentSection.length) {
-			if (currentSection == "intro") {
-		      	// To do: Change to highlight the uppermost section.
-		      	menuItems.filter("[href='..\/tools\/#']").addClass("active");
-		      	lastID = "intro";
-		    } else {
-		    	menuItems.filter("[href*='#"+currentSection+"']").addClass("active");
-		    	// To do: If not found, try using folder name from link when no #
-		    	//menuItems.filter("[href*='interns/']").addClass("active");
+			// Initial page load
+			var currentSection = currentSideID();
+			if (currentSection && currentSection.length) {
+				if (currentSection == "intro") {
+			      	// To do: Change to highlight the uppermost section.
+			      	menuItems.filter("[href='..\/tools\/#']").addClass("active");
+			      	lastID = "intro";
+			    } else {
+			    	menuItems.filter("[href*='#"+currentSection+"']").addClass("active");
+			    	// To do: If not found, try using folder name from link when no #
+			    	//menuItems.filter("[href*='interns/']").addClass("active");
+				}
 			}
-		}
-	});
+		});
 	}
 	// END SIDE NAV WITH HIGHLIGHT ON SCROLL
 	
