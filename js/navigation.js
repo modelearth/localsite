@@ -277,7 +277,43 @@ $(document).ready(function(){
 		//$("#footer").addClass("flexfooter");
 	}
 	let footerFile = climbpath + "../localsite/footer.html";
-	if (param.footer) footerFile = param.footer; // Custom
+	if (param.footer) {
+		footerFile = param.footer; // Custom
+
+		var footerFilePath = location.pathname + footerFile;
+		//alert(footerFilePath)
+		var upLevelInstance = (footerFilePath.match(/\.\.\//g) || []).length; // Instanced of ../
+
+		var removeClimb = ""
+		for (var i = 0; i < upLevelInstance; i++) { // Remove ../ for each found
+			removeClimb = removeClimb + "../";
+		}
+		climbpath = climbpath.replace(removeClimb,'');
+
+		//alert(climbpath)
+		/*
+		// Get the levels below root
+	 	var footerFoldercount = (footerFilePath.split('/').length - 1); // - (location.pathname[location.pathname.length - 1] == '/' ? 1 : 0) // Removed because ending with slash or filename does not effect levels. Increased -1 to -2.
+	 	footerFoldercount = footerFoldercount - 2;
+
+	 	var footerClimbcount = footerFoldercount;
+	 	if(location.host.indexOf('localhost') >= 0) {
+	 		footerClimbcount = footerFoldercount - 0;
+	 	}
+	 	var footerClimbpath = "";
+	 	for (var i = 0; i < climbcount; i++) {
+	 		footerClimbpath += "../";
+	 	}
+	 	if (footerClimbpath == "") {
+	 		footerClimbpath += "./"; // Eliminates ? portion of URL
+	 	}
+		*/
+
+	}
+
+	//alert(climbpath);
+	//climbpath = "../"; // TEMP
+
 	$("#footer").load(footerFile, function( response, status, xhr ) {
 		let pageFolder = getPageFolder(footerFile);
 		makeLinksRelative("footer",climbpath,pageFolder);
