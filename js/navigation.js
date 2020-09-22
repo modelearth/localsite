@@ -333,8 +333,8 @@ $(document).ready(function(){
 
 		//var pathToFooter = 
 
-		//makeLinksRelative("footer",climbpath,pageFolder);
-		makeLinksRelative("footer",climbpath,footerFilePath);
+		makeLinksRelative("footer",climbpath,pageFolder);
+		//makeLinksRelative("footer",climbpath,footerFilePath); // Not working on second level pages.
 
 	});
 
