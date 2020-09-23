@@ -44,6 +44,14 @@ React developers: You might also want to clone the
 [Learn more](../../../io/charts/)  
 We also encourage you to help us maintain the <a href='https://github.com/modelearth/community/'>community</a> and <a href='https://github.com/modelearth/io/'>io</a> repos.
 
+
+For the address search to work, you'll need to get a new Google Maps API key. You can get yours and enable it by following these instructions: [https://developers.google.com/maps/documentation/javascript/get-api-key](https://developers.google.com/maps/documentation/javascript/get-api-key)  
+
+When you get a key, set the google_api_key in map/auto/config.json
+<!--
+\_config.yml.
+-->
+
 ## 3. Deploy your updates
 
 Deploy your updates using GitHub. If you are not a project collaborator, GitHub Desktop will prompt you to create a project fork on GitHub. Place a pull request when your updates are ready for review.  
