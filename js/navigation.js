@@ -262,7 +262,7 @@ $(document).ready(function(){
 	            		//event.preventDefault(); // Using requires double click
 	            	}
 	        	}
-	        	$("#filterLocations").hide();
+	        	//$("#filterLocations").hide();
 			});
 		// END WAS LIMITED TO HEADER
 
