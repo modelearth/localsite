@@ -234,7 +234,9 @@ $(document).ready(function () {
     		// BUGBUG - Reactivate after omitting clicks within location selects
     		//$(".fieldSelector").hide(); // Avoid since this occurs when typing text in search field.
     	}
+    	$('#keywordFields').hide();
     	$('#topPanel').hide();
+    	$("#filterLocations").hide();
 	});
 	
 	function hideNonListPanels() {

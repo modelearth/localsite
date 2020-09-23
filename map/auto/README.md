@@ -15,4 +15,13 @@ Search utilizes Google Places API autocomplete functionality, returning Google's
 
 4. Enable `Google Places API` as well as `Google Maps JavaScript API` for autocomplete to work  
 
-	[Google Cloud Console](https://console.cloud.google.com/) > your project > APIs & Services > Libraries > above library - Enable
+	[Google Cloud Console](https://console.cloud.google.com/) > your project > APIs & Services > Libraries > above library - Enable  
+
+---
+
+Or you can use the [Google Geocode API Directly](https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY) (link needs API key) 
+to make up to 40,000 calls per month at no charge to the 
+[Google Maps API](https://developers.google.com/maps/documentation/geocoding/start).  
+
+ 
+

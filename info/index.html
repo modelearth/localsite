@@ -418,6 +418,10 @@ To do: make the links below an optional widget
 
 	<div style="padding-top:0px; padding-bottom:0px">
 
+	<h1>Life Cycle Assessment - Industry Evaluator</h1>
+	"Life Cycle Assessment (also known as life cycle analysis, or cradle-to-grave analysis) is a method of assessing environmental impacts associated with all stages of a product's life. For example, it measures impact from raw material extraction to materials processing, manufacturing, distribution, use, repair and maintenance, and disposal or recycling. The goal of LCA is to compare the full range of environmental effects assignable to products and services by quantifying all inputs and outputs of material flows, and then assessing how these material flows impact the environment. This information is used to improve processes, support policy, and provide a sound basis for informed decisions." - 
+	<a href="https://data.nal.usda.gov/life-cycle-assessment" target="USDA">USDA</a><br><br>
+
 	<div id="topMessage"></div>
 
 	<!-- two columns -->
@@ -1142,14 +1146,14 @@ function loadScriptXXXXXX(url, callback)
 function updateText(go) {
 	$("#aboutToolsDiv").text("");
 	if (go == "bioeconomy") {
-		loadMarkdown("https://model.earth/io/tools/bioeconomy-planner/about.md", "aboutToolsDiv", "_parent");
+		loadMarkdown("https://model.earth/io/tools/bioeconomy-planner/hook.md", "aboutToolsDiv", "_parent");
 		//loadMarkdown("https://model.earth/io/tools/bioeconomy-planner/bioenergy/README.md", "bioenergySummaryDiv", "_parent");
 	} else if (go == "dataprep") {
 		loadMarkdown("../../localsite/info/data/README.md", "aboutToolsDiv", "_parent");
 	} else if (go == "parts") {
 		//loadMarkdown("https://model.earth/io/tools/localized-economy/about.md", "aboutToolsDiv", "_parent");
 	} else {
-		loadMarkdown("https://model.earth/io/tools/industry-impact/about.md", "aboutToolsDiv", "_parent");
+		loadMarkdown("https://model.earth/io/tools/industry-impact/hook.md", "aboutToolsDiv", "_parent");
 	}
 
 }

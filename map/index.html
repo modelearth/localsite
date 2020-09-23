@@ -115,6 +115,36 @@
         <i class="material-icons">&#xE5C3;</i>
       </div>
 
+      <div style="display:none;" class="filterField layerclass local">
+        <div id="catSearchHolder">
+          <div class="filterLabel">
+            <div class="filterLabelMain">
+            Layers
+            </div>
+          </div>
+
+
+            <div style="position:relative; float:left;">
+
+                <div class="select-menu-arrow-holder">
+                  <i class="material-icons" style="font-size:24px;cursor:pointer;display:none;">&#xE409;</i>
+                  <i class="material-icons" style="font-size:24px;cursor:pointer;">&#xE313;</i>
+                </div>
+                <!--
+                <select id="selectProduct" class="selectMenu" style="float:left">
+                    <option value="1">HS Code(s)</option>
+                </select>
+                -->
+
+                <!--
+                onkeyup="return SearchCategories(event);"
+                readonly - prevents keyboard covering choices on mobile
+                -->
+                <input readonly id="appMenu" class="filterClick mobileWide textInput" placeholder="Layers" type="text" autocomplete="off" style="width: 200px; margin-top: 0px;" />
+            </div>
+        </div>
+      </div>
+
       <div style="display:none;" class="filterField layerclass mock-up suppliers exporter">
         <div id="catSearchHolder">
           <div class="filterLabel">
@@ -127,8 +157,8 @@
             <div style="position:relative; float:left;">
 
                 <div class="select-menu-arrow-holder">
-                  <i class="material-icons" style="font-size:24px;cursor:pointer;">&#xE409;</i>
-                  <i class="material-icons" style="font-size:24px;cursor:pointer;display:none;">&#xE313;</i>
+                  <i class="material-icons" style="font-size:24px;cursor:pointer;display:none;">&#xE409;</i>
+                  <i class="material-icons" style="font-size:24px;cursor:pointer;">&#xE313;</i>
                 </div>
                 <!--
                 <select id="selectProduct" class="selectMenu" style="float:left">
