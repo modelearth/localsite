@@ -315,7 +315,7 @@ summary::-webkit-details-marker {
   line-height: 1.55;
   /* color: #777; */
   border: 1px solid rgba(255,255,255,0);
-  overflow: hidden;
+  /* overflow: hidden; */ /* Covers indicator bar */
 }
 .pageColumnTitle {
   font-size: 1.27em;
