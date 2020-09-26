@@ -755,7 +755,7 @@ content .js, pre code { /* Prevents .js from impacting js class within Drupal bo
   font-size: 22px;
 }
 .headerbar {
-  /* box-shadow: 0 1px 7px rgba(0, 0, 0, 0.1); */
+  background:#fff;
   border-bottom: 1px solid #eee;
 }
 .headerbarheight {
