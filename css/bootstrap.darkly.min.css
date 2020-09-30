@@ -37,8 +37,17 @@ a:visited {
 #sidecolumn {
 	background-color: #292929;
 }
+.upperIcons > div {
+	border:0px;
+}
 h1, h2, h3, h4, h5, h6 {
 	color: #ccc;
+}
+h1 {
+	font-size: 1.6em;
+}
+h2 {
+	font-size: 1.4em;
 }
 #sidecolumn a {
 	color: #aac;
@@ -54,4 +63,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .detail:hover {
     background-color: #111;
+}
+#footer {
+	background-color: #222;
 }

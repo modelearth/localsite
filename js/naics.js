@@ -1041,7 +1041,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                         if (!param.naics) {
                             lowerMessage += "Click NAICS number above to view industry's supply chain. ";
                         }
-                        lowerMessage += "Purple text indicates approximated values.";
+                        lowerMessage += "Purple&nbsp;text&nbsp;indicates approximated values.";
 
                         $("#econ_list").html("<div id='sector_list'>" + text + "</div><br><p class='mapinfo'>" + lowerMessage + "</p>");
                         

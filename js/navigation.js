@@ -39,7 +39,7 @@ $(document).ready(function(){
  	//console.log("climbpath " + climbpath);
 
  	var modelpath = climbpath;
- 	if(location.host.indexOf('localhost') < 0) { // When not localhost.  localhost = 0
+ 	if(location.host.indexOf('localhost') < 0 && location.host.indexOf('model.') < 0 && location.host.indexOf('hood') < 0) { // When not localhost or other sites that have a fork of io and community.
  		// To do: allow "Input-Output Map" link in footer to remain relative.
  		modelpath = "https://model.earth/" + modelpath; // Avoid - gets applied to #headerSiteTitle
  		
@@ -84,7 +84,7 @@ $(document).ready(function(){
 	 		// Make paths relative to current page
 	 		$("#header a[href]").each(function() {
 	 			if($(this).attr("href").toLowerCase().indexOf("http") < 0){
-		      		$(this).attr("href", climbpath + $(this).attr('href'));
+		      		$(this).attr("href", modelpath + $(this).attr('href'));
 		  		}
 		    })
 	 		$("#header img[src]").each(function() {
