@@ -276,7 +276,7 @@ $(document).ready(function(){
 		//$("#footer").addClass("flexfooter");
 	}
 	var footerClimbpath = "";
-	let footerFile = climbpath + "../localsite/footer.html";
+	let footerFile = modelpath + "../localsite/footer.html"; // modelpath remains relative for site desgnated above as having a local copy of io and community.
 	if (param.footer) {
 		footerFile = param.footer; // Custom
 
@@ -292,36 +292,7 @@ $(document).ready(function(){
 		var climbLevels = ""
 		for (var i = 0; i < upLevelInstance; i++) { // Remove ../ for each found
 			climbLevels = climbLevels + "../";
-		}
-
-		//console.log("upLevelInstance " + upLevelInstance);
-		//console.log("climbpath before: " + climbpath);
-		//climbpath = climbpath.replace(climbLevels,'');
-		//console.log("climbpath after: " + climbpath);
-
-		//alert(climbpath)
-		
-		/*
-		// Get the levels below root
-	 	var footerFoldercount = (footerFilePath.split('/').length - 1); // - (location.pathname[location.pathname.length - 1] == '/' ? 1 : 0) // Removed because ending with slash or filename does not effect levels. Increased -1 to -2.
-	 	footerFoldercount = footerFoldercount - 2;
-
-	 	var footerClimbcount = footerFoldercount - 2;
-	 	if(location.host.indexOf('localhost') >= 0) {
-	 		//footerClimbcount = footerFoldercount - 0;
-	 	}
-	 	console.log("footerClimbcount " + footerClimbcount);
-
-	 	
-	 	for (var i = 0; i < footerClimbcount; i++) {
-	 		footerClimbpath += "../";
-	 	}
-	 	if (footerClimbpath == "") {
-	 		//footerClimbpath = "./"; // Eliminates ? portion of URL
-	 	}
-		*/
-
-	 	
+		}	 	
 	 	footerClimbpath = climbLevels; // Example: ../
 	 	console.log("footerClimbpath (Levels up to current page): " + footerClimbpath);
 	 	//alert(footerClimbpath)
@@ -333,7 +304,6 @@ $(document).ready(function(){
 		//footerClimbpath = "../"; // TEMP FIX
 	}
 	$("#footer").load(footerFile, function( response, status, xhr ) {
-
 		console.log("footerFile: " + footerFile);
 		let pageFolder = getPageFolder(footerFile);
 		//alert("footerClimbpath: " + footerClimbpath);

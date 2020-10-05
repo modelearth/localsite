@@ -8,5 +8,7 @@
 
 [Options for Zipcode Level Data](../../../community/industries/)
 
-To do: Fill in gaps using national data when state data lacks payroll estimates.  
+Problem: Some industries lack payroll estimates at both the county and state level.  This occurs for approximately 80 of 388 industries in Georgia. For example, payroll for Georgia's 9 automotive manufacturers is not included in the U.S. Bureau of Economic Analysis (BEA) industry data. US census privacy protection rules omit company payroll when only 1 or 2 establishments reside in a county.   
+
+Possible Solution: Identify large employers, like automotive manufacturers, and add county-level estimates using national or regional averages.  
 
