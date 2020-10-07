@@ -1507,6 +1507,8 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
       var container = L.DomUtil.get(map);
       //if (container == null || map == undefined || map == null) { // Does not work
 
+      	// Don't add, breaks /info
+      	// && $('#' + whichmap).html()
   	  if ($('#' + whichmap) && $('#' + whichmap).html().length == 0) { // Note: Avoid putting loading icon within map div.
   	  	  //alert("set " + whichmap)
 	      map = L.map(whichmap, {

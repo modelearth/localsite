@@ -326,7 +326,12 @@ summary::-webkit-details-marker {
 @media (max-width:980px) {
   .pageColumn, .two .pageColumn {
     width:100%;
+    float:none;
   }
+  .pageColumnOverflow {
+    width:100%;
+  }
+
 }
 .contentArea {
     margin: 0px; padding: 0px; 
