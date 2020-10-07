@@ -545,8 +545,8 @@ function addIcons(dp,map,map2) {
     } else if (element.website) {
       output += "<br>";
     }
-    if (element[dp.latColumn]) {
-      //output += "distance: " + calculateDistance(element[dp.latColumn], element[dp.lonColumn], dp.latitude, dp.longitude, "M");
+    if (dp.distance) {
+      output += "distance: " + dp.distance + "<br>";
     }
 
     // ADD POPUP BUBBLES TO MAP POINTS
@@ -827,8 +827,8 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.listTitle = "Georgia COVID-19 Response";
     dp1.listTitle = "Georgia Suppliers of&nbsp;Critical Items <span style='white-space:nowrap'>to Fight COVID-19</span>"; // For iFrame site
 
-    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-10/ga_suppliers_list_9-30-2020.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
-    dp1.dataset = "https://map.georgia.org/display/products/suppliers/us_ga_suppliers_ppe_2020_09_30.csv";
+    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-10/ga_suppliers_list_10-7-2020.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
+    dp1.dataset = "https://map.georgia.org/display/products/suppliers/us_ga_suppliers_ppe_2020_10_07.csv";
     //dp1.dataset = "/display/products/suppliers/us_ga_suppliers_ppe_2020_06_17.csv";
 
     dp1.dataTitle = "Manufacturers and Distributors";
@@ -1038,9 +1038,27 @@ function showList(dp,map) {
     $("#keywordFields").show();
     alert("Please check at least one column to search.")
   }
-  var data_out = []; // An array of objects
+  var data_sorted = []; // An array of objects
+  var data_out = [];
 
   $("#detaillist").text(""); // Clear prior results
+
+  if (1==2) {
+    // ADD DISTANCE
+    dp.data.forEach(function(element) {
+
+        if (element[dp.latColumn]) {
+          //output += "distance: " + calculateDistance(element[dp.latColumn], element[dp.lonColumn], dp.latitude, dp.longitude, "M");
+          element.distance = calculateDistance(element[dp.latColumn], element[dp.lonColumn], dp.latitude, dp.longitude, "M").toFixed(2);
+        }
+        data_sorted.push(element);
+    });
+    data_sorted.sort((a, b) => { // Sort by proximity
+        return a.distance - b.distance;
+    });
+
+    dp.data = data_sorted;
+  }
 
   dp.data.forEach(function(elementRaw) {
     count++;
@@ -1357,7 +1375,10 @@ function showList(dp,map) {
           output += "<b>Website:</b> <a href='" + element.website + "' target='_blank'>" + element.website.replace("https://","").replace("http://","").replace("www.","").replace(/\/$/, "") + "</a><br>"; 
         }
       }
-
+      if (element.distance) {
+          output += "<b>Distance:</b> " + element.distance + " miles<br>"; 
+        
+      }
       output += "</div>"; // End Lower
       output += "</div>"; // End detail
 
