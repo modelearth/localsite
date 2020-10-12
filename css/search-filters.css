@@ -92,9 +92,6 @@
 .filterLabelMain {
     display: none;
 }
-#filterLocations {
-
-}
 .filterBubble {
     -webkit-transition: 0.3s ease-in-out;
     -moz-transition: 0.3s ease-in-out;

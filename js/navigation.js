@@ -252,6 +252,7 @@ $(document).ready(function(){
 				event.stopPropagation();
 			});
 			$('.filterBubble').click(function(e){
+				console.log('filterBubble click')
 			    e.stopPropagation(); // To keep location filter open when clicking
 			});
 			$(document).click(function(event) { // Hide open menus

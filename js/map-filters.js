@@ -181,6 +181,9 @@ $(document).ready(function () {
 
     $("#filterClickLocation").click(function(event) {
     	console.log("show location filters");
+    	$("#searchLocation").focus(); // Not working
+    	//document.getElementById("searchLocation").focus(); // Not working
+
 
 		//$('.hideMetaMenuClick').trigger("click"); // Otherwise covers location popup. Problem: hides hideLayers/hideLocationsMenu.
 		if ($("#showLocations").is(':visible')) {
@@ -229,6 +232,11 @@ $(document).ready(function () {
 		$(".fieldSelector").hide();
 		$("#filterLocations").hide();
 	});
+
+	$('#searchloc').click(function () {
+    	event.stopPropagation();
+    });
+
     $(document).click(function(event) { // Hide open menus
     	if ( !$(event.target).closest( "#goSearch" ).length ) {
     		// BUGBUG - Reactivate after omitting clicks within location selects
