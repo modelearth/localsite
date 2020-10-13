@@ -219,15 +219,17 @@ function consoleLog(text,value) {
   $("#log_display").show();
   if (value) {
     $("#log_display textarea").append(text + " " + value + "\n");
+    console.log(text, value);
   } else {
     $("#log_display textarea").append(text + "\n");
+    console.log(text);
   }
 
   var dsconsole = $("#log_display textarea");
     if(dsconsole.length)
        dsconsole.scrollTop(dsconsole[0].scrollHeight - dsconsole.height() - 17); // Adjusts for bottom alignment
 
-  console.log(text, value);
+  
 }
 
 // Convert json to html

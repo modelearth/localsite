@@ -4,18 +4,23 @@ Search utilizes Google Places API autocomplete functionality, returning Google's
 
 ## Setup
 
-1. You'll need to [enable billing](https://console.cloud.google.com/projectselector2/billing/enable). You can use the $300 free credits.
-1. Aquire a [Google API Key](https://developers.google.com/maps/documentation/javascript/get-api-key) - Create a project and then Create Credentials > API Key.  
-2. Update `./config.json -> googleAPIKey to aquired key value`
-3. Restrict the API key to only allow specific origin access (website domain)
+1. You'll need to [enable billing](https://console.cloud.google.com/projectselector2/billing/enable). You can use the $300 free credits.  Click "Payment Method" to see if your card has expired.  
+
+2. Aquire a [Google API Key](https://developers.google.com/maps/documentation/javascript/get-api-key) - Create a project and then Create Credentials > API Key.  
+
+3. Add your API key in config.json -> googleAPIKey  
+
+4. Go to [Google Cloud Console](https://console.cloud.google.com/) > Go to API overview > Library
+
+	Search and Enable `Places API` and `Maps JavaScript API` for autocomplete to work.  
+
+5. Restrict the API key to only allow specific origin access (website domain)
 
 	[Google Cloud Console](https://console.cloud.google.com/) > your project > APIs & Services > Credentials > your API Key > Application restrictions > HTTP referers  
 
 	You can use a wildcard before the domain `(*.example.com)` to allow all subdomains, likewise a wildcard after the domain `(.example.com/*)` to allow all paths
 
-4. Enable `Google Places API` as well as `Google Maps JavaScript API` for autocomplete to work  
 
-	[Google Cloud Console](https://console.cloud.google.com/) > your project > APIs & Services > Libraries > above library - Enable  
 
 ---
 

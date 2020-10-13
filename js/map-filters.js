@@ -181,6 +181,9 @@ $(document).ready(function () {
 
     $("#filterClickLocation").click(function(event) {
     	console.log("show location filters");
+    	$("#searchLocation").focus(); // Not working
+    	//document.getElementById("searchLocation").focus(); // Not working
+
 
 		//$('.hideMetaMenuClick').trigger("click"); // Otherwise covers location popup. Problem: hides hideLayers/hideLocationsMenu.
 		if ($("#showLocations").is(':visible')) {
@@ -229,6 +232,11 @@ $(document).ready(function () {
 		$(".fieldSelector").hide();
 		$("#filterLocations").hide();
 	});
+
+	$('#searchloc').click(function () {
+    	event.stopPropagation();
+    });
+
     $(document).click(function(event) { // Hide open menus
     	if ( !$(event.target).closest( "#goSearch" ).length ) {
     		// BUGBUG - Reactivate after omitting clicks within location selects
@@ -778,6 +786,57 @@ function updateLoc(geo) {
         $(".industry_filter_settings").hide(); // temp
     }
 }
+function activateMyLocation(limitByDistance) {
+    $('#latLonFields').show();
+    getLatLonFromBrowser(limitByDistance);
+}
+function getLatLonFromBrowser(limitByDistance) {
+    // For when Leafet/Carto map is not in use.
+    consoleLog("Refresh Latitude and Longitude");
+    //if (chkGeoPosition) {
+        // Get latitude and longitude
+        $("#currentButtons").hide();
+        if (navigator.geolocation) { // Browser supports lookup
+            //Show loading icon
+            $("#loadingLatLon").html('<div style="margin:0 10px 10px 0; padding-left:6px"><img src="https://map.georgia.org/explore/img/icons/loading-sm.gif" alt="Geo Loading" title="Geo Loading" style="width:18px;float:left;margin:14px 6px 0 0" /><div style="float:left;line-height:28px">Loading GeoLocation</div></div>');
+            $("#loadingLatLon").show();
+
+            navigator.geolocation.getCurrentPosition(function (position) {
+                consoleLog(position.coords.latitude.toFixed(3));
+                $("#lat").val(position.coords.latitude.toFixed(3));
+                $("#lon").val(position.coords.longitude.toFixed(3));
+                $(".mylat").val(position.coords.latitude.toFixed(3));
+                $(".mylon").val(position.coords.longitude.toFixed(3));
+                if (limitByDistance) { // Shows points within distance in dropdown menu.
+                    consoleLog("limitByDistance");
+                    distanceSearchType = 'latlon';
+                    $("#currentButtons").show();
+                    $('.searchText').show();
+                    $('.goSearch').trigger("click");
+                }
+                $("#loadingLatLon").html('<div style="margin-right:10px"><img src="https://map.georgia.org/explore/img/icons/loading-sm.gif" alt="Geo Loading" title="Geo Loading" style="width:18px;float:left;margin:6px 6px 0 0" /><div style="float:left;line-height:40px">Recentering map</div></div>');
+                setTimeout(function(){
+                    $("#loadingLatLon").hide();
+                }, 5000);
+                
+            }, function (error) {
+                consoleLog(error);
+                console.log('geolocation error occurred. Error code: ' + error.code);
+                $("#loadingLatLon").html('Unable to fetch your geolocation.');
+                $('.searchText').hide();
+
+                // error.code 2 occured when disconnected.
+                //alert(error.code);
+                //loadPageAsync(jsonFile);       
+            });
+            //alert('Break page'); // CAUTION - Putting an alert here breaks page.
+        }
+        if (!$("#lat").val()) {
+            //alert("Approve geocoding at the top of your browser.");
+        }
+        //chkGeoPosition = false;
+    //}
+}
 // INIT
 locationFilterChange("counties"); // Display county list
 $("#filterClickLocation .filterSelected").html("Counties");
@@ -870,7 +929,7 @@ function populateCityList(callback) {
         return;
     }
     alert("cityList file path not yet set");
-    var file = root + "menu/data/cities.csv";
+    var file = "https://map.georgia.org/explore/menu/data/cities.csv";
     $.get(file, function(data) {
         var cityList;
         var lines = data.split('\n');
