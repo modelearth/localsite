@@ -42,7 +42,7 @@ strVar += "      <div id=\"showApps\" class=\"local\" style=\"display:none;float
 strVar += "        <i class=\"material-icons\">&#xE5C3;<\/i>";
 strVar += "      <\/div>";
 strVar += "";
-strVar += "      <div style=\"display:none;\" class=\"filterField layerclass local\">";
+strVar += "      <div id=\"appSelectHolder\" style=\"display:none;\" class=\"filterField layerclass local\">";
 strVar += "        <div id=\"catSearchHolder\">";
 strVar += "          <div class=\"filterLabel\">";
 strVar += "            <div class=\"filterLabelMain\">";

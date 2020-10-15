@@ -43,6 +43,11 @@
 
 <script>
 	$(document).ready(function () {
+		$("#showApps").removeClass("local");
+  		$("#showApps").show();
+  		$("#appSelectHolder").removeClass("local");
+  		$("#appSelectHolder").show();
+
 		let startsWith13 = true; // To do - change to check array
 		if (!param.geo || startsWith13) {
 			//param.titleArray = ["Georgia"]
@@ -707,7 +712,7 @@ function applyIO(naics) { // Called from naics.js
 }
 </style>
 <br><br>
-<div class="content contentadding">
+<div class="content contentadding" style="max-width:1300px">
 	<div style="float:right;margin-bottom:16px" class="noprint">
 		<a href="https://model.earth/io/charts/">About Mosaic</a>
 	</div>
