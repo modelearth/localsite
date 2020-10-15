@@ -1513,9 +1513,9 @@ function leafletLoaded(root, count) {
 
 function loadSearchFilters(root, count) {
 	if (typeof customD3loaded !== 'undefined' && typeof localsite_map !== 'undefined') {
-		loadScript(root + 'https://cdn.jsdelivr.net/npm/vue', function(results) {
+		//loadScript(root + 'https://cdn.jsdelivr.net/npm/vue', function(results) { // Need to check if function loaded
 			loadScript(root + '/localsite/js/map-filters.js', function(results) {});
-		});
+		//});
 	} else if (count<100) { // Wait a milisecond and try again
 		setTimeout( function() {
    			console.log("try loadSearchFilters again")
@@ -1571,7 +1571,7 @@ function dualmapLoaded(param, root, count) {
 		  		$(this).attr("src", root + $(this).attr('src'));
 			  }
 		})
-		loadScript(root + 'https://cdn.jsdelivr.net/npm/vue', function(results) {
+		//loadScript(root + 'https://cdn.jsdelivr.net/npm/vue', function(results) { // Need to check if function loaded
 			loadScript(root + '/localsite/js/map-filters.js', function(results) {
 
 				loadMap1();
@@ -1582,7 +1582,7 @@ function dualmapLoaded(param, root, count) {
 				}, false);
 				
 			});
-		});
+		//});
 	} else if (count<100) { // Wait a 100th of a second and try again
 		setTimeout( function() {
    			console.log("try dualmapLoaded again")
