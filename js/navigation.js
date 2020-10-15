@@ -234,10 +234,6 @@ $(document).ready(function(){
 	 		$('#headerLogo').css('background-position', 'center');
 			*/
 
-	 		$('#state_select').on('change', function() {
-			    //window.location = "/localsite/info/?state=" + this.value + "#show=mockup";
-			    goHash({'state':this.value,'sorry':'not_yet_activated','geo':'US10'})
-			});
 	 		$('.showMenu').click(function () {
 				//$(".showMenu").hide();
 				$("#menuHolder").show();

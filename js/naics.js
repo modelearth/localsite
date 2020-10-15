@@ -1080,6 +1080,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                             } else {
                                 $(".regiontitle").text("Industries within "+ fips.length + " counties");
                             }
+                            $(".filterSelected").text(fips.length + " counties");
                             //}
                         } else if (params.regiontitle) {
                             if (params.go) {
@@ -1087,6 +1088,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                             } else {
                                 $(".regiontitle").text(params.regiontitle.replace(/\+/g," "));
                             }
+                            $(".filterSelected").text(params.regiontitle);
                         }
                         for(var i=0; i < fips.length; i++){
                             var filteredData = consdata.filter(function(d) {

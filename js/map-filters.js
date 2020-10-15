@@ -184,18 +184,26 @@ $(document).ready(function () {
     	$("#searchLocation").focus(); // Not working
     	//document.getElementById("searchLocation").focus(); // Not working
 
+    	$("#honeycombPanelHolder").hide();
+		$('#showApps').removeClass("active");
 
 		//$('.hideMetaMenuClick').trigger("click"); // Otherwise covers location popup. Problem: hides hideLayers/hideLocationsMenu.
-		if ($("#showLocations").is(':visible')) {
-            //hideFieldSelector();
-			$("#showLocations").hide();
+		if ($("#filterLocations").is(':visible')) {
+            $("#showLocations").hide();
 			$("#hideLocations").show();
+			$(".filterSelected").text("Entire State");
+			$("#filterLocations").hide();
 		} else {
             $("#showLocations").show();
 			$("#hideLocations").hide();
+			$(".filterSelected").text("Location");
+			$("#filterLocations").show();
+			$('html,body').animate({
+				scrollTop: 0
+			});
 		}
 		$("#keywordFields").hide();
-		$("#filterLocations").show();
+		
 
 		//$("#filterClickCategory .filterBubbleHolder").hide();
 		
@@ -219,7 +227,7 @@ $(document).ready(function () {
 		updateHash({"geo":$(this).data('id')}, false);
 		// TO DO: set state
 
-		$(".fieldSelector").hide(); // Close loc menu
+		//$(".fieldSelector").hide(); // Close loc menu
 		e.stopPropagation(); // Prevents click on containing #filterClickLocation.
 	 });
 
@@ -236,6 +244,42 @@ $(document).ready(function () {
 	$('#searchloc').click(function () {
     	event.stopPropagation();
     });
+	$('#filterLocations').click(function () {
+    	event.stopPropagation();
+    });
+	
+ 	$('#state_select').on('change', function() {
+	    goHash({'state':this.value,'geo':'US10'})
+	});
+ 	$('#region_select').on('change', function() {
+ 		//alert($(this).attr("geo"))
+ 		//alert();
+	    goHash({'regiontitle':this.value,'lat':this.options[this.selectedIndex].getAttribute('lat'),'lon':this.options[this.selectedIndex].getAttribute('lon'),'geo':this.options[this.selectedIndex].getAttribute('geo')})
+	});
+
+ 	/*
+ 	<li><a onClick="goHash({
+    'regiontitle':'West+Central+Georgia',
+    'geo':'US13045,US13077,US13143,US13145,US13149,US13199,US13223,US13233,US13263,US13285,US01111,US01017', 
+    'lat':'33.0362',
+    'lon':'-85.0322'
+    }); $('.fieldSelector').hide(); return false;" href="#regiontitle=West+Central+Georgia&geo=US13045,US13077,US13143,US13145,US13149,US13199,US13223,US13233,US13263,US13285,US01111,US01017">West&nbsp;Central</a></li>
+    <!-- Smaller region: US13077,US13145,US13149,US13199,US13263,US13285 -->
+
+    <li><a onClick="goHash({
+    'regiontitle':'Central+Georgia',
+    'geo':'US13023,US13043,US13091,US13109,US13167,US13175,US13209,US13267,US13271,US13279,US13283,US13309,US13315,US13107,US13235', 
+    'lat':'33.0362',
+    'lon':'-85.0322'
+    }); $('.fieldSelector').hide(); return false;" href="#regiontitle=Central+Georgia&geo=US13023,US13043,US13091,US13109,US13167,US13175,US13209,US13267,US13271,US13279,US13283,US13309,US13315,US13107,US13235">Central</a></li>
+
+    <li><a onClick="goHash({
+    'regiontitle':'Southeast+Coastal+Georgia',
+    'geo':'US13001,US13005,US13127,US13161,US13229,US13305', 
+    'lat':'31.1891',
+    'lon':'-81.4979'
+    }); $('.fieldSelector').hide(); return false;" href="#regiontitle=Southeast+Coastal+Georgia&geo=US13001,US13005,US13127,US13161,US13229,US13305&lat=31.1891&lon=-81.4980">Southeast Coastal</a></li>
+ 	*/
 
     $(document).click(function(event) { // Hide open menus
     	if ( !$(event.target).closest( "#goSearch" ).length ) {
@@ -922,13 +966,13 @@ function hideLocationsMenu() {
     $('.listHolder').hide();
 }
 function populateCityList(callback) {
-    $(".menuPanel").hide(); // Also called from showCounties
+    //$(".menuPanel").hide(); // Also called from showCounties
     $(".countyList").hide();
 
     if ($('.cityList').length > 0) { // Already populated
         return;
     }
-    alert("cityList file path not yet set");
+    console.log("cityList");
     var file = "https://map.georgia.org/explore/menu/data/cities.csv";
     $.get(file, function(data) {
         var cityList;
@@ -1855,7 +1899,7 @@ function initSiteObject(layerName) {
 	                
 	                // siteObjectFunctions(siteObject); // could add to keep simple here
 
-	          		$('#showApps, .hideApps').click(function(event) {
+	          		$('#showApps, .hideApps, #appMenu').click(function(event) {
 	          			if ($("#honeycombPanelHolder").is(':visible')) {
 	          				$("#honeycombPanelHolder").hide();
 	          				$('#showApps').removeClass("active");
@@ -1896,3 +1940,71 @@ function callInitSiteObject(attempt) { // wait for dual_map
 	}
 }
 callInitSiteObject(1);
+
+
+
+
+
+// Google Autocomplete
+// Load Google API key fron config.json
+
+  var GOOGLE_MAP_KEY;
+  $.getJSON("/localsite/map/auto/config.json", function(json) {
+    GOOGLE_MAP_KEY = json.googleAPIKey;
+    loadGoogleScript();
+  });
+  
+  function loadGoogleScript() {
+    var script = document.createElement('script');
+    script.src = 'https://maps.googleapis.com/maps/api/js' + '?key=' + GOOGLE_MAP_KEY +'&libraries=places';
+    document.head.appendChild(script);
+  }
+
+  //window.onload = loadScript;
+
+
+
+  // Uses https://cdn.jsdelivr.net/npm/vue above.
+  var app = new Vue({ 
+    el: '#app',
+    mounted() {
+      // BUG Give Google script time to load before calling google.maps.places.Autocomplete
+      setTimeout(() => {
+        this.autocomplete = new google.maps.places.Autocomplete(
+          document.getElementById('searchloc'),
+          {types: ['establishment', 'geocode']}
+        );
+        this.autocomplete.addListener('place_changed', this.getPlaceData);
+      },3000)
+    },
+    data: {
+      lat: '',
+      lng: '',
+      address: '',
+      phone: '',
+      website: '',
+      state: ''
+    },
+    methods: {
+      deriveState (addr_components) {
+        for (let c of addr_components) {
+          if (c.types.includes('administrative_area_level_1')) return c.short_name;
+        }
+      },
+      getPlaceData () {
+        console.log("getPlaceData");
+        const place = this.autocomplete.getPlace();
+        this.lat = place.geometry.location.lat();
+        this.lng = place.geometry.location.lng();
+        this.address = place.formatted_address;
+        this.state = this.deriveState(place.address_components);
+        this.phone = place.formatted_phone_number;
+        this.website = place.website;
+
+        
+      }
+    }
+  });
+
+// End Google Autocomplete
+

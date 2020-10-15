@@ -67,7 +67,7 @@
     padding: 9px 10px 0px 10px;
     
     color: #555;
-    background-color: #fff;
+    background-color: #f3f3f3;
     float: left;
     box-sizing: border-box;
     margin-right: 6px;
@@ -116,6 +116,16 @@
     vertical-align: baseline;
     pointer-events: auto; /* catch click through to keep open location filter */
 }
+#locationFilterHolder b {
+  color:#777;
+  font-weight: 200;
+  margin-bottom:4px;
+}
+@media (max-width: 800px) {
+    #locationFilterHolder {
+        margin:40px 0 0 40px;
+    }
+}
 .si-wrapper div {
     position: absolute;
     top: 0 !important;
@@ -133,14 +143,17 @@
     background-color: #fff;
 }
 .close-X {
-  color:#333;
-  font-size:16px;
   cursor:pointer;
+  padding:15px 20px 15px 15px;
+  font-size:19px;
+  color:#bbb;
 }
 
 #honeycombPanel {
     text-align: center;
     margin:0 auto;
+    background-color: #fcfcfc;
+    border-bottom: 1px solid #ccc;
 }
 .bigThumbWidth { /* allows margin to reside within percent */
     floatX:left;
@@ -251,6 +264,7 @@
 @media (min-width: 1200px) {
   .bigThumbMenuInner {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* temp */
   }
 }
 
