@@ -554,6 +554,10 @@ Choose commodities below to view upstream input and downstream output.<br>
 Currently utilizes national USEEIO input-output data generated from the production API.<br>
 A Georgia input-output dataset is being developed by the EPA.<br><br>
 
+
+
+
+
 <div class="pageColumns">
 
     <div class="pageColumn">
@@ -726,7 +730,7 @@ function applyIO(naics) { // Called from naics.js
             <!--
             	location.reload() is a temporary fix since mosaic is not triggered by change to hash.
             -->
-			<select id="indicators" class="filterClickX form-selectX picklist" onchange="goHash({'indicators':this.value});location.reload();" style="width: 450px;margin-bottom:0px">
+			<select id="indicators" class="filterClickX form-selectX picklist" onchange="goHash({'indicators':this.value});location.reload();" style="width: 300px;margin-bottom:0px">
 
 			<option value="">Industries with top impacts...</option>
 
