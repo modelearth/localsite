@@ -783,14 +783,20 @@ content .js, pre code { /* Prevents .js from impacting js class within Drupal bo
 }
 
 /* HEADER */
+.upperIcons {
+  margin-right: 12px;
+}
 .upperIcons > div {
-  border-left:1px solid #ddd;
+  /* border-left:1px solid #ddd; */
   height:100px;
-  padding:32px;
+  padding:32px 10px 32px 10px;
   padding-left:37px;
 }
 .upperIcons > div:hover {
   cursor: pointer;
+}
+.upperIcons > span:hover {
+  color: #000; /* not working */
 }
 #menuHolder {
   height:100%;

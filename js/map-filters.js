@@ -204,6 +204,7 @@ $(document).ready(function () {
 			$(".filterSelected").text("Entire State");
 			$("#filterLocations").hide();
 		} else {
+			$("#topPanel").hide();
             $("#showLocations").show();
 			$("#hideLocations").hide();
 			$(".filterSelected").text("Location");
@@ -1972,6 +1973,20 @@ callInitSiteObject(1);
 
   //window.onload = loadScript;
 
+
+function googlePlacesApiLoaded(count) {
+	if (typeof google === 'object' && typeof google.maps === 'object') {
+		console.log('FOUND google.maps.places. count:' + count)
+	} else if (count<100) { // Wait a 100th of a second and try again
+		setTimeout( function() {
+   			console.log("try googlePlacesApiLoaded again")
+			googlePlacesApiLoaded(count+1);
+   		}, 10 );
+	} else {
+		console.log("ERROR: googlePlacesApiLoaded exceeded 100 attempts.");
+	}
+}
+googlePlacesApiLoaded(1);
 
 
   // Uses https://cdn.jsdelivr.net/npm/vue above.
