@@ -429,6 +429,7 @@ addEventListener("load", function(){
 });
 
 
+console.log("localsite.js called");
 var waitForJQuery = setInterval(function () {
     if (typeof $ != 'undefined') {
 
@@ -439,8 +440,19 @@ var waitForJQuery = setInterval(function () {
               $('.lazy').Lazy(); // Lazy load all divs with class .lazy
         });
 
-        clearInterval(waitForJQuery); // Escape the loop
+        if(location.host.indexOf('localhost') >= 0 || param["view"] == "local") {
+          var div = $("<div />", {
+              html: '<style>.local{display:inline-block !important}.localonly{display:block !important}</style>'
+            }).appendTo("body");
+          console.log("localsite.js waitForJQuery called");
+        } else {
+          // Inject style rule
+            var div = $("<div />", {
+              html: '<style>.local{display:none}.localonly{display:none}</style>'
+            }).appendTo("body");
+        }
       });
+      clearInterval(waitForJQuery); // Escape the loop
     }
 }, 10);
 

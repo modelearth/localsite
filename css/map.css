@@ -24,7 +24,16 @@
     border:#bbb 2px solid !important;
     line-height: 36px !important;
   }
-
+  .leaflet-top > .info {
+    background-color: rgba(33, 33, 33, 0.5);
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    min-width: 130px;
+  }
+  .leaflet-top > .info. b {
+    color: #fff !important;
+  }
   #legendHolder {
     position: absolute;
     background-color:rgba(33,33,33,0.5);

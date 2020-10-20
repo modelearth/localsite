@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/x-icon" href="../img/logo/neighborhood-icon.png" />
 
-<script type="text/javascript" src="../js/jquery/jquery-1.12.4.min.js" id="http://localhost:8887/localsite/js/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js" id="http://localhost:8887/localsite/js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/localsite.js" id="http://localhost:8887/localsite/js/localsite.js"></script>
 <script type="text/javascript" src="../js/navigation.js"></script>
 <script type="text/javascript" src="../js/showdown.min.js"></script>
@@ -33,7 +33,9 @@
 <link type="text/css" href="../css/naics.css" rel="stylesheet" />
 
 <!-- Has to be included for county map recall withou error, since loading from dual map widget does not work. -->
+<!--
 <script type="text/javascript" src="/localsite/js/leaflet.js" id="/localsite/js/leaflet.js"></script>
+-->
 
 <!-- After USEEIO to alter css -->
 <!--
@@ -213,13 +215,6 @@ code {
 	margin-bottom: 8px;
 	display: none;
 }
-.leaflet-top > .info {
-	background-color: rgba(33, 33, 33, 0.5);
-	color: #fff;
-	padding: 10px;
-	text-align: center;
-	min-width: 130px;
-}
 
 #hublist, #tableSide {
 	max-height: 750px;
@@ -229,10 +224,32 @@ code {
   
 
 <script>
-document.addEventListener('hashChangeEvent', function (elem) {
-	console.log("info/index.html detects hashChangeEvent");
- 	refreshWidgets();
-}, false);
+'use strict'; // Optional, make sure we are declaring variables.
+
+// COMMON - also resides in embed-map.js
+function loadScript(url, callback)
+{
+  if (!document.getElementById(url)) { // Prevents multiple loads.
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+    script.id = url; // Prevents multiple loads.
+    // Bind the event to the callback function. Two events for cross browser compatibility.
+    script.onreadystatechange = callback;
+    script.onload = callback;
+    //$(document).ready(function () { // Only needed if appending to body
+    var head = document.getElementsByTagName('head')[0];
+    head.appendChild(script);
+    //});
+    console.log("loadScript loaded: " + url);
+  } else {
+    console.log("loadScript script already available: " + url);
+    callback();
+  }
+  // Nested calls are described here: https://books.google.com/books?id=ZOtVCgAAQBAJ&pg=PA6&lpg=PA6
+}
+// END COMMON
+
 
 function reloadMapTiles(whichmap,attempt) {
 	if ($('#geomap').html().length > 0) {
@@ -252,10 +269,21 @@ function reloadMapTiles(whichmap,attempt) {
 		}
 	}
 }
+
 // INIT
-//var hash = getHash(); // Include all existing
 var priorHash = {};
-function refreshWidgets() {
+//priorHash = getHash();
+
+loadScript('/localsite/js/map-filters.js', function(results) {
+
+	/* Allows map to remove selected shapes when backing up. */
+	document.addEventListener('hashChangeEvent', function (elem) {
+		console.log("info/index.html detects hashChangeEvent");
+	 	refreshWidgets();
+	}, false);
+
+  function refreshWidgets() {
+  	
 	let reloadedMap = false;
 	param = loadParams(location.search,location.hash); // param is declared in localsite.js
 	let hash = getHash();
@@ -273,7 +301,7 @@ function refreshWidgets() {
         $(".mainColumn1").show();
 	}
 	if (hash.geomap != priorHash.geomap) {
-		if (hash.geomap) {
+		//if (hash.geomap) {
 			$("#aboutToolsDiv").hide();
 			$("#infoColumn").show();
 			$("#geomap").show();
@@ -281,21 +309,7 @@ function refreshWidgets() {
 			// DOES NOT WORK - document.querySelector(whichmap)._leaflet_map not found
 			//reloadMapTiles('#geomap',1);
 			
-			// Reload map instead
-			if (reloadedMap == false) {
-				loadScript('/localsite/js/leaflet.js', function(results) {
-					let whichmap = "geomap";
-						let map = document.querySelector('#' + whichmap)._leaflet_map; 
-						if (map) {
-							if (geojsonLayer) {
-								// removes the whole layer until 
-								map.removeLayer(geojsonLayer); // Remove the prior topo layer
-							}
-						}
-					renderMapShapes(whichmap, hash); // Temp here
-					reloadedMap = true;
-				});
-			}
+			
 			/*
 			alert("show map")
 			if (document.querySelector('#geomap')._leaflet_map) {
@@ -304,10 +318,10 @@ function refreshWidgets() {
 			}
 			*/
 			
-		} else {
-			$("#geomap").hide();
-			$("#aboutToolsDiv").show();
-		}
+		//} else {
+		//	$("#geomap").hide();
+		//	$("#aboutToolsDiv").show();
+		//}
 	}
 	if (hash.show != priorHash.show) {
 		if (hash.show == "farmfresh") {
@@ -342,7 +356,7 @@ function refreshWidgets() {
 	    }
 
 	    //if (hash.geomap == "true") { // Since otherwise called above
-	    	if (reloadedMap == false) {
+	    	//if (reloadedMap == false) {
 		    	loadScript('/localsite/js/leaflet.js', function(results) {
 
 			    		// ._leaflet_map Only works if alert occurs here
@@ -353,18 +367,18 @@ function refreshWidgets() {
 
 						// Clear here so clicking a new region redraws map.
 						// This can be avoided once we figure out how to update an individal shape using renderMapShapesSimple.
-						let whichmap = "geomap";
-						let map = document.querySelector('#' + whichmap)._leaflet_map; 
-						if (geojsonLayer) {
-							// removes the whole layer until 
-							map.removeLayer(geojsonLayer); // Remove the prior topo layer
+						//let whichmap = "geomap";
+						//let geomap = document.querySelector('#' + whichmap)._leaflet_map; 
+						//if (geojsonLayer) {
+						//	geomap.removeLayer(geojsonLayer); // Remove the prior topo layer
+						//}
+						if ($("#geomap").is(":visible")) { // Avoid loading if map is not visible since tiles wont' cover div.
+							//alert("render on click")
+							renderMapShapes("geomap", hash);
 						}
-						//alert("render")
-						renderMapShapes(whichmap, hash); // Temp here
-
 				});
-				reloadedMap = true;
-			}
+				//reloadedMap = true;
+			//}
 		//}
 	}
 	//alert(hash.regiontitle)
@@ -379,9 +393,31 @@ function refreshWidgets() {
 	if (hash.geo != priorHash.geo) {
 		//$(".regiontitle").text(""); //Clear
 		//$(".location_titles").text(""); //Clear
-		//updateLoc(hash.geo); // Check counties. (map-filters.js)
+		//updateGeoFilter(hash.geo); // Check counties. (map-filters.js)
 	}
 	
+	if (hash.mapframe != priorHash.mapframe) {
+		var mapframe;
+		if (hash.mapframe) {
+	    	if (hash.mapframe == "ej") {
+	    		mapframe = "https://ejscreen.epa.gov/mapper/";
+	    	}
+	    	if (mapframe) {
+	    		$("#mapframe").prop("src", mapframe);
+				$("#mapframe").show();
+			}
+		}
+	}
+	if (hash.lat != priorHash.lat || hash.lon != priorHash.lon) {
+	    $("#lat").val(hash.lat);
+	    $("#lon").val(hash.lon);
+	    let pagemap_center = [hash.lat,hash.lon];
+	    let pagemap = document.querySelector('#map1')._leaflet_map; // Recall existing map
+	    let pagemap_container = L.DomUtil.get(pagemap);
+	    if (pagemap_container != null) { 
+	      pagemap.flyTo(pagemap_center, 18);
+	    }
+	  }
 
     if (param.catsort) {
 		$("#catsort").val(param.catsort);
@@ -396,7 +432,13 @@ function refreshWidgets() {
 		$("#indicators").val(param.indicators);
 	}
 	priorHash = getHash();
-}
+
+  }
+  // INIT
+  $(document).ready(function () {
+	refreshWidgets();
+  });
+});
 </script>
 
 </head>
@@ -431,27 +473,19 @@ To do: make the links below an optional widget
 	<a href="https://data.nal.usda.gov/life-cycle-assessment" target="USDA">USDA</a><br><br>
 	-->
 
-	<div id="topMessage"></div>
+	
 
 	<!-- two columns -->
 	<div class="pageColumns">
 		<div style="display:table-row">
+
+			<!--
 			<div id="infoColumn" class="mainColumn mainColumn1" style="font-size: 15px; position: relative">
-
-				<!--
-				<div style="max-width:400px; margin-bottom:10px">
-				Adjust your local industry mix to maximize job quality, 
-				value added revenue and positive environmental&nbsp;impacts.
-				</div>
-				-->
-
-				<!-- Must be displayed initiallly so tiles are visible -->
-				<div id="geomap" style="height:550px; border:1px solid blue; position: relative"></div>
-
 				
 				<div id="aboutToolsDiv" style="position: relative;"></div>
 				
 			</div>
+			-->
 
 			<div class="mainColumn mainColumn2 input-output">
 			
@@ -460,6 +494,8 @@ To do: make the links below an optional widget
 					<h4 class="location_titles" style="font-size:16px;color:#555;display:none"></h4>
 				</div>
 
+				<div id="topMessage"></div>
+				
 				<!--
 				<div style="max-width:700px">
 					<b>Adjust Industry Levels</b> to reflect technology initiatives that generate new revenue streams, create jobs and increase your community's positive environmental impact.
@@ -524,6 +560,22 @@ To do: make the links below an optional widget
 
 </div>
 </div>
+
+
+
+
+<!--
+https://www.epa.gov/enviroatlas
+
+<div class="contentpadding">
+<h1>Sample of embedding <a href="https://www.epa.gov/enviroatlas/enviroatlas-interactive-map">Enviro Atlas</a></h1>
+</div>
+https://epa.maps.arcgis.com/apps/MapJournal/index.html?appid=0659c53852f4425fb3460e78de67a3ef
+-->
+
+<iframe id="mapframe" style="display:none; width:93%;height:800px; margin:0 0px 40px 40px"></iframe>
+
+
 
 <!-- INPUT OUTPUT -->
 <div class="content contentpadding litePanel" style="width:95% !important; max-width:95%; margin-top:20px; border:1px solid #aaa">
@@ -743,7 +795,7 @@ function applyIO(naics) { // Called from naics.js
 }
 </style>
 <br><br>
-<div class="content contentadding" style="max-width:1300px">
+<div class="content contentpadding" style="max-width:1300px">
 	<div style="float:right;margin-bottom:16px" class="noprint">
 		<a href="https://model.earth/io/charts/">About Mosaic</a>
 	</div>
@@ -925,15 +977,8 @@ config.withDefaults({
   count: 20,
 });
 config.join(sectorList);
-
-
-https://www.epa.gov/enviroatlas
-
-<div class="contentpadding">
-<h1>Sample of embedding <a href="https://www.epa.gov/enviroatlas/enviroatlas-interactive-map">Enviro Atlas</a></h1>
-</div>
-<iframe src="https://epa.maps.arcgis.com/apps/MapJournal/index.html?appid=0659c53852f4425fb3460e78de67a3ef" style="width:100%;height:800px; margin-bottom:40px"></iframe>
 -->
+
 
 
 <div style="margin:0 30px 0 30px; max-width: 2000px;">
@@ -1155,33 +1200,6 @@ https://www.epa.gov/enviroatlas
 
 
 <script type="text/javascript">
-'use strict'; // Optional, make sure we are declaring variables.
-
-/*
-// COMMON - also resides in embed-map.js
-function loadScriptXXXXXX(url, callback)
-{
-  if (!document.getElementById(url)) { // Prevents multiple loads.
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = url;
-    script.id = url; // Prevents multiple loads.
-    // Bind the event to the callback function. Two events for cross browser compatibility.
-    script.onreadystatechange = callback;
-    script.onload = callback;
-    //$(document).ready(function () { // Only needed if appending to body
-    var head = document.getElementsByTagName('head')[0];
-    head.appendChild(script);
-    //});
-    console.log("loadScript loaded: " + url);
-  } else {
-    console.log("loadScript script already available: " + url);
-    callback();
-  }
-  // Nested calls are described here: https://books.google.com/books?id=ZOtVCgAAQBAJ&pg=PA6&lpg=PA6
-}
-// END COMMON
-*/
 
 function updateText(go) {
 	$("#aboutToolsDiv").text("");
@@ -1333,8 +1351,7 @@ function loadIOWidgets(param) {
 
 }
 
-// INIT
-refreshWidgets();
+
 if (!param.geo) { // Others gets called by refreshWidgets on init.
 	//renderMapShapes("geomap", param);
 }

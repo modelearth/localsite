@@ -21,7 +21,8 @@ select {
     background-color: #333;
 }
 html, body, .litePanel, #header, #footer, #fullcolumn, .headerbar, #sidecolumn, #rightcolumn {
-    background-color: #333;
+    background-colorX: #333;
+    background-color: rgba(0, 0, 0, 0);
     color: #fff;
 }
 a:link {
@@ -35,7 +36,8 @@ a:visited {
 	border-bottom-color: #222;
 }
 #sidecolumn {
-	background-color: #292929;
+	background-colorX: #292929;
+	background-color: rgba(0, 0, 0, 0);
 }
 .upperIcons > div {
 	border:0px;
