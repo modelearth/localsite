@@ -1257,7 +1257,7 @@ $(document).ready(function () {
   }
 
 	$('.sendfeedback').click(function(event) {
-	  window.open("/localsite/info/input/",'_parent');
+	  window.open(dual_map.localsite_root() + "/info/input/",'_parent');
 	  event.stopPropagation();
 	});
 
