@@ -1956,6 +1956,9 @@ function initSiteObject(layerName) {
 	          					displayBigThumbnails("main",siteObject);
 							}
 							$('#showApps').addClass("active");
+							$('html,body').animate({
+								scrollTop: 0
+							});
 	          			}
 	          			
 					  	event.stopPropagation();
