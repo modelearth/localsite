@@ -53,7 +53,7 @@ function populateFieldsFromHash() {
 // var param = loadParams(location.search,location.hash); // This occurs in localsite.js
 
 
-renderMapShapes("geomap", param); // Resides in map-filters.js
+//renderMapShapes("geomap", param); // Resides in map-filters.js
 
 $(document).ready(function () {
 
@@ -191,6 +191,7 @@ $(document).ready(function () {
 
     $("#filterClickLocation").click(function(event) {
     	console.log("show location filters");
+    	
     	$("#searchLocation").focus(); // Not working
     	//document.getElementById("searchLocation").focus(); // Not working
 
@@ -209,13 +210,16 @@ $(document).ready(function () {
 			$("#hideLocations").hide();
 			$(".filterSelected").text("Location");
 			$("#filterLocations").show();
+
+			let hash = getHash();
+    		renderMapShapes("geomap", hash);// Called once map div is visible for tiles.
 			$('html,body').animate({
 				scrollTop: 0
 			});
 		}
 		$("#keywordFields").hide();
 		
-
+		
 		//$("#filterClickCategory .filterBubbleHolder").hide();
 		
         // TO DO: Display cities, etc. somehow without clicking submenu.
@@ -789,7 +793,7 @@ function showCounties(attempts) {
 	        });
 			// INIT AT TIME OF INITIAL COUNTY LIST DISPLAY
 			// Set checkboxes based on param (which may be a hash, query or include parameter)
-			updateLoc(param.geo); // Needed here to check county boxes.  BUGBUG: Might be reloading data. This also gets called from info/
+			updateGeoFilter(param.geo); // Needed here to check county boxes.  BUGBUG: Might be reloading data. This also gets called from info/
 		});
 	} else {
 		attempts = attempts + 1;
@@ -819,7 +823,7 @@ function applyStupidTable(count) {
 		console.log("applyStupidTable attepts exceeded 100.");
 	}
 }
-function updateLoc(geo) {
+function updateGeoFilter(geo) {
 	$(".geo").prop('checked', false);
 	if (geo) {
 		locationFilterChange("counties");
@@ -834,11 +838,11 @@ function updateLoc(geo) {
     {
         $(".state-view").hide();
         $(".county-view").show();
-        $(".industry_filter_settings").show(); // temp
+        //$(".industry_filter_settings").show(); // temp
     } else {
         $(".county-view").hide();
         $(".state-view").show();
-        $(".industry_filter_settings").hide(); // temp
+        //$(".industry_filter_settings").hide(); // temp
     }
 }
 function activateMyLocation(limitByDistance) {
@@ -1471,12 +1475,13 @@ function renderMapShapesSimple(whichmap, hash) {
 	}
 }
 function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
-	//alert("renderMapShapes " + whichmap);
 	console.log("renderMapShapes " + whichmap);
 	var req = new XMLHttpRequest();
 	const whichGeoRegion = hash.geomap;
     // Topo data source
     //https://github.com/deldersveld/topojson/tree/master/countries/us-states
+
+    updateGeoFilter(hash.geo); // Checks and unchecks geo (counties) when backing up.
 
     // TOPO Files: https://github.com/modelearth/topojson
     var url = dual_map.custom_data_root() + '/counties/GA-13-georgia-counties.json';
@@ -1615,7 +1620,6 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
       let map;
       if (document.querySelector('#' + whichmap)) {
-
       	map = document.querySelector('#' + whichmap)._leaflet_map; // Recall existing map
   	  }
       var container = L.DomUtil.get(map);
@@ -1623,8 +1627,12 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
       	// Don't add, breaks /info
       	// && $('#' + whichmap).html()
-  	  if ($('#' + whichmap) && $('#' + whichmap).html().length == 0) { // Note: Avoid putting loading icon within map div.
+  	  //if ($('#' + whichmap) && $('#' + whichmap).html().length == 0) { // Note: Avoid putting loading icon within map div.
   	  	  //alert("set " + whichmap)
+
+  	 //var container = L.DomUtil.get(map);
+     if (container == null) { // Initialize map
+
 	      map = L.map(whichmap, {
 		      center: new L.LatLng(lat,lon),
 		      scrollWheelZoom: false,
@@ -1633,15 +1641,21 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 		      tap: !L.Browser.mobile
 		    });
 
+	  } else if (geojsonLayer) {
+	  	//alert("Remove the prior topo layer")
+	  	// To do: 
+
+	  	// Causes error in /map : leaflet.js:5 Uncaught TypeError: Cannot read property '_removePath' of undefined
+	  	if(map.hasLayer(geojsonLayer)) {
+	  		//alert("HAS LAYER")
+	  		map.removeLayer(geojsonLayer); // Remove the prior topo layer
+	  		//map.geojsonLayer.clearLayers();
+	  	}
+	  	//map.geojsonLayer.clearLayers(); // Clear prior
 	  }
 
 	  if (map) {
-		  if (geojsonLayer) {
-		  	//alert("Remove the prior topo layer")
-		  	// To do: 
-		  	map.removeLayer(geojsonLayer); // Remove the prior topo layer
-		  }
-
+	  	  //alert("map - populate geojsonLayer")
 		  geojsonLayer = L.geoJson(topodata, {style:styleShape, onEachFeature: onEachFeature}).addTo(map); // Called within addTo(map)
 	  } else {
 	  	console.log("WARNING - map not available from _leaflet_map")
@@ -1659,11 +1673,14 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
 
       var basemaps1 = {
-	    'Grayscale' : L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
 	    'Satellite' : L.tileLayer(mbUrl, {maxZoom: 25, id: 'mapbox.satellite', attribution: mbAttr}),
-	    'Streets' : L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr}),
-	    'OpenStreetMap' : L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	    // OpenStreetMap
+	    'Street Map' : L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	        maxZoom: 19, attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+	    }),
+	    // OpenStreetMap_BlackAndWhite:
+	    'Grey' : L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+	        maxZoom: 18, attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
 	    }),
 	  }
 
@@ -1707,7 +1724,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 	      	if (layerControl[whichmap] == undefined) {
 		    	layerControl[whichmap] = L.control.layers(basemaps1, overlays).addTo(map); // Push multple layers
 		    	//basemaps1["Satellite"].addTo(map);
-		    	basemaps1["Streets"].addTo(map);
+		    	basemaps1["Grey"].addTo(map);
 		    } else {
 		    	// Error: Cannot read property 'on' of undefined
 		    	//layerControl[whichmap].addOverlay(dp.group, dp.dataTitle); // Appends to existing layers
@@ -2026,7 +2043,10 @@ googlePlacesApiLoaded(1);
         this.phone = place.formatted_phone_number;
         this.website = place.website;
 
-        
+        //alert(place.geometry.location.lat());
+        $("#coordFields").show();
+        goHash({"lat":place.geometry.location.lat(),"lon":place.geometry.location.lng()});
+        $("#filterLocations").hide();
       }
     }
   });

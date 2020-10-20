@@ -703,7 +703,11 @@ function loadMap1(dp) { // Also called by map-filters.js
 
   // Note: light_nolabels does not work on https. Remove if so. Was positron_light_nolabels.
   var basemaps1 = {
-    'Grayscale' : L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}), // Seems like Mapbox discontinued.
+    //'Grayscale' : L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}), // No longer works, may require registration change.
+    // OpenStreetMap_BlackAndWhite:
+      'Grayscale' : L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+          maxZoom: 18, attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+      }),
 
     // https://github.com/CartoDB/basemap-styles
     //'Grayscale' : L.tileLayer('https://{s}.tile.cartocdn.com/{z}/{x}/{y}.png', {

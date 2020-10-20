@@ -1062,7 +1062,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                     //document.getElementById("industryheader").text = ""; // Clear initial.
                     $(".location_titles").text(""); //Clear
                     if (params.go == "bioeconomy") {
-                        $(".regiontitle").text("Bioeconomy and Fossil Fuel Industries");
+                        $(".regiontitle").text("Bioeconomy and Petroleum Industries");
                     } else if (params.go == "parts") {
                         $(".regiontitle").text("Parts Manufacturing");
                     } else if (params.go == "manufacturing") {
@@ -1088,7 +1088,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                             } else {
                                 $(".regiontitle").text(params.regiontitle.replace(/\+/g," "));
                             }
-                            $(".filterSelected").text(params.regiontitle);
+                            $(".filterSelected").text(params.regiontitle.replace(/\+/g," "));
                         }
                         for(var i=0; i < fips.length; i++){
                             var filteredData = consdata.filter(function(d) {
@@ -1119,7 +1119,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
 
                     }else if(fips==dataObject.stateshown){
                         if (params.go == "bioeconomy") {
-                            $(".regiontitle").text("Bioeconomy and Fossil Fuel Industries");
+                            $(".regiontitle").text("Bioeconomy and Petroleum Industries");
                         } else if (params.go == "parts") {
                             $(".regiontitle").text("Parts Manufacturing");
                         } else if (params.go == "manufacturing") {

@@ -16,17 +16,17 @@ Search utilizes Google Places API autocomplete functionality, returning Google's
 
 5. Restrict the API key to only allow specific origin access (website domain)
 
-	[Google Cloud Console](https://console.cloud.google.com/) > your project > APIs & Services > Credentials > your API Key > Application restrictions > HTTP referers  
+	[Google Cloud Console](https://console.cloud.google.com/) > your project > APIs & Services (in left side menu) > Credentials > your API Key > Application restrictions > HTTP referers  
 
-	You can use a wildcard before the domain `(*.example.com)` to allow all subdomains, likewise a wildcard after the domain `(.example.com/*)` to allow all paths
+	You can use a wildcard before the domain `(*.example.com)` to allow all subdomains, likewise a wildcard after the domain `(*.example.com/*)` to allow all paths.  
 
-
+	<!-- Using data.georgia.org  -->
 
 ---
+<br>
 
-Or you can use the [Google Geocode API Directly](https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY) (link needs API key) 
-to make up to 40,000 calls per month at no charge to the 
-[Google Maps API](https://developers.google.com/maps/documentation/geocoding/start).  
+You can also use the [Google Geocode API Directly](https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY) to fetch lat/lon values for addresses. Add your API key to the link. 
+You can make up to 40,000 calls per month to the [Google Maps API](https://developers.google.com/maps/documentation/geocoding/start) at no charge.  
 
  
 
