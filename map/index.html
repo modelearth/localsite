@@ -253,7 +253,7 @@
       </div>
       <!-- END KEYWORD SEARCH -->
 
-      <div style="overflow:visible; display:none" class="filterField searchElements local mock-up earth">
+      <div style="overflow:visible; display:none" class="filterField searchElements mock-up earth">
           <div class="filterLabel">
             <div class="filterLabelMain">
               Where
@@ -722,8 +722,8 @@
       <select style="display:none;" name="locationDD" id="locationDD">
         <option value="all" style="display:none">All</option>
           <option value="state" selected="selected">Entire State1</option>
-          <option value="current">Nearby</option>
-          <option value="custom">Lat/Lon</option>
+          <option value="nearby">Nearby</option>
+          <option value="latlon">Lat/Lon</option>
           <option value="city">Search by City</option>
           <option value="zip">Search by Zip</option>
           <option value="counties">Search by County</option>
@@ -744,19 +744,19 @@
         <ul class="filterUL" style="margin:18px 12px 0 30px;clear:both;min-width:120px;float:left">
 
             <li data-id="all" style="display:none"><a href="#">All</a></li>
-            <li data-id="US"><a href="#">USA</a></li>
+            <li data-id="country" geo="US"><a href="#">USA</a></li>
             <!--
             <li data-id="state" class="selected" style="white-space:nowrap"><a href="#">Entire State</a></li>
-            -->
-            <li data-id="US13" class="selected" style="white-space:nowrap"><a href="#">Georgia</a></li>
             
+            <li data-id="state" geo="US13" class="selected" style="white-space:nowrap"><a href="#">Georgia</a></li>
+            -->
             
             <li data-id="city" class="local" style="display:none"><a href="#">Cities</a></li>
             <li data-id="counties"><a href="#">Counties</a></li>
             <li data-id="zip" class="local" style="display:none,white-space:nowrap"><a href="#">Zip Code</a></li>
             
-            <li data-id="custom" class="hideFilter"><a href="#">Lat/Lon</a></li>
-            <li data-id="current" class="hideFilter"><a href="#">Nearby</a></li>
+            <li data-id="latlon" class="hideFilter"><a href="#">Lat/Lon</a></li>
+            <li data-id="nearby" class="hideFilter"><a href="#">Nearby</a></li>
             
         </ul>
 
@@ -767,7 +767,7 @@
             <div class="hideAdvanced close-X" style="float:right; margin-top:-20px">&#10005;
             </div>
 
-            <div class="input-output" style="float:left">
+            <div class="stateFilters input-output" style="float:left">
               <b>State</b><br>
                 <select id="state_select" name="state">
                  <option value='AL'>Alabama</option>
@@ -825,7 +825,7 @@
                <br><br>
             </div>
 
-            <div class="input-output" style="float:left">
+            <div class="stateFilters input-output" style="float:left">
               <b>Region</b><br>
               
               <select id="region_select">
@@ -879,11 +879,11 @@
 
 
         <!-- Secondary Location Filters -->
-          <div style="float:left;displayX:none" class="currentCities">
+          <div style="float:left;display:none" class="currentCities">
 
             <div class="filterField">
                 <div class="filterLabel">
-                  <div class="filterLabelMain">
+                  <div class="filterLabelMap">
                     Cities
                   </div>
                 </div>
@@ -897,7 +897,7 @@
           <div style="float:left;display:none" class="currentCounties">
 
             <div class="filterField">
-                <div class="filterLabel"><div class="filterLabelMain">
+                <div class="filterLabel"><div class="filterLabelMap">
                 </div></div>
 
                 <div class="filterClick" style="position:relative; float:left;">
@@ -909,12 +909,12 @@
 
           <div id="coordFields" style="display:none;float:left;min-height:40px;">
               <div style="float:left; margin-right: 6px">
-                <div class="filterLabelX"><div class="filterLabelMainX">Latitude
+                <div class="filterLabelX"><div class="filterLabelMap">Latitude
                 </div></div>
                 <input id="lat" class="filterClick mobileWide textInput" placeholder="Latitude" type="text" style="width: 120px; margin-top: 0px" />
               </div>
               <div style="float:left; margin-right: 6px">
-                <div class="filterLabelX"><div class="filterLabelMainX">Longitude
+                <div class="filterLabelX"><div class="filterLabelMap">Longitude
                 </div></div>
                   <input id="lon" class="filterClick mobileWide textInput" placeholder="Longitude" type="text" style="width: 120px; margin-top: 0px" />
               </div>
@@ -923,7 +923,7 @@
            <div id="zipFields" style="display:none; float:left">
           
               <div style="float:left; margin-right:6px; min-height:50px">
-                <div class="filterLabel"><div class="filterLabelMain">Zip</div></div>
+                <div class="filterLabelX"><div class="filterLabelMap">Zip</div></div>
                   <input id="zip" class="filterClick mobileWide textInput" type="text" placeholder="Enter Zip" style="width: 132px; margin-top: 0px" title="Enter zip code" />
               </div>
 
@@ -946,8 +946,8 @@
 
           <div id="distanceField" class="filterField" style="display:none; float:left; min-height:50px">
           
-            <div class="filterLabel">
-              <div class="filterLabelMain">Distance</div></div>
+            <div class="filterLabelX">
+              <div class="filterLabelMap">Distance</div></div>
 
               <select class="distance triggerSearch filterClick">
                   <option value="">Distance...</option>
@@ -976,29 +976,31 @@
 
         <div style="clear:both"></div>
 
+        <div id="geoPicker">
+          <div style="float:left">
+            <!-- Must be displayed initiallly so tiles are visible -->
+              <div id="geomap" style="width:440px; height:530px; margin:0 30px 30px 0; border:1px solid blue; position: relative">
+              </div>
+          </div>
 
-        <div style="float:left">
-          <!-- Must be displayed initiallly so tiles are visible -->
-            <div id="geomap" style="width:440px; height:530px; margin:0 30px 30px 0; border:1px solid blue; position: relative">
-            </div>
+          <div style="overflow:auto; padding-right:30px; border:0px solid #ccc;" class="geoListHolder height100">
+
+              <div class="listHolder">
+                <!--Cities -->
+              </div>
+
+              <div class="geoListCounties" style="overflow:scroll;">
+                <!-- Activate or remove
+                <div style="float:right;margin:12px 0px 0 12px">
+                  <input id="showValues" type="checkbox" checked> Show values
+                </div>
+                -->
+                <div style="width:100%" class="output_table rotateHeader">
+                </div>
+              </div>
+          </div>
         </div>
 
-        <div style="overflow:auto; padding-right:30px; border:0px solid #ccc;" class="geoListHolder height100">
-
-            <div class="listHolder">
-              <!--Cities -->
-            </div>
-
-            <div class="geoListCounties" style="overflow:scroll;">
-              <!-- Activate or remove
-              <div style="float:right;margin:12px 0px 0 12px">
-                <input id="showValues" type="checkbox" checked> Show values
-              </div>
-              -->
-              <div style="width:100%" class="output_table rotateHeader">
-              </div>
-            </div>
-        </div>
       </div>
 
             
@@ -1032,6 +1034,7 @@
       </div>
 </div>
 
+<div style="clear:both"></div>
 
 <div class="displayOnload" style="display:none;position:relative">
 <div id="map1"></div>

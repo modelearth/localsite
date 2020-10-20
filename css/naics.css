@@ -1,3 +1,6 @@
+#econ_list {
+	overflow-x: scroll;
+}
 #sector_list {
 	display: table;
 	width: 100%;
