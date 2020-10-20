@@ -238,9 +238,8 @@ $(document).ready(function () {
 		$("#locationStatus").hide();
 		//alert($(this).data('id'));
         consoleLog("Call locationFilterChange from .filterUL li click: " + $(this).data('id'));
-        locationFilterChange($(this).data('id'));
-		updateHash({"geo":$(this).data('id')}, false);
-		// TO DO: set state
+        locationFilterChange($(this).data('id'),$(this).attr('geo'));
+        goHash({"filter":$(this).data('id'),"geo":$(this).attr('geo')}, false);
 
 		//$(".fieldSelector").hide(); // Close loc menu
 		e.stopPropagation(); // Prevents click on containing #filterClickLocation.
@@ -264,7 +263,12 @@ $(document).ready(function () {
     });
 	
  	$('#state_select').on('change', function() {
-	    goHash({'state':this.value,'geo':'US10'})
+	    goHash({'filter':'','state':this.value});
+	    if (this.value == "GA") {
+	    	$("#geoPicker").show();
+	    } else {
+	    	$("#geoPicker").hide();
+	    }
 	});
  	$('#region_select').on('change', function() {
  		//alert($(this).attr("geo"))
@@ -297,6 +301,7 @@ $(document).ready(function () {
  	*/
 
     $(document).click(function(event) { // Hide open menus
+    	console.log("document click -  Hide open menus")
     	if ( !$(event.target).closest( "#goSearch" ).length ) {
     		// BUGBUG - Reactivate after omitting clicks within location selects
     		//$(".fieldSelector").hide(); // Avoid since this occurs when typing text in search field.
@@ -547,10 +552,10 @@ $(document).ready(function () {
 });
 
 
-function locationFilterChange(selectedValue) {
+function locationFilterChange(selectedValue,selectedGeo) {
 	var useCookies = false; // Would need Cookies from site repo.
 
-    consoleLog("locationFilterChange: " + selectedValue);
+    console.log("locationFilterChange: " + selectedValue + " " + selectedGeo);
     //$(".geoListHolder > div").hide();
     $(".geoListCounties").show();
     //showSearchClick(); // Display filters
@@ -587,7 +592,15 @@ function locationFilterChange(selectedValue) {
         $('.goSearch').trigger("click");
     }
 
-    if (selectedValue == 'current') { // its My Current location, set cookie useCurrent=1
+    if (selectedValue == 'country') {
+    	$("#geoPicker").hide();
+    	$(".stateFilters").hide();
+    } else {
+    	$("#geoPicker").show();
+    	$(".stateFilters").show();
+    }
+
+    if (selectedValue == 'nearby') { // My current location, set cookie useCurrent=1
         $("#distanceField").show();
         activateMyLocation(true);
         if(useCookies) {
@@ -596,7 +609,7 @@ function locationFilterChange(selectedValue) {
         //geoSelected();
     }
 
-    if (selectedValue == 'custom') { // its other location, set cookie useCurrent=0
+    if (selectedValue == 'latlon') { // Other location, set cookie useCurrent=0
         $("#coordFields").show();
         $("#distanceField").show();
         //$('#latLonFields').show();
@@ -607,6 +620,8 @@ function locationFilterChange(selectedValue) {
     }
 
     if (selectedValue == 'zip') {
+    	$("#coordFields").hide();
+        $("#distanceField").hide();
         $("#distanceField").show();
         $("#zipFields").show();
         $("#zip").focus();
@@ -625,6 +640,7 @@ function locationFilterChange(selectedValue) {
     if (selectedValue == 'city') {
         $("#distanceField").show();
         $("#cityFields").show();
+        //$('.currentCities').show();
         //$(".detailsPanel").hide();
         //$(".listPanelInner").hide();
         //$(".listPanelSideBkgd").hide(); // Alphabet
@@ -1475,6 +1491,9 @@ function renderMapShapesSimple(whichmap, hash) {
 	}
 }
 function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
+	if (!$("#" + whichmap).is(":visible")) {
+		return; // Prevent incomplete tiles
+	}
 	console.log("renderMapShapes " + whichmap);
 	var req = new XMLHttpRequest();
 	const whichGeoRegion = hash.geomap;
