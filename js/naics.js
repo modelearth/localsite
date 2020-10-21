@@ -822,7 +822,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                         }
                         text = "<div class='row'><div class='cell'><!-- col 1 -->NAICS</div><div class='cell' style='min-width:300px'><!-- col 2 -->Industry</div>" + text + "<div class='cell-right'>" + totalLabel + "</div>";
                         if (fips == dataObject.stateshown && params.catsort == "payann") {
-                            text += "<div class='cell' style='text-align:right'>Employees</div><div class='cell' style='text-align:right'>Locations</div>";
+                            text += "<div class='cell' style='text-align:right'>Employees</div><div class='cell' style='text-align:right'>Firms</div>";
                         }
                         text += "</div>"; // #9933aa
                         
@@ -1040,7 +1040,7 @@ function topRatesInFips(dataSet, dataNames, fips, params){
                             //text += top_data_list[i]['NAICScode'] + ": <b>" +top_data_list[i]['data_id']+"</b>, "+String(whichVal.node().options[whichVal.node().selectedIndex].text).slice(3, )+": "+Math.round(top_data_list[i][whichVal.node().value])+"<br>";
                             
                             // 
-                            text += "<div class='row'><div class='cell'><a href='#naics=' onClick='goHash({\"naics\":" + top_data_list[i]['NAICScode'] + "}); return false;' style='color:#aaa;white-space:nowrap'>" + icon + top_data_list[i]['NAICScode'] + "</a></div><div class='cell'>" + top_data_list[i]['data_id'] +"</div>"
+                            text += "<div class='row'><div class='cell'><a href='#naics=" + top_data_list[i]['NAICScode'] + "' onClick='goHash({\"naics\":" + top_data_list[i]['NAICScode'] + "}); return false;' style='color:#aaa;white-space:nowrap'>" + icon + top_data_list[i]['NAICScode'] + "</a></div><div class='cell'>" + top_data_list[i]['data_id'] +"</div>"
                             if(Array.isArray(fips)) {
                                 text +=  midCol;
                             }

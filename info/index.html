@@ -32,11 +32,6 @@
 <script type="text/javascript" src="../js/naics.js"></script>
 <link type="text/css" href="../css/naics.css" rel="stylesheet" />
 
-<!-- Has to be included for county map recall withou error, since loading from dual map widget does not work. -->
-<!--
-<script type="text/javascript" src="/localsite/js/leaflet.js" id="/localsite/js/leaflet.js"></script>
--->
-
 <!-- After USEEIO to alter css -->
 <!--
 <link type="text/css" href="../../localsite/css/base.css" rel="stylesheet" />
@@ -270,175 +265,7 @@ function reloadMapTiles(whichmap,attempt) {
 	}
 }
 
-// INIT
-var priorHash = {};
-//priorHash = getHash();
 
-loadScript('/localsite/js/map-filters.js', function(results) {
-
-	/* Allows map to remove selected shapes when backing up. */
-	document.addEventListener('hashChangeEvent', function (elem) {
-		console.log("info/index.html detects hashChangeEvent");
-	 	refreshWidgets();
-	}, false);
-
-  function refreshWidgets() {
-  	
-	let reloadedMap = false;
-	param = loadParams(location.search,location.hash); // param is declared in localsite.js
-	let hash = getHash();
-	//alert("refreshWidgets from prior geo: " + priorHash.geo + " to " + hash.geo);
-	
-	// NOTE: params after ? are not included, just the hash.
-	if (hash.go != priorHash.go) {
-		if (hash.show == priorHash.show) {
-			hash.show = ""; // Clear the suppliers display
-		}
-		updateText(hash.go);
-	}
-	if (hash.geomap) {
-		$("#infoColumn").show();
-        $(".mainColumn1").show();
-	}
-	if (hash.geomap != priorHash.geomap) {
-		//if (hash.geomap) {
-			$("#aboutToolsDiv").hide();
-			$("#infoColumn").show();
-			$("#geomap").show();
-			
-			// DOES NOT WORK - document.querySelector(whichmap)._leaflet_map not found
-			//reloadMapTiles('#geomap',1);
-			
-			
-			/*
-			alert("show map")
-			if (document.querySelector('#geomap')._leaflet_map) {
-				alert("redraw map")
-				document.querySelector('#geomap')._leaflet_map.invalidateSize(); // Refresh map tiles.
-			}
-			*/
-			
-		//} else {
-		//	$("#geomap").hide();
-		//	$("#aboutToolsDiv").show();
-		//}
-	}
-	if (hash.show != priorHash.show) {
-		if (hash.show == "farmfresh") {
-			$(".data-section").show();
-		} else if (hash.show == "suppliers") {
-			$(".data-section").show();
-			$(".suppliers").show();
-		} else {
-			$(".data-section").hide();
-			$(".suppliers").hide();
-		}
-	}
-	if (hash.geo != priorHash.geo) {
-		if (hash.geo && hash.geo.length > 4) { 
-			$(".state-view").hide();
-        	$(".county-view").show();
-        	$(".industry_filter_settings").show(); // temp
-		} else {
-			$(".county-view").hide();
-        	$(".state-view").show();
-        	$(".industry_filter_settings").hide(); // temp
-		}
-		if (hash.geo) {
-			if (hash.geo.split(",").length >= 3) {
-		        $("#top-content-columns").addClass("top-content-columns-wide");
-		    } else {
-		    	$("#top-content-columns").removeClass("top-content-columns-wide");
-		    }
-		} else {
-	        $("#infoColumn").show();
-	        $(".mainColumn1").show();
-	    }
-
-	    //if (hash.geomap == "true") { // Since otherwise called above
-	    	//if (reloadedMap == false) {
-		    	loadScript('/localsite/js/leaflet.js', function(results) {
-
-			    		// ._leaflet_map Only works if alert occurs here
-			    		//alert("reloadedMap2 " + reloadedMap)
-
-			    		//alert("update map")
-						//renderMapShapesSimple("geomap", hash);
-
-						// Clear here so clicking a new region redraws map.
-						// This can be avoided once we figure out how to update an individal shape using renderMapShapesSimple.
-						//let whichmap = "geomap";
-						//let geomap = document.querySelector('#' + whichmap)._leaflet_map; 
-						//if (geojsonLayer) {
-						//	geomap.removeLayer(geojsonLayer); // Remove the prior topo layer
-						//}
-						if ($("#geomap").is(":visible")) { // Avoid loading if map is not visible since tiles wont' cover div.
-							//alert("render on click")
-							renderMapShapes("geomap", hash);
-						}
-				});
-				//reloadedMap = true;
-			//}
-		//}
-	}
-	//alert(hash.regiontitle)
-	if (hash.regiontitle != priorHash.regiontitle) {
-		if (hash.go) {
-			$(".regiontitle").text(hash.regiontitle + " - " + hash.go.toTitleCase());
-		} else {
-			$(".regiontitle").text(hash.regiontitle);
-		}
-	}
-
-	if (hash.geo != priorHash.geo) {
-		//$(".regiontitle").text(""); //Clear
-		//$(".location_titles").text(""); //Clear
-		//updateGeoFilter(hash.geo); // Check counties. (map-filters.js)
-	}
-	
-	if (hash.mapframe != priorHash.mapframe) {
-		var mapframe;
-		if (hash.mapframe) {
-	    	if (hash.mapframe == "ej") {
-	    		mapframe = "https://ejscreen.epa.gov/mapper/";
-	    	}
-	    	if (mapframe) {
-	    		$("#mapframe").prop("src", mapframe);
-				$("#mapframe").show();
-			}
-		}
-	}
-	if (hash.lat != priorHash.lat || hash.lon != priorHash.lon) {
-	    $("#lat").val(hash.lat);
-	    $("#lon").val(hash.lon);
-	    let pagemap_center = [hash.lat,hash.lon];
-	    let pagemap = document.querySelector('#map1')._leaflet_map; // Recall existing map
-	    let pagemap_container = L.DomUtil.get(pagemap);
-	    if (pagemap_container != null) { 
-	      pagemap.flyTo(pagemap_center, 18);
-	    }
-	  }
-
-    if (param.catsort) {
-		$("#catsort").val(param.catsort);
-	}
-	if (param.catsize) {
-		$("#catsize").val(param.catsize);
-	}
-	if (param.catmethod) {
-		$("#catmethod").val(param.catmethod);
-	}
-	if (param.indicators) {
-		$("#indicators").val(param.indicators);
-	}
-	priorHash = getHash();
-
-  }
-  // INIT
-  $(document).ready(function () {
-	refreshWidgets();
-  });
-});
 </script>
 
 </head>
@@ -1219,6 +1046,31 @@ if (!param["go"]) {
 	updateText("")
 }
 
+// INIT
+var priorHashLocal = {};
+
+/* Allows map to remove selected shapes when backing up. */
+document.addEventListener('hashChangeEvent', function (elem) {
+	console.log("local page detects hashChangeEvent");
+ 	refreshWidgetsLocal();
+}, false);
+
+function refreshWidgetsLocal() {
+  	
+	let reloadedMap = false;
+	param = loadParams(location.search,location.hash); // param is declared in localsite.js
+	let hash = getHash();
+	//alert("refreshWidgets from prior geo: " + priorHash.geo + " to " + hash.geo);
+	
+	// NOTE: params after ? are not included, just the hash.
+	if (hash.go != priorHash.go) {
+		if (hash.show == priorHash.show) {
+			hash.show = ""; // Clear the suppliers display
+		}
+		updateText(hash.go);
+	}
+	priorHashLocal = getHash();
+}
 /*
 document.getElementById('showValues').onclick = function() {
     // access properties using this keyword
