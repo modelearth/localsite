@@ -25,7 +25,7 @@
 <script type="text/javascript" src="../js/navigation.js"></script>
 <link rel="stylesheet" href="../css/leaflet.css" />
  <!-- Resides AFTER Leaflet's CSS -->
-<script src="../js/leaflet.js"></script>
+<script src="../js/leaflet.js" id="/localsite/js/leaflet.js"></script>
 <script src="../js/d3.v5.min.js"></script>
 
 <!-- Resides in info/index.html and map/index.html -->
@@ -46,7 +46,7 @@
 <!--
 <script src="../js/d3/d3-legend.js"></script>
 -->
-<script type="text/javascript" src="../js/map.js?show=suppliers"></script>
+<script type="text/javascript" src="../js/map.js"></script>
 <link rel="stylesheet" href="../css/map.css" />
 
 
@@ -148,7 +148,7 @@
                 onkeyup="return SearchCategories(event);"
                 readonly - prevents keyboard covering choices on mobile
                 -->
-                <input readonly id="appMenu" class="filterClick mobileWide textInput" placeholder="Bioeconomy" type="text" autocomplete="off" style="width: 200px; margin-top: 0px;" />
+                <input readonly id="appMenu" class="filterClick mobileWide textInput" placeholder="Top Industries" type="text" autocomplete="off" style="width: 200px; margin-top: 0px;" />
             </div>
         </div>
       </div>
@@ -740,7 +740,7 @@
       -->
     
     
-      <div class="hideMobile" style="float:left; clear:both">
+      <div class="hideMobile" style="display:none; float:left; clear:both">
         <ul class="filterUL" style="margin:18px 12px 0 30px;clear:both;min-width:120px;float:left">
 
             <li data-id="all" style="display:none"><a href="#">All</a></li>
@@ -762,7 +762,7 @@
 
 
       </div>
-      <div id="locationFilterHolder" style="overflow:auto; padding-top:20px">
+      <div id="locationFilterHolder" style="overflow:auto; padding:20px 0 0 40px">
 
             <div class="hideAdvanced close-X" style="float:right; margin-top:-20px">&#10005;
             </div>
@@ -825,12 +825,14 @@
                <br><br>
             </div>
 
-            <div class="stateFilters input-output" style="float:left">
+            <div class="stateFilters regionFilter input-output" style="float:left">
               <b>Region</b><br>
               
               <select id="region_select">
+                <option value=''>
                 <option value='West Central' lat='33.0362' lon='-85.0322' geo='US13045,US13077,US13143,US13145,US13149,US13199,US13223,US13233,US13263,US13285,US01111,US01017'>West Central</option>
-                <option value='Central' lat='33.0362' lon='-85.0322' geo='US13023,US13043,US13091,US13109,US13167,US13175,US13209,US13267,US13271,US13279,US13283,US13309,US13315,US13107,US13235'>Central</option>
+                <option value='Central' lat='32.3771' lon='-82.5924' geo='US13023,US13043,US13091,US13109,US13167,US13175,US13209,US13267,US13271,US13279,US13283,US13309,US13315,US13107,US13235'>Central</option>
+                <option value='Savannah Coastal' lat='32.0809' lon='-81.0912'  geo='US13051,US13029,US13179,US13191'>Savannah Coastal</option>
                 <option value='Southeast Coastal' lat='31.1891' lon='-81.4979' geo='US13001,US13005,US13127,US13161,US13229,US13305'>Southeast Coastal</option>
               </select>
               <br><br>
@@ -1445,14 +1447,6 @@ $(document).ready(function () {
   $("#showApps").show();
 });
 
-/* Allows map to remove selected shapes when backing up. */
-document.addEventListener('hashChangeEvent', function (elem) {
-  //alert("map/index.html detects hashChangeEvent");
-  refreshWidgetsLite();
-}, false);
-
-
-
 
 // COMMON - also resides in embed-map.js and info/index.html
 function loadScript(url, callback)
@@ -1492,81 +1486,6 @@ var localmap = loadMap1(dp);
 //layerControl['map1'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
 //layerControl['map2'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
 //localmap.addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
-
-
-
-
-var priorHash = {};
-priorHash = getHash();
-function refreshWidgetsLite() {
-  let reloadedMap = false;
-  param = loadParams(location.search,location.hash); // param is declared in localsite.js
-  let hash = getHash();
-  //alert("refreshWidgets from prior geo: " + priorHash.geo + " to " + hash.geo);
-
-  if (hash.geo != priorHash.geo) {
-
-      if (hash.geo && hash.geo.length > 4) { 
-        $(".state-view").hide();
-            $(".county-view").show();
-            $(".industry_filter_settings").show(); // temp
-      } else {
-        $(".county-view").hide();
-            $(".state-view").show();
-            $(".industry_filter_settings").hide(); // temp
-      }
-      if (hash.geo) {
-        if (hash.geo.split(",").length >= 3) {
-              $("#top-content-columns").addClass("top-content-columns-wide");
-          } else {
-            $("#top-content-columns").removeClass("top-content-columns-wide");
-          }
-      } else {
-            $("#infoColumn").show();
-            $(".mainColumn1").show();
-      }
-
-      //if (hash.geomap == "true") { // Since otherwise called above
-      if (reloadedMap == false) {
-
-          // This caused error when unselecting county shapes.
-          //loadScript('/localsite/js/leaflet.js', function(results) {
-
-                // ._leaflet_map Only works if alert occurs here
-                //alert("reloadedMap2 " + reloadedMap)
-
-                //alert("update map")
-              //renderMapShapesSimple("geomap", hash);
-
-              // Clear here so clicking a new region redraws map.
-              // This can be avoided once we figure out how to update an individal shape using renderMapShapesSimple.
-              
-              if ($("#geomap").is(":visible")) { // Avoid loading if map is not visible since tiles wont' cover div.
-                renderMapShapes("geomap", hash);
-              }
-              reloadedMap = true;
-          //});
-
-      }
-      //}
-  }
-  if (hash.lat != priorHash.lat || hash.lon != priorHash.lon) {
-    $("#lat").val(hash.lat);
-    $("#lon").val(hash.lon);
-    let pagemap_center = [hash.lat,hash.lon];
-    let pagemap = document.querySelector('#map1')._leaflet_map; // Recall existing map
-    let pagemap_container = L.DomUtil.get(pagemap);
-    if (pagemap_container != null) { 
-      pagemap.flyTo(pagemap_center, 18);
-    }
-  }
-  priorHash = getHash();
-}
-
-// INIT
-$(document).ready(function () {
-  refreshWidgetsLite();
-});
 
 </script>
 

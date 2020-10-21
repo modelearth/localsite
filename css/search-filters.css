@@ -51,6 +51,11 @@
     text-shadow: none;
     float: left;
 }
+.filterClickActive {
+    border-bottom: 0px solid #fff;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
 .filterSelected {
     font-size: 13pt;
     line-height: 13pt;

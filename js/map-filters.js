@@ -202,15 +202,17 @@ $(document).ready(function () {
 		if ($("#filterLocations").is(':visible')) {
             $("#showLocations").hide();
 			$("#hideLocations").show();
-			$(".filterSelected").text("Entire State");
+			//$(".filterSelected").text("Entire State");
 			$("#filterLocations").hide();
+
+			$("#filterClickLocation").removeClass("filterClickActive");
 		} else {
 			$("#topPanel").hide();
             $("#showLocations").show();
 			$("#hideLocations").hide();
-			$(".filterSelected").text("Location");
+			//$(".filterSelected").text("Location");
 			$("#filterLocations").show();
-
+			$("#filterClickLocation").addClass("filterClickActive");
 			let hash = getHash();
     		renderMapShapes("geomap", hash);// Called once map div is visible for tiles.
 			$('html,body').animate({
@@ -1379,6 +1381,7 @@ function displayBigThumbnails(layerName,siteObject) {
 	            consoleLog("displayLayerCheckboxes: no menuaccess");
 	        }
 	        
+	        var linkJavascript = "";
 	        var directlink = getDirectLink(thelayers[layer].livedomain, thelayers[layer].directlink, thelayers[layer].rootfolder, thelayers[layer].item);
 
 	        if (bigThumbSection == "main") {
@@ -1403,10 +1406,18 @@ function displayBigThumbnails(layerName,siteObject) {
 	                                if (thelayers[layer].directlink) {
 	                                    //hrefLink = "href='" + removeFrontFolder(thelayers[layer].directlink) + "'";
 	                                }
-	                                if (menuaccess==0) { // Quick hack until user-0 displays for currentAccess 1. In progress...
-	                                    sectionMenu += "<div class='bigThumbMenuContent'><div class='bigThumbWidth user-" + menuaccess + "' style='displayX:none'><div class='bigThumbHolder'><div class='bigThumb' style='background-image:url(" + bkgdUrl + ");'><a href='" + directlink + "'><div class='bigThumbText'>" + thumbTitle + "<div class='bigThumbSecondary'>" + thumbTitleSecondary + "</div></div></a></div></div></div></div>";
+
+	                                if ((directlink.indexOf('/map/') >= 0 && location.pathname.indexOf('/map/') >= 0) || (directlink.indexOf('/info/') >= 0 && location.pathname.indexOf('/info/') >= 0)) { // Stayon page when on map or info
+	                                	linkJavascript = "onclick='goHash({\"go\":\"" + siteObject.items[layer].item + "\"}); return false;'"; // Remain in current page.
 	                                } else {
-	                                    sectionMenu += "<div class='bigThumbMenuContent'><div class='bigThumbWidth user-" + menuaccess + "' style='display:none'><div class='bigThumbHolder'><div class='bigThumb' style='background-image:url(" + bkgdUrl + ");'><a href='" + directlink + "'><div class='bigThumbText'>" + thumbTitle + "<div class='bigThumbSecondary'>" + thumbTitleSecondary + "</div></div></a></div></div></div></div>";
+	                                	linkJavascript = "";
+	                                }
+
+	                                if (menuaccess==0) { // Quick hack until user-0 displays for currentAccess 1. In progress...
+	                                    sectionMenu += "<div class='bigThumbMenuContent'><div class='bigThumbWidth user-" + menuaccess + "' style='displayX:none'><div class='bigThumbHolder'><div class='bigThumb' style='background-image:url(" + bkgdUrl + ");'><a href='" + directlink + "' " + linkJavascript + "><div class='bigThumbText'>" + thumbTitle + "<div class='bigThumbSecondary'>" + thumbTitleSecondary + "</div></div></a></div></div></div></div>";
+	                                } else {
+	                                	// This one is hidden
+	                                    sectionMenu += "<div class='bigThumbMenuContent'><div class='bigThumbWidth user-" + menuaccess + "' style='display:none'><div class='bigThumbHolder'><div class='bigThumb' style='background-image:url(" + bkgdUrl + ");'><a href='" + directlink + "' " + linkJavascript + "><div class='bigThumbText'>" + thumbTitle + "<div class='bigThumbSecondary'>" + thumbTitleSecondary + "</div></div></a></div></div></div></div>";
 	                                }
 	                            }
 	                    //}
@@ -2077,3 +2088,183 @@ googlePlacesApiLoaded(1);
 
 
 
+// INIT
+var priorHash = {};
+//priorHash = getHash();
+
+//loadScript('/localsite/js/map-filters.js', function(results) {
+
+	/* Allows map to remove selected shapes when backing up. */
+	document.addEventListener('hashChangeEvent', function (elem) {
+		console.log("page detects hashChangeEvent");
+	 	refreshWidgets();
+	}, false);
+
+  function refreshWidgets() {
+  	
+	let reloadedMap = false;
+	param = loadParams(location.search,location.hash); // param is declared in localsite.js
+	let hash = getHash();
+	//alert("refreshWidgets from prior geo: " + priorHash.geo + " to " + hash.geo);
+	
+	// NOTE: params after ? are not included, just the hash.
+	if (hash.go != priorHash.go) {
+		if (hash.show == priorHash.show) {
+			hash.show = ""; // Clear the suppliers display
+		}
+		$("#appMenu ").attr("placeholder",hash.go.charAt(0).toUpperCase() + hash.go.substr(1))
+	}
+	if (hash.geomap) {
+		$("#infoColumn").show();
+        $(".mainColumn1").show();
+	}
+	if (hash.geomap != priorHash.geomap) {
+		//if (hash.geomap) {
+			$("#aboutToolsDiv").hide();
+			$("#infoColumn").show();
+			$("#geomap").show();
+			
+			// DOES NOT WORK - document.querySelector(whichmap)._leaflet_map not found
+			//reloadMapTiles('#geomap',1);
+			
+			
+			/*
+			alert("show map")
+			if (document.querySelector('#geomap')._leaflet_map) {
+				alert("redraw map")
+				document.querySelector('#geomap')._leaflet_map.invalidateSize(); // Refresh map tiles.
+			}
+			*/
+			
+		//} else {
+		//	$("#geomap").hide();
+		//	$("#aboutToolsDiv").show();
+		//}
+	}
+	if (hash.show != priorHash.show) {
+		if (hash.show == "farmfresh") {
+			$(".data-section").show();
+		} else if (hash.show == "suppliers") {
+			$(".data-section").show();
+			$(".suppliers").show();
+		} else {
+			$(".data-section").hide();
+			$(".suppliers").hide();
+		}
+	}
+	if (hash.geo != priorHash.geo) {
+		if (hash.geo && hash.geo.length > 4) { 
+			$(".state-view").hide();
+        	$(".county-view").show();
+        	$(".industry_filter_settings").show(); // temp
+		} else {
+			$(".county-view").hide();
+        	$(".state-view").show();
+        	$(".industry_filter_settings").hide(); // temp
+		}
+		if (hash.geo) {
+			if (hash.geo.split(",").length >= 3) {
+		        $("#top-content-columns").addClass("top-content-columns-wide");
+		    } else {
+		    	$("#top-content-columns").removeClass("top-content-columns-wide");
+		    }
+		} else {
+	        $("#infoColumn").show();
+	        $(".mainColumn1").show();
+	    }
+
+	    //if (hash.geomap == "true") { // Since otherwise called above
+	    	//if (reloadedMap == false) {
+		    	//loadScript('/localsite/js/leaflet.js', function(results) {
+
+			    		// ._leaflet_map Only works if alert occurs here
+			    		//alert("reloadedMap2 " + reloadedMap)
+
+			    		//alert("update map")
+						//renderMapShapesSimple("geomap", hash);
+
+						// Clear here so clicking a new region redraws map.
+						// This can be avoided once we figure out how to update an individal shape using renderMapShapesSimple.
+						//let whichmap = "geomap";
+						//let geomap = document.querySelector('#' + whichmap)._leaflet_map; 
+						//if (geojsonLayer) {
+						//	geomap.removeLayer(geojsonLayer); // Remove the prior topo layer
+						//}
+							//alert("render on click")
+							renderMapShapes("geomap", hash);
+						
+				//});
+				//reloadedMap = true;
+			//}
+		//}
+	}
+	//alert(hash.regiontitle)
+	if (hash.regiontitle != priorHash.regiontitle) {
+		if (hash.go) {
+			$(".regiontitle").text(hash.regiontitle + " - " + hash.go.toTitleCase());
+		} else {
+			$(".regiontitle").text(hash.regiontitle);
+		}
+		$(".filterSelected").text(hash.regiontitle.replace(/\+/g," "));
+
+		
+		$("#region_select").val(hash.regiontitle.replace(/\+/g," "));
+	}
+
+	// Before hash.state to utilize initial lat/lon
+	if (hash.lat != priorHash.lat || hash.lon != priorHash.lon) {
+	    $("#lat").val(hash.lat);
+	    $("#lon").val(hash.lon);
+	    let pagemap_center = [hash.lat,hash.lon];
+	    let pagemap = document.querySelector('#map1')._leaflet_map; // Recall existing map
+	    let pagemap_container = L.DomUtil.get(pagemap);
+	    if (pagemap_container != null) { 
+	      pagemap.flyTo(pagemap_center, 10);
+	    }
+	 }
+
+	if (hash.state != priorHash.state) {
+		$("#state_select").val(hash.state);
+		if (hash.state == "GA") {
+			$(".regionFilter").show();
+		} else {
+			$(".regionFilter").hide();
+		}
+		$("#titleTwo").text($("#state_select").find(":selected").text().toLowerCase());
+		updateHash({'regiontitle':'', 'lat':'', 'lon':''});
+	}
+	
+	if (hash.mapframe != priorHash.mapframe) {
+		var mapframe;
+		if (hash.mapframe) {
+	    	if (hash.mapframe == "ej") {
+	    		mapframe = "https://ejscreen.epa.gov/mapper/";
+	    	}
+	    	if (mapframe) {
+	    		$("#mapframe").prop("src", mapframe);
+				$("#mapframe").show();
+			}
+		}
+	}
+
+
+    if (param.catsort) {
+		$("#catsort").val(param.catsort);
+	}
+	if (param.catsize) {
+		$("#catsize").val(param.catsize);
+	}
+	if (param.catmethod) {
+		$("#catmethod").val(param.catmethod);
+	}
+	if (param.indicators) {
+		$("#indicators").val(param.indicators);
+	}
+	priorHash = getHash();
+  }
+
+  // INIT
+  $(document).ready(function () {
+	refreshWidgets();
+  });
+//});

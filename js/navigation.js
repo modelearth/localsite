@@ -184,10 +184,11 @@ $(document).ready(function(){
 		 		
 		 		titleValue += "<span style='color: #777;'>" + param.titleArray[0] + "</span>";
 		 		for (var i = 1; i < param.titleArray.length; i++) {
-		 			titleValue += "<span style='color:#bbb;margin-left:1px'>" + param.titleArray[i] + "</span>";
+		 			titleValue += "<span id='titleTwo' style='color:#bbb;margin-left:1px'>" + param.titleArray[i] + "</span>";
 		 		}
 		 		titleValue += "</a></span>";
 		 		$('#headerSiteTitle').html(titleValue);
+		 		$("#titleTwo").text($("#state_select").find(":selected").text().toLowerCase().replace(/ /g,""));
 		 	}
 	 	}
 	 	
