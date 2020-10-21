@@ -288,6 +288,9 @@
     }
 }
 
+#county-table {
+  padding-right:8px;
+}
 .output_table {
     border-collapse: collapse;
 }
