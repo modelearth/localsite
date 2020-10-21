@@ -1941,7 +1941,9 @@ function initSiteObject(layerName) {
 	    // https://github.com/codeforgreenville/leaflet-google-sheets-template
 	    // https://data.openupstate.org/map-layers
 
-	    var layerJson = dual_map.community_data_root() + "us/state/GA/ga-layers.json";
+	    //var layerJson = dual_map.community_data_root() + "us/state/GA/ga-layers.json"; // CORS prevents live
+	    var layerJson = "/localsite/info/data/ga-layers.json";
+
 	    console.log(layerJson);
 	    var siteObject = (function() {
 	        var json = null;
