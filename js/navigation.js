@@ -188,7 +188,10 @@ $(document).ready(function(){
 		 		}
 		 		titleValue += "</a></span>";
 		 		$('#headerSiteTitle').html(titleValue);
-		 		$("#titleTwo").text($("#state_select").find(":selected").text().toLowerCase().replace(/ /g,""));
+		 		let theState = $("#state_select").find(":selected").text();
+		 		if (theState) {
+		 			$("#titleTwo").text(theState.toLowerCase().replace(/ /g,""));
+		 		}
 		 	}
 	 	}
 	 	
