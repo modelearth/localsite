@@ -2239,7 +2239,7 @@ var priorHash = {};
 		if(location.host.indexOf('model.georgia') >= 0) {
 			if (hash.state != "" && hash.state.toUpperCase() != "GA") { // If viewing other state, use model.earth
 				let goModelEarth = "https://model.earth" + window.location.pathname + window.location.search + window.location.hash;
-				alert(goModelEarth);
+				window.location = goModelEarth;
 			}
 		}
 	}
