@@ -1941,8 +1941,10 @@ function initSiteObject(layerName) {
 	    // https://github.com/codeforgreenville/leaflet-google-sheets-template
 	    // https://data.openupstate.org/map-layers
 
-	    var layerJson = dual_map.community_data_root() + "us/state/GA/ga-layers.json";
+	    //var layerJson = dual_map.community_data_root() + "us/state/GA/ga-layers.json"; // CORS prevents live
+	    var layerJson = "/localsite/info/data/ga-layers.json";
 
+	    console.log(layerJson);
 	    var siteObject = (function() {
 	        var json = null;
 	        $.ajax({
@@ -1958,6 +1960,7 @@ function initSiteObject(layerName) {
 	                // siteObjectFunctions(siteObject); // could add to keep simple here
 
 	          		$('#showApps, .hideApps, #appMenu').click(function(event) {
+	          			console.log('#showApps click');
 	          			if ($("#honeycombPanelHolder").is(':visible')) {
 	          				$("#honeycombPanelHolder").hide();
 	          				$('#showApps').removeClass("active");
@@ -2231,7 +2234,14 @@ var priorHash = {};
 			$(".regionFilter").hide();
 		}
 		$("#titleTwo").text($("#state_select").find(":selected").text().toLowerCase());
-		updateHash({'regiontitle':'', 'lat':'', 'lon':''});
+		updateHash({'geo':'', 'regiontitle':'', 'lat':'', 'lon':''});
+
+		if(location.host.indexOf('model.georgia') >= 0) {
+			if (hash.state != "" && hash.state.toUpperCase() != "GA") { // If viewing other state, use model.earth
+				let goModelEarth = "https://model.earth" + window.location.pathname + window.location.search + window.location.hash;
+				window.location = goModelEarth;
+			}
+		}
 	}
 	
 	if (hash.mapframe != priorHash.mapframe) {
