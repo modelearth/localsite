@@ -640,7 +640,7 @@ function locationFilterChange(selectedValue,selectedGeo) {
         }
     }
     if (selectedValue == 'counties') {
-        //showCounties(0);
+        showCounties(0);
     }
     if (selectedValue == 'city') {
         $("#distanceField").show();
@@ -697,6 +697,7 @@ function showCounties(attempts) {
 			theState = hash.state;
 			
 		}
+		//alert("theState " + theState);
 		//Load in contents of CSV file
 		d3.csv(dual_map.community_data_root() + "us/state/" + theState + "/" + theState + "counties.csv").then(function(myData,error) {
 			if (error) {
@@ -1523,10 +1524,15 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
     updateGeoFilter(hash.geo); // Checks and unchecks geo (counties) when backing up.
 
-    // TOPO Files: https://github.com/modelearth/topojson
+    
     var url = dual_map.custom_data_root() + '/counties/GA-13-georgia-counties.json';
+
+    // TOPO Files: https://github.com/modelearth/topojson/ 
+    //url = "https://modelearth.github.io/topojson/countries/us-states/AL-01-alabama-counties.json";
+    //url = "../../topojson/countries/us-states/AL-01-alabama-counties.json";
+
     //if(location.host.indexOf('localhost') >= 0) {
-    if (param.geo == "US01") { // Bug, change to get state from string, also below.
+    if (param.geo == "US01" || param.state == "AL") { // Bug, change to get state from string, also below.
     	// https://github.com/modelearth/topojson/blob/master/countries/us-states/AL-01-alabama-counties.json
     	url = dual_map.modelearth_data_root() + "/topojson/countries/us-states/AL-01-alabama-counties.json";
     	//url = dual_map.modelearth_data_root() + "/opojson/countries/us-states/GA-13-georgia-counties.json";
@@ -1573,7 +1579,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
             // 
             
             //if(location.host.indexOf('localhost') >= 0) {
-            if (param.geo == "US01") {
+            if (param.geo == "US01" || param.state == "AL") {
             	topodata = topojson.feature(topoob, topoob.objects.cb_2015_alabama_county_20m)
         	} else {
         		topodata = topojson.feature(topoob, topoob.objects.cb_2015_georgia_county_20m)
@@ -1639,7 +1645,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
       var zoom = 7;
 
       //var layer = "terrain";
-      if (param.geo == "US01") { // Temp
+      if (param.geo == "US01" || param.state == "AL") { // Temp
       	lon = -86.7;
       }
       var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
