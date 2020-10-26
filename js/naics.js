@@ -1047,7 +1047,7 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                             text += rightCol + "</div>";
                             
                             // use GoHash()
-                            let topMessage = "<p class='mapinfo'><b>Work in Progress</b> - The industry list below does not yet include estimates for industries without state-level payroll data. <a href='/localsite/info/data/'>Learn&nbsp;more&nbsp;and&nbsp;get&nbsp;involved</a></p>";
+                            let topMessage = "<p class='mapinfo'><b>Industry Comparison Tools</b> - List does not yet include industries without state-level payroll data. <a href='/localsite/info/data/'>Learn&nbsp;more&nbsp;and&nbsp;get&nbsp;involved</a></p>";
                             $("#topMessage").html(topMessage);
 
                             if(i<=20){

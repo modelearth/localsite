@@ -2032,7 +2032,7 @@ callback(
 		"layerset": "georgia",
 		"icon": "<i class='material-icons'>&#xE869;</i>",
 		"menuaccess": "8",
-		"intro": "Work in Progress. View <a href='https://georgiadata.github.io/documentation/region/regions.html' target='County-Region'>County-Region filter</a>"
+		"intro": "Industry Comparison Tools. View <a href='https://georgiadata.github.io/documentation/region/regions.html' target='County-Region'>County-Region filter</a>"
 	},
 	{
 		"item": "counties",
