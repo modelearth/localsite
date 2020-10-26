@@ -191,7 +191,7 @@ $(document).ready(function () {
 
     $("#filterClickLocation").click(function(event) {
     	console.log("show location filters");
-    	
+
     	$("#searchLocation").focus(); // Not working
     	//document.getElementById("searchLocation").focus(); // Not working
 
@@ -208,6 +208,7 @@ $(document).ready(function () {
 			$("#filterClickLocation").removeClass("filterClickActive");
 		} else {
 			$("#topPanel").hide();
+			locationFilterChange("counties");
             $("#showLocations").show();
 			$("#hideLocations").hide();
 			//$(".filterSelected").text("Location");
@@ -640,7 +641,7 @@ function locationFilterChange(selectedValue,selectedGeo) {
         }
     }
     if (selectedValue == 'counties') {
-        showCounties(0);
+    	showCounties(0);
     }
     if (selectedValue == 'city') {
         $("#distanceField").show();
@@ -684,10 +685,6 @@ function locClick(which) {
 	goHash({"geo":geo,"regiontitle":regiontitle});
 }
 function showCounties(attempts) {
-	if ($(".output_table > table").length) {
-		//return; // Avoid reloading
-		$(".output_table").html(""); // Clear prior state
-	}
 
 	if (typeof d3 !== 'undefined') {
 
@@ -695,9 +692,19 @@ function showCounties(attempts) {
 		let theState = $("#state_select").find(":selected").val();
 		if (hash.state) {
 			theState = hash.state;
-			
 		}
 		//alert("theState " + theState);
+
+			
+		if ($(".output_table > table").length) {
+			if (theState == priorHash.state || (theState == "GA" && !priorHash.state)) {
+				//alert("cancel showCounties: " + theState + " prior: " + priorHash.state);
+				return; // Avoid reloading
+			}
+			$(".output_table").html(""); // Clear prior state
+		}
+
+
 		//Load in contents of CSV file
 		d3.csv(dual_map.community_data_root() + "us/state/" + theState + "/" + theState + "counties.csv").then(function(myData,error) {
 			if (error) {
@@ -855,7 +862,7 @@ function applyStupidTable(count) {
 function updateGeoFilter(geo) {
 	$(".geo").prop('checked', false);
 	if (geo) {
-		locationFilterChange("counties");
+		//locationFilterChange("counties");
 		let sectors = geo.split(",");
         for(var i = 0 ; i < sectors.length ; i++) {
         	$("#" + sectors[i]).prop('checked', true);
@@ -926,10 +933,10 @@ function getLatLonFromBrowser(limitByDistance) {
     //}
 }
 // INIT
-locationFilterChange("counties"); // Display county list
-$("#filterClickLocation .filterSelected").html("Counties");
-$(".filterUL li").removeClass("selected");
-$(".filterUL li").find("[data-id='counties']").addClass("selected"); // Not working
+//locationFilterChange("counties"); // Display county list
+//$("#filterClickLocation .filterSelected").html("Counties");
+//$(".filterUL li").removeClass("selected");
+//$(".filterUL li").find("[data-id='counties']").addClass("selected"); // Not working
 $(".showSearch").css("display","inline-block");
 $(".showSearch").removeClass("local");
 
