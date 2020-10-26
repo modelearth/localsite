@@ -5,11 +5,15 @@
 // This is commented out below, call heatmap widget instead.
 // goHash({"naics":naicshash});
 
+//  Sample: Columns from 6_state_all
+// id  COUNTY  GEO_TTL NAICS_Sector    NAICS2012_TTL   state   relevant_naics  estab_agg   emp_agg payann_agg  emp_api payann_api  estab_api
+// 759 13  999 Statewide   55  Corporate, subsidiary, and regional managing offices    13  551114  1541.3499999999995  110283.20000000004  11605999.4  116336.0    12059746.4  1542.8
+
 let params = loadParams(location.search,location.hash);
-let dataObject={};
+let dataObject = {};
+let defaultState = "GA";
 let stateID = {AL:1,AK:2,AZ:4,AR:5,CA:6,CO:8,CT:9,DE:10,FL:12,GA:13,HI:15,ID:16,IL:17,IN:18,IA:19,KS:20,KY:21,LA:22,ME:23,MD:24,MA:25,MI:26,MN:27,MS:28,MO:29,MT:30,NE:31,NV:32,NH:33,NJ:34,NM:35,NY:36,NC:37,ND:38,OH:39,OK:40,OR:41,PA:42,RI:44,SC:45,SD:46,TN:47,TX:48,UT:49,VT:50,VA:51,WA:53,WV:54,WI:55,WY:56,AS:60,GU:66,MP:69,PR:72,VI:78,}
-let stateAbbr = params.state || "GA"; // Previously used +d['Postal Code']+
-dataObject.stateshown=stateID[stateAbbr];
+let stateAbbr;
 // To 
 function getKeyByValue(object, value) {
   return Object.keys(object).find(key => object[key] === value);
@@ -83,54 +87,67 @@ console.log("fips" + fips)
 console.log("dataObject.stateshown" + dataObject.stateshown)
 
 
-// Get the levels below root
-/* Try something like this from navigation.js
-    let foldercount = (location.pathname.split('/').length - 1); // - (location.pathname[location.pathname.length - 1] == '/' ? 1 : 0) // Removed because ending with slash or filename does not effect levels. Increased -1 to -2.
-    foldercount = foldercount - 2;
-    let climbcount = foldercount;
-    if(location.host.indexOf('localhost') >= 0) {
-        climbcount = foldercount - 0;
-    }
-    let climbpath = "";
-    for (var i = 0; i < climbcount; i++) {
-        climbpath += "../";
-    }
-    if (climbpath == "") {
-        climbpath += "./"; // Eliminates ? portion of URL
-    }
-*/
-//d3.csv(dual_map.community_data_root() + "us/id_lists/state_fips.csv").then( function(consdata) {
-//    var filteredData = consdata.filter(function(d) {
-        //if(d["FIPS"]==String(dataObject.stateshown)) {
-            var promises = [
-                d3.csv(dual_map.community_data_root() + "us/id_lists/industry_id_list.csv"),
-                d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
-                //d3.tsv(dual_map.community_data_root() + "data/c3.tsv"),
-                d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
-                //d3.tsv(dual_map.community_data_root() + "data/c5.tsv"),
-                d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics6_all.tsv"),
-                d3.csv(dual_map.community_data_root() + "us/id_lists/county_id_list.csv"),
-                d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics2_state_all.tsv"),
-                d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics4_state_all.tsv"),
-                d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics6_state_all.tsv"),
-                d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/" + stateAbbr + "counties.csv")
-            ]
+function loadIndustryData() {
+    console.log("No function " + stateAbbr + " " + dataObject.stateshown + " Promises");
 
+    var promises = [
+        d3.csv(dual_map.community_data_root() + "us/id_lists/industry_id_list.csv"),
+        d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
+        //d3.tsv(dual_map.community_data_root() + "data/c3.tsv"),
+        d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
+        //d3.tsv(dual_map.community_data_root() + "data/c5.tsv"),
+        d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics6_all.tsv"),
+        d3.csv(dual_map.community_data_root() + "us/id_lists/county_id_list.csv"),
+        d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics2_state_all.tsv"),
+        d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics4_state_all.tsv"),
+        d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics6_state_all.tsv"),
+        d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/" + stateAbbr + "counties.csv")
+    ]
+    Promise.all(promises).then(promisesReady);
+}
 
-            Promise.all(promises).then(ready);
+// INIT
+let priorHash_naicspage = {};
+refreshNaicsWidget();
+
+document.addEventListener('hashChangeEvent', function (elem) {
+    let params = loadParams(location.search,location.hash);
+    refreshNaicsWidget();                    
+ }, false);
+
+function refreshNaicsWidget() {
+    let reloadedMap = false;
+    //param = loadParams(location.search,location.hash); // param is declared in localsite.js
+    //let hash = getHash();
     
-        //}
-//    })
-//})
+    params = loadParams(location.search,location.hash); // Also used by loadIndustryData()
+
+    if (!params.catsort) {
+        params.catsort = "payann";
+    }
+    if (!params.catsize) {
+       params.catsize = 6;
+    }
+    if (!params.census_scope) {
+       params.census_scope = 'state';
+    }
+
+    // NOTE: params after ? are not included, just the hash.
+    if (!params.state || params.state != priorHash_naicspage.state) {
+        stateAbbr = params.state || defaultState;
+        dataObject.stateshown=stateID[stateAbbr];
+        loadIndustryData(); // Occurs on INIT
+    }
+    priorHash_naicspage = getHash();
+}
 
 
-
-function ready(values) {
-    console.log("ready - promises loaded")
+function promisesReady(values) {
+    console.log("promisesReady - promises loaded")
     d3.csv(dual_map.community_data_root() + "us/id_lists/state_fips.csv").then( function(consdata) {
         var filteredData = consdata.filter(function(d) {
             if(d["FIPS"]==String(dataObject.stateshown)) {
-                let params = loadParams(location.search,location.hash);
+                //let params = loadParams(location.search,location.hash);
                 let lastParams = {};
                 
                 let industryData ={}
@@ -141,15 +158,7 @@ function ready(values) {
                 dataObject.subsetKeys_state=subsetKeys_state
                 dataObject.subsetKeys_state_api=subsetKeys_state_api
                 
-                if (!params.catsort) {
-                    params.catsort = "payann";
-                }
-                if (!params.catsize) {
-                   params.catsize = 6;
-                }
-                if (!params.census_scope) {
-                   params.census_scope = 'state';
-                }
+
 
                 console.log("tttttt" + params.census_scope)
                 industryData = {
@@ -171,7 +180,7 @@ function ready(values) {
                     }
                 }
                     
-                dataObject.industryDataState=industryDataState;
+                dataObject.industryDataState = industryDataState;
 
                 console.log(dataObject.industryDataState)
                 if (params.catsize==2){
@@ -205,32 +214,45 @@ function ready(values) {
                 statelength=dataObject.counties.length
                 [fips,dataObject.stateshown]=getStateFips(params)
 
-                /*
-                let geo_list={}
-                counter=0
-                */
-                //renderIndustryChart(dataObject,values,params,geo_list,counter);
+
                 renderIndustryChart(dataObject,values,params);
                 $(document).ready(function() {
 
                     // `hashChangeEvent` event reside in multiple widgets. 
                     // Called by goHash within localsite.js
                     document.addEventListener('hashChangeEvent', function (elem) {
+
                         let params = loadParams(location.search,location.hash);
-                        //displayTopIndustries();
-                        console.log("naics.js detects hash change hashChangeEvent")
-                        
-                        
-                        renderIndustryChart(dataObject,values,params)
+                        console.log("naics.js detects hash change hashChangeEvent");
+                        renderIndustryChart(dataObject,values,params);
+
                     }, false);
                                         
                     if (document.getElementById("clearButton")) {
                         document.getElementById("clearButton").addEventListener("click", function(){
+
+                            // Clears all counties, so reset title:
+                            let currentState = $("#state_select").find(":selected").text();
+                            if (currentState) {
+                                $(".regiontitle").text(currentState + "'s Top Industries");
+                            } else {
+                                $(".regiontitle").text("Top Industries");
+                            }
+                            refreshNaicsWidget();
+                            return; 
+
+
+                            // Disabled
+
                             clearHash("geo,regiontitle");
+
+                            alert('clearButton');
 
                             // BUGBUG - This causes industry list removal and commodity list reduction.
                             // Problem occurred before adding applyIO function and the newer script it contains.
                             geoChanged(dataObject)
+
+
                         }); 
                     }
                     //addGeoChangeDetectToDOM(1);
@@ -262,49 +284,9 @@ function ready(values) {
 
 }
 
-// We might call this when hash changes.
-//$(window).on('hashchange', function() { // Avoid window.onhashchange since overridden by map and widget embeds
-function displayTopIndustries() { // Not currently called
-    console.log("params.catsort " + params.catsort)
-    lastParams = params;
-    params = loadParams(location.search,location.hash);
-    //alert("topindustries.js hashchange from lastParams.go: " + lastParams.go + " to " + params.go);
 
-    // Both call topRatesInFips(). Might be good to move geoChanged processing into renderIndustryChart()
-    
-    [fips,dataObject.stateshown]=getStateFips(params)
+/////// Functions /////// 
 
-
-    
-    if(dataObject.stateshown!=dataObject.laststateshown){
-        //d3.csv(dual_map.community_data_root() + "us/id_lists/state_fips.csv").then( function(consdata) {
-        //    var filteredData = consdata.filter(function(d) {
-                //if(d["FIPS"]==String(dataObject.stateshown)) {
-                    var promises = [
-                    d3.csv(dual_map.community_data_root() + "us/id_lists/industry_id_list.csv"),
-                    d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
-                    //d3.tsv(dual_map.community_data_root() + "data/c3.tsv"),
-                    d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
-                    //d3.tsv(dual_map.community_data_root() + "data/c5.tsv"),
-                    d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics6_all.tsv"),
-                    d3.csv(dual_map.community_data_root() + "us/id_lists/county_id_list.csv"),
-                    d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics2_state_all.tsv"),
-                    d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics4_state_all.tsv"),
-                    d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics6_state_all.tsv"),
-                    d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/" + stateAbbr + "counties.csv")
-                    ]
-                    Promise.all(promises).then(ready);
-                //}
-        //    })
-        //})
-    }
-//})
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Functions
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-var priorHash_Naics = {};
 function renderIndustryChart(dataObject,values,params) {
 
     stateAbbr = params.state || "GA"; // Previously used +d['Postal Code']+
@@ -330,7 +312,7 @@ function renderIndustryChart(dataObject,values,params) {
     let whichHaveChanged = [];
     for (const key in params) {
       //if (watchingHash.includes(${key})) {
-      if (params[key] != priorHash_Naics[key]) {
+      if (params[key] != priorHash_naicspage[key]) {
         whichHaveChanged.push(key)
       }
     }
@@ -385,11 +367,16 @@ function renderIndustryChart(dataObject,values,params) {
     [fips,dataObject.stateshown]=getStateFips(params)
     console.log("renderIndustryChart calls topRatesInFips with fips: " + fips)
     topRatesInFips(dataObject, dataObject.industryNames, fips, params);
-    priorHash_Naics = params;
 }
 
 //function for when the geo hash changes
 function geoChanged(dataObject,params){
+
+    // REMOVE
+
+
+    return;
+
     if (!params) {
         params = loadParams(location.search,location.hash); // Pull from updated hash
     }
@@ -409,20 +396,22 @@ function geoChanged(dataObject,params){
         //d3.csv(dual_map.community_data_root() + "us/id_lists/state_fips.csv").then( function(consdata) {
         //    var filteredData = consdata.filter(function(d) {
         //        if(d["FIPS"]==String(dataObject.stateshown)) {
-                    var promises = [
-                    d3.csv(dual_map.community_data_root() + "us/id_lists/industry_id_list.csv"),
-                    d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
-                    //d3.tsv(dual_map.community_data_root() + "data/c3.tsv"),
-                    d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
-                    //d3.tsv(dual_map.community_data_root() + "data/c5.tsv"),
-                    d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics6_all.tsv"),
-                    d3.csv(dual_map.community_data_root() + "us/id_lists/county_id_list.csv"),
-                    d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics2_state_all.tsv"),
-                    d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics4_state_all.tsv"),
-                    d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics6_state_all.tsv"),
-                    d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/" + stateAbbr + "counties.csv")
-                    ]
-                    Promise.all(promises).then(ready);
+            console.log("geoChanged " + stateAbbr + " " + dataObject.stateshown + " Promises");
+
+            var promises = [
+            d3.csv(dual_map.community_data_root() + "us/id_lists/industry_id_list.csv"),
+            d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics2_all.tsv"),
+            //d3.tsv(dual_map.community_data_root() + "data/c3.tsv"),
+            d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics4_all.tsv"),
+            //d3.tsv(dual_map.community_data_root() + "data/c5.tsv"),
+            d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics6_all.tsv"),
+            d3.csv(dual_map.community_data_root() + "us/id_lists/county_id_list.csv"),
+            d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics2_state_all.tsv"),
+            d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics4_state_all.tsv"),
+            d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/industries_state"+dataObject.stateshown+"_naics6_state_all.tsv"),
+            d3.tsv(dual_map.community_data_root() + "us/state/" + stateAbbr + "/" + stateAbbr + "counties.csv")
+            ]
+            Promise.all(promises).then(promisesReady);
         //        }
         //    })
         //})
@@ -501,7 +490,7 @@ function keyFound(this_key, cat_filter, params) {
 }
 
 // Top rows of for a specific set of fips (states and counties)
-function topRatesInFips(dataSet, dataNames, fips, params){
+function topRatesInFips(dataSet, dataNames, fips, params) {
     let catcount = params.catcount || 40;
 
 

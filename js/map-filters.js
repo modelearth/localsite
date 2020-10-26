@@ -266,11 +266,14 @@ $(document).ready(function () {
 	
  	$('#state_select').on('change', function() {
 	    goHash({'filter':'','state':this.value});
+
+	    /*
 	    if (this.value == "GA") {
 	    	$("#geoPicker").show();
 	    } else {
 	    	$("#geoPicker").hide();
 	    }
+	    */
 	});
  	$('#region_select').on('change', function() {
  		//alert($(this).attr("geo"))
@@ -637,7 +640,7 @@ function locationFilterChange(selectedValue,selectedGeo) {
         }
     }
     if (selectedValue == 'counties') {
-        showCounties(0);
+        //showCounties(0);
     }
     if (selectedValue == 'city') {
         $("#distanceField").show();
@@ -682,13 +685,20 @@ function locClick(which) {
 }
 function showCounties(attempts) {
 	if ($(".output_table > table").length) {
-		return; // Avoid reloading
+		//return; // Avoid reloading
+		$(".output_table").html(""); // Clear prior state
 	}
 
 	if (typeof d3 !== 'undefined') {
 
+		let hash = getHash();
+		let theState = $("#state_select").find(":selected").val();
+		if (hash.state) {
+			theState = hash.state;
+			
+		}
 		//Load in contents of CSV file
-		d3.csv(dual_map.community_data_root() + "us/state/GA/GAcounties.csv").then(function(myData,error) {
+		d3.csv(dual_map.community_data_root() + "us/state/" + theState + "/" + theState + "counties.csv").then(function(myData,error) {
 			if (error) {
 				alert("error")
 				console.log("Error loading file. " + error);
@@ -2110,6 +2120,7 @@ var priorHash = {};
 	let hash = getHash();
 	//alert("refreshWidgets from prior geo: " + priorHash.geo + " to " + hash.geo);
 	
+
 	// NOTE: params after ? are not included, just the hash.
 	if (hash.go != priorHash.go) {
 		if (hash.show == priorHash.show) {
@@ -2227,6 +2238,12 @@ var priorHash = {};
 	 }
 
 	if (hash.state != priorHash.state) {
+		if(location.host.indexOf('model.georgia') >= 0) {
+			if (hash.state != "" && hash.state.toUpperCase() != "GA") { // If viewing other state, use model.earth
+				let goModelEarth = "https://model.earth" + window.location.pathname + window.location.search + window.location.hash;
+				window.location = goModelEarth;
+			}
+		}
 		$("#state_select").val(hash.state);
 		if (hash.state == "GA") {
 			$(".regionFilter").show();
@@ -2235,13 +2252,7 @@ var priorHash = {};
 		}
 		$("#titleTwo").text($("#state_select").find(":selected").text().toLowerCase());
 		updateHash({'geo':'', 'regiontitle':'', 'lat':'', 'lon':''});
-
-		if(location.host.indexOf('model.georgia') >= 0) {
-			if (hash.state != "" && hash.state.toUpperCase() != "GA") { // If viewing other state, use model.earth
-				let goModelEarth = "https://model.earth" + window.location.pathname + window.location.search + window.location.hash;
-				window.location = goModelEarth;
-			}
-		}
+		showCounties(0);
 	}
 	
 	if (hash.mapframe != priorHash.mapframe) {
