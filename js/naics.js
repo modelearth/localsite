@@ -384,11 +384,11 @@ function geoChanged(dataObject,params){
     if (fips == dataObject.stateshown) {
         $(".county-view").hide();
         $(".state-view").show();
-        $(".industry_filter_settings").hide(); // temp
+        //$(".industry_filter_settings").hide(); // temp
     } else {
         $(".state-view").hide();
         $(".county-view").show();
-        $(".industry_filter_settings").show(); // temp
+        //$(".industry_filter_settings").show(); // temp
     }
     
 

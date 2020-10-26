@@ -1,27 +1,33 @@
 
 /*
-// EMBED MAP
-// Generate the script below by pasting map/index.html from <!-- Start HTML --> to <!-- End HTML --> into:
-// http://www.accessify.com/tools-and-wizards/developer-tools/html-javascript-convertor/
-// Choose: Build Up String Variable
-// Final version resides in embed-map.js
+// EMBED MAP - Usage:
+
+ /localsite/info/index.html
+ /community/map/starter/embed.html
+
 */
 
 // Add \r to end of aside rows below manually. (You can ignore this, the aside rows are not currently in use.)
 
-var strVar="";
+var styleOverrides="";
 
 // STYLE OVERRIDES FOR DRUPAL
-strVar += "<style type='text/css'>";
-strVar += "#legendHolder {min-width: 270px;}";
-strVar += ".component--custom_markup > .content {max-width:100%}"; // Drupal container
-strVar += ".component--main_content, .component--single_column_content {padding:0px}"; // Remove padding between text and map in Drupal.
-//strVar += "p {margin: 0 0 2.2rem;}"; // Overrides Drupal 3.4rem bottom
-strVar += "svg {max-width:none;}"; // Fix for embedding material icon map points in Drupal
-strVar += ".visually-hidden {display: none !important;}"; // Hide text in c19 Drupal top nav
-strVar += "<\/style>";
+styleOverrides += "<style type='text/css'>";
+styleOverrides += "#legendHolder {min-width: 270px;}";
+styleOverrides += ".component--custom_markup > .content {max-width:100%}"; // Drupal container
+styleOverrides += ".component--main_content, .component--single_column_content {padding:0px}"; // Remove padding between text and map in Drupal.
+//styleOverrides += "p {margin: 0 0 2.2rem;}"; // Overrides Drupal 3.4rem bottom
+styleOverrides += "svg {max-width:none;}"; // Fix for embedding material icon map points in Drupal
+styleOverrides += ".visually-hidden {display: none !important;}"; // Hide text in c19 Drupal top nav
+styleOverrides+= "<\/style>";
 
-// Omit var strVar=""; here
+/*
+// Generate the script below by pasting map/index.html from <!-- Start HTML --> to <!-- End HTML --> into:
+// http://www.accessify.com/tools-and-wizards/developer-tools/html-javascript-convertor/
+// Choose: Build Up String Variable
+*/
+
+var strVar="";
 strVar += "<!-- Start HTML -->";
 strVar += "";
 strVar += "<!-- FILTERS -->";
@@ -689,57 +695,57 @@ strVar += "";
 strVar += "            <div class=\"stateFilters input-output\" style=\"float:left\">";
 strVar += "              <b>State<\/b><br>";
 strVar += "                <select id=\"state_select\" name=\"state\">";
-strVar += "                 <option value='AL'>Alabama<\/option>";
-strVar += "                 <option value='AK'>Alaska<\/option>";
-strVar += "                 <option value='AZ'>Arizona<\/option>";
-strVar += "                 <option value='AR'>Arkansas<\/option>";
-strVar += "                 <option value='CA'>California<\/option>";
-strVar += "                 <option value='CO'>Colorado<\/option>";
-strVar += "                 <option value='CT'>Connecticut<\/option>";
-strVar += "                 <option value='DE'>Delaware<\/option>";
-strVar += "                 <option value='DC'>District of Columbia<\/option>";
-strVar += "                 <option value='FL'>Florida<\/option>";
-strVar += "                 <option value='GA' selected>Georgia<\/option>";
-strVar += "                 <option value='HI'>Hawaii<\/option>";
-strVar += "                 <option value='ID'>Idaho<\/option>";
-strVar += "                 <option value='IL'>Illinois<\/option>";
-strVar += "                 <option value='IN'>Indiana<\/option>";
-strVar += "                 <option value='IA'>Iowa<\/option>";
-strVar += "                 <option value='KS'>Kansas<\/option>";
-strVar += "                 <option value='KY'>Kentucky<\/option>";
-strVar += "                 <option value='LA'>Louisiana<\/option>";
-strVar += "                 <option value='ME'>Maine<\/option>";
-strVar += "                 <option value='MD'>Maryland<\/option>";
-strVar += "                 <option value='MA'>Massachusetts<\/option>";
-strVar += "                 <option value='MI'>Michigan<\/option>";
-strVar += "                 <option value='MN'>Minnesota<\/option>";
-strVar += "                 <option value='MS'>Mississippi<\/option>";
-strVar += "                 <option value='MO'>Missouri<\/option>";
-strVar += "                 <option value='MT'>Montana<\/option>";
-strVar += "                 <option value='NE'>Nebraska<\/option>";
-strVar += "                 <option value='NV'>Nevada<\/option>";
-strVar += "                 <option value='NH'>New Hampshire<\/option>";
-strVar += "                 <option value='NJ'>New Jersey<\/option>";
-strVar += "                 <option value='NM'>New Mexico<\/option>";
-strVar += "                 <option value='NY'>New York<\/option>";
-strVar += "                 <option value='NC'>North Carolina<\/option>";
-strVar += "                 <option value='ND'>North Dakota<\/option>";
-strVar += "                 <option value='OH'>Ohio<\/option>";
-strVar += "                 <option value='OK'>Oklahoma<\/option>";
-strVar += "                 <option value='OR'>Oregon<\/option>";
-strVar += "                 <option value='PA'>Pennsylvania<\/option>";
-strVar += "                 <option value='RI'>Rhode Island<\/option>";
-strVar += "                 <option value='SC'>South Carolina<\/option>";
-strVar += "                 <option value='SD'>South Dakota<\/option>";
-strVar += "                 <option value='TN'>Tennessee<\/option>";
-strVar += "                 <option value='TX'>Texas<\/option>";
-strVar += "                 <option value='UT'>Utah<\/option>";
-strVar += "                 <option value='VT'>Vermont<\/option>";
-strVar += "                 <option value='VA'>Virginia<\/option>";
-strVar += "                 <option value='WA'>Washington<\/option>";
-strVar += "                 <option value='WV'>West Virginia<\/option>";
-strVar += "                 <option value='WI'>Wisconsin<\/option>";
-strVar += "                 <option value='WY'>Wyoming<\/option>";
+strVar += "                 <option value='AL' stateid='01'>Alabama<\/option>";
+strVar += "                 <option value='AK' stateid='02'>Alaska<\/option>";
+strVar += "                 <option value='AZ' stateid='04'>Arizona<\/option>";
+strVar += "                 <option value='AR' stateid='05'>Arkansas<\/option>";
+strVar += "                 <option value='CA' stateid='06'>California<\/option>";
+strVar += "                 <option value='CO' stateid='08'>Colorado<\/option>";
+strVar += "                 <option value='CT' stateid='09'>Connecticut<\/option>";
+strVar += "                 <option value='DE' stateid='10'>Delaware<\/option>";
+strVar += "                 <!-- <option value='DC' stateid=''>District of Columbia<\/option> -->";
+strVar += "                 <option value='FL' stateid='12'>Florida<\/option>";
+strVar += "                 <option value='GA' stateid='13' selected>Georgia<\/option>";
+strVar += "                 <option value='HI' stateid='15'>Hawaii<\/option>";
+strVar += "                 <option value='ID' stateid='16'>Idaho<\/option>";
+strVar += "                 <option value='IL' stateid='17'>Illinois<\/option>";
+strVar += "                 <option value='IN' stateid='18'>Indiana<\/option>";
+strVar += "                 <option value='IA' stateid='19'>Iowa<\/option>";
+strVar += "                 <option value='KS' stateid='20'>Kansas<\/option>";
+strVar += "                 <option value='KY' stateid='21'>Kentucky<\/option>";
+strVar += "                 <option value='LA' stateid='22'>Louisiana<\/option>";
+strVar += "                 <option value='ME' stateid='23'>Maine<\/option>";
+strVar += "                 <option value='MD' stateid='24'>Maryland<\/option>";
+strVar += "                 <option value='MA' stateid='25'>Massachusetts<\/option>";
+strVar += "                 <option value='MI' stateid='26'>Michigan<\/option>";
+strVar += "                 <option value='MN' stateid='27'>Minnesota<\/option>";
+strVar += "                 <option value='MS' stateid='28'>Mississippi<\/option>";
+strVar += "                 <option value='MO' stateid='29'>Missouri<\/option>";
+strVar += "                 <option value='MT' stateid='30'>Montana<\/option>";
+strVar += "                 <option value='NE' stateid='31'>Nebraska<\/option>";
+strVar += "                 <option value='NV' stateid='32'>Nevada<\/option>";
+strVar += "                 <option value='NH' stateid='33'>New Hampshire<\/option>";
+strVar += "                 <option value='NJ' stateid='34'>New Jersey<\/option>";
+strVar += "                 <option value='NM' stateid='35'>New Mexico<\/option>";
+strVar += "                 <option value='NY' stateid='36'>New York<\/option>";
+strVar += "                 <option value='NC' stateid='37'>North Carolina<\/option>";
+strVar += "                 <option value='ND' stateid='38'>North Dakota<\/option>";
+strVar += "                 <option value='OH' stateid='39'>Ohio<\/option>";
+strVar += "                 <option value='OK' stateid='40'>Oklahoma<\/option>";
+strVar += "                 <option value='OR' stateid='41'>Oregon<\/option>";
+strVar += "                 <option value='PA' stateid='42'>Pennsylvania<\/option>";
+strVar += "                 <option value='RI' stateid='44'>Rhode Island<\/option>";
+strVar += "                 <option value='SC' stateid='45'>South Carolina<\/option>";
+strVar += "                 <option value='SD' stateid='46'>South Dakota<\/option>";
+strVar += "                 <option value='TN' stateid='47'>Tennessee<\/option>";
+strVar += "                 <option value='TX' stateid='48'>Texas<\/option>";
+strVar += "                 <option value='UT' stateid='49'>Utah<\/option>";
+strVar += "                 <option value='VT' stateid='50'>Vermont<\/option>";
+strVar += "                 <option value='VA' stateid='51'>Virginia<\/option>";
+strVar += "                 <option value='WA' stateid='53'>Washington<\/option>";
+strVar += "                 <option value='WV' stateid='54'>West Virginia<\/option>";
+strVar += "                 <option value='WI' stateid='55'>Wisconsin<\/option>";
+strVar += "                 <option value='WY' stateid='56'>Wyoming<\/option>";
 strVar += "               <\/select>";
 strVar += "               <br><br>";
 strVar += "            <\/div>";
@@ -900,7 +906,7 @@ strVar += "";
 strVar += "        <div id=\"geoPicker\">";
 strVar += "          <div style=\"float:left\">";
 strVar += "            <!-- Must be displayed initiallly so tiles are visible -->";
-strVar += "              <div id=\"geomap\" style=\"width:440px; height:530px; margin:0 30px 30px 0; position: relative\">";
+strVar += "              <div id=\"geomap\" style=\"width:440px; height:530px; margin:0 30px 30px 0; border:1px solid blue; position: relative\">";
 strVar += "              <\/div>";
 strVar += "          <\/div>";
 strVar += "";
@@ -1340,9 +1346,8 @@ strVar += "<!-- End HTML -->";
 
 
 
-
 // Hidden until search-filters.css loads
-document.write("<div id=\"filterEmbedHolder\" style=\"display:none;position:relative\">" + strVar + "<\/div> ");
+document.write("<div id=\"filterEmbedHolder\" style=\"display:none;position:relative\">" + styleOverrides + strVar + "<\/div> ");
 
 
 
