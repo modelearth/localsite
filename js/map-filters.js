@@ -204,7 +204,6 @@ $(document).ready(function () {
 			$("#hideLocations").show();
 			//$(".filterSelected").text("Entire State");
 			$("#filterLocations").hide();
-
 			$("#filterClickLocation").removeClass("filterClickActive");
 		} else {
 			$("#topPanel").hide();
@@ -256,6 +255,7 @@ $(document).ready(function () {
 	$(".hideAdvanced").click(function(event) {
 		$(".fieldSelector").hide();
 		$("#filterLocations").hide();
+		$("#filterClickLocation").removeClass("filterClickActive");
 	});
 
 	$('#searchloc').click(function () {
@@ -1552,7 +1552,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
     	// https://github.com/modelearth/topojson/blob/master/countries/us-states/AL-01-alabama-counties.json
 
     	//var url = dual_map.custom_data_root() + '/counties/GA-13-georgia-counties.json';
-    	var url = dual_map.modelearth_data_root() + "/topojson/countries/us-states/" + param.state + "-" + state2char + "-" + stateNameLowercase + "-counties.json";
+    	var url = dual_map.modelearth_data_root() + "/topojson/countries/us-states/" + param.state + "-" + state2char + "-" + stateNameLowercase.replace(/\s+/g, '-') + "-counties.json";
     	//url = dual_map.modelearth_data_root() + "/opojson/countries/us-states/GA-13-georgia-counties.json";
     	// IMPORTANT: ALSO change localhost setting that uses cb_2015_alabama_county_20m below
 	//}
@@ -1597,7 +1597,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
             
             //if (param.geo == "US01" || param.state == "AL") {
             	// Example: topoob.objects.cb_2015_alabama_county_20m
-            	let topoObjName = "topoob.objects.cb_2015_" + stateNameLowercase + "_county_20m";
+            	let topoObjName = "topoob.objects.cb_2015_" + stateNameLowercase.replace(/\s+/g, '_') + "_county_20m";
             	topodata = topojson.feature(topoob, eval(topoObjName));
         	//} else {
         	//	topodata = topojson.feature(topoob, topoob.objects.cb_2015_georgia_county_20m)
@@ -1661,7 +1661,9 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
       var lon = -83.2;
       var lonX = -81.8;
       var zoom = 7;
-
+      if (hash.state != "GA") {
+      	zoom = 2;
+  	  }
       //var layer = "terrain";
       if (param.geo == "US01" || param.state == "AL") { // Temp
       	lon = -86.7;
@@ -2117,6 +2119,7 @@ googlePlacesApiLoaded(1);
         $("#coordFields").show();
         goHash({"lat":place.geometry.location.lat(),"lon":place.geometry.location.lng()});
         $("#filterLocations").hide();
+        $("#filterClickLocation").removeClass("filterClickActive");
       }
     }
   });
@@ -2278,7 +2281,7 @@ var priorHash = {};
 		} else {
 			$(".regionFilter").hide();
 		}
-		$("#titleTwo").text($("#state_select").find(":selected").text().toLowerCase());
+		$(".filterSelected").text($("#state_select").find(":selected").text());
 		updateHash({'geo':'', 'regiontitle':'', 'lat':'', 'lon':''});
 		showCounties(0);
 	}
