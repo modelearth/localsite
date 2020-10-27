@@ -191,7 +191,7 @@ $(document).ready(function () {
 
     $("#filterClickLocation").click(function(event) {
     	console.log("show location filters");
-    	
+
     	$("#searchLocation").focus(); // Not working
     	//document.getElementById("searchLocation").focus(); // Not working
 
@@ -204,10 +204,10 @@ $(document).ready(function () {
 			$("#hideLocations").show();
 			//$(".filterSelected").text("Entire State");
 			$("#filterLocations").hide();
-
 			$("#filterClickLocation").removeClass("filterClickActive");
 		} else {
 			$("#topPanel").hide();
+			locationFilterChange("counties");
             $("#showLocations").show();
 			$("#hideLocations").hide();
 			//$(".filterSelected").text("Location");
@@ -255,6 +255,7 @@ $(document).ready(function () {
 	$(".hideAdvanced").click(function(event) {
 		$(".fieldSelector").hide();
 		$("#filterLocations").hide();
+		$("#filterClickLocation").removeClass("filterClickActive");
 	});
 
 	$('#searchloc').click(function () {
@@ -265,12 +266,15 @@ $(document).ready(function () {
     });
 	
  	$('#state_select').on('change', function() {
-	    goHash({'filter':'','state':this.value});
+	    goHash({'filter':'','state':this.value}); // triggers renderMapShapes("geomap", hash); // County select map
+
+	    /*
 	    if (this.value == "GA") {
 	    	$("#geoPicker").show();
 	    } else {
 	    	$("#geoPicker").hide();
 	    }
+	    */
 	});
  	$('#region_select').on('change', function() {
  		//alert($(this).attr("geo"))
@@ -389,7 +393,6 @@ $(document).ready(function () {
    	function clearFields() {
    		$(".eWidget").show();
    		hideNonListPanels();
-   		//$('#industryCatList > div').css('border', 'solid 1px #fff');
    		$('#industryCatList > div').removeClass('catListSelected');
    		$("#keywordsTB").val("");
    		$("#catSearch").val("");
@@ -397,6 +400,7 @@ $(document).ready(function () {
    		$("#productCatTitle").html("");
    		$("#eTable_alert").hide();
    		$("#mainframe").hide();
+   		$("#filterClickLocation").removeClass("filterClickActive");
    		$(".output_table input").prop('checked',false); // geo counties
    		$("input[name='hs']").prop('checked',false);
    		$("input[name='in']").prop('checked',true);
@@ -410,7 +414,7 @@ $(document).ready(function () {
    		let hash = getHash();
    		renderMapShapes("geomap", hash); // County select map
 
-   		loadMap1();
+   		loadMap1(); // BUGBUG - this hide map on /map page, perhaps dataset is not available during clear.
    		event.stopPropagation();
    	});
    	$("#botGo").click(function() {
@@ -637,7 +641,7 @@ function locationFilterChange(selectedValue,selectedGeo) {
         }
     }
     if (selectedValue == 'counties') {
-        showCounties(0);
+    	showCounties(0);
     }
     if (selectedValue == 'city') {
         $("#distanceField").show();
@@ -681,14 +685,25 @@ function locClick(which) {
 	goHash({"geo":geo,"regiontitle":regiontitle});
 }
 function showCounties(attempts) {
-	if ($(".output_table > table").length) {
-		return; // Avoid reloading
-	}
 
 	if (typeof d3 !== 'undefined') {
 
+		let hash = getHash();
+		let theState = $("#state_select").find(":selected").val();
+		if (hash.state) {
+			theState = hash.state;
+		}
+		if ($(".output_table > table").length) {
+			if (theState == priorHash.state || (theState == "GA" && !priorHash.state)) {
+				//alert("cancel showCounties: " + theState + " prior: " + priorHash.state);
+				return; // Avoid reloading
+			}
+			$(".output_table").html(""); // Clear prior state
+		}
+
+
 		//Load in contents of CSV file
-		d3.csv(dual_map.community_data_root() + "us/state/GA/GAcounties.csv").then(function(myData,error) {
+		d3.csv(dual_map.community_data_root() + "us/state/" + theState + "/" + theState + "counties.csv").then(function(myData,error) {
 			if (error) {
 				alert("error")
 				console.log("Error loading file. " + error);
@@ -844,7 +859,7 @@ function applyStupidTable(count) {
 function updateGeoFilter(geo) {
 	$(".geo").prop('checked', false);
 	if (geo) {
-		locationFilterChange("counties");
+		//locationFilterChange("counties");
 		let sectors = geo.split(",");
         for(var i = 0 ; i < sectors.length ; i++) {
         	$("#" + sectors[i]).prop('checked', true);
@@ -915,10 +930,10 @@ function getLatLonFromBrowser(limitByDistance) {
     //}
 }
 // INIT
-locationFilterChange("counties"); // Display county list
-$("#filterClickLocation .filterSelected").html("Counties");
-$(".filterUL li").removeClass("selected");
-$(".filterUL li").find("[data-id='counties']").addClass("selected"); // Not working
+//locationFilterChange("counties"); // Display county list
+//$("#filterClickLocation .filterSelected").html("Counties");
+//$(".filterUL li").removeClass("selected");
+//$(".filterUL li").find("[data-id='counties']").addClass("selected"); // Not working
 $(".showSearch").css("display","inline-block");
 $(".showSearch").removeClass("local");
 
@@ -1513,16 +1528,34 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
     updateGeoFilter(hash.geo); // Checks and unchecks geo (counties) when backing up.
 
-    // TOPO Files: https://github.com/modelearth/topojson
-    var url = dual_map.custom_data_root() + '/counties/GA-13-georgia-counties.json';
-    //if(location.host.indexOf('localhost') >= 0) {
-    if (param.geo == "US01") { // Bug, change to get state from string, also below.
-    	// https://github.com/modelearth/topojson/blob/master/countries/us-states/AL-01-alabama-counties.json
-    	url = dual_map.modelearth_data_root() + "/topojson/countries/us-states/AL-01-alabama-counties.json";
-    	//url = dual_map.modelearth_data_root() + "/opojson/countries/us-states/GA-13-georgia-counties.json";
+    // BUGBUG - Shouldn't need to fetch counties.json every time.
 
+    if (!param.state) {
+    	param.state = "GA";
+    }
+
+    // TOPO Files: https://github.com/modelearth/topojson/ 
+    //url = "https://modelearth.github.io/topojson/countries/us-states/AL-01-alabama-counties.json";
+    //url = "../../topojson/countries/us-states/AL-01-alabama-counties.json";
+
+    let stateIDs = {AL:1,AK:2,AZ:4,AR:5,CA:6,CO:8,CT:9,DE:10,FL:12,GA:13,HI:15,ID:16,IL:17,IN:18,IA:19,KS:20,KY:21,LA:22,ME:23,MD:24,MA:25,MI:26,MN:27,MS:28,MO:29,MT:30,NE:31,NV:32,NH:33,NJ:34,NM:35,NY:36,NC:37,ND:38,OH:39,OK:40,OR:41,PA:42,RI:44,SC:45,SD:46,TN:47,TX:48,UT:49,VT:50,VA:51,WA:53,WV:54,WI:55,WY:56,AS:60,GU:66,MP:69,PR:72,VI:78,}
+    let state2char = ('0'+stateIDs[param.state]).slice(-2);
+    let stateNameLowercase = $("#state_select option:selected").text().toLowerCase();
+
+    //alert($("#state_select option:selected").attr("stateid"));
+    //alert($("#state_select option:selected").val()); // works
+
+    // $("#state_select").find(":selected").text();
+
+    //if(location.host.indexOf('localhost') >= 0) {
+    //if (param.geo == "US01" || param.state == "AL") { // Bug, change to get state from string, also below.
+    	// https://github.com/modelearth/topojson/blob/master/countries/us-states/AL-01-alabama-counties.json
+
+    	//var url = dual_map.custom_data_root() + '/counties/GA-13-georgia-counties.json';
+    	var url = dual_map.modelearth_data_root() + "/topojson/countries/us-states/" + param.state + "-" + state2char + "-" + stateNameLowercase.replace(/\s+/g, '-') + "-counties.json";
+    	//url = dual_map.modelearth_data_root() + "/opojson/countries/us-states/GA-13-georgia-counties.json";
     	// IMPORTANT: ALSO change localhost setting that uses cb_2015_alabama_county_20m below
-	}
+	//}
     //var layerControl_CountyMap = {}; // Object containing one control for each map on page.
 
     req.open('GET', url, true);
@@ -1562,12 +1595,13 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
             // 
             
-            //if(location.host.indexOf('localhost') >= 0) {
-            if (param.geo == "US01") {
-            	topodata = topojson.feature(topoob, topoob.objects.cb_2015_alabama_county_20m)
-        	} else {
-        		topodata = topojson.feature(topoob, topoob.objects.cb_2015_georgia_county_20m)
-        	}
+            //if (param.geo == "US01" || param.state == "AL") {
+            	// Example: topoob.objects.cb_2015_alabama_county_20m
+            	let topoObjName = "topoob.objects.cb_2015_" + stateNameLowercase.replace(/\s+/g, '_') + "_county_20m";
+            	topodata = topojson.feature(topoob, eval(topoObjName));
+        	//} else {
+        	//	topodata = topojson.feature(topoob, topoob.objects.cb_2015_georgia_county_20m)
+        	//}
 
             // ADD 
             // For region colors
@@ -1627,9 +1661,11 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
       var lon = -83.2;
       var lonX = -81.8;
       var zoom = 7;
-
+      if (hash.state != "GA") {
+      	zoom = 2;
+  	  }
       //var layer = "terrain";
-      if (param.geo == "US01") { // Temp
+      if (param.geo == "US01" || param.state == "AL") { // Temp
       	lon = -86.7;
       }
       var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -2083,6 +2119,7 @@ googlePlacesApiLoaded(1);
         $("#coordFields").show();
         goHash({"lat":place.geometry.location.lat(),"lon":place.geometry.location.lng()});
         $("#filterLocations").hide();
+        $("#filterClickLocation").removeClass("filterClickActive");
       }
     }
   });
@@ -2110,6 +2147,7 @@ var priorHash = {};
 	let hash = getHash();
 	//alert("refreshWidgets from prior geo: " + priorHash.geo + " to " + hash.geo);
 	
+
 	// NOTE: params after ? are not included, just the hash.
 	if (hash.go != priorHash.go) {
 		if (hash.show == priorHash.show) {
@@ -2159,11 +2197,11 @@ var priorHash = {};
 		if (hash.geo && hash.geo.length > 4) { 
 			$(".state-view").hide();
         	$(".county-view").show();
-        	$(".industry_filter_settings").show(); // temp
+        	//$(".industry_filter_settings").show(); // temp
 		} else {
 			$(".county-view").hide();
         	$(".state-view").show();
-        	$(".industry_filter_settings").hide(); // temp
+        	//$(".industry_filter_settings").hide(); // temp
 		}
 		if (hash.geo) {
 			if (hash.geo.split(",").length >= 3) {
@@ -2201,6 +2239,10 @@ var priorHash = {};
 			//}
 		//}
 	}
+	if (hash.state != priorHash.state) {
+		let hash = getHash();
+   		renderMapShapes("geomap", hash); // County select map
+	}
 	//alert(hash.regiontitle)
 	if (hash.regiontitle != priorHash.regiontitle) {
 		if (hash.go) {
@@ -2227,21 +2269,21 @@ var priorHash = {};
 	 }
 
 	if (hash.state != priorHash.state) {
-		$("#state_select").val(hash.state);
-		if (hash.state == "GA") {
-			$(".regionFilter").show();
-		} else {
-			$(".regionFilter").hide();
-		}
-		$("#titleTwo").text($("#state_select").find(":selected").text().toLowerCase());
-		updateHash({'geo':'', 'regiontitle':'', 'lat':'', 'lon':''});
-
 		if(location.host.indexOf('model.georgia') >= 0) {
 			if (hash.state != "" && hash.state.toUpperCase() != "GA") { // If viewing other state, use model.earth
 				let goModelEarth = "https://model.earth" + window.location.pathname + window.location.search + window.location.hash;
 				window.location = goModelEarth;
 			}
 		}
+		$("#state_select").val(hash.state);
+		if (hash.state == "GA") {
+			$(".regionFilter").show();
+		} else {
+			$(".regionFilter").hide();
+		}
+		$(".filterSelected").text($("#state_select").find(":selected").text());
+		updateHash({'geo':'', 'regiontitle':'', 'lat':'', 'lon':''});
+		showCounties(0);
 	}
 	
 	if (hash.mapframe != priorHash.mapframe) {

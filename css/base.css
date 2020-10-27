@@ -700,6 +700,9 @@ content .js, pre code { /* Prevents .js from impacting js class within Drupal bo
   top: 50%;
   transform: translate(0%, -50%);
 }
+#logoholderbar {
+  padding: 6px 8px 0 0;
+}
 #headerLogo {
   margin-right: 4.5px;
   float: left;

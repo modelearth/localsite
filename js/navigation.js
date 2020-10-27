@@ -188,7 +188,10 @@ $(document).ready(function(){
 		 		}
 		 		titleValue += "</a></span>";
 		 		$('#headerSiteTitle').html(titleValue);
-		 		$("#titleTwo").text($("#state_select").find(":selected").text().toLowerCase().replace(/ /g,""));
+		 		let theState = $("#state_select").find(":selected").text();
+		 		if (theState) {
+		 			$(".filterSelected").text(theState);
+		 		}
 		 	}
 	 	}
 	 	
@@ -209,6 +212,7 @@ $(document).ready(function(){
 		 	*/
 		 	if (param.headerLogo) {
 		 		$('#headerLogo').html("<a href='" + climbpath + "' style='text-decoration:none'>" + param.headerLogo + "</a>");
+		 		$('#logoholderbar').html("<a href='" + climbpath + "' style='text-decoration:none'>" + param.headerLogo + "</a>");
 		 	} else {
 			 	$('#headerLogo').css('background-image', 'url(' + imageUrl + ')');
 				$('#headerLogo').css('background-repeat', 'no-repeat');
@@ -303,7 +307,9 @@ $(document).ready(function(){
 
 	});
 
-
+	$(document).ready(function () {
+		
+	});
  	// SIDE NAV WITH HIGHLIGHT ON SCROLL
 	if (param["sidecolumn"]) {
 		$("#sidecolumn").load( modelpath + "../community/nav.html", function( response, status, xhr ) {
@@ -319,8 +325,7 @@ $(document).ready(function(){
 		    })
 			
 			// Clone after path change
-			$("#headerLogo").clone().appendTo("#logoholderside");
-	 		
+	 		$("#headerLogo").clone().appendTo("#logoholderside");
 
 	 		// ALL SIDE COLUMN ITEMS
 	 		var topMenu = $("#sidecolumnContent");

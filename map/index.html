@@ -119,9 +119,9 @@
   <div id="filterFieldsHolder" class="contentfull noprint" style="margin:0 auto; padding-top:0px; float:left; width:100%">
     <div class="filterFields" style="float:left; min-height:54px; padding:2px 0 4px 0;">
 
-      <div id="showApps" class="local" style="display:none;float:left;">
-        <i class="material-icons">&#xE5C3;</i>
+      <div id="logoholderbar" style="display:none;float:left;">
       </div>
+
 
       <div id="appSelectHolder" style="display:none;" class="filterField layerclass local">
         <div id="catSearchHolder">
@@ -394,6 +394,10 @@
         <!-- /Down arrow -->
 
         <div class="showInfo showInfoButton1 pagebutton" style="float: left; padding: 3px 3px 3px 4px; color:#fff; display:none;"><i class="material-icons" style="font-size:28px;">&#xE88F;</i>
+        </div>
+
+        <div id="showApps" class="local" style="display:none;float:left;">
+          <i class="material-icons">&#xE5C3;</i>
         </div>
       </div>
       <!-- /Right Links -->
@@ -770,73 +774,75 @@
             <div class="stateFilters input-output" style="float:left">
               <b>State</b><br>
                 <select id="state_select" name="state">
-                 <option value='AL'>Alabama</option>
-                 <option value='AK'>Alaska</option>
-                 <option value='AZ'>Arizona</option>
-                 <option value='AR'>Arkansas</option>
-                 <option value='CA'>California</option>
-                 <option value='CO'>Colorado</option>
-                 <option value='CT'>Connecticut</option>
-                 <option value='DE'>Delaware</option>
-                 <option value='DC'>District of Columbia</option>
-                 <option value='FL'>Florida</option>
-                 <option value='GA' selected>Georgia</option>
-                 <option value='HI'>Hawaii</option>
-                 <option value='ID'>Idaho</option>
-                 <option value='IL'>Illinois</option>
-                 <option value='IN'>Indiana</option>
-                 <option value='IA'>Iowa</option>
-                 <option value='KS'>Kansas</option>
-                 <option value='KY'>Kentucky</option>
-                 <option value='LA'>Louisiana</option>
-                 <option value='ME'>Maine</option>
-                 <option value='MD'>Maryland</option>
-                 <option value='MA'>Massachusetts</option>
-                 <option value='MI'>Michigan</option>
-                 <option value='MN'>Minnesota</option>
-                 <option value='MS'>Mississippi</option>
-                 <option value='MO'>Missouri</option>
-                 <option value='MT'>Montana</option>
-                 <option value='NE'>Nebraska</option>
-                 <option value='NV'>Nevada</option>
-                 <option value='NH'>New Hampshire</option>
-                 <option value='NJ'>New Jersey</option>
-                 <option value='NM'>New Mexico</option>
-                 <option value='NY'>New York</option>
-                 <option value='NC'>North Carolina</option>
-                 <option value='ND'>North Dakota</option>
-                 <option value='OH'>Ohio</option>
-                 <option value='OK'>Oklahoma</option>
-                 <option value='OR'>Oregon</option>
-                 <option value='PA'>Pennsylvania</option>
-                 <option value='RI'>Rhode Island</option>
-                 <option value='SC'>South Carolina</option>
-                 <option value='SD'>South Dakota</option>
-                 <option value='TN'>Tennessee</option>
-                 <option value='TX'>Texas</option>
-                 <option value='UT'>Utah</option>
-                 <option value='VT'>Vermont</option>
-                 <option value='VA'>Virginia</option>
-                 <option value='WA'>Washington</option>
-                 <option value='WV'>West Virginia</option>
-                 <option value='WI'>Wisconsin</option>
-                 <option value='WY'>Wyoming</option>
+                 <option value='AL' stateid='01'>Alabama</option>
+                 <option value='AK' stateid='02'>Alaska</option>
+                 <option value='AZ' stateid='04'>Arizona</option>
+                 <option value='AR' stateid='05'>Arkansas</option>
+                 <option value='CA' stateid='06'>California</option>
+                 <option value='CO' stateid='08'>Colorado</option>
+                 <option value='CT' stateid='09'>Connecticut</option>
+                 <option value='DE' stateid='10'>Delaware</option>
+                 <!-- <option value='DC' stateid=''>District of Columbia</option> -->
+                 <option value='FL' stateid='12'>Florida</option>
+                 <option value='GA' stateid='13' selected>Georgia</option>
+                 <option value='HI' stateid='15'>Hawaii</option>
+                 <option value='ID' stateid='16'>Idaho</option>
+                 <option value='IL' stateid='17'>Illinois</option>
+                 <option value='IN' stateid='18'>Indiana</option>
+                 <option value='IA' stateid='19'>Iowa</option>
+                 <option value='KS' stateid='20'>Kansas</option>
+                 <option value='KY' stateid='21'>Kentucky</option>
+                 <option value='LA' stateid='22'>Louisiana</option>
+                 <option value='ME' stateid='23'>Maine</option>
+                 <option value='MD' stateid='24'>Maryland</option>
+                 <option value='MA' stateid='25'>Massachusetts</option>
+                 <option value='MI' stateid='26'>Michigan</option>
+                 <option value='MN' stateid='27'>Minnesota</option>
+                 <option value='MS' stateid='28'>Mississippi</option>
+                 <option value='MO' stateid='29'>Missouri</option>
+                 <option value='MT' stateid='30'>Montana</option>
+                 <option value='NE' stateid='31'>Nebraska</option>
+                 <option value='NV' stateid='32'>Nevada</option>
+                 <option value='NH' stateid='33'>New Hampshire</option>
+                 <option value='NJ' stateid='34'>New Jersey</option>
+                 <option value='NM' stateid='35'>New Mexico</option>
+                 <option value='NY' stateid='36'>New York</option>
+                 <option value='NC' stateid='37'>North Carolina</option>
+                 <option value='ND' stateid='38'>North Dakota</option>
+                 <option value='OH' stateid='39'>Ohio</option>
+                 <option value='OK' stateid='40'>Oklahoma</option>
+                 <option value='OR' stateid='41'>Oregon</option>
+                 <option value='PA' stateid='42'>Pennsylvania</option>
+                 <option value='RI' stateid='44'>Rhode Island</option>
+                 <option value='SC' stateid='45'>South Carolina</option>
+                 <option value='SD' stateid='46'>South Dakota</option>
+                 <option value='TN' stateid='47'>Tennessee</option>
+                 <option value='TX' stateid='48'>Texas</option>
+                 <option value='UT' stateid='49'>Utah</option>
+                 <option value='VT' stateid='50'>Vermont</option>
+                 <option value='VA' stateid='51'>Virginia</option>
+                 <option value='WA' stateid='53'>Washington</option>
+                 <option value='WV' stateid='54'>West Virginia</option>
+                 <option value='WI' stateid='55'>Wisconsin</option>
+                 <option value='WY' stateid='56'>Wyoming</option>
                </select>
                <br><br>
             </div>
 
-            <div class="stateFilters regionFilter input-output" style="float:left">
-              <b>Region</b><br>
-              
-              <select id="region_select">
-                <option value=''>
-                <option value='West Central' lat='33.0362' lon='-85.0322' geo='US13045,US13077,US13143,US13145,US13149,US13199,US13223,US13233,US13263,US13285,US01111,US01017'>West Central</option>
-                <option value='Central' lat='32.3771' lon='-82.5924' geo='US13023,US13043,US13091,US13109,US13167,US13175,US13209,US13267,US13271,US13279,US13283,US13309,US13315,US13107,US13235'>Central</option>
-                <option value='Savannah Coastal' lat='32.0809' lon='-81.0912'  geo='US13051,US13029,US13179,US13191'>Savannah Coastal</option>
-                <option value='Southeast Coastal' lat='31.1891' lon='-81.4979' geo='US13001,US13005,US13127,US13161,US13229,US13305'>Southeast Coastal</option>
-              </select>
-              <br><br>
+            <div class="stateFilters" style="display:none">
+              <div class="regionFilter input-output" style="float:left; display:none">
+                <b>Region</b><br>
+                
+                <select id="region_select">
+                  <option value=''>
+                  <option value='West Central' lat='33.0362' lon='-85.0322' geo='US13045,US13077,US13143,US13145,US13149,US13199,US13223,US13233,US13263,US13285,US01111,US01017'>West Central</option>
+                  <option value='Central' lat='32.3771' lon='-82.5924' geo='US13023,US13043,US13091,US13109,US13167,US13175,US13209,US13267,US13271,US13279,US13283,US13309,US13315,US13107,US13235'>Central</option>
+                  <option value='Savannah Coastal' lat='32.0809' lon='-81.0912'  geo='US13051,US13029,US13179,US13191'>Savannah Coastal</option>
+                  <option value='Southeast Coastal' lat='31.1891' lon='-81.4979' geo='US13001,US13005,US13127,US13161,US13229,US13305'>Southeast Coastal</option>
+                </select>
+                <br><br>
 
+              </div>
             </div>
 
         <!-- GOOGLE ADDRESS AUTOCOMPLETE -->
