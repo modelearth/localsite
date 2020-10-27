@@ -2291,7 +2291,12 @@ var priorHash = {};
 		if (hash.mapframe) {
 	    	if (hash.mapframe == "ej") {
 	    		mapframe = "https://ejscreen.epa.gov/mapper/";
+	    	} else if (hash.mapframe == "peach") {
+
+	    		mapframe = "https://kuula.co/share/collection/7PYZK?fs=1&vr=1&zoom=1&initload=0&thumbs=1&chromeless=1&logo=-1";
+	    		mapframe = "https://kuula.co/share/collection/7PYZK?fs=1&vr=1&zoom=0&initload=1&thumbs=1&chromeless=1&logo=-1";
 	    	}
+	    	
 	    	if (mapframe) {
 	    		$("#mapframe").prop("src", mapframe);
 				$("#mapframe").show();
