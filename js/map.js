@@ -764,7 +764,8 @@ function loadMap1(dp) { // Also called by map-filters.js
   let community_root = dual_map.community_data_root();
   //let state_root = "/georgia-data/";
   //let state_root = dual_map.custom_data_root();
-  let state_abbreviation = "ga";
+  let state_abbreviation = param.state || "GA";
+
   let dp1 = {}
   // Might use when height it 280px
   dp1.latitude = 31.6074;
@@ -839,8 +840,8 @@ function loadMap1(dp) { // Also called by map-filters.js
     dp1.listTitle = "Georgia COVID-19 Response";
     dp1.listTitle = "Georgia Suppliers of&nbsp;Critical Items <span style='white-space:nowrap'>to Fight COVID-19</span>"; // For iFrame site
 
-    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-10/ga_suppliers_list_10-21-2020.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
-    dp1.dataset = "https://map.georgia.org/display/products/suppliers/us_ga_suppliers_ppe_2020_10_21.csv";
+    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-10/ga_suppliers_list_10-28-2020.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
+    dp1.dataset = "https://map.georgia.org/display/products/suppliers/us_ga_suppliers_ppe_2020_10_28.csv";
     //dp1.dataset = "/display/products/suppliers/us_ga_suppliers_ppe_2020_06_17.csv";
 
     dp1.dataTitle = "Manufacturers and Distributors";
@@ -920,7 +921,7 @@ function loadMap1(dp) { // Also called by map-filters.js
       dp1.valueColumn = "type";
       dp1.valueColumnLabel = "Type"; // was: Prepared Food
       //dp1.dataset = "../../../community/farmfresh/scraper/out/states/ga/markets.csv";
-      dp1.dataset = "https://model.earth/community-data/us/state/" + state_abbreviation.toUpperCase() + "/" + state_abbreviation + "-farmfresh.csv";
+      dp1.dataset = "https://model.earth/community-data/us/state/" + state_abbreviation.toUpperCase() + "/" + state_abbreviation.toLowerCase() + "-farmfresh.csv";
     //} else {
     //  // Older data
     //  dp1.valueColumn = "Prepared";
