@@ -8,5 +8,5 @@ JavaScript methods for sharing functionality between widgets
 
 **loadMarkdown** - Pulls readme files into html and converts links and image tags based on folder levels.  
 
-**lazy class** - It's good to be lazy. This class waits to load images until just before they scroll into view.  
+**lazy class** - Sometimes it's good to be lazy. This class waits to load images until just before they scroll into view.  
 
