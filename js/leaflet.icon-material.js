@@ -42,6 +42,10 @@
 
             svg.setAttribute('width', '31');
             svg.setAttribute('height', '42');
+
+            //svg.setAttribute('width', '20');
+            //svg.setAttribute('height', '33');
+
             svg.setAttribute('class', 'l-icon-material');
             svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
             
@@ -50,6 +54,7 @@
             backgroundCircle.setAttribute('r', '11');
             backgroundCircle.setAttribute('fill', options.markerColor);
 
+            path.setAttribute('opacity', 0); // CUSTOM - so small until zoom
             path.setAttributeNS(null, "d", "M15.6,1c-7.7,0-14,6.3-14,14c0,10.5,14,26,14,26s14-15.5,14-26C29.6,7.3,23.3,1,15.6,1z");
             path.setAttribute('fill', options.markerColor);
             path.setAttribute('stroke', options.outlineColor);

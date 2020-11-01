@@ -1487,7 +1487,13 @@ console.log("Call loadMap1() in map.js but we need dp. Also below.");
 if (!param.show) {
   param.show = "farmfresh"; // Used by loadFromCSV which is called by loadMap1
 }
-var localmap = loadMap1(dp);
+
+//var localmap = 
+loadMap1(param["show"], dp);
+if (param["show"] != "suppliers") {
+  // Additional layer
+  //loadMap1("suppliers", dp);
+}
 
 // Append railroads here, somehow
 //layerControl['map1'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
