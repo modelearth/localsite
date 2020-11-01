@@ -1232,7 +1232,7 @@ $(document).ready(function () {
     updateHash({"cat":catString});
     console.log("catList clicked, call loadMap1 which calls loadFromCSV > showList in map.js");
     $("#honeycombPanelHolder").hide();
-    loadMap1();
+    loadMap1('suppliers');
     //hideNonListPanels();
     event.stopPropagation();
   });
