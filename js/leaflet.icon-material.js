@@ -43,8 +43,7 @@
             svg.setAttribute('width', '31');
             svg.setAttribute('height', '42');
 
-            //svg.setAttribute('width', '20');
-            //svg.setAttribute('height', '33');
+            svg.setAttribute('style', 'margin-top:-14px'); // CUSTOM - Move mappoint down
 
             svg.setAttribute('class', 'l-icon-material');
             svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
