@@ -583,9 +583,11 @@ function addIcons(dp,map,map2) {
     for (var i=0, max=elements.length; i < max; i++) {
       //elements[i].style.backgroundColor = "transparent"; // "rgba(0, 0, 0, 0)";
 
-      if (map.getZoom() >= 9)  { 
+      if (map.getZoom() >= 9)  {
+        elements[i].style.marginTop = "-42px"; // Move circle to default when mappoint shape displayed.
         elements[i].childNodes[0].style.opacity = 1; // The path within SVG. Show mappoint shape around circle with icon. Undoes custom hide in leaflet.icon-material.js line 57.
       } else {
+        elements[i].style.marginTop = "-14px"; // Move circle down when mappoint shape not displayed.
         elements[i].childNodes[0].style.opacity = 0;
       }
       //elements[i].child.style.opacity = 1;
