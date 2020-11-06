@@ -108,14 +108,15 @@ To activate GitHub Pages on your fork’s settings page, set the Github Pages So
 
 ### How to host multiple repos in one site using Github Pages - without using subdomains
 
-- Use CloudFlare.com as a free proxy for your domain name - [setup steps](cloudflare/)
-- Important: Avoid adding the 4 Google A records (these prevent adding the CNAME record)
-- Create two public repos in different GitHub accounts: [github username].github.io and [secondary github username].github.io
-- Add a CNAME record for your domain in CloudFlare with @ and [secondary github username].github.io. By pointing your primary domain at a secondary Github account's repo, you allow more than one repo folder to be accessible through your primary domain.
-- Activate GitHub Pages for your [github username].github.io and each repo.  
-- Add your custom domain name to the root repo called [github username].github.io.
-- Wait a couple minutes for new GitHub Pages site to become available.
-- Activate GitHub Pages for each additional repo in the primary account. These can be forks from other accounts.  
+- Use CloudFlare.com as a free proxy for your domain name - [setup steps](cloudflare/)  
+- Important: Avoid adding the 4 Google A records (these prevent adding the CNAME record).  
+- Create a repo in your primary account matching the name of the account: [github username].github.io  
+- Click settings and activate GitHub Pages for your [github username].github.io and each repo that is a subfolder in your site.  
+- Add your custom domain name to the root repo called [github username].github.io.  
+- Add a CNAME record for your domain in CloudFlare with @ and [secondary github username].github.io. Using a secondary GitHub username allows more than one repo folder to be accessible through your primary domain.   
+
+- Wait 2 to 10 minutes for new GitHub Pages site to become available.
+- Activate GitHub Pages for each additional repo residing within the primary account. These can be forks from other accounts.  
 - Avoid putting referenced files in your [github username].github.io root repo because it won't be the root of your site when you view on localhost.  
 - Make a fork of the current "[localsite](https://github.com/localsite/localsite/)" repo to include it's functionality in your site design.  
 
