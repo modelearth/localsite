@@ -233,7 +233,7 @@
   overflow: scroll;
 }
 #hublist {
-  margin-right: 20px;
+  padding-right: 20px;
 }
 #hublist-paddingX {
   padding-right: 20px;

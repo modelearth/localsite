@@ -1085,7 +1085,7 @@ strVar += "<section class=\"data-section\" id=\"data\" style=\"overflow:auto\">"
 strVar += "<div class=\"content contentpadding litePanel displayOnload\" style=\"display:none; padding-top:0px; padding-bottom:10px; padding-right:0px\">";
 strVar += "";
 strVar += "  <div id=\"flexwrapper\">";
-strVar += "    <div id=\"hublist\" style=\"padding-top:20px\">";
+strVar += "    <div id=\"hublist\" style=\"margin-top:20px\">";
 strVar += "      <div id=\"hublist-padding\">";
 strVar += "        ";
 strVar += "        <h1 class=\"listTitle\" style=\"display:none;margin-bottom:12px\"><\/h1>";

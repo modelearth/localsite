@@ -1998,8 +1998,14 @@ function initSiteObject(layerName) {
 	          		$('#showApps, .hideApps, #appMenu').click(function(event) {
 	          			console.log('#showApps click');
 	          			if ($("#honeycombPanelHolder").is(':visible')) {
+	          				// To do: Only up scroll AND SHOW if not visible
+	          				$('html,body').animate({
+								scrollTop: 0
+							});
+
 	          				$("#honeycombPanelHolder").hide();
 	          				$('#showApps').removeClass("active");
+
 	          			} else {
 	          				$("#honeycombPanelHolder").show();
 	          				if (!$(".bigThumbMenuContent").length) {
