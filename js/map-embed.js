@@ -971,7 +971,7 @@ strVar += "<div style=\"clear:both\"><\/div>";
 strVar += "";
 strVar += "<div class=\"displayOnload\" style=\"display:none;position:relative\">";
 strVar += "<div id=\"map1\"><\/div>";
-strVar += "<div id=\"legendHolder\" style=\"\">";
+strVar += "<div id=\"legendHolder\" style=\"display:none\">";
 strVar += "  <div id=\"allLegends\"><\/div>";
 strVar += "<\/div>";
 strVar += "<\/div>";

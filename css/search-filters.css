@@ -160,7 +160,6 @@
     text-align: center;
     margin:0 auto;
     background-color: #fcfcfc;
-    border-bottom: 1px solid #ccc;
 }
 .bigThumbWidth { /* allows margin to reside within percent */
     floatX:left;
@@ -240,11 +239,11 @@
     clear: both; /* clear close X */
     display: flex;
     justify-content: center;
-
+    border-bottom: 1px solid #ddd;
 }
 .bigThumbMenuInner {
-  margin-top: 30px;
-  borderX:1px solid green;
+  margin-top: 50px;
+  margin-bottom: 20px;
   display: grid;
 }
 

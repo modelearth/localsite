@@ -111,7 +111,7 @@ callback(
 		"sectionTitle": "leftNav",
 		"topnavaccess": "10",
 		"menuaccess": "0",
-		"directlink": "/localsite/map/#show=farmfresh",
+		"directlink": "/localsite/info/#go=farmfresh",
 		"caption": ""
 	},
 	{
@@ -131,12 +131,12 @@ callback(
 		"sectionTitle": "leftNav",
 		"topnavaccess": "10",
 		"menuaccess": "10",
-		"directlink": "/localsite/map/#show=net",
+		"directlink": "/localsite/info/#show=net",
 		"caption": ""
 	},
 	{
 		"menulevel": "1",
-		"item": "suppliers",
+		"item": "ppe",
 		"rootfolder": "info",
 		"title": "Covid PPE",
 		"tabtitle": "Covid PPE",
@@ -151,7 +151,7 @@ callback(
 		"sectionTitle": "leftNav",
 		"topnavaccess": "10",
 		"menuaccess": "0",
-		"directlink": "/localsite/map/#show=suppliers",
+		"directlink": "/localsite/info/#go=ppe",
 		"caption": ""
 	},
 

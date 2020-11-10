@@ -463,9 +463,11 @@ function keyFound(this_key, cat_filter, params) {
         return true;
     } else if (params.go == "bioeconomy" && (this_key.startsWith("11") || this_key.startsWith("311"))) { // Quick hack, always include Agriculture
         return true;
+    //} else if (params.go == "farmfresh" && (this_key.startsWith("11") || this_key.startsWith("311"))) { // Quick hack, always include Agriculture
+    //    return true;
     } else if (params.go == "manufacturing" && (this_key.startsWith("31") || this_key.startsWith("32") || this_key.startsWith("33") )) { // All manufacturing
         return true;
-    } else if ( (params.go == "bioeconomy" || params.go=="parts")&& params.catsize == 2) { // Our 4 digit array matches key
+    } else if ( (params.go == "bioeconomy" || params.go=="parts") && params.catsize == 2) { // Our 4 digit array matches key
         cat_filt=[]
         for(i=0;i<cat_filter.length;i++){
             cat_filt.push(cat_filter[i].slice(0,2))
@@ -492,7 +494,10 @@ function keyFound(this_key, cat_filter, params) {
 // Top rows of for a specific set of fips (states and counties)
 function topRatesInFips(dataSet, dataNames, fips, params) {
     let catcount = params.catcount || 40;
-
+    let gotext = "";
+    if (params.go) {
+        gotext = params.go.replace(/_/g," ");
+    }
 
     $("#econ_list").html("");
     console.log("topRatesInFips")
@@ -529,6 +534,8 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                 var fossil_energy = "221112,324110,325110,";
                 var parts = "336111,336320,336330,336340,336360,336370,336390,333613,336412,336413,335910,335912,339110,333111,325211,325520,326112,326220,331221,332211";
                 var parts_carpets = "314110,313110,313210"
+                var ppe_suppliers = "622110,621111"
+                var farmfresh = "311612,311615,311911,311919,311830,311824,311941,311710,311611,115114,311613,311811,311942,311991,311999,311211,311224,311920"
 
                 var cat_filter = [];
                 if (params.naics) {
@@ -538,8 +545,14 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                     if (params.go == "bioeconomy") {
                         cat_filter = (bio_input + bio_output + green_energy + fossil_energy).split(',');
                     }
-                    if (params.go == "parts") {
+                    else if (params.go == "farmfresh") {
+                        cat_filter = (farmfresh).split(',');
+                    }
+                    else if (params.go == "parts") {
                         cat_filter = (parts).split(',');
+                    }
+                    else if (params.go == "ppe") {
+                        cat_filter = (ppe_suppliers).split(',');
                     }
                     if (cat_filter.length) {
                         cat_filt=[]
@@ -1042,7 +1055,7 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                             // 
                             text += "<div class='row'><div class='cell'><a href='#naics=" + top_data_list[i]['NAICScode'] + "' onClick='goHash({\"naics\":" + top_data_list[i]['NAICScode'] + "}); return false;' style='color:#aaa;white-space:nowrap'>" + icon + top_data_list[i]['NAICScode'] + "</a></div><div class='cell'>" + top_data_list[i]['data_id'] +"</div>"
                             if(Array.isArray(fips)) {
-                                text +=  midCol;
+                                //text +=  midCol;
                             }
                             text += rightCol + "</div>";
                             
@@ -1092,16 +1105,18 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                         $(".regiontitle").text("Parts Manufacturing");
                     } else if (params.go == "manufacturing") {
                         $(".regiontitle").text("Manufacturing");
+                    } else if (gotext) {
+                        $(".regiontitle").text(gotext);
                     }
                     if(Array.isArray(fips) && statelength != fips.length){
 
                         if (!params.regiontitle) {
                             //if (params.go && fips.length == 1) {
                             //    // Remove " County" from this .replace(" County","")
-                            //    $(".regiontitle").text(d["county"] + " - " + params.go.toTitleCase());
+                            //    $(".regiontitle").text(d["county"] + " - " + gotext);
                             //} else 
                             if (params.go) {
-                                $(".regiontitle").text(params.go.toTitleCase() + " Industries within "+ fips.length + " counties");
+                                $(".regiontitle").text(gotext + " Industries within "+ fips.length + " counties");
                             } else {
                                 $(".regiontitle").text("Industries within "+ fips.length + " counties");
                             }
@@ -1109,7 +1124,7 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                             //}
                         } else if (params.regiontitle) {
                             if (params.go) {
-                                $(".regiontitle").text(params.regiontitle.replace(/\+/g," ") + " - " + params.go.toTitleCase());
+                                $(".regiontitle").text(params.regiontitle.replace(/\+/g," ") + " - " + gotext);
                             } else {
                                 $(".regiontitle").text(params.regiontitle.replace(/\+/g," "));
                             }
@@ -1136,7 +1151,7 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                         $(".location_titles").text($(".location_titles").text().replace(/,\s*$/, ""));
                         if (fips.length >= 2 && fips.length <= 3) {
                             if (params.go) {
-                                $(".regiontitle").text($(".location_titles").text() + " - " + params.go.toTitleCase());
+                                $(".regiontitle").text($(".location_titles").text() + " - " + gotext);
                             } else {
                                 $(".regiontitle").text($(".location_titles").text());
                             }
@@ -1149,6 +1164,8 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                             $(".regiontitle").text("Parts Manufacturing");
                         } else if (params.go == "manufacturing") {
                             $(".regiontitle").text("Manufacturing");
+                        } else if (gotext) {
+                            $(".regiontitle").text(gotext);
                         } else {
                             $(".regiontitle").text(String(d['Name'])+"'s Top Industries");
                         }
@@ -1157,7 +1174,7 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                         var filteredData = consdata.filter(function(d) {
                             if (params.go) {
                                 // Remove " County" from this .replace(" County","")
-                                $(".regiontitle").text(d["county"] + " - " + params.go.toTitleCase());
+                                $(".regiontitle").text(d["county"] + " - " + gotext);
                             }
                             else if(d["id"]==fips )
                             {      
