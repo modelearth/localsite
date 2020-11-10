@@ -32,8 +32,8 @@ Also lacks CHARM.  Far from comprehensive.
 
 <h2>Contribute to Updates</h2>
 
-<a href="https://drive.google.com/drive/u/5/folders/15ubXRHLHtwDF92zyH7ledoO1SsJ3FS4f">Google Sheets</a> - View data and post comments to submit changes.
-
+<a href="https://drive.google.com/drive/u/5/folders/15ubXRHLHtwDF92zyH7ledoO1SsJ3FS4f">Google Sheets</a> - View data and post comments to submit changes.<br>
+<a href="../../mapsforus/">Maps for Us</a> - Work in progress.
 <!--
 Google Sheets resides in Georgia Maps Google account > Georgia Recycling folder
 Owned by maps.georgia.org@gmail.com
