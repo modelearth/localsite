@@ -496,7 +496,7 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
     let catcount = params.catcount || 40;
     let gotext = "";
     if (params.go) {
-        gotext = params.go.replace(/_/g," ");
+        gotext = params.go.replace(/_/g," ").toTitleCase();
     }
 
     $("#econ_list").html("");
@@ -1164,6 +1164,10 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                             $(".regiontitle").text("Parts Manufacturing");
                         } else if (params.go == "manufacturing") {
                             $(".regiontitle").text("Manufacturing");
+                        } else if (params.go == "farmfresh") {
+                            $(".regiontitle").text("Farm Fresh");
+                        } else if (params.go == "ppe") {
+                            $(".regiontitle").text("PPE Suppliers");
                         } else if (gotext) {
                             $(".regiontitle").text(gotext);
                         } else {

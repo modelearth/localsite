@@ -2156,6 +2156,7 @@ var priorHash = {};
 
 	// NOTE: params after ? are not included, just the hash.
 	if (hash.go != priorHash.go) {
+		$(".data-section").hide();
 		if (hash.show == priorHash.show) {
 			hash.show = ""; // Clear the suppliers display
 		}
