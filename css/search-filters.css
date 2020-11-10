@@ -239,7 +239,7 @@
     clear: both; /* clear close X */
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
 }
 .bigThumbMenuInner {
   margin-top: 50px;

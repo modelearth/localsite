@@ -630,7 +630,6 @@ strVar += "      <div id=\"honeyMenuHolder\" style=\"display:none\">";
 strVar += "        <div id=\"honeycombMenu\"><\/div>";
 strVar += "      <\/div>";
 strVar += "";
-strVar += "        <br><br>";
 strVar += "     ";
 strVar += "";
 strVar += "  <\/div>";
