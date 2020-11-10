@@ -983,7 +983,7 @@ function loadMap1(show, dp) { // Also called by map-filters.js
 
     dp1.addlisting = "https://www.ams.usda.gov/services/local-regional/food-directories-update";
     // community/farmfresh/ 
-    dp1.listInfo = "Farmers markets and local farms providing fresh produce directly to consumers. You can help keep this data current. <a style='white-space: nowrap' href='https://model.earth/community/farmfresh/ga/'>Learn about data</a> and <a href='https://www.ams.usda.gov/local-food-directories/farmersmarkets'>submit updates</a>";
+    dp1.listInfo = "Farmers markets and local farms providing fresh produce directly to consumers. <a style='white-space: nowrap' href='https://model.earth/community/farmfresh/ga/'>About data</a> | <a href='https://www.ams.usda.gov/local-food-directories/farmersmarkets'>submit updates</a>";
   }
 
   // Load the map using settings above
