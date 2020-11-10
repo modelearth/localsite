@@ -729,10 +729,13 @@ function changeCat(catTitle) {
 var showprevious = param["show"];
 
 function loadMap1(show, dp) { // Also called by map-filters.js
-  
+
   console.log('loadMap1');
   if (!show) {
     show = param["show"];
+  }
+  if (!show && param["go"]) {
+    show = param["go"].toLowerCase();
   }
   if (show != showprevious) {
     changeCat(""); // Clear side
@@ -874,7 +877,7 @@ function loadMap1(show, dp) { // Also called by map-filters.js
 
     dp1.listLocation = false;
     dp1.addLink = "https://www.georgia.org/covid19response"; // Not yet used
-  } else if (show == "suppliers") { // "http://" + param["domain"]
+  } else if (show == "suppliers" || show == "ppe") { // "http://" + param["domain"]
 
     dp1.listTitle = "Georgia COVID-19 Response";
     dp1.listTitle = "Georgia Suppliers of&nbsp;Critical Items <span style='white-space:nowrap'>to Fight COVID-19</span>"; // For iFrame site
@@ -980,7 +983,7 @@ function loadMap1(show, dp) { // Also called by map-filters.js
 
     dp1.addlisting = "https://www.ams.usda.gov/services/local-regional/food-directories-update";
     // community/farmfresh/ 
-    dp1.listInfo = "Farmers markets and local farms providing fresh produce directly to consumers. You can help keep this data current. <a style='white-space: nowrap' href='https://model.earth/community/farmfresh/ga/'>Learn about data</a> and <a href='https://www.ams.usda.gov/local-food-directories/farmersmarkets'>submit updates</a>";
+    dp1.listInfo = "Farmers markets and local farms providing fresh produce directly to consumers. <a style='white-space: nowrap' href='https://model.earth/community/farmfresh/ga/'>About data</a> | <a href='https://www.ams.usda.gov/local-food-directories/farmersmarkets'>submit updates</a>";
   }
 
   // Load the map using settings above

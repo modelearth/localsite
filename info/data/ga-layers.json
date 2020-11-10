@@ -96,6 +96,24 @@ callback(
 	},
 	{
 		"menulevel": "1",
+		"item": "recycling",
+		"title": "Recycling Centers",
+		"tabtitle": "Recycling Centers",
+		"navtitle": "Recycling Centers",
+		"section": "Recycling",
+		"sectionicon": "<i class='fa fa-recycle'></i>",
+		"provider": "Recycling",
+		"image": "/community/img/overview/recycle.jpg",
+		"siteHeaderHeight": "170px",
+		"headericoncolor": "#999",
+		"feedname": "Georgia Economic Regions",
+		"icon": "<i class='fa fa-recycle'></i>",
+		"mainiframe": "/localsite/map/recycling/ga/",
+		"footerlogos": "Residential recycling center content from <a href='https://RecycleSearch.com' target='recyclesearch'>recyclesearch.com</a>",
+		"caption": "Residential recycling center content from <a href='https://RecycleSearch.com' target='recyclesearch'>recyclesearch.com</a>"
+	},
+	{
+		"menulevel": "1",
 		"item": "farmfresh",
 		"rootfolder": "info",
 		"title": "Farm Fresh",
@@ -111,7 +129,7 @@ callback(
 		"sectionTitle": "leftNav",
 		"topnavaccess": "10",
 		"menuaccess": "0",
-		"directlink": "/localsite/map/#show=farmfresh",
+		"directlink": "/localsite/info/#go=farmfresh",
 		"caption": ""
 	},
 	{
@@ -131,17 +149,17 @@ callback(
 		"sectionTitle": "leftNav",
 		"topnavaccess": "10",
 		"menuaccess": "10",
-		"directlink": "/localsite/map/#show=net",
+		"directlink": "/localsite/info/#show=net",
 		"caption": ""
 	},
 	{
 		"menulevel": "1",
-		"item": "suppliers",
+		"item": "ppe",
 		"rootfolder": "info",
-		"title": "Covid PPE",
-		"tabtitle": "Covid PPE",
-		"mobiletitle": "Covid PPE",
-		"section": "Covid PPE",
+		"title": "PPE Suppliers",
+		"tabtitle": "PPE Suppliers",
+		"mobiletitle": "PPE Suppliers",
+		"section": "PPE Suppliers",
 		"provider": "Admin",
 		"image": "/community/img/overview/ppe.jpg",
 		"siteHeaderHeight": "10px",
@@ -151,7 +169,7 @@ callback(
 		"sectionTitle": "leftNav",
 		"topnavaccess": "10",
 		"menuaccess": "0",
-		"directlink": "/localsite/map/#show=suppliers",
+		"directlink": "/localsite/info/#go=ppe",
 		"caption": ""
 	},
 
