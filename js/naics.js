@@ -1,9 +1,5 @@
-//default is state13 for GA, change that number to get data for other states
-//the number after naics is the number of digits in the naics code
-
-// To do:
-// This is commented out below, call heatmap widget instead.
-// goHash({"naics":naicshash});
+// Default is currently state13 for GA.
+// The value after naics is the number of digits in the naics code
 
 //  Sample: Columns from 6_state_all
 // id  COUNTY  GEO_TTL NAICS_Sector    NAICS2012_TTL   state   relevant_naics  estab_agg   emp_agg payann_agg  emp_api payann_api  estab_api
@@ -270,9 +266,7 @@ function promisesReady(values) {
                             console.log("Geo location filter probably not in page. addGeoChangeDetectToDOM exceeded 100 attempts.");
                         }
                     }
-
                 });
-    
 
     // No luck
     //$(window).on('locationchange', function() {
@@ -825,7 +819,6 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                                     if(d["id"]==fips[i]){
                                         if(i == fips.length-1){
                                            text += "<div class='cell-right'>" + d["county"].split("County")[0] + " County</div>";
-                                        
                                         }else{
                                             text += "<div class='cell-right'>" + d["county"].split(" County")[0] + " County</div>";
                                         }
@@ -850,11 +843,11 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                             // Update these:
                                 let latitude = "";
                                 let longitude = "";
-                                //let county = "Coweta" + " County"; // Replace "Coweta" with county name from dataset
-                                //let county = ""; // Delete this line
-                                
+
+                                // Populate maplink with Google Map URL for each industry
+
                                 //d3.csv(dual_map.community_data_root() + "us/id_lists/county_id_list.csv").then( function(consdata) {
-                                    if(Array.isArray(fips) && statelength!=fips.length){
+                                    if(Array.isArray(fips) && statelength != fips.length) {
                                         mapLink=[]
                                         for(var j=0; j<fips.length; j++){
                                             var filteredData = consdata.filter(function(d) {
@@ -869,17 +862,17 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                                                 })
                                             })
                                         }
-                                    }else if (fips == dataObject.stateshown) {
+                                    } else if (fips == dataObject.stateshown) {
                                             //county=""
                                             mapLink = "https://www.google.com/maps/search/" + top_data_list[i]['data_id'].replace(/ /g," + ") + "/@32.9406955,-84.5411485,8z"
                                             //mapLink = "https://bing.com/maps/?q=" + top_data_list[i]['data_id'].replace(/ /g," + ") + "&cp=32.94~-84.54&z=8"; // lvl not working
-                                    }else{
+                                    } else {
                                         var filteredData = consdata.filter(function(d) {
                                             var filteredData = latdata.filter(function(e) {
                                                 if(d["id"]==fips ){      
                                                     if(d["county"]==e["NAMELSAD"]){
                                                                 //mapLink.push("https://www.google.com/search?q=" + top_data_list[i]['data_id'].replace(/ /g," + ") + " " + d["county"].replace(/ /g," + ") + ",+Georgia")
-                                                        mapLink="https://www.google.com/maps/search/" + top_data_list[i]['data_id'].replace(/ /g," + ") + "/@" + e['latitude'] + "," + e['longitude'] + ",11z"
+                                                        mapLink = "https://www.google.com/maps/search/" + top_data_list[i]['data_id'].replace(/ /g," + ") + "/@" + e['latitude'] + "," + e['longitude'] + ",11z"
                                                                 //console.log("xxxxxxxxx"+e["longitude"])
                                                     }
                                                 }
@@ -892,12 +885,15 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
 
                             if(params.catsort=="payann"){
                                 //text += top_data_list[i]['NAICScode'] + ": <b>" +top_data_list[i]['data_id']+"</b>, "+String(whichVal.node().options[whichVal.node().selectedIndex].text).slice(3, )+": $"+String((top_data_list[i][whichVal.node().value]/1000).toFixed(2))+" million <br>";
-                                if(Array.isArray(fips)){
+                                
+                                // Multiple counties
+                                if(Array.isArray(fips)) {
 
                                     //if(String((top_data_list[i][whichVal.node().value]/1000).toFixed(2)).length<7){
                                     if (1==1) { // Always use million
                                         
-                                        for (var j = 0; j<fips.length; j++) {
+                                        // The counties
+                                        for (var j = 0; j < fips.length; j++) {
                                             if(top_data_list[i]['ratearray'][j]){
                                                 if(top_data_list[i]['Estimate'][j]){    
                                                     if(top_data_list[i]['Estimate'][j]>0){
@@ -910,9 +906,10 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                                                     midCol += "<div class='cell-right'>" + dollar +"<a href='" + mapLink[j] + "' target='_blank'>"+ String((top_data_list[i]['ratearray'][j]/1000).toFixed(2)) + " million</a></div>";
                                                 }
                                             } else {
-                                                    midCol += "<div class='cell-right'>" + "<a href='" + mapLink[j] + "' target='_blank'>" + "0</a></div>";
+                                                midCol += "<div class='cell-right'>" + "<a href='" + mapLink[j] + "' target='_blank'>" + "0</a></div>";
                                             }    
                                         }
+                                        // The total
                                         rightCol += "<div class='cell-right'>" + dollar + String((top_data_list[i][which]/1000).toFixed(2)) + " million</div>";
                                     }else{
                                         for (var j = 0; j<fips.length; j++){
@@ -1052,10 +1049,9 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                             rightCol += "<div class='cell mock-up' style='display:none'><img src='http://localhost:8887/localsite/info/img/plus-minus.gif' class='plus-minus'></div>";
                             //text += top_data_list[i]['NAICScode'] + ": <b>" +top_data_list[i]['data_id']+"</b>, "+String(whichVal.node().options[whichVal.node().selectedIndex].text).slice(3, )+": "+Math.round(top_data_list[i][whichVal.node().value])+"<br>";
                             
-                            // 
                             text += "<div class='row'><div class='cell'><a href='#naics=" + top_data_list[i]['NAICScode'] + "' onClick='goHash({\"naics\":" + top_data_list[i]['NAICScode'] + "}); return false;' style='color:#aaa;white-space:nowrap'>" + icon + top_data_list[i]['NAICScode'] + "</a></div><div class='cell'>" + top_data_list[i]['data_id'] +"</div>"
                             if(Array.isArray(fips)) {
-                                //text +=  midCol;
+                                text +=  midCol; // Columns for counties
                             }
                             text += rightCol + "</div>";
                             
