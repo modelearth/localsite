@@ -1660,10 +1660,13 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
       var lat = 32.69;
       var lon = -83.2;
       var lonX = -81.8;
+      var mapCenter = [lat,lon];
       var zoom = 7;
-      if (hash.state != "GA") {
+      let theState = $("#state_select").find(":selected").val();
+      if (hash.state != "GA" && theState != "GA") {
       	zoom = 2;
   	  }
+  	  
       //var layer = "terrain";
       if (param.geo == "US01" || param.state == "AL") { // Temp
       	lon = -86.7;
@@ -1718,6 +1721,11 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 	  		//map.geojsonLayer.clearLayers();
 	  	}
 	  	//map.geojsonLayer.clearLayers(); // Clear prior
+
+	  	//alert("zoom " + zoom);
+	  	map.setView(mapCenter,zoom);
+
+	  	// setView(lng, lat, zoom = zoom_level)
 	  }
 
 	  if (map) {
@@ -2007,11 +2015,7 @@ function initSiteObject(layerName) {
 	          				$('#showApps').removeClass("active");
 
 	          			} else {
-	          				$("#honeycombPanelHolder").show();
-	          				if (!$(".bigThumbMenuContent").length) {
-	          					displayBigThumbnails("main",siteObject);
-							}
-							$('#showApps').addClass("active");
+							showThumbMenu(siteObject);
 							$('html,body').animate({
 								scrollTop: 0
 							});
@@ -2022,20 +2026,36 @@ function initSiteObject(layerName) {
 	          		// These should be lazy loaded when clicking menu
 	                //displayBigThumbnails("main",siteObject);
 	                //displayHexagonMenu("",siteObject);
+	                let hash = getHash();
+	                if (!hash.go) { // INITial load
+	                	showThumbMenu(siteObject);
+	            	}
+	                return siteObject;
 	            },
 	          error: function (req, status, err) {
 	              consoleLog('Error fetching siteObject json: ', status, err);
 	          }
 	        });
 	    })(); // end siteObject
-
+	    
 	    
 	//}
 } // end initSiteObject
 
+function showThumbMenu(siteObject) {
+	$("#honeycombPanelHolder").show();
+	if (!$(".bigThumbMenuContent").length) {
+		displayBigThumbnails("main",siteObject);
+	}
+	$('#showApps').addClass("active");
+}
 function callInitSiteObject(attempt) { // wait for dual_map
 	if (typeof dual_map !== 'undefined') {
-		initSiteObject("");
+		let siteObject = initSiteObject("");
+
+		// Not available here since async in initSiteObject()
+		//showThumbMenu(siteObject);
+		return siteObject; // Not always returning yet
 	} else if (attempt < 100) {
 		setTimeout( function() {
    			console.log("try search-filters initSiteObject again")
@@ -2045,7 +2065,7 @@ function callInitSiteObject(attempt) { // wait for dual_map
 		console.log("ERROR: Too many search-filters dual_map attempts.");
 	}
 }
-callInitSiteObject(1);
+let siteObject = callInitSiteObject(1);
 
 
 

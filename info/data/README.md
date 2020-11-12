@@ -6,8 +6,8 @@ To fill gaps, we generate an industry estimate for each year in a range of 5 yea
 
 To approximate payrolls and employee levels based on the number of establishments, we provide three options under the settings icon when at least one county is selected:  
 
-1. Average of unallocated county payrolls  
-2. Average of all state payrolls (less accurate)  
+1. Use average of payrolls not assigned to counties  
+2. Use average of all state payrolls (less accurate)  
 3. Leave unpublished values blank  
 
 The default display is option 1 since it more accurately fills in the gaps with values that add up to the actual state total. In some cases, option 2 may more accurately match an individual county, so we advise comparing the two while factoring in attributes that may affect the level in the counties you are analysing.  
