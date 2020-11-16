@@ -2028,7 +2028,10 @@ function initSiteObject(layerName) {
 	                //displayHexagonMenu("",siteObject);
 	                let hash = getHash();
 	                if (!hash.go) { // INITial load
-	                	showThumbMenu(siteObject);
+	                	// alert($("#fullcolumn").width()) = null
+	                	if ($("body").width() >= 800) {
+	                		showThumbMenu(siteObject);
+	                	}
 	            	}
 	                return siteObject;
 	            },

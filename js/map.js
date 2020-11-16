@@ -741,7 +741,8 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     changeCat(""); // Clear side
   }
   // To do: limit to when layer changes
-  $(".layerclass").hide(); // Hides suppliers, and other layer-specific css
+  //$(".layerclass").hide(); // Hides suppliers, and other layer-specific css
+  
   //alert("show: " + show);
   // Note: light_nolabels does not work on https. Remove if so. Was positron_light_nolabels.
   var basemaps1 = {
