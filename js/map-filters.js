@@ -1423,7 +1423,7 @@ function displayBigThumbnails(layerName,siteObject) {
 	                                }
 
 	                                if ((directlink.indexOf('/map/') >= 0 && location.pathname.indexOf('/map/') >= 0) || (directlink.indexOf('/info/') >= 0 && location.pathname.indexOf('/info/') >= 0)) { // Stayon page when on map or info
-	                                	linkJavascript = "onclick='goHash({\"go\":\"" + siteObject.items[layer].item + "\",\"show\":\"\"}); return false;'"; // Remain in current page.
+	                                	linkJavascript = "onclick='goHash({\"go\":\"" + siteObject.items[layer].item + "\",\"cat\":\"\",\"show\":\"\"}); return false;'"; // Remain in current page.
 	                                } else {
 	                                	linkJavascript = "";
 	                                }
@@ -2184,7 +2184,16 @@ var priorHash = {};
 			hash.show = ""; // Clear the suppliers display
 		}
 		if (hash.go) {
-			$("#appMenu").attr("placeholder",hash.go.charAt(0).toUpperCase() + hash.go.substr(1).replace(/\_/g," ") );
+			if (hash.go != "ppe") {
+				$(".layerclass.ppe").hide();
+			}
+			if (hash.go == "ppe") {
+				$("#appMenu").attr("placeholder","PPE Suppliers");
+			} else if (hash.go == "farmfresh") {
+				$("#appMenu").attr("placeholder","Farm Fresh");
+			} else {
+				$("#appMenu").attr("placeholder",hash.go.charAt(0).toUpperCase() + hash.go.substr(1).replace(/\_/g," ") );
+			}
 		} else {
 			$("#appMenu").attr("placeholder","Top Industries");
 		}
