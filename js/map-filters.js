@@ -140,7 +140,7 @@ $(document).ready(function () {
     	$(this).attr("text", $(this).text());
     });
     $('#catSearch').click(function () {
-		if ($('#topPanel').css('display') === 'none') {
+    	if ($('#topPanel').css('display') === 'none') {
 			$('#productSubcats').css("max-height","300px");
 			$('#topPanelFooter').show();
         	$('#topPanel').show();
@@ -150,7 +150,6 @@ $(document).ready(function () {
 	        		$(this).html($(this).attr("text") + ' (' + $(this).attr("range") + ')');
 	        	}
         	});
-
     	} else {
     		$('#topPanel').hide();
     		$('#mainCats > div').each(function(index) {

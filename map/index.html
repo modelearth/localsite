@@ -409,7 +409,7 @@
 
   <!-- HS CATEGORIES -->
   <div style="position:relative;overflow:visible;clear:both">
-  <div id="topPanelX" class="card" style="display:none;">
+  <div id="topPanel" class="card" style="display:none;">
 
     <div id="hideTopPanel" class="close-X" style="position:absolute;right:5px;top:8px;padding-right:10px">&#10005;</div>
 
@@ -1482,8 +1482,8 @@ dual_map.init(["somevalue", 1, "controlId"]); // Used by link to feedback form
 //dual_map.community_root();
 
 console.log("Call loadMap1() in map.js but we need dp. Also below.");
-if (!param.show) {
-  param.show = "farmfresh"; // Used by loadFromCSV which is called by loadMap1
+if (!param.go) {
+  param.go = "farmfresh"; // Used by loadFromCSV which is called by loadMap1
 }
 
 //var localmap = 
