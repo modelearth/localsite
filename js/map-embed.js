@@ -334,7 +334,7 @@ strVar += "  <div style=\"clear:both\"><\/div>";
 strVar += "";
 strVar += "  <!-- HS CATEGORIES -->";
 strVar += "  <div style=\"position:relative;overflow:visible;clear:both\">";
-strVar += "  <div id=\"topPanelX\" class=\"card\" style=\"display:none;\">";
+strVar += "  <div id=\"topPanel\" class=\"card\" style=\"display:none;\">";
 strVar += "";
 strVar += "    <div id=\"hideTopPanel\" class=\"close-X\" style=\"position:absolute;right:5px;top:8px;padding-right:10px\">&#10005;<\/div>";
 strVar += "";
