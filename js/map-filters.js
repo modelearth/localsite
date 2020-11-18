@@ -936,67 +936,6 @@ function getLatLonFromBrowser(limitByDistance) {
 $(".showSearch").css("display","inline-block");
 $(".showSearch").removeClass("local");
 
-function showSearchClick() {
-	
-	if ($("#filterFieldsHolder").is(':visible')) {
-		$("#filterFieldsHolder").hide();
-		$(".headerOffset2").hide();
-		//$("#pageLinksHolder").hide();
-	} else {
-		$("#filterFieldsHolder").show();
-		$(".headerOffset2").show();
-	}
-    return;
-
-
-    // NOT CURRENTLY USED
-
-
-    //$(".filterFields").hide();
-	
-
-    //$(".moduleBackgroundImage").addClass("moduleBackgroundImageDarken"); // Not needed since filters are not over image.
-    //$(".siteHeaderImage").addClass("siteHeaderImageDarken"); // Not needed since filters are not over image.
-
-    //$('.topButtons').show(); // Avoid showing bar when no layer.
-    $(".layerContent").show(); // For main page, over video.
-
-    //$(".showFilters").hide(); // Avoid hiding because title jumps.
-    //$(".hideFilters").show();
-
-    // Coming soon - Select if searching Georgia.org or Georgia.gov
-    //$(".searchModuleIconLinks").show();
-    $(".hideWhenFilters").hide();
-
-    $(".filterPanelHolder").show();
-    //$(".filterPanelWidget").show();
-    $("#filterPanel").show(); // Don't use "normal", causes overflow:hidden.
-    $(".searchHeader").show();
-    $("#panelHolder").show();
-
-
-    $(".showFiltersClick").hide();
-    $(".hideFiltersClick").show();
-
-    // Would remove active from Overview Map
-    $(".horizontalButtons .layoutTab").removeClass("active");
-    $(".showFiltersButton").addClass("active");
-
-    $(".hideSearch").show();
-    //$(".hideFilters").show(); // X not needed since magnifying glass remains visible now.
-    //$("#hideSearch").show();
-    if ($(".settingsPanel").is(':visible')) {
-        hideSettings();
-    }
-    if ($("#menuHolder").is(':visible')) {
-        $('.hideMetaMenu').trigger("click");
-    }
-    //updateOffsets();
-
-    // Hide because map is displayed, causing overlap.
-    // Could be adjusted to reside left of search filters.
-    //$(".quickMenu").hide();
-}
 function hideLocationFilters() {
     $("#distanceField").hide();
     //$(".currentCities").hide(); // Avoid hiding when clicking addCity
@@ -1543,6 +1482,7 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
 	    if (!param.state) {
 	    	param.state = "GA";
+	    	$(".regionFilter").show();
 	    }
 
 	    // TOPO Files: https://github.com/modelearth/topojson/ 
@@ -2237,10 +2177,12 @@ function refreshWidgets() {
 		//	$("#aboutToolsDiv").show();
 		//}
 	}
+
+	// To remove
 	if (hash.show != priorHash.show) {
-		if (hash.show == "farmfresh" || hash.go.toLowerCase() == "farmfresh") {
+		if (hash.show == "farmfresh") {
 			$(".data-section").show();
-		} else if (hash.show == "suppliers" || hash.go.toLowerCase() == "ppe") {
+		} else if (hash.show == "suppliers") {
 			$(".data-section").show();
 			$(".suppliers").show();
 		} else {
@@ -2248,6 +2190,19 @@ function refreshWidgets() {
 			$(".suppliers").hide();
 		}
 	}
+
+	if (hash.go != priorHash.go) {
+		if (hash.go.toLowerCase() == "farmfresh") {
+			$(".data-section").show();
+		} else if (hash.go.toLowerCase() == "ppe") {
+			$(".data-section").show();
+			$(".suppliers").show();
+		} else {
+			$(".data-section").hide();
+			$(".suppliers").hide();
+		}
+	}
+
 	if (hash.geo != priorHash.geo) {
 		if (hash.geo && hash.geo.length > 4) { 
 			$(".state-view").hide();
@@ -2286,7 +2241,6 @@ function refreshWidgets() {
 						//if (geojsonLayer) {
 						//	geomap.removeLayer(geojsonLayer); // Remove the prior topo layer
 						//}
-							//alert("render on click")
 							renderMapShapes("geomap", hash);
 						
 				//});
