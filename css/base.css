@@ -28,7 +28,10 @@ time, mark, audio, video {
 */
 
 /* Amazon Ember */
-@font-face{font-family:'Amaze';font-weight:300;src:url("/localsite/css/fonts/ember.woff2") format("woff2"),url("/localsite/css/fonts/ember.woff") format("woff")}}
+@font-face{
+  font-family:'Amaze';font-weight:300;
+  src:url("/localsite/css/fonts/ember.woff2") format("woff2"), url("/localsite/css/fonts/ember.woff") format("woff")
+}
 
 /*
 @font-face{font-family:'Amazon Ember';font-weight:300;src:url("https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_lt-019e0ec3f9b521056e66e31fdcbc8323e5cd1938._V299195751_.woff2") format("woff2"),url("https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_lt-bc9ed0fce860a46f3cb061034280c23400e6e8b6._V299195751_.woff") format("woff")}}
@@ -176,6 +179,7 @@ h3 {
   margin-top: 20px;
   margin-bottom: 16px;
   color: #000;
+  font-family: "Amaze", 'PT Sans', sans-serif;
 }
 h4 {
   margin-top: 20px;
