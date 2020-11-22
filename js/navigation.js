@@ -99,6 +99,7 @@ $(document).ready(function(){
 	 		$('.georgia').css('display', 'inline');
 	 		$('.georgia-hide').css('display', 'none');
 	 	} else if (!Array.isArray(param.titleArray) && (param.startTitle == "Neighborhood.org" || location.host.indexOf('neighborhood.org') >= 0)) {
+	 		$(".siteTitleShort").text("Neighborhood Modeling");
 	 		param.titleArray = ["neighbor","hood"]
   			param.headerLogo = "<img src='/localsite/img/logo/neighborhood-icon.png' style='width:40px;opacity:0.7'>"
   			document.title = "Neighborhood.org - " + document.title
