@@ -20,15 +20,20 @@ select {
 .select-menu-arrow-holder {
     background-color: #333;
 }
-html, body, .litePanel, #header, #footer, #fullcolumn, .headerbar, #sidecolumn, #rightcolumn {
+/*
+html, body, #fullcolumn, 
+*/
+.litePanel, #header, #footer, .headerbar, #sidecolumn, #rightcolumn {
     background-color: rgba(0, 0, 0, .5);
     background-colorX: #333;
     color: #fff;
     line-height: 1;
 }
+/*
 #fullcolumn {
 	background-color: rgba(0, 0, 0, .6);
 }
+*/
 a:link {
   color: #CF6679;
 }
