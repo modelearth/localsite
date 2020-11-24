@@ -24,6 +24,7 @@ html, body, .litePanel, #header, #footer, #fullcolumn, .headerbar, #sidecolumn, 
     background-color: rgba(0, 0, 0, 1);
     background-color: #333;
     color: #fff;
+    line-height: 1;
 }
 a:link {
   color: #CF6679;
@@ -69,7 +70,7 @@ h3 {
 .detail:hover {
     background-color: #111;
 }
-#headerbar img {
+.upperIcons img {
 	-webkit-filter: invert(1);
    filter: invert(1);
 }
