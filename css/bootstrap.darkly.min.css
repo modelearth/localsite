@@ -21,10 +21,13 @@ select {
     background-color: #333;
 }
 html, body, .litePanel, #header, #footer, #fullcolumn, .headerbar, #sidecolumn, #rightcolumn {
-    background-color: rgba(0, 0, 0, 1);
-    background-color: #333;
+    background-color: rgba(0, 0, 0, .5);
+    background-colorX: #333;
     color: #fff;
     line-height: 1;
+}
+#fullcolumn {
+	background-color: rgba(0, 0, 0, .6);
 }
 a:link {
   color: #CF6679;
@@ -48,6 +51,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 h1 {
 	font-size: 1.6em;
+}
+.h1-home {
+	font-weight: 400;
 }
 h2 {
 	font-size: 1.4em;
