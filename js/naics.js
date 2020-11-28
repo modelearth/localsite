@@ -1061,9 +1061,9 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
 
                             if(i<=20){
                                 if(i==0){
-                                    naicshash=naicshash+top_data_list[i]['NAICScode']
+                                    naicshash = naicshash+top_data_list[i]['NAICScode'];
                                 }else{
-                                    naicshash=naicshash+","+top_data_list[i]['NAICScode']
+                                    naicshash = naicshash+","+top_data_list[i]['NAICScode']
                                 }
                                 
                             }
