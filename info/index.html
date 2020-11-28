@@ -544,6 +544,10 @@ function applyIO(naics) { // Called from naics.js
 
     var naicsCodes = naics.split(',');
     var handled = {};
+
+    var beaCodes = naicsCodes; // HACK, reactivate once fixed:
+    console.log("Hack: Get BEA directly from naics: " + beaCodes);
+    /*
     var beaCodes = naicsCodes.map(useeio.toBEA)
         .filter(function (code) {
             // remove unmapped codes and duplicates
@@ -552,6 +556,7 @@ function applyIO(naics) { // Called from naics.js
             handled[code] = true;
             return true;
         });
+	*/
 
     var config = {
         count: 40,

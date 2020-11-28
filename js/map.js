@@ -826,6 +826,9 @@ function loadMap1(show, dp) { // Also called by map-filters.js
   //if (dp && dp[0]) { // Parameters set in page or layer json
   if (dp && dp.dataset) { // Parameters set in page or layer json
     dp1 = dp;
+  } else if (show == "virtual") {
+    //  https://model.earth/community-data/us/state/GA/VirtualTourSites.csv
+
   } else if (show == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
     dp1.listTitle = "Data Driven Decision Making";
     dp1.listSubtitle = "Smart & Sustainable Movement of Goods & Services";
