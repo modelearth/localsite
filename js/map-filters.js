@@ -189,44 +189,10 @@ $(document).ready(function () {
     
 
     $("#filterClickLocation").click(function(event) {
-    	console.log("show location filters");
-
-    	$("#searchLocation").focus(); // Not working
-    	//document.getElementById("searchLocation").focus(); // Not working
-
-    	$("#honeycombPanelHolder").hide();
-		$('#showApps').removeClass("active");
-
-		//$('.hideMetaMenuClick').trigger("click"); // Otherwise covers location popup. Problem: hides hideLayers/hideLocationsMenu.
-		if ($("#filterLocations").is(':visible')) {
-            $("#showLocations").hide();
-			$("#hideLocations").show();
-			//$(".filterSelected").text("Entire State");
-			$("#filterLocations").hide();
-			$("#filterClickLocation").removeClass("filterClickActive");
-		} else {
-			$("#topPanel").hide();
-			locationFilterChange("counties");
-            $("#showLocations").show();
-			$("#hideLocations").hide();
-			//$(".filterSelected").text("Location");
-			$("#filterLocations").show();
-			$("#filterClickLocation").addClass("filterClickActive");
-			let hash = getHash();
-    		renderMapShapes("geomap", hash);// Called once map div is visible for tiles.
-			$('html,body').animate({
-				scrollTop: 0
-			});
-		}
-		$("#keywordFields").hide();
-		
-		
-		//$("#filterClickCategory .filterBubbleHolder").hide();
-		
-        // TO DO: Display cities, etc. somehow without clicking submenu.
-        // 
+    	filterClickLocation();
 		event.stopPropagation();
 	});
+	
 	$(".filterUL li").click(function(e) {
 		//$(".filterBubbleHolder").hide();
 		e.preventDefault();
@@ -556,7 +522,44 @@ $(document).ready(function () {
 	}, false);
 });
 
+function filterClickLocation() {
+	console.log("show location filters");
 
+	$("#searchLocation").focus(); // Not working
+	//document.getElementById("searchLocation").focus(); // Not working
+
+	$("#bigThumbPanelHolder").hide();
+	$('#showApps').removeClass("active");
+
+	//$('.hideMetaMenuClick').trigger("click"); // Otherwise covers location popup. Problem: hides hideLayers/hideLocationsMenu.
+	if ($("#filterLocations").is(':visible')) {
+        $("#showLocations").hide();
+		$("#hideLocations").show();
+		//$(".filterSelected").text("Entire State");
+		$("#filterLocations").hide();
+		$("#filterClickLocation").removeClass("filterClickActive");
+	} else {
+		$("#topPanel").hide();
+		locationFilterChange("counties");
+        $("#showLocations").show();
+		$("#hideLocations").hide();
+		//$(".filterSelected").text("Location");
+		$("#filterLocations").show();
+		$("#filterClickLocation").addClass("filterClickActive");
+		let hash = getHash();
+		renderMapShapes("geomap", hash);// Called once map div is visible for tiles.
+		$('html,body').animate({
+			scrollTop: 0
+		});
+	}
+	$("#keywordFields").hide();
+	
+	
+	//$("#filterClickCategory .filterBubbleHolder").hide();
+	
+    // TO DO: Display cities, etc. somehow without clicking submenu.
+    // 
+}
 function locationFilterChange(selectedValue,selectedGeo) {
 	var useCookies = false; // Would need Cookies from site repo.
 
@@ -1167,7 +1170,7 @@ $(document).ready(function () {
     changeCat(catTitle);
 
     var catString = catTitle.replace(/ /g, '_');
-    $("#honeycombPanelHolder").hide();
+    $("#bigThumbPanelHolder").hide();
     console.log("catList triggers update");
     goHash({"cat":catString}); // Let the hash change trigger updates
 
@@ -1305,7 +1308,7 @@ function displayHexagonMenu(layerName,siteObject) {
         }
   }
   $("#honeycombMenu").append("<ul id='hexGrid'>" + sectionMenu + "</ul>");
-  $("#honeycombPanelHolder").show();
+  $("#bigThumbPanelHolder").show();
   //$("#iconMenu").append(iconMenu);
     $("#honeyMenuHolder").show();
 }
@@ -1317,7 +1320,7 @@ function displayBigThumbnails(layerName,siteObject) {
 	    var currentAccess = 0;
 	    $(".bigThumbMenu").html("");
 
-	    //$("#honeycombPanelHolder").show();
+	    //$("#bigThumbPanelHolder").show();
 	    var thelayers = siteObject.items;
 	    var sectionMenu = "";
 	    var categoryMenu = "";
@@ -1412,18 +1415,18 @@ function displayBigThumbnails(layerName,siteObject) {
 	    //$("#honeycombMenu").append("<ul class='bigThumbUl'>" + sectionMenu + "</ul>");
 	    
 	    $("#iconMenu").append(iconMenu);
-	    $("#honeycombPanelHolder").show();
+	    $("#bigThumbPanelHolder").show();
 	    $("#honeyMenuHolder").show(); // Might be able to remove display:none on this
 
-	    $(".thumbModule").append($("#honeycombPanelHolder")); // For GDX
-	} else if ($("#honeycombPanelHolder").css("display") == "none") {
-		$("#honeycombPanelHolder").show();
+	    $(".thumbModule").append($("#bigThumbPanelHolder")); // For GDX
+	} else if ($("#bigThumbPanelHolder").css("display") == "none") {
+		$("#bigThumbPanelHolder").show();
 	} else {
-		$("#honeycombPanelHolder").hide();
+		$("#bigThumbPanelHolder").hide();
 	}
 
 	$('.bigThumbHolder').click(function(event) {
-        $("#honeycombPanelHolder").hide(); // Could remain open when small version above map added.         
+        $("#bigThumbPanelHolder").hide(); // Could remain open when small version above map added.         
     });
 }
 function getDirectLink(livedomain,directlink,rootfolder,layer) {
@@ -1959,13 +1962,13 @@ function initSiteObject(layerName) {
 
 	          		$('#showApps, .hideApps, #appMenu').click(function(event) {
 	          			console.log('#showApps click');
-	          			if ($("#honeycombPanelHolder").is(':visible')) {
+	          			if ($("#bigThumbPanelHolder").is(':visible')) {
 	          				// To do: Only up scroll AND SHOW if not visible
 	          				$('html,body').animate({
 								scrollTop: 0
 							});
 
-	          				$("#honeycombPanelHolder").hide();
+	          				$("#bigThumbPanelHolder").hide();
 	          				$('#showApps').removeClass("active");
 
 	          			} else {
@@ -1981,11 +1984,14 @@ function initSiteObject(layerName) {
 	                //displayBigThumbnails("main",siteObject);
 	                //displayHexagonMenu("",siteObject);
 	                let hash = getHash();
-	                if (!hash.go) { // INITial load
+	                if (!hash.go && !hash.show) { // INITial load
 	                	// alert($("#fullcolumn").width()) = null
 	                	if ($("body").width() >= 800) {
 	                		showThumbMenu(siteObject);
 	                	}
+	            	}
+	            	if (hash.show == "counties") {
+	            		filterClickLocation();
 	            	}
 	                return siteObject;
 	            },
@@ -2000,7 +2006,7 @@ function initSiteObject(layerName) {
 } // end initSiteObject
 
 function showThumbMenu(siteObject) {
-	$("#honeycombPanelHolder").show();
+	$("#bigThumbPanelHolder").show();
 	if (!$(".bigThumbMenuContent").length) {
 		displayBigThumbnails("main",siteObject);
 	}

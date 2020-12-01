@@ -611,7 +611,7 @@ strVar += "<!-- APP MENU -->";
 strVar += "<!-- From map-filters.js displayBigThumbnails function -->";
 strVar += "<!-- Currently map-filters.js limits loading to localhost -->";
 strVar += "<div class=\"search-filters-css\" style=\"display:none\">";
-strVar += "<div id=\"honeycombPanelHolder\" style=\"display:none;position: relative;\">";
+strVar += "<div id=\"bigThumbPanelHolder\" style=\"display:none;position: relative;\">";
 strVar += "  <div class=\"hideApps close-X\" style=\"position:absolute;right:0;top:0;z-index:1\">✕<\/div>";
 strVar += "";
 strVar += "  <div style=\"overflow:auto;position:relative\">";
