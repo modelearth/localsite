@@ -4,7 +4,6 @@
 
 The Localsite Framework is designed to allow multiple Github repos (using JQuery, React,&nbsp;Vue, etc.) to communicate using hash values.  
 
-Place the <a href='https://github.com/localsite/localsite/'>localsite repo</a> within the root of your local web folder, along with other repos that reference&nbsp;it.  
 
 
 ## 1. Start a localhost server on your computer
@@ -27,9 +26,15 @@ ON A PC: [Install IIS](https://www.techwalla.com/articles/how-to-circumvent-mcaf
 
  WITH CHORME: Alternatively, you can install [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en) to view and develop pages offline using https://localhost:8777 on your computer. Web Server for Chrome also allows you to [load a custom domain](https://medium.com/@jmatix/using-chrome-as-a-local-web-server-af04baffd581). Web Server for Chrome does not work as a Brave browser extension on Mac (as of December 2019), but you can add as a Chrome extension, then utilize from within Brave.
 
+ On a Mac, you can add a shorthand "localsite" command in your .bash_profile file. Change /Site to your webroot:
+
+ 	alias localsite="python3 -m http.server 8887 -d /Site"
+
 ## 2. Clone the "localsite" repo into your webroot 
 
-Go to the <a href='https://github.com/localsite/localsite/'>localsite</a> repo and click "Code"
+Place the <a href='https://github.com/localsite/localsite/'>localsite repo</a> within the root of your local web folder, along with other repos that reference&nbsp;it.  
+
+Click the green "Code" button on the page above to clone the repo.  
 
 Choose "Open with Github Desktop" to pull down using <a href="https://desktop.github.com/">GitHub Desktop</a>.  
 
@@ -38,16 +43,12 @@ Save the file in the webroot folder you created in step 1.
 A static page should now be visible at [http://localhost:8887/localsite/](http://localhost:8887/localsite/)  
 An industry impact widget is embedded on the page.  
 
-
-React developers: You might also want to clone the 
-<a href='https://github.com/modelearth/useeio-widgets'>useeio-widgets</a> repo to edit the widget code directly. 
-[Learn more](../../../io/charts/)  
-We also encourage you to help us maintain the <a href='https://github.com/modelearth/community/'>community</a> and <a href='https://github.com/modelearth/io/'>io</a> repos.
+Also clone the <a href='https://github.com/modelearth/io/'>io repo</a> into the same webroot to help build input-output widgets. [Learn more](../../../io/charts/)    
 
 
 For the address search to work, you'll need to get a new Google Maps API key. You can get yours and enable it by following these instructions: [https://developers.google.com/maps/documentation/javascript/get-api-key](https://developers.google.com/maps/documentation/javascript/get-api-key)  
 
-When you get a key, set the google_api_key in map/auto/config.json
+When you get a key, set the google_api_key in localsite/map/auto/config.json
 <!--
 \_config.yml.
 -->
@@ -123,7 +124,7 @@ To activate GitHub Pages on your fork’s settings page, set the Github Pages So
 
 ## 5. Update your forked repos
 
-### Occasionally merge in updates from the master (source) repo by doing a "pull request"
+### Occasionally merge in updates from the main (source) repo by doing a "pull request"
 
 - On your forked repo: Click Compare 
 - Flip the order. (Pick a third repo temporarily because if the two match a warning occurs.)<!-- switching the base (if you have not switched already) -->
