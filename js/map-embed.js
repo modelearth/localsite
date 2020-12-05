@@ -612,7 +612,7 @@ strVar += "<!-- From map-filters.js displayBigThumbnails function -->";
 strVar += "<!-- Currently map-filters.js limits loading to localhost -->";
 strVar += "<div class=\"search-filters-css\" style=\"display:none\">";
 strVar += "<div id=\"bigThumbPanelHolder\" style=\"display:none;position: relative;\">";
-strVar += "  <div class=\"hideApps close-X\" style=\"position:absolute;right:0;top:0;z-index:1\">✕<\/div>";
+strVar += "  <div class=\"hideApps close-X\" style=\"position:absolute;padding-top:14px;padding-right:26px;right:0;top:0;z-index:1\">✕<\/div>";
 strVar += "";
 strVar += "  <div style=\"overflow:auto;position:relative\">";
 strVar += "  <a name=\"sections\"><\/a>";
