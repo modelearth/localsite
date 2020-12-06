@@ -1,6 +1,8 @@
 # County Industry Data Prep  
 
-[Data Processing Python Script](https://github.com/modelearth/community-data/blob/master/process/python/us_econ.ipynb)  
+[Data Processing Python Script](https://github.com/modelearth/community-data/blob/master/process/python/us_econ.ipynb) - edit locally using an [Anaconda Jupyter Notebook](https://jupyter.org/install)  
+
+To do: check if 2017 has been added to master crosswalk  
 
 [Resulting state data files](https://github.com/modelearth/community-data/tree/master/us/state)   
 
