@@ -212,61 +212,8 @@ function promisesReady(values) {
 
 
                 renderIndustryChart(dataObject,values,params);
-                $(document).ready(function() {
-
-                    // `hashChangeEvent` event reside in multiple widgets. 
-                    // Called by goHash within localsite.js
-                    document.addEventListener('hashChangeEvent', function (elem) {
-
-                        let params = loadParams(location.search,location.hash);
-                        console.log("naics.js detects hash change hashChangeEvent");
-                        renderIndustryChart(dataObject,values,params);
-
-                    }, false);
-                                        
-                    if (document.getElementById("clearButton")) {
-                        document.getElementById("clearButton").addEventListener("click", function(){
-
-                            // Clears all counties, so reset title:
-                            let currentState = $("#state_select").find(":selected").text();
-                            if (currentState) {
-                                $(".regiontitle").text(currentState + "'s Top Industries");
-                            } else {
-                                $(".regiontitle").text("Top Industries");
-                            }
-                            refreshNaicsWidget();
-                            return; 
-
-
-                            // Disabled
-
-                            clearHash("geo,regiontitle");
-
-                            alert('clearButton');
-
-                            // BUGBUG - This causes industry list removal and commodity list reduction.
-                            // Problem occurred before adding applyIO function and the newer script it contains.
-                            geoChanged(dataObject)
-
-
-                        }); 
-                    }
-                    //addGeoChangeDetectToDOM(1);
-                    function addGeoChangeDetectToDOM(count) { // Wait for county checkboxes to be added to DOM by map-filters.js
-                        if($(".geo").length) {
-                            //d3.selectAll(".geo").on("change",function() {
-                            $(".geo").change(function(e) {
-                                geoChanged(dataObject);
-                            });
-                        } else if (count<100) { 
-                            setTimeout( function() {
-                                addGeoChangeDetectToDOM(count+1)
-                            }, 10 );
-                        } else {
-                            console.log("Geo location filter probably not in page. addGeoChangeDetectToDOM exceeded 100 attempts.");
-                        }
-                    }
-                });
+                // $(document).ready was here
+                
 
     // No luck
     //$(window).on('locationchange', function() {
@@ -277,6 +224,65 @@ function promisesReady(values) {
     })
 
 }
+
+$(document).ready(function() {
+
+    // `hashChangeEvent` event reside in multiple widgets. 
+    // Called by goHash within localsite.js
+    document.addEventListener('hashChangeEvent', function (elem) {
+        if (location.host.indexOf('localhost') >= 0) {
+            alert('hashChangeEvent'); // Invoked twice by iogrid inflow-outflow chart
+        }
+        console.log("The hash: " + location.hash);
+        let params = loadParams(location.search,location.hash);
+        console.log("naics.js detects hash change hashChangeEvent");
+        renderIndustryChart(dataObject,values,params);
+
+    }, false);
+                        
+    if (document.getElementById("clearButton")) {
+        document.getElementById("clearButton").addEventListener("click", function(){
+
+            // Clears all counties, so reset title:
+            let currentState = $("#state_select").find(":selected").text();
+            if (currentState) {
+                $(".regiontitle").text(currentState + "'s Top Industries");
+            } else {
+                $(".regiontitle").text("Top Industries");
+            }
+            refreshNaicsWidget();
+            return; 
+
+
+            // Disabled
+
+            clearHash("geo,regiontitle");
+
+            alert('clearButton');
+
+            // BUGBUG - This causes industry list removal and commodity list reduction.
+            // Problem occurred before adding applyIO function and the newer script it contains.
+            geoChanged(dataObject)
+
+
+        }); 
+    }
+    //addGeoChangeDetectToDOM(1);
+    function addGeoChangeDetectToDOM(count) { // Wait for county checkboxes to be added to DOM by map-filters.js
+        if($(".geo").length) {
+            //d3.selectAll(".geo").on("change",function() {
+            $(".geo").change(function(e) {
+                geoChanged(dataObject);
+            });
+        } else if (count<100) { 
+            setTimeout( function() {
+                addGeoChangeDetectToDOM(count+1)
+            }, 10 );
+        } else {
+            console.log("Geo location filter probably not in page. addGeoChangeDetectToDOM exceeded 100 attempts.");
+        }
+    }
+});
 
 
 /////// Functions /////// 
@@ -359,7 +365,7 @@ function renderIndustryChart(dataObject,values,params) {
         
     dataObject.industryDataStateApi=industryDataStateApi;
     [fips,dataObject.stateshown]=getStateFips(params)
-    console.log("renderIndustryChart calls topRatesInFips with fips: " + fips)
+    console.log("renderIndustryChart calls topRatesInFips with fips: " + fips);
     topRatesInFips(dataObject, dataObject.industryNames, fips, params);
 }
 
@@ -410,8 +416,8 @@ function geoChanged(dataObject,params){
         //    })
         //})
     }
+    console.log("geoChanged calls topRatesInFips with fips: " + fips);
     topRatesInFips(dataObject, dataObject.industryNames, fips, params)
-    console.log('fips: '+fips)
 }
 
 

@@ -151,8 +151,9 @@
 }
 .close-X {
   cursor:pointer;
-  padding:15px 20px 15px 15px;
+  padding:14px 26px 15px 26px;
   font-size:19px;
+  font-size:28px;
   color:#bbb;
 }
 

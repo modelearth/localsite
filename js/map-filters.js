@@ -1146,8 +1146,9 @@ function changeCat(catTitle) {
 $(document).ready(function () {
 
   if (param["show"] == "mockup" || param["mockup"] || param["design"]) {
+  	// Phase out .mock-up and switch to .mockup
     var div = $("<div />", {
-        html: '<style>.mock-up{display: block !important;}</style>'
+        html: '<style>.mock-up{display: block !important;}.mockup{display: block !important;}</style>'
       }).appendTo("body");
   }
   if (param["show"] == "suppliers") {
