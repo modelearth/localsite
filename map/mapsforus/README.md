@@ -14,7 +14,7 @@ Editable link is in our Slack #epa group.
 
 ---
 
-###Manually Geocode Google Sheet
+### Manually Geocode Google Sheet
 
 Select the content of three adjacent columns: address, latitude and longitude.  
 
@@ -27,7 +27,7 @@ The geocoding maximum execution time allows for about 180 rows to be coded each 
 
 ---
 
-###Automatically geocode addresses - Contributed by Mark Noonan, Code for Atlanta
+### Automatically geocode addresses - Contributed by Mark Noonan, Code for Atlanta
 
 It works by having a separate sheet for form submissions and doing the work there then copying the line into the main Points sheet. There's a separate Errors sheet where rows are added if there was a problem with the geocoding process for manual cleanup.  
 
