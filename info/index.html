@@ -483,6 +483,7 @@ Georgia-specific input-output dataset is being developed by the EPA.<br><br>
 
 <script>
 function applyIO(naics) { // Called from naics.js
+
     var modelID = 'USEEIO';
 
     var model = useeio.model({
@@ -549,7 +550,8 @@ function applyIO(naics) { // Called from naics.js
     // Either array or comma separated list works
     //var beaCodes = useeio.toBEA(['11', '22']);
 	//var beaCodes = useeio.toBEA('11,22');
-	var beaCodes = useeio.toBEA(naics);
+	
+	// var beaCodes = useeio.toBEA(naics); // Works
 
     console.log("Hack: Get BEA directly from naics: " + beaCodes);
     console.log("BUG - called multiple times when embedded iogrid chart checkbox checked.")
@@ -565,33 +567,29 @@ function applyIO(naics) { // Called from naics.js
 	*/
 
 
-		var config = useeio.urlConfig();
-        var modelID = config.get().model || 'USEEIO'; // USEEIOv1.2 shows incorrect bars. $300.043 input per $1 for agriculture.
+	var config = useeio.urlConfig();
+    var modelID = config.get().model || 'USEEIO'; // USEEIOv1.2 shows incorrect bars. $300.043 input per $1 for agriculture.
 
-		
+    //config.update({naics: ['11', '22']}) // filters the sectors
+	//config.update({sectors: useeio.toBEA('336411','481000')})  // selects all these sectors
 
-        //config.naics = naicsCodes;
-        config.beaCodes = useeio.toBEA(naics);
-        console.log(config.beaCodes)
+	//config.update({sectors: ['336411','481000']});
 
-        var model = useeio.model({
-            endpoint: '/io/build/api',
-            model: modelID,
-            asJsonFiles: true,
-        });
-        var ioGrid = useeio.ioGrid({
-            model: model,
-            selector: '#iogrid',
-        });
-        config.join(ioGrid);
+	config.update({naics: naicsCodes}); // filters the BEA sectors
+	
 
+    //alert(config.sectors)
 
-
-
-
-
-
-
+    var model = useeio.model({
+        endpoint: '/io/build/api',
+        model: modelID,
+        asJsonFiles: true,
+    });
+    var ioGrid = useeio.ioGrid({
+        model: model,
+        selector: '#iogrid',
+    });
+    config.join(ioGrid);
 
 
 
