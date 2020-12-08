@@ -229,6 +229,7 @@ $(document).ready(function() {
 
     // `hashChangeEvent` event reside in multiple widgets. 
     // Called by goHash within localsite.js
+    //alert("Add addEventListener"); // Confirms only added once, but why does this occur twice?
     document.addEventListener('hashChangeEvent', function (elem) {
         if (location.host.indexOf('localhost') >= 0) {
             alert('hashChangeEvent'); // Invoked twice by iogrid inflow-outflow chart
