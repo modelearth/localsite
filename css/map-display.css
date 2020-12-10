@@ -250,6 +250,7 @@ body {
 }
 input[type="checkbox" i] {
 	transform: scale(1.2);
+	margin-right:8px;
 }
 iframe {
     display: block;

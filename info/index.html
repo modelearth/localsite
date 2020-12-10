@@ -289,9 +289,9 @@ To do: make the links below an optional widget
 <div id="pageLinks"></div>
 -->
 
-<div id="top-content-columns" class="content contentpadding noprint" style="margin-top:20px; padding-top:0px; padding-bottom:0px">
+<div style="border-bottom:1px solid #ccc; padding-top:0px; padding-bottom:0px">
 
-	<div style="padding-top:0px; padding-bottom:0px">
+<div id="top-content-columns" class="content contentpadding noprint" style="margin-top:20px; padding-top:0px; padding-bottom:0px">
 
 	<!--
 	"Life Cycle Assessment (also known as life cycle analysis, or cradle-to-grave analysis) is a method of assessing environmental impacts associated with all stages of a product's life. For example, it measures impact from raw material extraction to materials processing, manufacturing, distribution, use, repair and maintenance, and disposal or recycling. The goal of LCA is to compare the full range of environmental effects assignable to products and services by quantifying all inputs and outputs of material flows, and then assessing how these material flows impact the environment. This information is used to improve processes, support policy, and provide a sound basis for informed decisions." - 
@@ -405,7 +405,8 @@ https://epa.maps.arcgis.com/apps/MapJournal/index.html?appid=0659c53852f4425fb34
 
 
 <!-- INPUT OUTPUT -->
-<div class="content contentpadding litePanel" style="width:95% !important; max-width:95%; margin-top:20px; border:1px solid #aaa">
+<!-- See: "For older 3 column IO layout" below -->
+<div id="ioPanelOld" class="content contentpadding litePanel" style="display:none; width:95% !important; max-width:95%; margin-top:20px; border:1px solid #aaa">
 
 <div style="margin-right:45px">
 	<h2 style="border:0px" id="supplyChainHeader">Input-Output Supply Chain</h2>
@@ -483,7 +484,7 @@ Georgia-specific input-output dataset is being developed by the EPA.<br><br>
 
 <script>
 function applyIO(naics) { // Called from naics.js
-
+	//alert("applyIO")
     var modelID = 'USEEIO';
 
     var model = useeio.model({
@@ -575,8 +576,8 @@ function applyIO(naics) { // Called from naics.js
 
 	//config.update({sectors: ['336411','481000']});
 
-	config.update({naics: naicsCodes}); // filters the BEA sectors
-	
+	config.update({naics: naicsCodes, count: 20}); // filters the BEA sectors
+	//config.update({sectors: useeio.toBEA('336411','481000')})  // selects all these sectors
 
     //alert(config.sectors)
 
@@ -592,13 +593,14 @@ function applyIO(naics) { // Called from naics.js
     config.join(ioGrid);
 
 
-
+    // For older 3 column IO layout
+    // Also remove display:none from #ioPanelOld
+    /*
     var config = {
-        count: 40,
+        count: 20,
         naics: naicsCodes,
-        sectors: beaCodes,
+        sectors: useeio.toBEA(naicsCodes)
     };
-
     inputs.update(config);
     outputs.update(config);
     sectorList.update(config);
@@ -612,12 +614,13 @@ function applyIO(naics) { // Called from naics.js
         outputs.update(config);
         sectorList.update(config);
     });
+    */
 }
 </script>
 
+<br><br>
 </div>
 <div style="clear:both;"></div>
-<br><br>
 <!-- /INPUT OUTPUT -->
 
 
@@ -703,41 +706,22 @@ function applyIO(naics) { // Called from naics.js
 </style>
 
 
-<div class="contentpadding">
-	<span style="font-size:14px">
-	Upcoming... middle column is not yet auto-populated from locaton's industry NAICS codes. Values are national rather than state-specific.<br><br>
-	</span>
-	<div id="iogrid"></div>
-</div>
-
-<!-- MOSAIC HEATMAP -->
-<style>
-::-webkit-scrollbar {
-   -webkit-appearance: none;
-   width: 7px;
-}
-::-webkit-scrollbar-thumb {
-   border-radius: 4px;
-   background-color: rgba(0,0,0,.5);
-   -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-}
-</style>
-<br><br>
-<div class="content contentpadding" style="max-width:1300px">
-	<div style="float:right;margin-bottom:16px" class="noprint">
-		<a href="https://model.earth/io/charts/">About Mosaic</a>
-	</div>
-
-	<h2 style="border-bottom: 0px">Environmental Indicators</h2>
-    <div class="io" style="overflow-x: scroll">
+<div class="contentpadding" style="border-bottom:1px solid #ccc;">
+	<div class="io" style="overflow-x: scroll">
         <div style="margin: 0 auto;">
-            <div class="matrix-title">Goods & Services</div>
+        	<div style="float:right;margin-bottom:16px" class="noprint">
+				<a href="https://model.earth/io/charts/">About Widgets</a>
+			</div>
+
+            <div class="matrix-title">Industries with Top Impacts</div>
             <div style="clear:both"></div>
 
             <!--
+            	Goods & Services
+
             	location.reload() is a temporary fix since mosaic is not triggered by change to hash.
             -->
-			<select id="indicators" class="filterClickX form-selectX picklist" onchange="goHash({'indicators':this.value});location.reload();" style="width: 300px;margin-bottom:0px">
+			<select id="indicators" class="filterClickX form-selectX picklist" onchange="goHash({'indicators':this.value});location.reload();" style="min-width:400px;margin:10px 0 0 0">
 
 			<option value="">Industries with top impacts...</option>
 
@@ -758,7 +742,7 @@ function applyIO(naics) { // Called from naics.js
 			<option value="LAND" title="Land Use (LAND): 
 			Nearly every process requires some amount of land for factories, offices, or roads. This land is often converted from existing natural habitats for wildlife. Habitat loss is the leading cause of wildlife extinctions worldwide and additional habitat conversion could lead to further loss of species. This indicator tracks the total area of usable land occupied to allow for the process. This indicator is expressed in square meters for a year (m2*yr).">&nbsp; &nbsp;Land Use (LAND)</option>
 
-			<option value="">Impact Potential:</option>
+			<option value="">Adverse Impacts:</option>
 
 			<option value="ACID" title="Acid Rain (ACID): 
 			Acid rain occurs when acid-precursors are absorbed from the atmosphere by clouds and dissolved in falling rain. Acid rain, while not directly dangerous to people, causes millions of dollars in damage to infrastructure by very slowly dissolving the exposed surfaces of roads, buildings, drains, and even statues. Acid rain is also detrimental to natural life: acidic soils make it difficult or impossible for plants to survive and grow and acidic runoff can disrupt the delicate chemical balance in natural bodies of water. In this indicator, emissions are expressed in sulfur dioxide (SO2) equivalents. The source of the factors for this indicator is TRACI 2.1 (Bare 2012).">&nbsp; &nbsp;Acid Rain (ACID)</option>
@@ -782,10 +766,8 @@ function applyIO(naics) { // Called from naics.js
 			<option value="ETOX" title="Freshwater Aquatic Ecotoxicity (ETOX): 
 			Like humans, wildlife can be harmed by exposure to toxic chemicals and substances. An ever-expanding list of common chemicals have been assessed for their tendency to cause ecological damage when released in to the air, water, or soil. In this indicator, emissions are expressed in terms of their contribution to ecological damage in the water column of freshwater bodies. A standardized Comparative Toxicity Unit is used. The source of the factors for this indicator is TRACI 2.1 (Bare 2012) which uses USETox 1.0 (Rosenbaum et al. 2008).">&nbsp; &nbsp;Freshwater Aquatic Ecotoxicity (ETOX)</option>
 
-			<!--
-			<option value="GHG" title="Greenhouse Gases (GHG): 
-			Greenhouse gases are the primary driver of climate change. These gases absorb infrared radiation emitted by the sun at a higher rate than standard atmospheric gases. The result is that, when these gases are emitted, the atmosphere absorbs and stores more heat, causing it to warm up. Carbon dioxide is the most commonly known greenhouse gas, but other gases such as methane, nitrous oxide, and even water vapor are all major contributors to the warming of the atmosphere. In this indicator, emissions are expressed as their equivalent in carbon dioxide (CO2), based on the amount of heat they can absorb and their average life span in the atmosphere. The source of the factors for this indicator is TRACI 2.1 (Bare 2012).">&nbsp; &nbsp;Greenhouse Gases (GHG)</option>
-			-->
+			<option value="GCC" title="Greenhouse Gases (GCC): 
+			Greenhouse gases are the primary driver of climate change. These gases absorb infrared radiation emitted by the sun at a higher rate than standard atmospheric gases. The result is that, when these gases are emitted, the atmosphere absorbs and stores more heat, causing it to warm up. Carbon dioxide is the most commonly known greenhouse gas, but other gases such as methane, nitrous oxide, and even water vapor are all major contributors to the warming of the atmosphere. In this indicator, emissions are expressed as their equivalent in carbon dioxide (CO2), based on the amount of heat they can absorb and their average life span in the atmosphere. The source of the factors for this indicator is TRACI 2.1 (Bare 2012).">&nbsp; &nbsp;Greenhouse Gases (GCC)</option>
 
 			<option value="HRSP" title="Human Health - Respiratory Effects (HRSP): 
 			Particulates can be nearly any ingestible material ground down to a fine enough size. Even otherwise harmless substances, when suspended as a dust and inhaled in to the lungs, can clog airways and irritate the sensitive tissues of the lungs. Over time, exposure to these particulates can lead to a variety of harmful respiratory and cardiac diseases and a general loss of cardiopulmonary function that significantly lowers both lifespan and productive years. In this indicator, emissions are expressed in terms of their effect on human respiratory health in PM2.5 equivalents. The source of the factors for this indicator is TRACI 2.1 (Bare 2012).">&nbsp; &nbsp;Human Health - Respiratory Effects (HRSP)</option>
@@ -794,11 +776,8 @@ function applyIO(naics) { // Called from naics.js
 			Millions of tons of chemicals are used in commerce that a human can be exposed to with potential detrimental effect. Exposure to certain chemicals can increase the likelihood of cancer or other illness in humans. In this indicator, emissions are expressed in terms of their contribution to the incidence of cancer and illness in humans. A standardized Comparative Toxicity Unit (CTU) is used. This indicator is a combination of the HCAN and HNCN indicators. The source of the factors for this indicator is TRACI 2.1 (Bare 2012) which uses USETox 1.0 (Rosenbaum et al. 2008).">&nbsp; &nbsp;Human Health Toxicity (HTOX)</option>
 
 			
-
-			<!--
-			<option value="MNRL" title="Minerals and Metals Use (MNRL): 
-			Minerals and Metals Use is an indicator of the life cycle total mass of nonmetallic and metallic minerals extracted for use measured in kilograms (kg).">&nbsp; &nbsp;Minerals and Metals Use (MNRL)</option>
-			-->
+			<option value="MINE" title="Minerals and Metals Use (MINE): 
+			Minerals and Metals Use is an indicator of the life cycle total mass of nonmetallic and metallic minerals extracted for use measured in kilograms (kg).">&nbsp; &nbsp;Minerals and Metals Use (MINE)</option>
 
 			<option value="OZON" title="Ozone Depletion (OZON): 
 			The earth is surrounded by a protective layer of atmospheric ozone that filters out harmful radiation from the sun. Certain chemicals, when released in to the air, have the ability to react with and destroy large quantities of the ozone layer, allowing more harmful radiation to reach us. Some chemicals are more long lasting or more likely to interact with ozone than others, so they have different destructive potentials. In this indicator, emissions are expressed as their equivalent in kilograms of CFC-11, an extremely harmful gas formerly used as a common refrigerant capable of destroying thousands of times its mass in ozone. The source of the factors for this indicator is TRACI 2.1 (Bare 2012).">&nbsp; &nbsp;Ozone Depletion (OZON)</option>
@@ -811,13 +790,48 @@ function applyIO(naics) { // Called from naics.js
 			<option value="PEST">&nbsp; &nbsp;Pesticides (PEST)</option>
 
 			</select>
-			<br><br>
+			<br>
 
-            <div class="industry-list-mosaic">
-            </div>
+            
         </div>
     </div>
+
+	<span style="font-size:14px">
+	Move sliders to view impacts from changes to production levels.<br>
+	Values are currently national rather than state-specific.<br><br>
+	</span>
+	<div id="iogrid"></div>
+
+	<div style="clear:both"></div>
+
+
+	<style>
+		.industry-list-mosaic input[type="checkbox" i] {
+			display: none;
+		}
+	</style>
+
+	<br><br><br><br><br><br>
+	<div style="padding-left:23px">
+		<h1>Impact Levels</h1>
+		<div class="industry-list-mosaic"></div>
+	</div>
 </div>
+
+<!-- MOSAIC HEATMAP -->
+<style>
+::-webkit-scrollbar {
+   -webkit-appearance: none;
+   width: 7px;
+}
+::-webkit-scrollbar-thumb {
+   border-radius: 4px;
+   background-color: rgba(0,0,0,.5);
+   -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+</style>
+<br><br>
+
 
 <script>
 function updateMosic(naics) {
@@ -936,7 +950,7 @@ config.join(sectorList);
 
 
 <!-- Warning: adding content class causes popups to disappear because the absoulte top is using the top of page. -->
-<div class="contentX contentpadding" style="margin-left:30px">
+<div class="contentpadding" style="margin-left:30px; padding-top:0px">
 
 	<link rel="stylesheet" type="text/css" href="../../io/charts/bubble/css/bubble.css"/>
 
@@ -947,7 +961,9 @@ config.join(sectorList);
 			<a href="https://model.earth/io/charts/">About Bubble Chart</a>
 		</div>
 
-        <h2 style="border-bottom: 0px">Impact Bubble Chart</h2>
+        <h1 style="border-bottom: 0px">Impact Bubble Chart</h1>
+        Compares three impact areas. Greatest impact is in upper-right with largest size.
+
         <div id="bubble-graph-title"></div>
         <text id="bubble-graph-equation"></text>
 
@@ -989,14 +1005,18 @@ config.join(sectorList);
           <span class="slider round"></span>
         </label>
         <div class="switch-text">
-          Top industries within region
+          Highlight top industries within region
         </div>
 
       </div>
 
 
   	</div>
+
+  	<!-- Reactivate following improvements to industry spotlight below
   	<button onclick="clearBubbleSelection()">Clear Selection</button>
+  	-->
+
   	<div style="clear:both"></div>
 
 </div>
