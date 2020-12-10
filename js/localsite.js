@@ -133,39 +133,17 @@ function updateHash(addToHash, addToExisting) {
     }
     hash = mix(addToHash,hash); // Gives priority to addToHash
 
-    // Reside in mix. DELETE
-        //for (var i in hash) { // Remove blank attributes
-        //  if (hash[i] === null || hash[i] === undefined || hash[i] === '') {
-        //    delete hash[i];
-        //  }
-        //}
-
     var hashString = decodeURIComponent($.param(hash)); // decode to display commas in URL
-
-        // findCompany
-
-    
     var pathname = window.location.pathname.replace(/\/\//g, '\/')
     var queryString = "";
     if (window.location.search) { // Existing, for parameters that are retained as hash changes.
       queryString += window.location.search; // Contains question mark (?)
     }
-
-    //var hsHash = '';
-    //hsHash = $('[name="hs"]:checked').map(function() {return this.value;}).get().join(',');
-    //if (hsHash) { // Remove the hash here if adding to other 
-    //  queryString += "#hs=" + hsHash;
-    //}
-    //$("#productCodes").val(hsHash);
-    //$("#productCodes").width("200px");
-
     if (hashString) { // Remove the hash here if adding to other 
       queryString += "#" + hashString;
     }
-    
     let searchTitle = 'Page ' + hashString;
     window.history.pushState("", searchTitle, pathname + queryString);
-    //refreshMain();
 }
 function goHash(addToHash) {
   console.log("goHash ")
