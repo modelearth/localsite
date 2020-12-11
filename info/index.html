@@ -578,11 +578,12 @@ function applyIO(naics) { // Called from naics.js
 
 	// 
 	let hash = getHash();
-	if (!hash.go) {
+	if (!hash.go && !hash.geo && !hash.catsort && !hash.catsize) {
 		//	BUGBUG - Causes all other hash values to be lost
 		config.update({naics: naicsCodes, count: 20}); // filters the BEA sectors
+		//config.updateIfAbsent({naics: naicsCodes, count: 20});
 	}
-	
+
 	//config.update({sectors: useeio.toBEA('336411','481000')})  // selects all these sectors
 
     //alert(config.sectors)
