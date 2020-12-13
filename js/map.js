@@ -183,7 +183,7 @@ function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback
         // ADD BACKGROUND BASEMAP to Side Map
         if (layerControl[whichmap2] == undefined) {
           layerControl[whichmap2] = L.control.layers(basemaps2, overlays2).addTo(map2); // Init layer checkboxes
-          basemaps2["OpenStreetMap"].addTo(map2); // Set the initial baselayer.
+          basemaps2["Satellite"].addTo(map2); // Set the initial baselayer.
         } else {
           layerControl[whichmap2].addOverlay(dp.group2, dp.dataTitle); // Add layer checkbox
         }
@@ -640,17 +640,18 @@ function addIcons(dp,map,map2) {
       */
       
 
-      $('.detail').css("border","none");
-      $('.detail').css("background-color","inherit");
-      $('.detail').css("padding","12px 0 12px 4px");
+      //$('.detail').css("border","none");
+      //$('.detail').css("background-color","inherit");
+      //$('.detail').css("padding","12px 0 12px 4px");
+      $('.detail').removeClass("detailActive");
 
       console.log("detail click");
       $('#sidemapName').text($(this).attr("name"));
 
-      $(this).css("border","1px solid #ccc");
-      $(this).css("background-color","rgb(250, 250, 250)");
-      $(this).css("padding","15px");
-
+      //$(this).css("border","1px solid #ccc");
+      //$(this).css("background-color","rgb(250, 250, 250)");
+      //$(this).css("padding","15px");
+      $(this).addClass("detailActive");
       
 
       popMapPoint(dp, map2, $(this).attr("latitude"), $(this).attr("longitude"), $(this).attr("name"));
@@ -766,7 +767,10 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     }),
   }
   var basemaps2 = {
-    'Grayscale' : L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
+    //'Grayscale' : L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
+    'Grayscale' : L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+          maxZoom: 18, attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+      }),
     'Satellite' : L.tileLayer(mbUrl, {maxZoom: 25, id: 'mapbox.satellite', attribution: mbAttr}),
     //'Streets' : L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr}),
     'OpenStreetMap' : L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -988,6 +992,9 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     dp1.addlisting = "https://www.ams.usda.gov/services/local-regional/food-directories-update";
     // community/farmfresh/ 
     dp1.listInfo = "Farmers markets and local farms providing fresh produce directly to consumers. <a style='white-space: nowrap' href='https://model.earth/community/farmfresh/ga/'>About data</a> | <a href='https://www.ams.usda.gov/local-food-directories/farmersmarkets'>submit updates</a>";
+  
+    let hash = getHash();
+    renderMapShapes("map1", hash); // County select map
   }
 
   // Load the map using settings above
