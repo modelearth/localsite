@@ -1187,7 +1187,7 @@ strVar += "    <\/div>";
 strVar += "";
 strVar += "    <a name=\"gomap\"><\/a>";
 strVar += "    <div id=\"mapHolder\">";
-strVar += "      <div class=\"mapHolderInner\">";
+strVar += "      <div id=\"mapHolderInner\">";
 strVar += "        <div id=\"sidemapCard\" class=\"mapHolderCard card\">";
 strVar += "          <div id=\"sidemapbar\" class=\"widgetbar\">";
 strVar += "            <div id=\"sidemapName\" style=\"position:absolute; left:0; padding:4px 4px 4px 10px\">";
