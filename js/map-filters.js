@@ -1346,7 +1346,7 @@ function displayBigThumbnails(layerName,siteObject) {
 	                                }
 
 	                                if ((directlink.indexOf('/map/') >= 0 && location.pathname.indexOf('/map/') >= 0) || (directlink.indexOf('/info/') >= 0 && location.pathname.indexOf('/info/') >= 0)) { // Stayon page when on map or info
-	                                	linkJavascript = "onclick='goHash({\"go\":\"" + siteObject.items[layer].item + "\",\"cat\":\"\",\"show\":\"\"}); return false;'"; // Remain in current page.
+	                                	linkJavascript = "onclick='goHash({\"go\":\"" + siteObject.items[layer].item + "\",\"cat\":\"\",\"sectors\":\"\",\"naics\":\"\",\"show\":\"\"}); return false;'"; // Remain in current page.
 	                                } else {
 	                                	linkJavascript = "";
 	                                }
@@ -1697,7 +1697,7 @@ function refreshWidgets() {
 
 	// NOTE: params after ? are not included, just the hash.
 	if (hash.go != priorHash.go) {
-		$(".data-section").hide();
+		//$(".data-section").hide();
 		if (hash.show == priorHash.show) {
 			hash.show = ""; // Clear the suppliers display
 		}
@@ -1745,6 +1745,7 @@ function refreshWidgets() {
 	}
 
 	// To remove
+	/*
 	if (hash.show != priorHash.show) {
 		if (hash.show == "farmfresh") {
 			$(".data-section").show();
@@ -1756,11 +1757,12 @@ function refreshWidgets() {
 			$(".suppliers").hide();
 		}
 	}
+	*/
 
 	if (hash.go != priorHash.go) {
-		if (hash.go.toLowerCase() == "farmfresh") {
+		if (hash.go == "farmfresh") {
 			$(".data-section").show();
-		} else if (hash.go.toLowerCase() == "ppe") {
+		} else if (hash.go == "ppe") {
 			$(".data-section").show();
 			$(".suppliers").show();
 		} else {

@@ -221,7 +221,6 @@
 }
 #map2 {
   height:500px;
-  box-sizing: border-box;
 }
 #industriesX {
   display: none !important;

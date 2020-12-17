@@ -16,6 +16,16 @@
 <script src="https://unpkg.com/topojson-client@3"></script>
 -->
 
+<!-- LOCAL DEV -->
+<!--
+<link rel="stylesheet" type="text/css" href="../../input-output/build/widgets.css">
+<script src="../../input-output/build/lib/useeio_widgets.js"></script>
+-->
+
+<!-- Resides before useeio_widgets.js -->
+<script type="text/javascript" src="../js/naics.js"></script>
+<link type="text/css" href="../css/naics.css" rel="stylesheet" />
+
 <!-- PRODUCTION -->
 <!-- resides before base.css -->
 <!--
@@ -24,15 +34,6 @@
 <link rel="stylesheet" type="text/css" href="../../io/build/widgets.css">
 <script src="../../io/build/lib/useeio_widgets.js"></script>
 
-<!-- LOCAL DEV -->
-<!--
-<link rel="stylesheet" type="text/css" href="../../input-output/build/widgets.css">
-<script src="../../input-output/build/lib/useeio_widgets.js"></script>
--->
-
-<script type="text/javascript" src="../js/naics.js"></script>
-<link type="text/css" href="../css/naics.css" rel="stylesheet" />
-
 <!-- After USEEIO to alter css -->
 <!--
 <link type="text/css" href="../../localsite/css/base.css" rel="stylesheet" />
@@ -40,21 +41,21 @@
 -->
 
 <script>
-	$(document).ready(function () {
-		$("#showApps").removeClass("local");
-  		$("#showApps").show();
+$(document).ready(function () {
+	$("#showApps").removeClass("local");
+		$("#showApps").show();
 
-  		// For model.georgia
-  		$("#appSelectHolder").removeClass("local");
-  		$("#appSelectHolder").show();
+		// For model.georgia
+		$("#appSelectHolder").removeClass("local");
+		$("#appSelectHolder").show();
 
-		let startsWith13 = true; // To do - change to check array
-		if (!param.geo || startsWith13) {
-			//param.titleArray = ["Georgia"]
-			//param.headerLogo = "<img src='/community/img/logo/georgia-icon.png' style='width:64px'>";
-		}
-	    $(window).scroll(function(){$(".herocenter").css("opacity", 1 - $(window).scrollTop() / 200);});
-	});
+	let startsWith13 = true; // To do - change to check array
+	if (!param.geo || startsWith13) {
+		//param.titleArray = ["Georgia"]
+		//param.headerLogo = "<img src='/community/img/logo/georgia-icon.png' style='width:64px'>";
+	}
+    $(window).scroll(function(){$(".herocenter").css("opacity", 1 - $(window).scrollTop() / 200);});
+});
 </script>
 
 <style>
@@ -85,7 +86,7 @@
     height: auto;
 }
 
-.data-section { /* shown when show=suppliers */
+.data-section { /* shown when show=suppliers, etc. */
 	display:none;
 }
 .markdownEye {
@@ -314,6 +315,10 @@ To do: make the links below an optional widget
 
 			<div class="mainColumn mainColumn2 input-output">
 			
+				<div style="float:right; font-size: 11px">
+					Data source: U.S. Bureau of Economic Analysis
+				</div>
+
 				<div>
 					<div id="quickLinks" style="display:none">
 						<div>Choose counties</div>
@@ -485,6 +490,8 @@ Georgia-specific input-output dataset is being developed by the EPA.<br><br>
 <script>
 function applyIO(naics) { // Called from naics.js
 	//alert("applyIO")
+
+	/*
     var modelID = 'USEEIO';
 
     var model = useeio.model({
@@ -507,6 +514,8 @@ function applyIO(naics) { // Called from naics.js
         model: model,
         selector: '#outputs',
     })
+	*/
+
 
     /*
     var naics = '11,45,62,211,314,331,425,452,488,521,561,721,925,1122,'
@@ -555,7 +564,7 @@ function applyIO(naics) { // Called from naics.js
 	//var beaCodes = useeio.toBEA(naics); // Works
     //console.log("Hack: Get BEA directly from naics: " + beaCodes);
 
-    console.log("BUG - called multiple times when embedded iogrid chart checkbox checked.")
+    //console.log("BUG - called multiple times when embedded iogrid chart checkbox checked.")
     /*
     var beaCodes = naicsCodes.map(useeio.toBEA)
         .filter(function (code) {
@@ -567,6 +576,7 @@ function applyIO(naics) { // Called from naics.js
         });
 	*/
 
+	 
 
 	var config = useeio.urlConfig();
     var modelID = config.get().model || 'USEEIO'; // USEEIOv1.2 shows incorrect bars. $300.043 input per $1 for agriculture.
@@ -576,13 +586,18 @@ function applyIO(naics) { // Called from naics.js
 
 	//config.update({sectors: ['336411','481000']});
 
+
+
 	// 
 	let hash = getHash();
-	if (!hash.go && !hash.geo && !hash.catsort && !hash.catsize) {
+	//if (!hash.go && !hash.geo && !hash.catsort && !hash.catsize) {
 		//	BUGBUG - Causes all other hash values to be lost
-		config.update({naics: naicsCodes, count: 20}); // filters the BEA sectors
-		//config.updateIfAbsent({naics: naicsCodes, count: 20});
-	}
+		//config.update({naics: naicsCodes, count: 20}); // filters the BEA sectors
+
+		
+		//document.dispatchEvent(new CustomEvent('hashChangeEvent'));
+
+	//}
 
 	//config.update({sectors: useeio.toBEA('336411','481000')})  // selects all these sectors
 
@@ -717,10 +732,11 @@ function applyIO(naics) { // Called from naics.js
 	<div class="io" style="overflow-x: scroll">
         <div style="margin: 0 auto;">
         	<div style="float:right;margin-bottom:16px" class="noprint">
-				<a href="https://model.earth/io/charts/">About Widgets</a>
+				<a href="https://model.earth/io/charts/">About Widgets</a> - 
+				Data source: U.S. Bureau of Economic Analysis commodities combined with EPA indicators.
 			</div>
 
-            <div class="matrix-title">Industries with Top Impacts</div>
+            <div class="matrix-title">Supply Chain</div>
             <div style="clear:both"></div>
 
             <!--
@@ -804,7 +820,7 @@ function applyIO(naics) { // Called from naics.js
     </div>
 
 	<span style="font-size:14px">
-	Move sliders to view impacts from changes to production levels.<br>
+	Check boxes and move sliders to view impacts from changes to production levels.<br>
 	Values are currently national rather than state-specific.<br><br>
 	</span>
 	<div id="iogrid"></div>
