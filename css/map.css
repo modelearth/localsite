@@ -52,12 +52,6 @@
     overflow: visible;
     
   }
-  #map2 {
-    height: 500px;
-    rightX: 0;
-    widthX: 100%;
-    box-sizing: border-box;
-  }
 
   #map1 .leaflet-popup {
     bottom: 17px !important; /* Apply when map points used for "google" material icons */
@@ -96,12 +90,18 @@
   }
   .detail {
     position: relative;
-    padding: 12px 0 12px 4px;
+    padding: 12px 8px 12px 12px;
+    border: 0px solid #eee;
     border-bottom: 1px solid #eee;
   }
   .detail:hover {
     background-color: #fcfcfc;
     cursor:pointer;
+  }
+  .detailActive {
+    border: 1px solid rgb(204, 204, 204);
+    background-color: rgb(250, 250, 250);
+    paddingX: 12px;
   }
   .popMenu {
     border:1px solid #ccc;
@@ -188,7 +188,7 @@
       margin-bottom: 30px;
       padding: 0px;
     }
-    .mapHolderInner {
+    #mapHolderInner {
       position: relative;
       width: auto;
     }
@@ -220,7 +220,8 @@
   displayX: none; /* Also reactivate in dual-map. */
 }
 #map2 {
-  height:400px;
+  height:500px;
+  box-sizing: border-box;
 }
 #industriesX {
   display: none !important;

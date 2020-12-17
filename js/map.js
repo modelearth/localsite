@@ -47,11 +47,12 @@ function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback
   if (typeof d3 !== 'undefined') {
     if (!dp.dataset) {
       console.log('CANCEL loadFromCSV - no dataset selected for top map.');
-      $('#' + whichmap).hide();
+      $("#" + whichmap).hide();
+      $("#data-section").hide();
       return;
     } else {
       console.log('loadFromCSV into #' + whichmap);
-      $('#' + whichmap).show();
+      $("#" + whichmap).show();
     }
     let defaults = {};
     defaults.zoom = 7;
@@ -69,6 +70,10 @@ function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback
     dp = mix(dp,defaults); // Gives priority to dp
     if (dp.addLink) {
       //console.log("Add Link: " + dp.addLink)
+    }
+    if (dp.showShapeMap) {
+      let hash = getHash();
+      renderMapShapes("map1", hash); // County select map
     }
     let map = document.querySelector('#' + whichmap)._leaflet_map; // Recall existing map
     var container = L.DomUtil.get(map);
@@ -222,8 +227,8 @@ function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback
         // Neigher map.whenReady or map.on('load') seems to require SetView()
         if (document.body.clientWidth > 500) { // Since map tiles do not fully load when below list. Could use a .5 sec timeout perhaps.
           setTimeout( function() {
-            $("#sidemapCard").hide(); // Hide after size is available for tiles.
-          }, 20 );
+            //$("#sidemapCard").hide(); // Hide after size is available for tiles.
+          }, 3000 ); // Allow ample time to load.
         }
     })
     //.catch(function(error){ 
@@ -443,10 +448,11 @@ function addIcons(dp,map,map2) {
           circle = L.marker([element[dp.latColumn], element[dp.lonColumn]]).addTo(dp.group);
           circle2 = L.marker([element[dp.latColumn], element[dp.lonColumn]]).addTo(dp.group2);
         } else {
-          // If this line returns an error, try setting dp1.latColumn and dp1.latColumn to the names of your latitude and longitude columns.
-          circle = L.marker([element[dp.latColumn], element[dp.lonColumn]], {icon: busIcon}).addTo(dp.group); // Works, but not in Drupal site.
-          //circle2 = L.marker([element[dp.latColumn], element[dp.lonColumn]], {icon: busIcon}).addTo(dp.group2);
-
+          if (!dp.showShapeMap) {
+            // If this line returns an error, try setting dp1.latColumn and dp1.latColumn to the names of your latitude and longitude columns.
+            circle = L.marker([element[dp.latColumn], element[dp.lonColumn]], {icon: busIcon}).addTo(dp.group); // Works, but not in Drupal site.
+            //circle2 = L.marker([element[dp.latColumn], element[dp.lonColumn]], {icon: busIcon}).addTo(dp.group2);
+          }
           // Display a small circle on small side map2
           circle2 = L.circle([element[dp.latColumn], element[dp.lonColumn]], {
                 color: colorScale(element[dp.valueColumn]),
@@ -550,7 +556,9 @@ function addIcons(dp,map,map2) {
     }
 
     // ADD POPUP BUBBLES TO MAP POINTS
-    circle.bindPopup(output);
+    if (circle) {
+      circle.bindPopup(output);
+    }
     circle2.bindPopup(output);
 
     /*
@@ -640,17 +648,18 @@ function addIcons(dp,map,map2) {
       */
       
 
-      $('.detail').css("border","none");
-      $('.detail').css("background-color","inherit");
-      $('.detail').css("padding","12px 0 12px 4px");
+      //$('.detail').css("border","none");
+      //$('.detail').css("background-color","inherit");
+      //$('.detail').css("padding","12px 0 12px 4px");
+      $('.detail').removeClass("detailActive");
 
       console.log("detail click");
       $('#sidemapName').text($(this).attr("name"));
 
-      $(this).css("border","1px solid #ccc");
-      $(this).css("background-color","rgb(250, 250, 250)");
-      $(this).css("padding","15px");
-
+      //$(this).css("border","1px solid #ccc");
+      //$(this).css("background-color","rgb(250, 250, 250)");
+      //$(this).css("padding","15px");
+      $(this).addClass("detailActive");
       
 
       popMapPoint(dp, map2, $(this).attr("latitude"), $(this).attr("longitude"), $(this).attr("name"));
@@ -766,7 +775,10 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     }),
   }
   var basemaps2 = {
-    'Grayscale' : L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
+    //'Grayscale' : L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
+    'Grayscale' : L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+          maxZoom: 18, attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+      }),
     'Satellite' : L.tileLayer(mbUrl, {maxZoom: 25, id: 'mapbox.satellite', attribution: mbAttr}),
     //'Streets' : L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr}),
     'OpenStreetMap' : L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -830,16 +842,14 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     //  https://model.earth/community-data/us/state/GA/VirtualTourSites.csv
 
   } else if (show == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
-    dp1.listTitle = "Data Driven Decision Making";
-    dp1.listSubtitle = "Smart & Sustainable Movement of Goods & Services";
-    // Green Locations offer <span style="white-space: nowrap">prepared food<br>Please call ahead to arrange pickup or delivery</span>
-
     
-    //community_root = "https://model.earth/community/"; // CORS would need to be adjusted on server
+    dp1.listTitle = "Data Driven Decision Making";
+    //dp1.listSubtitle = "Smart & Sustainable Movement of Goods & Services";
+    dp1.industryListTitle = "EV Ecosystem";
+
     console.log("map.js loading " + dual_map.custom_data_root() + "communities/map-georgia-smart.csv");
 
     dp1.dataset =  dual_map.custom_data_root() + "communities/map-georgia-smart.csv";
-    //alert(dp1.dataset)
     dp1.listInfo = "Includes Georgia Smart Community Projects";
     dp1.search = {"In Title": "title", "In Description": "description", "In Website URL": "website", "In Address": "address", "In City Name": "city", "In Zip Code" : "zip"};
 
@@ -852,7 +862,7 @@ function loadMap1(show, dp) { // Also called by map-filters.js
       dp1.zoom = 12; // 14;
     }
     dp1.markerType = "google";
-     
+    dp1.showShapeMap = true;
 
   } else if (show == "logistics") { // "http://" + param["domain"]
 
@@ -881,13 +891,14 @@ function loadMap1(show, dp) { // Also called by map-filters.js
 
     dp1.listLocation = false;
     dp1.addLink = "https://www.georgia.org/covid19response"; // Not yet used
+
   } else if (show == "suppliers" || show == "ppe") { // "http://" + param["domain"]
 
     dp1.listTitle = "Georgia COVID-19 Response";
     dp1.listTitle = "Georgia Suppliers of&nbsp;Critical Items <span style='white-space:nowrap'>to Fight COVID-19</span>"; // For iFrame site
 
-    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-12/ga_suppliers_list_12-2-2020.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
-    dp1.dataset = "https://map.georgia.org/display/products/suppliers/us_ga_suppliers_ppe_2020_12_02.csv";
+    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-12/ga_suppliers_list_12-16-2020.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
+    dp1.dataset = "https://map.georgia.org/display/products/suppliers/us_ga_suppliers_ppe_2020_12_16.csv";
     //dp1.dataset = "/display/products/suppliers/us_ga_suppliers_ppe_2020_06_17.csv";
 
     dp1.dataTitle = "Manufacturers and Distributors";
@@ -987,7 +998,9 @@ function loadMap1(show, dp) { // Also called by map-filters.js
 
     dp1.addlisting = "https://www.ams.usda.gov/services/local-regional/food-directories-update";
     // community/farmfresh/ 
-    dp1.listInfo = "Farmers markets and local farms providing fresh produce directly to consumers. <a style='white-space: nowrap' href='https://model.earth/community/farmfresh/ga/'>About data</a> | <a href='https://www.ams.usda.gov/local-food-directories/farmersmarkets'>submit updates</a>";
+    dp1.listInfo = "Farmers markets and local farms providing fresh produce directly to consumers. <a style='white-space: nowrap' href='https://model.earth/community/farmfresh/ga/'>About Data</a> | <a href='https://www.ams.usda.gov/local-food-directories/farmersmarkets'>Update Listings</a>";
+  
+    dp1.showShapeMap = true;
   }
 
   // Load the map using settings above
@@ -1015,6 +1028,7 @@ function loadMap1(show, dp) { // Also called by map-filters.js
 
 
 function showList(dp,map) {
+  
   var iconColor, iconColorRGB;
   var colorScale = dp.scale;
   let count = 0;
@@ -1442,11 +1456,18 @@ function showList(dp,map) {
       output += "</div>"; // End detail
 
       $("#detaillist").append(output);
+
     }
     
-
   });
+
+  if (!(param["show"] == "suppliers" || param["show"] == "ppe")) {
+    setTimeout(function(){ 
+      $( "#detaillist > div:first-of-type" ).trigger("click");
+    }, 500);
+  }
   
+
   // BUGBUG - May need to clear first to avoid multiple calls.
   $('.detail').mouseover(
       function() { 
@@ -1684,6 +1705,451 @@ function topReached(elem) { // top scrolled out view
 }
 
 
+
+function updateGeoFilter(geo) {
+  $(".geo").prop('checked', false);
+  if (geo) {
+    //locationFilterChange("counties");
+    let sectors = geo.split(",");
+        for(var i = 0 ; i < sectors.length ; i++) {
+          $("#" + sectors[i]).prop('checked', true);
+        }
+    
+    }
+    console.log('ALERT: Change to support multiple states as GEO. Current geo: ' + geo)
+    if (geo && geo.length > 4) // Then county or multiple states - Bug
+    {
+        $(".state-view").hide();
+        $(".county-view").show();
+        //$(".industry_filter_settings").show(); // temp
+    } else {
+        $(".county-view").hide();
+        $(".state-view").show();
+        //$(".industry_filter_settings").hide(); // temp
+    }
+}
+function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
+
+  loadScript(dual_map.modelearth_data_root() + '/localsite/js/topojson-client.min.js', function(results) {
+
+    // Oddly, this is still reached when 404 returned by call to topojson-client.min.js above.
+
+    //alert(dual_map.modelearth_data_root() + '/localsite/js/topojson-client.min.js')
+    
+    // <script src="https://unpkg.com/topojson-client@3"></script>
+
+    if (!$("#" + whichmap).is(":visible")) {
+      return; // Prevent incomplete tiles
+    }
+    console.log("renderMapShapes " + whichmap);
+    var req = new XMLHttpRequest();
+    const whichGeoRegion = hash.geomap;
+      // Topo data source
+      //https://github.com/deldersveld/topojson/tree/master/countries/us-states
+
+      updateGeoFilter(hash.geo); // Checks and unchecks geo (counties) when backing up.
+
+      // BUGBUG - Shouldn't need to fetch counties.json every time.
+
+      if (!param.state) {
+        param.state = "GA";
+        $(".regionFilter").show();
+      }
+
+      // TOPO Files: https://github.com/modelearth/topojson/ 
+      //url = "https://modelearth.github.io/topojson/countries/us-states/AL-01-alabama-counties.json";
+      //url = "../../topojson/countries/us-states/AL-01-alabama-counties.json";
+
+      let stateIDs = {AL:1,AK:2,AZ:4,AR:5,CA:6,CO:8,CT:9,DE:10,FL:12,GA:13,HI:15,ID:16,IL:17,IN:18,IA:19,KS:20,KY:21,LA:22,ME:23,MD:24,MA:25,MI:26,MN:27,MS:28,MO:29,MT:30,NE:31,NV:32,NH:33,NJ:34,NM:35,NY:36,NC:37,ND:38,OH:39,OK:40,OR:41,PA:42,RI:44,SC:45,SD:46,TN:47,TX:48,UT:49,VT:50,VA:51,WA:53,WV:54,WI:55,WY:56,AS:60,GU:66,MP:69,PR:72,VI:78,}
+      let state2char = ('0'+stateIDs[param.state]).slice(-2);
+      let stateNameLowercase = $("#state_select option:selected").text().toLowerCase();
+
+      //alert($("#state_select option:selected").attr("stateid"));
+      //alert($("#state_select option:selected").val()); // works
+
+      // $("#state_select").find(":selected").text();
+
+      //if(location.host.indexOf('localhost') >= 0) {
+      //if (param.geo == "US01" || param.state == "AL") { // Bug, change to get state from string, also below.
+        // https://github.com/modelearth/topojson/blob/master/countries/us-states/AL-01-alabama-counties.json
+
+        //var url = dual_map.custom_data_root() + '/counties/GA-13-georgia-counties.json';
+        var url = dual_map.modelearth_data_root() + "/topojson/countries/us-states/" + param.state + "-" + state2char + "-" + stateNameLowercase.replace(/\s+/g, '-') + "-counties.json";
+        //url = dual_map.modelearth_data_root() + "/opojson/countries/us-states/GA-13-georgia-counties.json";
+        // IMPORTANT: ALSO change localhost setting that uses cb_2015_alabama_county_20m below
+    //}
+      //var layerControl_CountyMap = {}; // Object containing one control for each map on page.
+
+      req.open('GET', url, true);
+      req.onreadystatechange = handler;
+      req.send();
+
+      var topoob = {};
+      var topodata = {};
+      var neighbors = {};
+      function handler(){
+
+      if(req.readyState === XMLHttpRequest.DONE) {
+  //alert("render")
+  //map.invalidateSize();
+        //map.addLayer(OpenStreetMap_BlackAndWhite)
+
+        // try and catch json parsing of the responseText
+        //try {
+              topoob = JSON.parse(req.responseText)
+
+              // Originated in community/map/leaflet/zips-sm.html
+              // zips_us_topo.json
+              // {"type":"Topology","objects":{"data":{"type":"GeometryCollection","geometries":[{"type":"Polygon
+
+              // {"type":"Topology","transform":{"scale":[0.00176728378633945,0.0012459509163533049],"translate":
+
+              //"arcs":[[38,39,40,41,42]],"type":"Polygon","properties":{"STATEFP":"13","COUNTYFP":"003","COUNTYNS":"00345784","AFFGEOID":"0500000US13003","GEOID":"13003","NAME":"Atkinson","LSAD":"06","ALAND":879043416,"AWATER":13294218}}
+
+              console.log("topojson")
+              console.log(topojson)
+              // Was used by applyStyle
+              ////neighbors = topojson.neighbors(topoob.objects.data.geometries);
+              neighbors = topojson.neighbors(topoob.arcs); // .properties
+
+              // ADD geometries  see https://observablehq.com/@d3/choropleth
+              //topodata = topojson.feature(topoob, topoob.objects.data)
+
+              //topodata = topojson.feature(topoob, topoob.transform)
+
+              // 
+              
+              //if (param.geo == "US01" || param.state == "AL") {
+                // Example: topoob.objects.cb_2015_alabama_county_20m
+                let topoObjName = "topoob.objects.cb_2015_" + stateNameLowercase.replace(/\s+/g, '_') + "_county_20m";
+                topodata = topojson.feature(topoob, eval(topoObjName));
+            //} else {
+            //  topodata = topojson.feature(topoob, topoob.objects.cb_2015_georgia_county_20m)
+            //}
+
+              // ADD 
+              // For region colors
+              //mergeInDetailData(topodata, dp.data); // See start/maps/counties/counties.html
+
+
+
+              // IS THIS BEING USED?
+              //topodata.features = topodata.features.map(function(fm,i){
+              /*
+              topodata.features = topodata.features.map(function(fm,i){
+                  var ret = fm;
+                  //console.log("fm: " + fm.COUNTYFP);
+                  console.log("fm: " + fm.properties.countyfp);
+                  ret.indie = i;
+                  return ret
+                });
+              */
+
+              //dp.data.forEach(function(datarow) { // For each county row from the region lookup table
+                
+                // All these work:
+                //console.log("name:: " + datarow.name);
+                //console.log("county_num:: " + datarow.county_num);
+                //console.log("economic_region:: " + datarow.economic_region);
+
+              //})
+
+              //console.log('topodata: ', topodata)
+
+              //geojsonLayer.clearLayers(); // Clear prior
+              //        layerControl_CountyMap.clearLayers();
+
+              
+
+              //console.log('neigh', neighbors)
+           //}
+          //catch(e){
+          //  geojson = {};
+          //   console.log(e)
+          //}
+
+
+          //console.log(topodata)
+
+
+
+
+        //// USA
+        //var lat = 38.3;
+        //var lon = -96.5;
+        //var zoom = 5;
+
+        // Georgia 32.1656° N, 82.9001° W
+        var latX = 32.16;
+        var lat = 32.69;
+        var lon = -83.2;
+        var lonX = -81.8;
+        var mapCenter = [lat,lon];
+        var zoom = 7;
+        let theState = $("#state_select").find(":selected").val();
+        if (hash.state != "GA" && theState != "GA") {
+          zoom = 2;
+        }
+        
+        //var layer = "terrain";
+        if (param.geo == "US01" || param.state == "AL") { // Temp
+          lon = -86.7;
+        }
+        var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZWUyZGV2IiwiYSI6ImNqaWdsMXJvdTE4azIzcXFscTB1Nmcwcm4ifQ.hECfwyQtM7RtkBtydKpc5g';
+
+        var grayscale = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
+            satellite = L.tileLayer(mbUrl, {id: 'mapbox.satellite',   attribution: mbAttr}),
+            streets = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
+
+        var OpenStreetMap_BlackAndWhite = L.tileLayer('//{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        });
+
+        let dataParameters = {}; // Temp
+
+        let map;
+        if (document.querySelector('#' + whichmap)) {
+          map = document.querySelector('#' + whichmap)._leaflet_map; // Recall existing map
+        }
+        var container = L.DomUtil.get(map);
+        //if (container == null || map == undefined || map == null) { // Does not work
+
+          // Don't add, breaks /info
+          // && $('#' + whichmap).html()
+        //if ($('#' + whichmap) && $('#' + whichmap).html().length == 0) { // Note: Avoid putting loading icon within map div.
+            //alert("set " + whichmap)
+
+       //var container = L.DomUtil.get(map);
+       if (container == null) { // Initialize map
+
+          map = L.map(whichmap, {
+            center: new L.LatLng(lat,lon),
+            scrollWheelZoom: false,
+            zoom: zoom,
+            dragging: !L.Browser.mobile, 
+            tap: !L.Browser.mobile
+          });
+
+      } else if (geojsonLayer) {
+        //alert("Remove the prior topo layer")
+        // To do: 
+
+        // Causes error in /map : leaflet.js:5 Uncaught TypeError: Cannot read property '_removePath' of undefined
+        if(map.hasLayer(geojsonLayer)) {
+          //alert("HAS LAYER")
+          map.removeLayer(geojsonLayer); // Remove the prior topo layer
+          //map.geojsonLayer.clearLayers();
+        }
+        //map.geojsonLayer.clearLayers(); // Clear prior
+
+        //alert("zoom " + zoom);
+        map.setView(mapCenter,zoom);
+
+        // setView(lng, lat, zoom = zoom_level)
+      }
+
+      if (map) {
+          //alert("map - populate geojsonLayer")
+        geojsonLayer = L.geoJson(topodata, {style:styleShape, onEachFeature: onEachFeature}).addTo(map); // Called within addTo(map)
+      } else {
+        console.log("WARNING - map not available from _leaflet_map")
+      }
+
+        var baseLayers = {
+          "Open Street Map": OpenStreetMap_BlackAndWhite,
+          "Grayscale Mapbox": grayscale,
+          "Streets Mapbox": streets,
+          "Satellite Mapbox": satellite
+        };
+        var overlays = {
+          "Counties": geojsonLayer
+        };
+
+
+        var basemaps1 = {
+        'Satellite' : L.tileLayer(mbUrl, {maxZoom: 25, id: 'mapbox.satellite', attribution: mbAttr}),
+        // OpenStreetMap
+        'Street Map' : L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19, attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+        }),
+        // OpenStreetMap_BlackAndWhite:
+        'Grey' : L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            maxZoom: 18, attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+        }),
+      }
+
+        //dataParameters.forEach(function(ele) {
+          //overlays[ele.name] = ele.group; // Allows for use of dp.name with removeLayer and addLayer
+          //console.log("Layer added: " + ele.name);
+        //})
+
+        //if(layerControl_CountyMap === false) { // First time, add new layer
+          // Add the layers control to the map
+        //  layerControl_CountyMap = L.control.layers(baseLayers, overlays).addTo(map);
+        //}
+
+        if (typeof layerControl != "undefined") {
+          //alert("OKAY: layerControl is available to CountyMap.")
+
+          // layerControl is declaired in map.js
+          if (layerControl[whichmap] != undefined) {
+            if (overlays["Counties"]) {
+              // Reached on county click, but shapes are not removed.
+              console.log("overlays: ");
+              console.log(overlays);
+              
+              //resetHighlight(layerControl[whichmap].);
+              // No effect
+              //layerControl[whichmap].removeLayer(overlays["Counties"]);
+
+              //geojsonLayer.remove();
+
+              // Might work a little
+
+              //alert("Remove the prior topo layer")
+              //map.removeLayer(geojsonLayer); // Remove the prior topo layer
+            }
+        }
+          // layerControl wasn't yet available in loading sequence.
+          // Could require localsite/js/map.js load first, but top maps might not always be loaded.
+          // Or only declare layerControl object if not yet declared.
+
+          if (map) {
+            if (layerControl[whichmap] == undefined) {
+            layerControl[whichmap] = L.control.layers(basemaps1, overlays).addTo(map); // Push multple layers
+            //basemaps1["Satellite"].addTo(map);
+            basemaps1["Grey"].addTo(map);
+          } else {
+            // Error: Cannot read property 'on' of undefined
+            //layerControl[whichmap].addOverlay(dp.group, dp.dataTitle); // Appends to existing layers
+          }
+      }
+
+          if(layerControl === false) {
+            
+            //layerControl = L.control.layers(baseLayers, overlays).addTo(map);
+          }
+        }
+
+        // Remove - clear the markers from the map for the layer
+         //if (map.hasLayer(overlays1[dp.dataTitle])){
+         //   overlays1[dp.dataTitle].remove();
+         //}
+         //if (map.hasLayer(overlays["Counties"])){
+         //   alert("found layer")
+            //no effect
+              //overlays["Counties"].remove();
+         //}
+
+        // Make a layer active. 
+        // Seems to prevent error
+        //geojsonLayer.addTo(map);
+        
+        
+
+        // To add additional layers:
+        //layerControl.addOverlay(dp.group, dp.name); // Appends to existing layers
+
+
+          /* Rollover effect */
+          function highlightFeature(e){
+            var layer = e.target;
+            layer.setStyle({
+              weight: 3,
+              color: '#665',
+              dashArray: '',
+              fillOpacity: .7})
+              if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+              }
+            // Send text to side box
+            info.update(layer.feature.properties);
+          }
+     
+          function resetHighlight(e){
+            geojsonLayer.resetStyle(e.target);
+            info.update();
+          }
+
+          function mapFeatureClick(e) {
+            param = loadParams(location.search,location.hash); // param is declared in localsite.js
+              var layer = e.target;
+              //map.fitBounds(e.target.getBounds()); // Zoom to boundary area clicked
+              var fips = "US" + layer.feature.properties.STATEFP + layer.feature.properties.COUNTYFP;
+              //var fipsString = fips;
+              if (param.geo && param.geo.split(",").includes(fips)) {
+              // Remove clicked fips from array, then convert back to string
+              param.geo = jQuery.grep(param.geo.split(","), function(value) {return value != fips;}).toString();
+              //fipsString = param.geo;
+            } else if (param.geo && param.geo.split(",").length > 0) {
+              param.geo = param.geo + "," + fips;
+            } else {
+              param.geo = fips;
+            }
+            //alert("mapFeatureClick " + param.geo)
+              goHash({'geo':param.geo,'regiontitle':''});
+          }
+
+          function onEachFeature(feature, layer){
+            layer.on({
+                  mouseover: highlightFeature,
+                  mouseout: resetHighlight, 
+                  click: mapFeatureClick
+            })
+          }
+
+
+          var info = L.control();
+
+          // TEMP - reactivate
+          info.onAdd = function(map) {
+            //alert("attempt")
+            if ($(".info.leaflet-control").length) {
+              $(".info.leaflet-control").remove(); // Prevent adding multiple times
+            }
+            //if (!$(".info.leaflet-control").length) { // Prevent adding multiple times
+            //  alert("does not exist")
+              this._div = L.DomUtil.create('div', 'info');
+            //} else {
+              //$(".info.leaflet-control").text("bug");
+
+              //this._div = $(".info.leaflet-control"); // Does not work
+            //}
+            this.update();
+              return this._div;
+          }
+
+          info.update = function(props){
+              if (props) {
+                $(".info.leaflet-control").show();
+              } else {
+                $(".info.leaflet-control").hide();
+              }
+              // National
+              //this._div.innerHTML = "<h4>Zip code</h4>" + (props ? props.zip + '</br>' + props.name + ' ' + props.state + '</br>' : "Hover over map")
+              
+              this._div.innerHTML = "" 
+              + (props ? "<b>" + props.NAME + " County</b><br>" : "Hover over map") 
+              + (props ? "FIPS 13" + props.COUNTYFP : "")
+              
+
+              // To fix if using state - id is not defined
+              // Also, other state files may need to have primary node renamed to "data"
+              //this._div.innerHTML = "<h4>Zip code</h4>" + (1==1 ? id + '</br>' : "Hover over map")
+          }
+          if (map) {
+            info.addTo(map);
+        }
+       }
+    }
+  });
+}
+
+
  // Anchors corresponding to menu items
 
 /*
@@ -1735,23 +2201,23 @@ function lockSidemap() {
   if (bottomReached('#hublist')) {
     if (mapFixed==true) { // Only unstick when crossing thresehold to minimize interaction with DOM.
       //console.log('bottom Visible');
-      $('.mapHolderInner').removeClass('mapHolderFixed');
-      $('.mapHolderInner').addClass('mapHolderBottom');
+      $('#mapHolderInner').removeClass('mapHolderFixed');
+      $('#mapHolderInner').addClass('mapHolderBottom');
       // Needs to be at bottom of dev
       mapFixed = false;
     }
   } else if (topReached('#hublist')) {
     if (mapFixed==false) {
-      let mapHolderInner = $('.mapHolderInner').width();
+      let mapHolderInner = $('#mapHolderInner').width();
       //alert(mapHolderInner)
-      $('.mapHolderInner').addClass('mapHolderFixed');
-      $(".mapHolderInner").css("width",mapHolderInner);
-      $('.mapHolderInner').removeClass('mapHolderBottom');
+      $('#mapHolderInner').addClass('mapHolderFixed');
+      $("#mapHolderInner").css("width",mapHolderInner);
+      $('#mapHolderInner').removeClass('mapHolderBottom');
       //alert("fixed position")
       mapFixed = true;
     }
   } else if(!topReached('#hublist') && mapFixed == true) { // Not top reached (scrolling down)
-    $('.mapHolderInner').removeClass('mapHolderFixed');
+    $('#mapHolderInner').removeClass('mapHolderFixed');
     mapFixed = false;
   }
 }
