@@ -35,7 +35,7 @@ $(document).ready(function(){
  	}
  	if (param.showhero != "false") {
  		if(location.host.indexOf('georgia') >= 0) { 
-	 		$("body").prepend( "<div class='headerImage'><img src='" + modelpath + "../io/img/hero/sustainable-communities.jpg' style='width:100%'></div>");
+	 		//$("body").prepend( "<div class='headerImage'><img src='" + modelpath + "../io/img/hero/sustainable-communities.jpg' style='width:100%'></div>");
 	 	}
 	}
  	$("body").wrapInner( "<div id='fullcolumn'></div>"); // Creates space for sidecolumn
