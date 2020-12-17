@@ -1167,7 +1167,7 @@ strVar += "          <hr style=\"margin-bottom:16px\">";
 strVar += "          <div id=\"detaillist\"><\/div>";
 strVar += "          <div id=\"narrowlist\" style=\"display:none\"><\/div>";
 strVar += "";
-strVar += "          <div id=\"dataListTop\" class='exporter localonly' style=\"display:none;overflow:auto;margin-bottom:8px\">";
+strVar += "          <div id=\"dataListTop\" class='exporter' style=\"display:none;overflow:auto;margin-bottom:8px\">";
 strVar += "";
 strVar += "            <div style='float:left'>";
 strVar += "              Select up to 10 companies when requesting contact info.";

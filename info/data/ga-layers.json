@@ -61,6 +61,7 @@ callback(
 		"title": "Bioeconomy",
 		"tabtitle": "Bioeconomy",
 		"mobiletitle": "Bioeconomy",
+		"sectionX": "Waste-to-energy / Biofuels",
 		"section": "Bioeconomy",
 		"provider": "Admin",
 		"image": "/community/img/overview/bioeconomy.jpg",

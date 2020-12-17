@@ -1,10 +1,15 @@
 # Maps For Us
 
-We're integrating [Maps For Us](https://mapsfor.us/) - a map display process using Google Sheets.    
+We're integrating [Maps For Us](https://mapsfor.us/) - a map display process using Google Sheets.  Highlight the address column and 2 adjacent columns to populate with accurate lat/lon values.      
+
+
+[EV Ecosystem Google Sheet](https://docs.google.com/spreadsheets/d/1odIH33Y71QGplQhjJpkYhZCfN5gYCA6zXALTctSavwE/edit?usp=sharing) - [map sample](map.html)  
 
 View our [Google Sheet](https://docs.google.com/spreadsheets/d/1JDD36dOvy5TWsmfg0g4r8x9MMyuidRgpJAdDFD9HiTQ/edit#gid=1284085090) and resulting [recycling map](sample.html).  
 
-Here are [5 csv datasets](https://github.com/localsite/localsite/tree/master/map/recycling/ga) to combine in the Google Sheet above.  Give each dataset imported a unique "Layer" column value.
+Here are [5 csv datasets](https://github.com/localsite/localsite/tree/master/map/recycling/ga) to combine in the Google Sheet above.  Give each dataset imported a unique "Layer" column value.  
+
+We GitHub .csv files.  We're working toward pulling map layers from Google Sheets, AirTable and
 
 <!--
 [Copy of the MapsforUS Google Sheet Template](https://docs.google.com/spreadsheets/d/e/2PACX-1vTnKsfPX1qpGjWlXLZEu-u_buC3Di-MRnUGxh7KrbR4Jo_6tSMZipnDbLNdD9S-UHReRO6Z0YbYxG1G/pubhtml). 
