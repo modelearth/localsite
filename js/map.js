@@ -47,11 +47,12 @@ function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback
   if (typeof d3 !== 'undefined') {
     if (!dp.dataset) {
       console.log('CANCEL loadFromCSV - no dataset selected for top map.');
-      $('#' + whichmap).hide();
+      $("#" + whichmap).hide();
+      $("#data-section").hide();
       return;
     } else {
       console.log('loadFromCSV into #' + whichmap);
-      $('#' + whichmap).show();
+      $("#" + whichmap).show();
     }
     let defaults = {};
     defaults.zoom = 7;
@@ -841,16 +842,14 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     //  https://model.earth/community-data/us/state/GA/VirtualTourSites.csv
 
   } else if (show == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
-    dp1.listTitle = "Data Driven Decision Making";
-    dp1.listSubtitle = "Smart & Sustainable Movement of Goods & Services";
-    // Green Locations offer <span style="white-space: nowrap">prepared food<br>Please call ahead to arrange pickup or delivery</span>
-
     
-    //community_root = "https://model.earth/community/"; // CORS would need to be adjusted on server
+    dp1.listTitle = "Data Driven Decision Making";
+    //dp1.listSubtitle = "Smart & Sustainable Movement of Goods & Services";
+    dp1.industryListTitle = "EV Ecosystem";
+
     console.log("map.js loading " + dual_map.custom_data_root() + "communities/map-georgia-smart.csv");
 
     dp1.dataset =  dual_map.custom_data_root() + "communities/map-georgia-smart.csv";
-    //alert(dp1.dataset)
     dp1.listInfo = "Includes Georgia Smart Community Projects";
     dp1.search = {"In Title": "title", "In Description": "description", "In Website URL": "website", "In Address": "address", "In City Name": "city", "In Zip Code" : "zip"};
 
@@ -863,7 +862,7 @@ function loadMap1(show, dp) { // Also called by map-filters.js
       dp1.zoom = 12; // 14;
     }
     dp1.markerType = "google";
-     
+    dp1.showShapeMap = true;
 
   } else if (show == "logistics") { // "http://" + param["domain"]
 
@@ -892,13 +891,14 @@ function loadMap1(show, dp) { // Also called by map-filters.js
 
     dp1.listLocation = false;
     dp1.addLink = "https://www.georgia.org/covid19response"; // Not yet used
+
   } else if (show == "suppliers" || show == "ppe") { // "http://" + param["domain"]
 
     dp1.listTitle = "Georgia COVID-19 Response";
     dp1.listTitle = "Georgia Suppliers of&nbsp;Critical Items <span style='white-space:nowrap'>to Fight COVID-19</span>"; // For iFrame site
 
-    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-12/ga_suppliers_list_12-2-2020.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
-    dp1.dataset = "https://map.georgia.org/display/products/suppliers/us_ga_suppliers_ppe_2020_12_02.csv";
+    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2020-12/ga_suppliers_list_12-16-2020.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
+    dp1.dataset = "https://map.georgia.org/display/products/suppliers/us_ga_suppliers_ppe_2020_12_16.csv";
     //dp1.dataset = "/display/products/suppliers/us_ga_suppliers_ppe_2020_06_17.csv";
 
     dp1.dataTitle = "Manufacturers and Distributors";
@@ -1028,6 +1028,7 @@ function loadMap1(show, dp) { // Also called by map-filters.js
 
 
 function showList(dp,map) {
+  
   var iconColor, iconColorRGB;
   var colorScale = dp.scale;
   let count = 0;
@@ -1455,11 +1456,18 @@ function showList(dp,map) {
       output += "</div>"; // End detail
 
       $("#detaillist").append(output);
+
     }
     
-
   });
+
+  if (!(param["show"] == "suppliers" || param["show"] == "ppe")) {
+    setTimeout(function(){ 
+      $( "#detaillist > div:first-of-type" ).trigger("click");
+    }, 500);
+  }
   
+
   // BUGBUG - May need to clear first to avoid multiple calls.
   $('.detail').mouseover(
       function() { 
