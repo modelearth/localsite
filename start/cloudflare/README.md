@@ -2,7 +2,9 @@
 
 Cloudflare provides free and easy DNS managment, proxy service for fast page loading, https routing using one CertifytheWeb cert [in IIS](https://model.earth/setup) for multiple domains.  Using CNAME records, you can point one domain at multiple Github repos. ([See step 4](../../start/))
 
-You may want to leave off the proxy service for some domains. (With the proxy on, sometimes you'll  used the cache clearing button to view recent file changes.)
+You may want to leave off the proxy service for some domains. (With the proxy on, sometimes you'll need to  use the Cloudflare cache clearing button to view recent file changes.)
+
+Important: Turn on the proxy service for domains receiving a lot of traffic, otherwise you may exceed GitHubs allowed traffic levels.
 
 During setup, Cloudflare will provide nameservers to enter at your current registrar.  
 You can transfer an existing domain to Cloudflare for cheaper hosting.  
@@ -45,5 +47,5 @@ Choose "Forwarding URL"
 https://yourdomain.com/#go=$2  
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjc4NDM3NTkyXX0=
+eyJoaXN0b3J5IjpbLTkyMjA3MDM5OF19
 -->
