@@ -141,16 +141,7 @@ Edit using [stackedit.io](https://stackedit.io/)
 
 Examples of editing using markdown language [Markdown to HTML (Dillinger)](https://dillinger.io/)  
 
-Learn more about [JAM Stack Development](https://jamstack.org) - the process of creating fast sites using static pages with CSV files, JSON and APIs. 
-
-<!--
-Advanced: Pre-process with [Gatsby](https://www.gatsbyjs.org/) which delivers static content enfused with React. 
--->
-
-
-
-<br>
- 
+Learn more about [JAM Stack Development](https://jamstack.org) - the process of creating fast sites using static pages with CSV files, JSON and APIs.
 <!--stackedit_data:
 eyJkaXNjdXNzaW9ucyI6eyJUVnA4TEhxcU93YTk2N1Y2Ijp7In
 N0YXJ0Ijo3MTU5LCJlbmQiOjcxNjMsInRleHQiOiJFZGl0In19
@@ -158,6 +149,6 @@ LCJjb21tZW50cyI6eyJoZnUwbjMwM0RrdEV6d25uIjp7ImRpc2
 N1c3Npb25JZCI6IlRWcDhMSHFxT3dhOTY3VjYiLCJzdWIiOiJn
 aDoyNjAwNDIzOSIsInRleHQiOiJJcyBhbnlvbmUgZWxzZSB1c2
 luZyBzdGFja2VkaXQuaW8/IEl0J3MgY29vbC4iLCJjcmVhdGVk
-IjoxNjA4MzkzMTE2NjUxfX0sImhpc3RvcnkiOlsxNDE5NjQxMz
-kxXX0=
+IjoxNjA4MzkzMTE2NjUxfX0sImhpc3RvcnkiOlsxNzcyNzQ2OD
+Y5LDE0MTk2NDEzOTFdfQ==
 -->
