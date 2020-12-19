@@ -6,7 +6,7 @@ You may want to leave off the proxy service for some domains. (With the proxy on
 
 Important: Turn on the proxy service for domains receiving a lot of traffic, otherwise you may exceed GitHubs allowed traffic levels.
 
-Nice overview of the advantages of combining GitHub with Cloudflare.
+Nice overview of the [advantages of combining GitHub with Cloudflare](https://www.toptal.com/github/unlimited-scale-web-hosting-github-pages-cloudflare).
 
 During setup, Cloudflare will provide nameservers to enter at your current registrar.  
 You can transfer an existing domain to Cloudflare for cheaper hosting.  
@@ -49,5 +49,5 @@ Choose "Forwarding URL"
 https://yourdomain.com/#go=$2  
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDM2ODQyNDAyXX0=
+eyJoaXN0b3J5IjpbLTE4ODI2NjM2ODQsNDM2ODQyNDAyXX0=
 -->
