@@ -140,9 +140,12 @@ To activate GitHub Pages on your fork’s settings page, set the Github Pages So
 
 Edit using [stackedit.io](https://stackedit.io/)
 
-Examples of editing using markdown language [Markdown to HTML (Dillinger)](https://dillinger.io/)  
+Another great markdown editor: [Dillinger Markdown to HTML](https://dillinger.io/)  
 
-Learn more about [JAM Stack Development](https://jamstack.org) - the process of creating fast sites using static pages with CSV files, JSON and APIs.
+Learn more about [JAM Stack Development](https://jamstack.org) - the process of creating fast sites using static pages with CSV files, JSON and APIs.  
+
+[AWS Amplify, plus more static site hosting options](../../amplify/AWS/) - Azure, Firebase, GitHub Pages, Netlify and more.
+
 <!--stackedit_data:
 eyJkaXNjdXNzaW9ucyI6eyJUVnA4TEhxcU93YTk2N1Y2Ijp7In
 N0YXJ0Ijo3MTU5LCJlbmQiOjcxNjMsInRleHQiOiJFZGl0In19
