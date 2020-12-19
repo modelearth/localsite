@@ -4,7 +4,8 @@
 
 The Localsite Framework is designed to allow multiple Github repos (using JQuery, React,&nbsp;Vue, etc.) to communicate using hash values.  
 
-
+[Edit in Github](https://github.com/localsite/localsite/blob/master/start/README.md) - 
+[Edit in StackEdit](https://stackedit.io/app#providerId=githubWorkspace&owner=localsite&repo=localsite&branch=) - Click folder icon in upper right within StackEdit. ([Direct links are not yet available in StackEdit](https://community.stackedit.io/t/open-file-from-github-using-a-link/495))
 
 ## 1. Start a localhost server on your computer
 
