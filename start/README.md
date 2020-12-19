@@ -137,6 +137,8 @@ To activate GitHub Pages on your fork’s settings page, set the Github Pages So
 
 ## Additional Resources
 
+Edit using [stackedit.io
+
 Examples of editing using markdown language [Markdown to HTML (Dillinger)](https://dillinger.io/)  
 
 Learn more about [JAM Stack Development](https://jamstack.org) - the process of creating fast sites using static pages with CSV files, JSON and APIs. 
@@ -149,3 +151,6 @@ Advanced: Pre-process with [Gatsby](https://www.gatsbyjs.org/) which delivers st
 
 <br>
  
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTcyOTU4MDc4N119
+-->
