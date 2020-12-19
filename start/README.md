@@ -109,7 +109,7 @@ To activate GitHub Pages on your fork’s settings page, set the Github Pages So
 
 ### How to host multiple repos in one site using Github Pages - without using subdomains
 
-- Use CloudFlare.com as a free proxy for your domain name - [setup steps](cloudflare/)  
+- Use CloudFlare.com as a free proxy for your domain name - [setup steps](cloudflare/) - [more about Cloudflare with GitHub](https://www.toptal.com/github/unlimited-scale-web-hosting-github-pages-cloudflare)  
 - Important: Avoid adding the 4 Google A records (these prevent adding the CNAME record).  
 - Create a repo in your primary account matching the name of the account: [github username].github.io  
 - Click settings and activate GitHub Pages for your [github username].github.io and each repo that is a subfolder in your site.  
