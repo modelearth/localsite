@@ -137,7 +137,7 @@ To activate GitHub Pages on your fork’s settings page, set the Github Pages So
 
 ## Additional Resources
 
-Edit using [stackedit.io
+Edit using [stackedit.io](https://stackedit.io/)
 
 Examples of editing using markdown language [Markdown to HTML (Dillinger)](https://dillinger.io/)  
 
@@ -152,5 +152,12 @@ Advanced: Pre-process with [Gatsby](https://www.gatsbyjs.org/) which delivers st
 <br>
  
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTcyOTU4MDc4N119
+eyJkaXNjdXNzaW9ucyI6eyJUVnA4TEhxcU93YTk2N1Y2Ijp7In
+N0YXJ0Ijo3MTU5LCJlbmQiOjcxNjMsInRleHQiOiJFZGl0In19
+LCJjb21tZW50cyI6eyJoZnUwbjMwM0RrdEV6d25uIjp7ImRpc2
+N1c3Npb25JZCI6IlRWcDhMSHFxT3dhOTY3VjYiLCJzdWIiOiJn
+aDoyNjAwNDIzOSIsInRleHQiOiJJcyBhbnlvbmUgZWxzZSB1c2
+luZyBzdGFja2VkaXQuaW8/IEl0J3MgY29vbC4iLCJjcmVhdGVk
+IjoxNjA4MzkzMTE2NjUxfX0sImhpc3RvcnkiOlsxNDE5NjQxMz
+kxXX0=
 -->
