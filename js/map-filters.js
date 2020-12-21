@@ -1638,7 +1638,7 @@ googlePlacesApiLoaded(1);
           {types: ['establishment', 'geocode']}
         );
         this.autocomplete.addListener('place_changed', this.getPlaceData);
-      },3000)
+      },6000)
     },
     data: {
       lat: '',
@@ -1687,6 +1687,80 @@ document.addEventListener('hashChangeEvent', function (elem) {
  	refreshWidgets();
 }, false);
 
+if(typeof hiddenhash == 'undefined') {
+    var hiddenhash = {};
+}
+function getNaics_setHiddenHash(go) {
+    //alert("getNaics_setHiddenHash: " + go);
+    let cat_filter = [];
+    
+    // NAICS FROM community/projects/biotech
+    var bio_input = "113000,321113,113310,32121,32191,562213,322121,322110,"; // Omitted 541620
+    var bio_output = "325211,325991,3256,335991,325120,326190,";
+    var green_energy = "221117,221111,221113,221114,221115,221116,221118,";
+    var fossil_energy = "221112,324110,325110,";
+    let electric = "335910,335911,335912,";
+    var auto_parts = "336390,336211,336340,336370,336320,336360,331221,336111,336330,";
+    var parts = "336412,336413,339110,333111,325211,326112,332211,336370,336390,326199,331110,336320,";
+    var combustion_engine = "333613,326220,336350,336310,333618,";
+    var parts_carpets = "325520,314110,313110,313210,"
+    var ppe_suppliers = "622110,621111,325414,339113,423450,"
+    var farmfresh = "311612,311615,311911,311919,311830,311824,311941,311710,311611,115114,311613,311811,311942,311991,311999,311211,311224,311920,"
+
+    if (params.naics) {
+        cat_filter = params.naics.split(',');
+    }
+    else if (go){
+        if (go == "bioeconomy") {
+            cat_filter = (bio_input + bio_output + green_energy + fossil_energy).split(',');
+        }
+        else if (go == "farmfresh") {
+            cat_filter = (farmfresh).split(',');
+        }
+        else if (go == "smart") {
+            cat_filter = (electric + auto_parts).split(',');
+        }
+        else if (go == "parts") {
+            cat_filter = (electric + auto_parts + parts + combustion_engine).split(',');
+        }
+        else if (go == "ppe") {
+            cat_filter = (ppe_suppliers).split(',');
+        }
+        if (cat_filter.length) {
+            cat_filt=[]
+            for(i=0;i<cat_filter.length;i++){
+                cat_filt.push(cat_filter[i].slice(0,6));
+            }
+            cat_filter=cat_filt
+            //console.log(cat_filter)
+        }
+    }
+    if(go=="manufacturing"){
+        cat_filter=["manufacturing placeholder"]
+    }
+    // TO DO: Retain other values within hiddenhash
+
+    // Convert to object
+    /*
+    let pairs = hiddenhash.split('&');
+    pairs.forEach(function(pair) {
+        pair = pair.split('=');
+        if(pair[1]) {
+            hiddenhashObject[pair[0]] = decodeURIComponent(pair[1] || '');
+        }
+    });
+    */
+
+    hiddenhash.naics = cat_filter.join(); // Override the existing naics
+
+    // Convert back to string
+    //hiddenhash = decodeURIComponent($.param(hiddenhashObject)); // Convert to query string, and remove encoding of commas
+
+    //alert(hiddenhash);
+
+    return cat_filter;
+}
+
 function refreshWidgets() {
   	
 	let reloadedMap = false;
@@ -1715,6 +1789,21 @@ function refreshWidgets() {
 		} else {
 			$("#appMenu").attr("placeholder","Top Industries");
 		}
+
+		if (hash.go == "farmfresh") {
+			$(".data-section").show();
+		} else if (hash.go == "ppe") {
+			$(".data-section").show();
+			$(".suppliers").show();
+		} else {
+			$(".data-section").hide();
+			$(".suppliers").hide();
+		}
+
+		getNaics_setHiddenHash(hash.go); // Sets hiddenhash.naics for use by other widgets.
+
+		hash.naics = ""; // Since go value invokes hiddenhash
+		// Then call applyIO at end of this refreshWidgets function
 	}
 	if (hash.geomap) {
 		$("#infoColumn").show();
@@ -1759,17 +1848,6 @@ function refreshWidgets() {
 	}
 	*/
 
-	if (hash.go != priorHash.go) {
-		if (hash.go == "farmfresh") {
-			$(".data-section").show();
-		} else if (hash.go == "ppe") {
-			$(".data-section").show();
-			$(".suppliers").show();
-		} else {
-			$(".data-section").hide();
-			$(".suppliers").hide();
-		}
-	}
 
 	if (hash.geo != priorHash.geo) {
 		if (hash.geo && hash.geo.length > 4) { 
@@ -1895,6 +1973,11 @@ function refreshWidgets() {
 		$("#indicators").val(param.indicators);
 	}
 	priorHash = getHash();
+
+	// TEMP
+	if (hash.go != priorHash.go) {
+		applyIO(hiddenhash.naics);
+	}
 }
 
 // INIT
