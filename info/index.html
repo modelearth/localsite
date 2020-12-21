@@ -555,7 +555,35 @@ function applyIO(naics) { // Called from naics.js
     //naics = naics + "311615,311812,321113,221112,113310,322110,311821,311612,325211,311813,311911,311919,311830,311119,322121,311824,311941,325991,311710,311930";
 
     var naicsCodes = naics.split(',');
-    var handled = {};
+    //var handled = {};
+
+    // Likely occurs before naics.js sets hiddenhash.naics
+    if(typeof hiddenhash == 'undefined') {
+	    var hiddenhash = {};
+	}
+
+
+	var indicators = "VADD";
+	let hash = getHash();
+	if (hash.indicators) {
+		indicators = hash.indicators;
+	}
+
+	var indicatorCodes = indicators.split(',');
+
+	// Probably not working, using config.update below instead.
+
+    hiddenhash.naics = naicsCodes;
+    hiddenhash.indicators = indicatorCodes;
+    hiddenhash.count = 10;
+
+    /*
+    hiddenhash = {
+        indicators: "VADD",
+        naics: naics,
+        count: 20
+    };
+	*/
 
     // Either array or comma separated list works
     //var beaCodes = useeio.toBEA(['11', '22']);
@@ -589,12 +617,15 @@ function applyIO(naics) { // Called from naics.js
 
 
 	// 
-	let hash = getHash();
+	//
 	//if (!hash.go && !hash.geo && !hash.catsort && !hash.catsize) {
-		//	BUGBUG - Causes all other hash values to be lost
-		//config.update({naics: naicsCodes, count: 20}); // filters the BEA sectors
 
-		
+		//	BUGBUG - THIS NEEDS TO STOP POPULATING NAICS IN THE HASH. FIND OTHER WAY.
+
+		//config.update({naics: naicsCodes, count: 20}); // filters the BEA sectors
+		config.update({naics: naicsCodes, count: 20, indicators: indicatorCodes}); // filters the BEA sectors
+		//config.update(hiddenhash);
+
 		//document.dispatchEvent(new CustomEvent('hashChangeEvent'));
 
 	//}
@@ -637,6 +668,10 @@ function applyIO(naics) { // Called from naics.js
         sectorList.update(config);
     });
     */
+
+    // TEMP - Remove NAICS from has manually
+    //updateHash({'naics':''});
+
 }
 </script>
 
@@ -744,7 +779,7 @@ function applyIO(naics) { // Called from naics.js
 
             	location.reload() is a temporary fix since mosaic is not triggered by change to hash.
             -->
-			<select id="indicators" class="filterClickX form-selectX picklist" onchange="goHash({'indicators':this.value});location.reload();" style="min-width:400px;margin:10px 0 0 0">
+			<select id="indicators" class="filterClickX form-selectX picklist" onchange="goHash({'indicators':this.value});" style="min-width:400px;margin:10px 0 0 0">
 
 			<option value="">Select impact area...</option>
 

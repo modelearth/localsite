@@ -4,7 +4,8 @@
 
 The Localsite Framework is designed to allow multiple Github repos (using JQuery, React,&nbsp;Vue, etc.) to communicate using hash values.  
 
-
+[Edit in Github](https://github.com/localsite/localsite/blob/master/start/README.md) - 
+[Edit in StackEdit](https://stackedit.io/app#providerId=githubWorkspace&owner=localsite&repo=localsite&branch=) - Click folder icon in upper right within StackEdit. ([Direct links are not yet available in StackEdit](https://community.stackedit.io/t/open-file-from-github-using-a-link/495))
 
 ## 1. Start a localhost server on your computer
 
@@ -109,7 +110,7 @@ To activate GitHub Pages on your fork’s settings page, set the Github Pages So
 
 ### How to host multiple repos in one site using Github Pages - without using subdomains
 
-- Use CloudFlare.com as a free proxy for your domain name - [setup steps](cloudflare/)  
+- Use CloudFlare.com as a free proxy for your domain name - [setup steps](cloudflare/) - [more about Cloudflare with GitHub](https://www.toptal.com/github/unlimited-scale-web-hosting-github-pages-cloudflare)  
 - Important: Avoid adding the 4 Google A records (these prevent adding the CNAME record).  
 - Create a repo in your primary account matching the name of the account: [github username].github.io  
 - Click settings and activate GitHub Pages for your [github username].github.io and each repo that is a subfolder in your site.  
@@ -137,15 +138,21 @@ To activate GitHub Pages on your fork’s settings page, set the Github Pages So
 
 ## Additional Resources
 
-Examples of editing using markdown language [Markdown to HTML (Dillinger)](https://dillinger.io/)  
+Edit using [stackedit.io](https://stackedit.io/)
 
-Learn more about [JAM Stack Development](https://jamstack.org) - the process of creating fast sites using static pages with CSV files, JSON and APIs. 
+Another great markdown editor: [Dillinger Markdown to HTML](https://dillinger.io/)  
 
-<!--
-Advanced: Pre-process with [Gatsby](https://www.gatsbyjs.org/) which delivers static content enfused with React. 
+Learn more about [JAM Stack Development](https://jamstack.org) - the process of creating fast sites using static pages with CSV files, JSON and APIs.  
+
+[AWS Amplify, plus more static site hosting options](../../amplify/AWS/) - Azure, Firebase, GitHub Pages, Netlify and more.
+
+<!--stackedit_data:
+eyJkaXNjdXNzaW9ucyI6eyJUVnA4TEhxcU93YTk2N1Y2Ijp7In
+N0YXJ0Ijo3MTU5LCJlbmQiOjcxNjMsInRleHQiOiJFZGl0In19
+LCJjb21tZW50cyI6eyJoZnUwbjMwM0RrdEV6d25uIjp7ImRpc2
+N1c3Npb25JZCI6IlRWcDhMSHFxT3dhOTY3VjYiLCJzdWIiOiJn
+aDoyNjAwNDIzOSIsInRleHQiOiJJcyBhbnlvbmUgZWxzZSB1c2
+luZyBzdGFja2VkaXQuaW8/IEl0J3MgY29vbC4iLCJjcmVhdGVk
+IjoxNjA4MzkzMTE2NjUxfX0sImhpc3RvcnkiOlsxNzcyNzQ2OD
+Y5LDE0MTk2NDEzOTFdfQ==
 -->
-
-
-
-<br>
- 

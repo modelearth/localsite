@@ -1,7 +1,6 @@
 # Maps For Us
 
-We're integrating [Maps For Us](https://mapsfor.us/) - a map display process using Google Sheets.  Highlight the address column and 2 adjacent columns to populate with accurate lat/lon values.      
-
+We're planning to update [Maps For Us](https://mapsfor.us/) to auto-geocode new addresses as they are added to the Google Sheet. Currently you have to highlight the address column and its 2 adjacent lat/lon columns to geocode using the manual steps below.  
 
 [EV Ecosystem Google Sheet](https://docs.google.com/spreadsheets/d/1odIH33Y71QGplQhjJpkYhZCfN5gYCA6zXALTctSavwE/edit?usp=sharing) - [map sample](map.html)  
 
