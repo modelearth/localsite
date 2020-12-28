@@ -2,7 +2,7 @@
 
 We're planning to update [Maps For Us](https://mapsfor.us/) to auto-geocode new addresses as they are added to the Google Sheet. Currently you have to highlight the address column and its 2 adjacent lat/lon columns to geocode using the manual steps below.  
 
-[EV Ecosystem Google Sheet](https://docs.google.com/spreadsheets/d/1odIH33Y71QGplQhjJpkYhZCfN5gYCA6zXALTctSavwE/edit?usp=sharing) - [map sample](map.html)  
+[EV Ecosystem Google Sheet](https://docs.google.com/spreadsheets/d/1odIH33Y71QGplQhjJpkYhZCfN5gYCA6zXALTctSavwE/edit?usp=sharing) - [Mapbox Google Sheet map sample](map.html)  
 
 View our [Google Sheet](https://docs.google.com/spreadsheets/d/1JDD36dOvy5TWsmfg0g4r8x9MMyuidRgpJAdDFD9HiTQ/edit#gid=1284085090) and resulting [recycling map](sample.html).  
 
