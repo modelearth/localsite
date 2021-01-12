@@ -1,4 +1,8 @@
-## Data Preparation 
+## BEA Data Preparation 
+
+[Prior Data Processing Python Script for BEA data](https://github.com/modelearth/community-data/blob/master/process/python/us_econ.ipynb) - Edit locally using [Anaconda Jupyter Notebook](https://jupyter.org/install)  
+
+Methodology Discontinued: Some industries lacked payroll estimates at both the county and state level.  This occurs for approximately 80 of 388 industries in Georgia. For example, payroll for Georgia's 9 automotive manufacturers is not included in the U.S. Bureau of Economic Analysis (BEA) industry data. US census privacy protection rules omit company payroll when only 1 or 2 establishments reside in a county.  
 
 The census publishes payroll and employee counts by county for industries with 3 or more establishments. Sometimes industries with up to 27 establishments are also unpublished. Values are available as aggregates within a state total for each industry.  
 

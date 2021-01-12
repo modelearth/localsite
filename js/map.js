@@ -1038,24 +1038,14 @@ function loadMap1(show, dp) { // Also called by map-filters.js
 function getMapframe(element) {
   if (element.virtual_tour) {
     if (element.virtual_tour.toLowerCase().includes("kuula.co")) {
+      // viewID resides at the end of Kuula incomoing link.
       let pieces = element.virtual_tour.split("/");
       let viewID = pieces[pieces.length-1];
-      //element.mapframe = "https://kuula.co/share/collection/" + viewID + "?fs=1&vr=1&zoom=0&initload=1&thumbs=1&chromeless=1&logo=-1";
-      //element.mapframe = "https://kuula.co/share/collection/" + viewID + "?fs=1&vr=1&initload=1&thumbs=1&chromeless=1&logo=-1";
+      // Embed Format: "https://kuula.co/share/collection/" + viewID + "?fs=1&vr=1&zoom=0&initload=1&thumbs=1&chromeless=1&logo=-1";
       element.mapframe = "kuula_" + viewID;
     } else {
-      // https://roundme.com/tour/463798/view/1595277/
-      //element.mapframe = "https://roundme.com/embed/463798/1595277";
-      // replace("https://roundme.com/viewgallery/","").
-
-      // Does not work
-      // http://localhost:8887/localsite/map/#show=360&m=roundme_2990/539334
-
-      // https://roundme.com/viewgallery/2990/539334
-
-      // https://roundme.com/embed/539334/1778752
-      
-
+      // Incoming: https://roundme.com/tour/463798/view/1595277/
+      // Embed Format: https://roundme.com/embed/463798/1595277
       element.mapframe = "roundme_" + element.virtual_tour.replace("https://roundme.com/tour/","").replace("view/","");
     }
   }

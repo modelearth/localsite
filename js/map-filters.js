@@ -1953,11 +1953,8 @@ function refreshWidgets() {
 	    	} else if (hash.m == "peach") {
 	    		mapframe = "https://kuula.co/share/collection/7PYZK?fs=1&vr=1&zoom=0&initload=1&thumbs=1&chromeless=1&logo=-1";
 	    	} else if (hash.m.includes("kuula_")) {
-	    		//mapframe = "https://kuula.co/share/collection/7PYZK?fs=1&vr=1&zoom=0&initload=1&thumbs=1&chromeless=1&logo=-1";
-
 	    		mapframe = "https://kuula.co/share/collection/" + hash.m.replace("kuula_","") + "?fs=1&vr=1&zoom=1&initload=1&thumbs=1&chromeless=1&logo=-1";
 	    	} else if (hash.m.includes("roundme_")) {
-	    		//mapframe = "https://roundme.com/embed/463798/1595277";
 	    		mapframe = "https://roundme.com/embed/" + hash.m.replace("roundme_","");
 	    	} else {
 	    		//alert(hash.m)
