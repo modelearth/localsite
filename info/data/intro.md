@@ -16,12 +16,10 @@ Note that only 4-digit NAICS resides in "By-Industry" in [BLS downloadable files
 
 Output to [state data files](https://github.com/modelearth/community-data/tree/master/us/state)    
 
-Output 5 columns: fips, naics, employees, payroll and firms (establishment count)
+Output 5 columns with names: fips, naics, employees, wages and firms (establishment count)
 
 - Location (fips for county)  
 - ActivityProducedBy (6-digit naics)  
-- FlowAmount (Number of Employees)  
-- Payroll  
-- Extablishments  
-
-Note: The BLS QCEW FlowByActivity datasets that are hosted on Data Commons are updated to include county level data, so you can use the sample code below to retrieve the datasets.
+- Employment FlowAmount (Number of Employees)  
+- Money (Annual Wages)
+- Other (Number of Extablishments)  
