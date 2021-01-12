@@ -56,6 +56,46 @@ callback(
 	},
 	{
 		"menulevel": "1",
+		"item": "parts",
+		"rootfolder": "info",
+		"title": "Parts Manufacturing",
+		"tabtitle": "Parts Manufacturing",
+		"mobiletitle": "Parts Manufacturing",
+		"section": "Parts Manufacturing",
+		"provider": "Admin",
+		"image": "/community/img/overview/robots-auto-crop.jpg",
+		"siteHeaderHeight": "10px",
+		"siteHeaderHeightMax": "230px",
+		"icon": "<i class='material-icons'>&#xE87A;</i>",
+		"hideOverlaysButton": "true",
+		"sectionTitle": "leftNav",
+		"topnavaccess": "10",
+		"menuaccess": "0",
+		"directlink": "/localsite/info/#go=parts",
+		"caption": ""
+	},
+	{
+		"menulevel": "1",
+		"item": "vehicles",
+		"rootfolder": "info",
+		"title": "Electric Vehicles",
+		"tabtitle": "Electric Vehicles",
+		"mobiletitle": "Electric Vehicles",
+		"section": "Electric Vehicles",
+		"provider": "Admin",
+		"image": "/community/img/overview/ev.jpg",
+		"siteHeaderHeight": "10px",
+		"siteHeaderHeightMax": "230px",
+		"icon": "<i class='material-icons'>&#xE87A;</i>",
+		"hideOverlaysButton": "true",
+		"sectionTitle": "leftNav",
+		"topnavaccess": "10",
+		"menuaccess": "0",
+		"directlink": "/localsite/info/#go=vehicles",
+		"caption": ""
+	},
+	{
+		"menulevel": "1",
 		"item": "bioeconomy",
 		"rootfolder": "info",
 		"title": "Bioeconomy",
@@ -75,48 +115,6 @@ callback(
 		"directlink": "/localsite/info/#go=bioeconomy",
 		"caption": ""
 	},
-	{
-		"menulevel": "1",
-		"item": "parts",
-		"rootfolder": "info",
-		"title": "Parts Manufacturing",
-		"tabtitle": "Parts Manufacturing",
-		"mobiletitle": "Parts Manufacturing",
-		"section": "Parts Manufacturing",
-		"provider": "Admin",
-		"image": "/community/img/overview/robots-auto-crop.jpg",
-		"siteHeaderHeight": "10px",
-		"siteHeaderHeightMax": "230px",
-		"icon": "<i class='material-icons'>&#xE87A;</i>",
-		"hideOverlaysButton": "true",
-		"sectionTitle": "leftNav",
-		"topnavaccess": "10",
-		"menuaccess": "0",
-		"directlink": "/localsite/info/#go=parts",
-		"caption": ""
-	},
-	/*
-	{
-		"menulevel": "1",
-		"item": "vehicles",
-		"rootfolder": "info",
-		"title": "EV Ecosystem",
-		"tabtitle": "EV Ecosystem",
-		"mobiletitle": "EV Ecosystem",
-		"section": "EV Ecosystem",
-		"provider": "Admin",
-		"image": "/community/img/overview/robots-auto-crop.jpg",
-		"siteHeaderHeight": "10px",
-		"siteHeaderHeightMax": "230px",
-		"icon": "<i class='material-icons'>&#xE87A;</i>",
-		"hideOverlaysButton": "true",
-		"sectionTitle": "leftNav",
-		"topnavaccess": "10",
-		"menuaccess": "0",
-		"directlink": "/localsite/info/#go=vehicles",
-		"caption": ""
-	},
-	*/
 	{
 		"menulevel": "1",
 		"item": "recycling",
@@ -152,7 +150,7 @@ callback(
 		"sectionTitle": "leftNav",
 		"topnavaccess": "10",
 		"menuaccess": "0",
-		"directlink": "/localsite/info/#go=farmfresh",
+		"directlink": "/localsite/map/#show=farmfresh",
 		"caption": ""
 	},
 	{
@@ -195,7 +193,21 @@ callback(
 		"directlink": "/localsite/info/#go=ppe",
 		"caption": ""
 	},
-
+	{
+		"menulevel": "1",
+		"item": "360",
+		"title": "360 Views",
+		"tabtitle": "360 Views",
+		"mobiletitle": "360 Views",
+		"section": "Birdseye Views",
+		"provider": "Admin",
+		"image": "/community/img/overview/aerospace-crop.jpg",
+		"icon": "",
+		"menuaccess": "0",
+		"directlink": "/localsite/map/#show=360",
+		"caption": ""
+	},
+	
   ]
 }
 );

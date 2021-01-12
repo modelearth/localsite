@@ -1,4 +1,3 @@
-
 // For autocomplete - Vue could be removed - Source: https://cdn.jsdelivr.net/npm/vue
 /*!
  * Vue.js v2.6.12
@@ -1726,6 +1725,10 @@ function getNaics_setHiddenHash(go) {
         else if (go == "ppe") {
             cat_filter = (ppe_suppliers).split(',');
         }
+        else if (go == "vehicles") {
+        	//alert("go vehicles")
+            cat_filter = (electric + auto_parts + parts).split(',');
+        }
         if (cat_filter.length) {
             cat_filt=[]
             for(i=0;i<cat_filter.length;i++){
@@ -1940,18 +1943,26 @@ function refreshWidgets() {
 		updateHash({'geo':'', 'regiontitle':'', 'lat':'', 'lon':''});
 		showCounties(0);
 	}
-	
 	if (hash.mapframe != priorHash.mapframe) {
 		var mapframe;
 		if (hash.mapframe) {
 	    	if (hash.mapframe == "ej") {
 	    		mapframe = "https://ejscreen.epa.gov/mapper/";
 	    	} else if (hash.mapframe == "peach") {
-
-	    		mapframe = "https://kuula.co/share/collection/7PYZK?fs=1&vr=1&zoom=1&initload=0&thumbs=1&chromeless=1&logo=-1";
 	    		mapframe = "https://kuula.co/share/collection/7PYZK?fs=1&vr=1&zoom=0&initload=1&thumbs=1&chromeless=1&logo=-1";
+	    	} else if (hash.mapframe.includes("kuula_")) {
+	    		//mapframe = "https://kuula.co/share/collection/7PYZK?fs=1&vr=1&zoom=0&initload=1&thumbs=1&chromeless=1&logo=-1";
+
+	    		mapframe = "https://kuula.co/share/collection/" + hash.mapframe.replace("kuula_","") + "?fs=1&vr=1&zoom=1&initload=1&thumbs=1&chromeless=1&logo=-1";
+	    	} else if (hash.mapframe.includes("roundme_")) {
+	    		//mapframe = "https://roundme.com/embed/463798/1595277";
+	    		mapframe = "https://roundme.com/embed/" + hash.mapframe.replace("roundme_","");
+	    	} else {
+	    		//alert(hash.mapframe)
+	    		//mapframe = hash.mapframe + "?fs=1&vr=1&zoom=0&initload=1&thumbs=1&chromeless=1&logo=-1";
+	    		//mapframe = "https://kuula.co/share/collection/7lrpl?fs=1&vr=1&zoom=0&initload=1&thumbs=1&chromeless=1&logo=-1";
+	    		mapframe = hash.mapframe;
 	    	}
-	    	
 	    	if (mapframe) {
 	    		$("#mapframe").prop("src", mapframe);
 				$("#mapframe").show();

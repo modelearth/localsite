@@ -838,9 +838,11 @@ function loadMap1(show, dp) { // Also called by map-filters.js
   //if (dp && dp[0]) { // Parameters set in page or layer json
   if (dp && dp.dataset) { // Parameters set in page or layer json
     dp1 = dp;
-  } else if (show == "virtual") {
+  } else if (show == "360") {
+    dp1.listTitle = "Birdseye Views";
     //  https://model.earth/community-data/us/state/GA/VirtualTourSites.csv
-
+    dp1.dataset =  dual_map.custom_data_root() + "360/GeorgiaPowerSites.csv";
+    //alert(dp1.dataset)
   } else if (show == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
     
     dp1.listTitle = "Data Driven Decision Making";
@@ -1330,6 +1332,23 @@ function showList(dp,map) {
       if (element.website && !element.website.toLowerCase().includes("http")) {
         element.website = "http://" + element.website;
       }
+      //if (typeof element.mapframe == "undefined") {
+      if (element.virtual_tour) {
+        if (element.virtual_tour.toLowerCase().includes("kuula.co")) {
+          //var viewID = "7lrpl";
+          let pieces = element.virtual_tour.split("/");
+          let viewID = pieces[pieces.length-1];
+          //element.mapframe = "https://kuula.co/share/collection/" + viewID + "?fs=1&vr=1&zoom=0&initload=1&thumbs=1&chromeless=1&logo=-1";
+          //element.mapframe = "https://kuula.co/share/collection/" + viewID + "?fs=1&vr=1&initload=1&thumbs=1&chromeless=1&logo=-1";
+          element.mapframe = "kuula_" + viewID;
+        } else {
+          // https://roundme.com/tour/463798/view/1595277/
+          //element.mapframe = "https://roundme.com/embed/463798/1595277";
+          element.mapframe = "roundme_" + element.virtual_tour.replace("https://roundme.com/tour/","").replace("view/","");
+        }
+      }
+
+
       // TO INVESTIGATE - elementRaw (not element) has to be used here for color scale.
 
       // DETAILS LIST
@@ -1373,7 +1392,7 @@ function showList(dp,map) {
       
       if (element[dp.addressColumn]) { 
           output +=  element[dp.addressColumn] + "<br>"; 
-      } else if (element.address || element.city || element.state || element.zip) { 
+      } else if (element.address || element.city || element.state || element.zip) {
         output += "<b>Location:</b> ";
         if (element.address) {
           output += element.address + "<br>";
@@ -1393,6 +1412,14 @@ function showList(dp,map) {
         if (element.city || element.state || element.zip) {
           output += "<br>";
         }
+      }
+
+      if (element.virtual_tour) {
+          //output += "<a href='#show=360&mapframe=" + element.virtual_tour + "'>virtual tour<br>";
+          output += "<a href='#show=360&mapframe=" + element.mapframe + "'>virtual tour<br>";
+      }
+      if (element.property_link) {
+          //output += element.property_link + "<br>";
       }
 
       if (element.phone || element.phone_afterhours) {
@@ -1501,12 +1528,16 @@ function showList(dp,map) {
         searchFor = "<b>" + $("#catSearch").val() + "</b> - "; // was twice BUGBUG
       }
       if (dataMatchCount == count) {
-        searchFor += dataMatchCount + " records. " + dp.listInfo + "<br>";
+        searchFor += dataMatchCount + " records. ";
       } else if (count==1) {
-        searchFor += dataMatchCount + " matching results within " + count + " records. " + dp.listInfo + "<br>";
+        searchFor += dataMatchCount + " matching results within " + count + " records. ";
       } else {
-        searchFor += dataMatchCount + " matching results within " + count + " records. " + dp.listInfo + "<br>";
+        searchFor += dataMatchCount + " matching results within " + count + " records. ";
       }
+      if (dp.listInfo) {
+        searchFor += dp.listInfo;
+      }
+      // searchFor += "<br>";
       $("#dataList").html(searchFor);
       $("#resultsPanel").show();
       $("#dataList").show();
