@@ -1943,29 +1943,35 @@ function refreshWidgets() {
 		updateHash({'geo':'', 'regiontitle':'', 'lat':'', 'lon':''});
 		showCounties(0);
 	}
-	if (hash.mapframe != priorHash.mapframe) {
+	if (hash.m != priorHash.m) {
 		var mapframe;
-		if (hash.mapframe) {
-	    	if (hash.mapframe == "ej") {
+		$("#mapframe").hide();
+		$("#mapframe").prop("src", "about:blank");
+		if (hash.m) {
+	    	if (hash.m == "ej") {
 	    		mapframe = "https://ejscreen.epa.gov/mapper/";
-	    	} else if (hash.mapframe == "peach") {
+	    	} else if (hash.m == "peach") {
 	    		mapframe = "https://kuula.co/share/collection/7PYZK?fs=1&vr=1&zoom=0&initload=1&thumbs=1&chromeless=1&logo=-1";
-	    	} else if (hash.mapframe.includes("kuula_")) {
+	    	} else if (hash.m.includes("kuula_")) {
 	    		//mapframe = "https://kuula.co/share/collection/7PYZK?fs=1&vr=1&zoom=0&initload=1&thumbs=1&chromeless=1&logo=-1";
 
-	    		mapframe = "https://kuula.co/share/collection/" + hash.mapframe.replace("kuula_","") + "?fs=1&vr=1&zoom=1&initload=1&thumbs=1&chromeless=1&logo=-1";
-	    	} else if (hash.mapframe.includes("roundme_")) {
+	    		mapframe = "https://kuula.co/share/collection/" + hash.m.replace("kuula_","") + "?fs=1&vr=1&zoom=1&initload=1&thumbs=1&chromeless=1&logo=-1";
+	    	} else if (hash.m.includes("roundme_")) {
 	    		//mapframe = "https://roundme.com/embed/463798/1595277";
-	    		mapframe = "https://roundme.com/embed/" + hash.mapframe.replace("roundme_","");
+	    		mapframe = "https://roundme.com/embed/" + hash.m.replace("roundme_","");
 	    	} else {
-	    		//alert(hash.mapframe)
-	    		//mapframe = hash.mapframe + "?fs=1&vr=1&zoom=0&initload=1&thumbs=1&chromeless=1&logo=-1";
+	    		//alert(hash.m)
+	    		//mapframe = hash.m + "?fs=1&vr=1&zoom=0&initload=1&thumbs=1&chromeless=1&logo=-1";
 	    		//mapframe = "https://kuula.co/share/collection/7lrpl?fs=1&vr=1&zoom=0&initload=1&thumbs=1&chromeless=1&logo=-1";
-	    		mapframe = hash.mapframe;
+	    		mapframe = hash.m;
 	    	}
 	    	if (mapframe) {
 	    		$("#mapframe").prop("src", mapframe);
 				$("#mapframe").show();
+				window.scrollTo({
+			      top: $('#mapframe').offset().top - 95,
+			      left: 0
+			    });
 			}
 		}
 	}
