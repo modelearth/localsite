@@ -1,4 +1,8 @@
 
+
+Note: The BLS QCEW FlowByActivity datasets that are hosted on Data Commons are updated to include county level data, so you can use the sample code below to retrieve the datasets.  
+
+
 From the terminal
 
 	pip install git+https://github.com/USEPA/flowsa
@@ -11,17 +15,38 @@ In a python IDE
 
 	 
 
-If you want to get the raw data in our flow by activity format
+If you want to get the raw data in our flow by activity format. You can subset the data by ‘Employment’ (for number of employees),  ‘Money’ for annual wages and ‘Other’ for number of establishments, or you can set flowclass to any combination of those three. 
 
 	 
 
-	employ_bls_flowsbyactivity_2015 = flowsa.getFlowByActivity(flowclass=['Employment'], years=[2015], datasource="BLS_QCEW")
+	employ_bls_flowsbyactivity_2015 = flowsa.getFlowByActivity(flowclass=['Employment', ‘Money’, ‘Other’], years=[2018], datasource="BLS_QCEW")
 
 	 
 
 Returns a pandas dataframe that you can subset by NAICS sector in this case it will be the ActivityProducedBy.  
 
-[See the format reference table](https://github.com/USEPA/flowsa/blob/master/format%20specs/FlowByActivity.md) - filter by Location using a county FIPS  as a 5 digit code, e.g. 13001 for Appling County.
+[See the format reference table](https://github.com/USEPA/flowsa/blob/master/format%20specs/FlowByActivity.md) - filter by Location using a county FIPS  as a 5 digit code, e.g. 13001 for Appling County.  
+
+You can also create a df for multiple years. There is data for 2010 – 2018. Example:  
+
+	bls_flowsbyactivity = flowsa.getFlowByActivity(flowclass=['Employment', ‘Money’, ‘Other’], years=[2015, 2016], datasource="BLS_QCEW")
+
+
+<br>
+
+#### For Comparison to prior year
+
+Additional columns are available to compare to the prior year.  
+
+oty_annual_avg_emplvl_chg  
+oty_annual_avg_estabs_chg  
+oty_avg_annual_pay_chg 
+
+See: [Annual Average Data Slide Layout table](https://data.bls.gov/cew/doc/access/csv_data_slices.htm)  
+
+When Catherine Birney modified the data to include the columns for changes from prior years, pycharm couldn’t handle the size of the files and kept crashing. To include that data, Catherine says you'd need to modify the code in BLS_QCEW.py.  
+
+
 
 <br>
 Explore [options for zip code level data](../../../community/industries/)  
