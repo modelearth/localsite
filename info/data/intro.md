@@ -8,7 +8,9 @@ BLS data is pulled using the [FLOWSA Python script](https://github.com/USEPA/flo
 maintained by Catherine Birney.
 <!--Check if 2017 has been added to master crosswalk  -->
 
-[State data files](https://github.com/modelearth/community-data/tree/master/us/state)   
+If you change BLS_QCEW.py, do so in our [FLOWSA fork](https://github.com/modelearth/flowsa).
 
-[Options for zip code level data](../../../community/industries/)   
+Only 4-digit NAICS resides in "By-Industry" in [BLS downloadable files](https://www.bls.gov/cew/downloadable-data-files.htm). Check for 6-digit 336111 automobile industry NAICS.  
+
+Output to [state data files](https://github.com/modelearth/community-data/tree/master/us/state)    
 
