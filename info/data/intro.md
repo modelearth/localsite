@@ -1,12 +1,15 @@
 # County Industry Data Prep  
 
-[Data Processing Python Script](https://github.com/modelearth/community-data/blob/master/process/python/us_econ.ipynb) - Edit locally using [Anaconda Jupyter Notebook](https://jupyter.org/install)  
 
-To do:  
-Add U.S. Bureau of Labor Statistics (BLS) industry data  
-Check if 2017 has been added to master crosswalk  
+To do: Add U.S. Bureau of Labor Statistics (BLS) industry data  
+BLS data is pulled using the [FLOWSA Python script](https://github.com/USEPA/flowsa/blob/master/flowsa/BLS_QCEW.py)
+maintained by Catherine Birney.
+<!--Check if 2017 has been added to master crosswalk  -->
 
-[Resulting state data files](https://github.com/modelearth/community-data/tree/master/us/state)   
+[Prior Data Processing Python Script for BEA data](https://github.com/modelearth/community-data/blob/master/process/python/us_econ.ipynb) - Edit locally using [Anaconda Jupyter Notebook](https://jupyter.org/install)  
+
+
+[State data files](https://github.com/modelearth/community-data/tree/master/us/state)   
 
 [Options for zip code level data](../../../community/industries/)
 

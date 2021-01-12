@@ -1806,7 +1806,7 @@ function refreshWidgets() {
 		getNaics_setHiddenHash(hash.go); // Sets hiddenhash.naics for use by other widgets.
 
 		hash.naics = ""; // Since go value invokes hiddenhash
-		// Then call applyIO at end of this refreshWidgets function
+		// Then we call applyIO at end of this refreshWidgets function
 	}
 	if (hash.geomap) {
 		$("#infoColumn").show();
