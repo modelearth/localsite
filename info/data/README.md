@@ -19,7 +19,7 @@ If you want to get the raw data in our flow by activity format. You can subset t
 
 	 
 
-	employ_bls_flowsbyactivity_2015 = flowsa.getFlowByActivity(flowclass=['Employment', ‘Money’, ‘Other’], years=[2018], datasource="BLS_QCEW")
+	df = flowsa.getFlowByActivity(flowclass=['Employment', ‘Money’, ‘Other’], years=[2018], datasource="BLS_QCEW")
 
 	 
 
@@ -29,7 +29,7 @@ Returns a pandas dataframe that you can subset by NAICS sector in this case it w
 
 You can also create a df for multiple years. There is data for 2010 – 2018. Example:  
 
-	bls_flowsbyactivity = flowsa.getFlowByActivity(flowclass=['Employment', ‘Money’, ‘Other’], years=[2015, 2016], datasource="BLS_QCEW")
+	df = flowsa.getFlowByActivity(flowclass=['Employment', ‘Money’, ‘Other’], years=[2015, 2016], datasource="BLS_QCEW")
 
 
 <br>
@@ -40,7 +40,7 @@ Additional columns are available to compare to the prior year.
 
 oty_annual_avg_emplvl_chg  
 oty_annual_avg_estabs_chg  
-oty_avg_annual_pay_chg 
+oty_total_annual_wages_chg 
 
 See: [Annual Average Data Slide Layout table](https://data.bls.gov/cew/doc/access/csv_data_slices.htm)  
 
