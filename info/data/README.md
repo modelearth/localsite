@@ -1,4 +1,35 @@
-## BEA Data Preparation 
+
+From the terminal
+
+	pip install git+https://github.com/USEPA/flowsa
+
+	 
+
+In a python IDE
+
+	import flowsa
+
+	 
+
+If you want to get the raw data in our flow by activity format
+
+	 
+
+	employ_bls_flowsbyactivity_2015 = flowsa.getFlowByActivity(flowclass=['Employment'], years=[2015], datasource="BLS_QCEW")
+
+	 
+
+Returns a pandas dataframe that you can subset by NAICS sector in this case it will be the ActivityProducedBy.  
+
+[See the format reference table](https://github.com/USEPA/flowsa/blob/master/format%20specs/FlowByActivity.md) - filter by Location using a county FIPS  as a 5 digit code, e.g. 13001 for Appling County.
+
+<br>
+Explore [options for zip code level data](../../../community/industries/)  
+
+
+<br>
+
+## BEA Data Preparation (Discontinued) 
 
 [Prior Data Processing Python Script for BEA data](https://github.com/modelearth/community-data/blob/master/process/python/us_econ.ipynb) - Edit locally using [Anaconda Jupyter Notebook](https://jupyter.org/install)  
 
@@ -24,6 +55,14 @@ This trend flips for industries that have larger revenue in counties where firms
 
 [Community Data Github Repo](https://github.com/modelearth/community-data/)
 
+<!--
+Removed from project list
 
+## Use of BEA commodities to estimate null industries
+
+To protect the privacy of individual firms, the census omits payroll and empolyee count data for some industries at both the state and county level (like Automobile Manufacturing).  For Georgia, there are [89 industries](../community-data/us/state/ga/industries_state13_naics6_0s.tsv) with only the number of establishments available at both the county and state lever. 
+
+The estimates for these omitted industry values could be generated using the state BEA commodity data with the crosswalk file, or an average from other states could be used (as long as each industry has at least one payroll value in another state). 
+-->
 
 
