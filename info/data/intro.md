@@ -10,8 +10,18 @@ maintained by Catherine Birney.
 
 If you change BLS_QCEW.py, do so in our [FLOWSA fork](https://github.com/modelearth/flowsa).
 
-Only 4-digit NAICS resides in "By-Industry" in [BLS downloadable files](https://www.bls.gov/cew/downloadable-data-files.htm).  
 Check for 6-digit 336111 automobile industry NAICS when outputting using FLOWSA.  
+Note that only 4-digit NAICS resides in "By-Industry" in [BLS downloadable files](https://www.bls.gov/cew/downloadable-data-files.htm).  
+
 
 Output to [state data files](https://github.com/modelearth/community-data/tree/master/us/state)    
 
+Output 5 columns: fips, naics, employees, payroll and firms (establishment count)
+
+- Location (fips for county)  
+- ActivityProducedBy (6-digit naics)  
+- FlowAmount (Number of Employees)  
+- Payroll  
+- Extablishments  
+
+Note: The BLS QCEW FlowByActivity datasets that are hosted on Data Commons are updated to include county level data, so you can use the sample code below to retrieve the datasets.

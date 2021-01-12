@@ -22,6 +22,21 @@ If you want to get the raw data in our flow by activity format
 Returns a pandas dataframe that you can subset by NAICS sector in this case it will be the ActivityProducedBy.  
 
 [See the format reference table](https://github.com/USEPA/flowsa/blob/master/format%20specs/FlowByActivity.md) - filter by Location using a county FIPS  as a 5 digit code, e.g. 13001 for Appling County.
+<br>
+
+#### For Comparison to prior year
+
+Additional columns are available to compare to the prior year.  
+
+oty_annual_avg_emplvl_chg  
+oty_annual_avg_estabs_chg  
+oty_avg_annual_pay_chg 
+
+See: [Annual Average Data Slide Layout table](https://data.bls.gov/cew/doc/access/csv_data_slices.htm)  
+
+When Catherine Birney modified the data to include the columns for changes from prior years, pycharm couldn’t handle the size of the files and kept crashing. To include that data, Catherine says you'd need to modify the code in BLS_QCEW.py.  
+
+
 
 <br>
 Explore [options for zip code level data](../../../community/industries/)  
