@@ -1081,6 +1081,8 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                         $(".regiontitle").text("Manufacturing");
                     } else if (params.go == "ppe") {
                         $(".regiontitle").text("Healthcare");
+                    } else if (params.go == "vehicles") {
+                        $(".regiontitle").text("EV Ecosystem");
                     } else if (gotext) {
                         //$(".regiontitle").text(gotext);
                     }
@@ -1144,6 +1146,8 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                             $(".regiontitle").text("Farm Fresh");
                         } else if (params.go == "ppe") {
                             $(".regiontitle").text("Healthcare Industries");
+                        } else if (params.go == "vehicles") {
+                            $(".regiontitle").text("EV Ecosystem");
                         } else if (gotext) {
                             $(".regiontitle").text(gotext);
                         } else {
