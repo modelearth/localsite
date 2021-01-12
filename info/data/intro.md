@@ -10,7 +10,8 @@ maintained by Catherine Birney.
 
 If you change BLS_QCEW.py, do so in our [FLOWSA fork](https://github.com/modelearth/flowsa).
 
-Only 4-digit NAICS resides in "By-Industry" in [BLS downloadable files](https://www.bls.gov/cew/downloadable-data-files.htm). Check for 6-digit 336111 automobile industry NAICS.  
+Only 4-digit NAICS resides in "By-Industry" in [BLS downloadable files](https://www.bls.gov/cew/downloadable-data-files.htm).  
+Check for 6-digit 336111 automobile industry NAICS when outputting using FLOWSA.  
 
 Output to [state data files](https://github.com/modelearth/community-data/tree/master/us/state)    
 
