@@ -65,7 +65,7 @@ function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback
     defaults.scaleType = "scaleOrdinal";
     defaults.dataTitle = "Data Projects"; // Must match "map.addLayer(overlays" below.
     if (dp.latitude && dp.longitude) {
-        mapCenter = [dp.latitude,dp.longitude]; 
+        mapCenter = [dp.latitude,dp.longitude];
     }
     dp = mix(dp,defaults); // Gives priority to dp
     if (dp.addLink) {
@@ -835,9 +835,24 @@ function loadMap1(show, dp) { // Also called by map-filters.js
   dp1.longitude = -81.8854;
 
   // Georgia
-  dp1.latitude = 32.9;
-  dp1.longitude = -83.4;
+  //dp1.latitude = 32.9;
+  //dp1.longitude = -83.4;
   dp1.zoom = 7;
+
+  let theState = $("#state_select").find(":selected").val();
+  if (theState != "") {
+    let kilometers_wide = $("#state_select").find(":selected").attr("km");
+    //zoom = 1/kilometers_wide * 1800000;
+
+    if (theState = "HI") { // Hawaii
+        dp1.zoom = 6
+    } else if (kilometers_wide > 1000000) { // Alaska
+        dp1.zoom = 4
+    }
+    dp1.latitude = $("#state_select").find(":selected").attr("lat");
+    dp1.longitude = $("#state_select").find(":selected").attr("lon");
+  }
+
   dp1.listLocation = false; // Hides Waze direction link in list, remains in popup.
 
   $("." + show).show(); // Show layer's divs, after hiding all layer-specific above.
@@ -862,15 +877,6 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     dp1.dataset =  dual_map.custom_data_root() + "communities/map-georgia-smart.csv";
     dp1.listInfo = "Includes Georgia Smart Community Projects";
     dp1.search = {"In Title": "title", "In Description": "description", "In Website URL": "website", "In Address": "address", "In City Name": "city", "In Zip Code" : "zip"};
-
-    // Georgia
-    dp1.latitude = 32.9;
-    dp1.longitude = -83.4;
-    if (param.lat) {
-      dp1.latitude = param.lat;
-      dp1.longitude = param.lon;
-      dp1.zoom = 12; // 14;
-    }
     dp1.markerType = "google";
     dp1.showShapeMap = true;
 
@@ -908,7 +914,7 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     dp1.listTitle = "Georgia Suppliers of&nbsp;Critical Items <span style='white-space:nowrap'>to Fight COVID-19</span>"; // For iFrame site
 
     dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://www.georgia.org/sites/default/files/2021-01/ga_suppliers_list_2021-01-06.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
-    dp1.dataset = "https://map.georgia.org/display/products/suppliers/us_ga_suppliers_ppe_2021_01_06.csv";
+    dp1.dataset = "https://map.georgia.org/display/products/suppliers/us_ga_suppliers_ppe_2021_01_13.csv";
     //dp1.dataset = "/display/products/suppliers/us_ga_suppliers_ppe_2020_06_17.csv";
 
     dp1.dataTitle = "Manufacturers and Distributors";
@@ -1918,20 +1924,29 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
         //var zoom = 5;
 
         // Georgia 32.1656° N, 82.9001° W
-        var latX = 32.16;
+        
         var lat = 32.69;
         var lon = -83.2;
-        var lonX = -81.8;
-        var mapCenter = [lat,lon];
+
         var zoom = 7;
         let theState = $("#state_select").find(":selected").val();
-        if (hash.state != "GA" && theState != "GA") {
-          zoom = 2;
+        if (theState != "") {
+          let kilometers_wide = $("#state_select").find(":selected").attr("km");
+          //zoom = 1/kilometers_wide * 1800000;
+  
+          if (theState == "HI") { // Hawaii
+              zoom = 6
+          } else if (kilometers_wide > 1000000) { // Alaska
+              zoom = 4
+          }
+          lat = $("#state_select").find(":selected").attr("lat");
+          lon = $("#state_select").find(":selected").attr("lon");
         }
-        
+        var mapCenter = [lat,lon];
+
         //var layer = "terrain";
-        if (param.geo == "US01" || param.state == "AL") { // Temp
-          lon = -86.7;
+        if (param.geo == "US01") { // Temp
+          //lon = -86.7;
         }
         var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
             '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -1963,7 +1978,6 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
 
        //var container = L.DomUtil.get(map);
        if (container == null) { // Initialize map
-
           map = L.map(whichmap, {
             center: new L.LatLng(lat,lon),
             scrollWheelZoom: false,
@@ -1983,8 +1997,6 @@ function renderMapShapes(whichmap, hash) { // whichGeoRegion is not yet applied.
           //map.geojsonLayer.clearLayers();
         }
         //map.geojsonLayer.clearLayers(); // Clear prior
-
-        //alert("zoom " + zoom);
         map.setView(mapCenter,zoom);
 
         // setView(lng, lat, zoom = zoom_level)
