@@ -28,7 +28,7 @@ if (params.geo){
 [fips,dataObject.stateshown]=getStateFips(params)
 function getStateFips(params){
     if (params.geo) {
-        if (params.geo.includes(",")) {
+        //if (params.geo.includes(",")) {
             geos=params.geo.split(",")
             fips=[]
             for (var i = 0; i<geos.length; i++){
@@ -50,7 +50,9 @@ function getStateFips(params){
                 }
                 
             }
+        /* BUG - was loading Westion County from Wyoming when only one county selected.
         } else {
+            //alert("split on US")
             fip=params.geo.split("US")[1]
             
             if(fip.startsWith("0")){
@@ -70,6 +72,7 @@ function getStateFips(params){
             
             }
         }
+        */
     } else {
         fips = dataObject.stateshown;
     }
@@ -1086,14 +1089,16 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                     } else if (gotext) {
                         //$(".regiontitle").text(gotext);
                     }
-                    if(Array.isArray(fips) && statelength != fips.length){
-
+                    //alert("statelength " + statelength + " fips.length " + fips.length)
+                    //if(Array.isArray(fips) && statelength != fips.length) {
+                    if(Array.isArray(fips)) {
                         if (!params.regiontitle) {
                             //if (params.go && fips.length == 1) {
                             //    // Remove " County" from this .replace(" County","")
                             //    $(".regiontitle").text(d["county"] + " - " + gotext);
                             //} else 
                             if (params.go) {
+
                                 $(".regiontitle").text(gotext + " Industries within "+ fips.length + " counties");
                             } else {
                                 $(".regiontitle").text("Industries within "+ fips.length + " counties");
@@ -1127,7 +1132,7 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                             })
                         }
                         $(".location_titles").text($(".location_titles").text().replace(/,\s*$/, ""));
-                        if (fips.length >= 2 && fips.length <= 3) {
+                        if (fips.length >= 1 && fips.length <= 3) {
                             if (params.go) {
                                 $(".regiontitle").text($(".location_titles").text() + " - " + gotext);
                             } else {
@@ -1135,7 +1140,7 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                             }
                         }
 
-                    }else if(fips==dataObject.stateshown){
+                    } else if (fips==dataObject.stateshown) {
                         if (params.go == "bioeconomy") {
                             $(".regiontitle").text("Bioeconomy and Petroleum Industries");
                         } else if (params.go == "parts") {
@@ -1155,7 +1160,9 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                             $(".regiontitle").text("Industries");
                             //$(".regiontitle").text(String(d['Name'])+"'s Top Industries");
                         }
-                    }else{
+                        //alert("filterSelected2")
+                        $(".filterSelected").text("State"); // Temp
+                    } else {
 
                         var filteredData = consdata.filter(function(d) {
                             if (params.go) {

@@ -1921,7 +1921,7 @@ function refreshWidgets() {
 	    let pagemap_center = [hash.lat,hash.lon];
 	    let pagemap = document.querySelector('#map1')._leaflet_map; // Recall existing map
 	    let pagemap_container = L.DomUtil.get(pagemap);
-	    if (pagemap_container != null) { 
+	    if (pagemap_container != null) {
 	      pagemap.flyTo(pagemap_center, 10);
 	    }
 	 }
@@ -1996,5 +1996,10 @@ function refreshWidgets() {
 
 // INIT
 $(document).ready(function () {
+	let hash = getHash();
+	if (hash.state) {
+		//$("#state_select").val(hash.state)
+		$("#state_select option[value='NV']").prop('selected', true);
+	}
 	refreshWidgets();
 });
