@@ -32,7 +32,7 @@ the_geom,contact_name,reporting_year,notes,manager_phone,manager_name,contact_ph
 0101000020E6100000B2F677B6470655C0D47E6B274A8A3F40,Advanced Disposal Services,2015,,904-737-7900,Charles N. Gray,904-737-7900,29,,Private Commercial,PBR-047-32TS,Albany Transfer Station ,Dougherty,-84.098127,31.540194
 0101000020E6100000DFA7AAD040EF54C036FA980F08784140,Trudy Allen,2015,,-,Bill Allen,706-781-4725,30,,Private,PBR-139-06TS,Allen Disposal Transfer Station,Towns,-83.738331,34.937746
 0101000020E6100000700A2B1554D854C0995B21ACC6FA3E40,Allgreen Services,2015,,-,William Sullivan,478-763-4178,31,,Private,PBR-092-43TS,Allgreen Services Transfer Station,Lowndes,-83.380132,30.979594
-0101000020E6100000C993A46B267854C0B21188D7F5294040,William Sullivan,2015,,-,William Sullivan,478-763-4178,32,,Private Commercial,"PBR-016-025COL;TS","Allgreen Services, LLC Transfer Station",Bulloch,-81.877345,32.327815
+0101000020E6100000C993A46B267854C0B21188D7F5294040,William Sullivan,2015,,-,William Sullivan,478-763-4178,32,,Private Commercial,PBR-016-025COL;TS,"Allgreen Services, LLC Transfer Station",Bulloch,-81.877345,32.327815
 0101000020E610000008C03FA54A1355C00516C09481074140,"SRS Holding, LLC",2015,,770-447-1154,Michael R. Ayers,770-447-1154,33,,Private Commercial,PBR-060-238TS,Alpharetta Transfer Station,Fulton,-84.301431,34.058642
 0101000020E6100000F9BD4D7FF6CF54C0E370E65773EC4040,"Jonathan W. Fox, Jr.",2015,,888-446-4722,"Jonathan W. Fox, Jr.",-,34,,Private,PBR-109-10TS,American Stadium Services Transfer Station,Oglethorpe,-83.24942,33.84727
 0101000020E61000006FF085C9540D55C0D712F241CF064040,Cliff Sizemore,2015,,229-314-2751,Darrie Art,229-924-3004,35,,Private Commercial,PBR-129-20TS,"Ameri-Green Environmental Recycling, LLC Transfer Station",Sumter,-84.2083,32.0532
@@ -80,7 +80,7 @@ the_geom,contact_name,reporting_year,notes,manager_phone,manager_name,contact_ph
 0101000020E6100000D925AAB7066054C093D920938C343F40,,2015,,912-267-1345,Gary Williams,-,76,,Private,PBR-063-17TS,Chapman Waste Disposal Transfer Station,Glynn,-81.50041,31.20527
 0101000020E6100000A1A17F828B5555C08907944DB93E4140,,2015,,-,,-,77,,Public,PBR-027-04TS,Chattooga County Transfer Station,Chattooga,-85.33664,34.49003
 0101000020E6100000F25CDF87833B55C02CB29DEFA7663F40,,2015,,-,,-,78,,Public,PBR-049-04TS,City of Blakely Transfer Station,Early,-84.929903,31.401
-0101000020E6100000D481ACA756F954C01E87C1FC15464040,Larry Brown,2015,,-,,478-825-2615,79,,Public,"PBR-111-012COL;TS",City of Fort Valley Public Works Transfer Station,Peach,-83.895914,32.547546
+0101000020E6100000D481ACA756F954C01E87C1FC15464040,Larry Brown,2015,,-,,478-825-2615,79,,Public,PBR-111-012COL;TS,City of Fort Valley Public Works Transfer Station,Peach,-83.895914,32.547546
 0101000020E610000004C93B8732EC54C0BA1457957DE74040,City of Monroe,2015,,770-267-6933,Danny P. Smith,770-267-6933,80,,Public,PBR-147-39TS,City of Monroe Transfer Station,Walton,-83.690584,33.80852
 0101000020E6100000494BE5ED089F54C03B53E8BCC6BA4040,,2015,,404-595-1781,,-,81,,Public,PBR-097-04TS,City of Thomson Transfer Station,McDuffie,-82.48492,33.45919
 0101000020E6100000CBBF9657AED354C04ACFF41263454140,,2015,,-,,-,82,,Public,PBR-127-03TS,City of Toccoa Transfer Station,Stephens,-83.307516,34.542086
@@ -109,7 +109,7 @@ the_geom,contact_name,reporting_year,notes,manager_phone,manager_name,contact_ph
 0101000020E6100000B3CEF8BEB82355C0ABB4C5353EDF4040,"EQ Holding Company, Inc.",2015,,404-472-0410,Lee Starnes,734-329-8000,106,,Private,PBR-060-202TS,Equis Atlanta T&P Transfer Station,Fulton,-84.558151,33.744086
 0101000020E610000026DA5548F97A54C055F833BC59114040,Evans County Board of Commissioners,2015,,912-739-7122,Forrest Conder,912-739-1141,107,"MSW, C&D, Industrial",Private,PBR-054-11TS,Evans County Transfer Station,Evans,-81.921465,32.135551
 0101000020E610000051888043A80355C06325E659492D4140,Jeff Evans,2015,,706-216-4232,Jeff Evans,706-216-4232,108,,Private Commercial,PBR-042-11TS,"Evans Garbage Service, Inc. Transfer Station",Dawson,-84.057145,34.353801
-0101000020E61000002C4833164D2655C0730F09DFFBE34040,John Teague,2015,,-,,770-739-5600,109,Biomedical and industrial,Private Commercial,"PBR-033-102COL;TS","Evergreen Waste, LLC Collection and Transfer Station",Cobb,-84.598455,33.781124
+0101000020E61000002C4833164D2655C0730F09DFFBE34040,John Teague,2015,,-,,770-739-5600,109,Biomedical and industrial,Private Commercial,PBR-033-102COL;TS,"Evergreen Waste, LLC Collection and Transfer Station",Cobb,-84.598455,33.781124
 0101000020E6100000751E15FF772055C05C548B8862DE4040,"DNT Environmental Services, Inc.",2015,MSW and industrial waste.,770-739-5600,John Teague,770-739-5600,110,,Private Commercial,"PBR-060-252TS,COL","Evergreen Waste, LLC Collection and Transfer Station",Fulton,-84.507324,33.737382
 0101000020E61000002F19C748F62555C03481221631C64040,Lukas Johnson,2015,,-,Lukas Johnson,770-774-7014,111,,Private Commercial,PBR-060-250TS,Waste Industries Transfer Station ,Fulton,-84.593157,33.548373
 0101000020E610000060764F1E160F55C04626E0D748F44040,,2015,,706-502-5252,,,112,Biomedical,Private Commercial,PBR-067-805TS,Firestar Biomedical Transfer Station,Gwinnett,-84.235725,33.908473
@@ -172,7 +172,7 @@ the_geom,contact_name,reporting_year,notes,manager_phone,manager_name,contact_ph
 0101000020E6100000548B8862F21B55C0315F5E807D3C4140,Kevin Loner,2015,Biomedical waste.,678-454-3791,Kevin Loner,678-454-3791,169,,Private Commercial,"PBR-112-12COL,TS","Nivek Services, Inc. Collection and Transfer Station",Pickens,-84.436669,34.47258
 0101000020E6100000CAA2B08BA21055C0DC65BFEE74714140,Daniel G. Shuler,2015,,706-900-1010,Holly H. Shuller,706-900-1010,170,,Private Commercial,"PBR-055-17COL,TS","North GA Waste, LLC Transfer Station",Fannin,-84.259921,34.886381
 0101000020E6100000A97EA5F3E13C55C006B309302C5B4140,,2015,Unable to verify operational status.,-,,-,171,,Private,PBR-155-18TS,"North Georgia Disposal, Inc. Transfer Station",Whitfield,-84.951291,34.712286
-0101000020E6100000EA245B5D4E6C54C0F4C308E1D1CE3E40,Mark Fiegl,2015,Pet cremation.,912-882-2900,Mark Fiegl,912-882-2900,172,,Private Commercial,"PBR-020-08COL;TS",Pet Cremation Services Transfer Station,Camden,-81.692283,30.80789
+0101000020E6100000EA245B5D4E6C54C0F4C308E1D1CE3E40,Mark Fiegl,2015,Pet cremation.,912-882-2900,Mark Fiegl,912-882-2900,172,,Private Commercial,PBR-020-08COL;TS,Pet Cremation Services Transfer Station,Camden,-81.692283,30.80789
 0101000020E6100000787DE6AC4FFE54C009FD4CBD6ED54040,,2015,Unable to verify operational status.,-,,-,173,,Private,PBR-122-28TS,"Pharmacy Solutions, Inc. Transfer Station",Rockdale,-83.973613,33.667442
 0101000020E610000001F6D1A92B2355C0F7C8E6AA79C44040,Philip Services Corp.,2015,,770-969-7886,Colin D. Ramsey,713-623-8777,174,,Private Commercial,PBR-060-212TS,Philip Services Corp. / Allwaste Recovery System Transfer Station,Fulton,-84.54954,33.534963
 0101000020E61000005E68AED3481755C0C8CD70033E8F4040,,2015,,770-884-3000,,-,175,,Private,PBR-114-17TS,"Pike Countryside Sanitation, Inc. Transfer Station",Pike,-84.36382,33.11908
@@ -193,7 +193,7 @@ the_geom,contact_name,reporting_year,notes,manager_phone,manager_name,contact_ph
 0101000020E610000009D6389B8E4655C08CDCD3D51D294140,,2015,,-,,-,190,,Private Commercial,PBR-064-29TS,Rome Transfer Station,Floyd,-85.102454,34.321223
 0101000020E61000000C93A98251FC54C0FD2AC0779B074140,,2015,Unable to verify operational status.,-,,-,191,,Private,PBR-067-078TS,Ruth W. Pruitt Transfer Station,Gwinnett,-83.942475,34.059432
 0101000020E610000012DDB3AED1DF54C0E94317D4B76C3F40,,2015,Unable to verify operational status.,-,,-,192,,Private,PBR-137-14TS,Ryder Transportation Services Transfer Station,Tift,-83.497173,31.42468
-0101000020E61000004432E4D87A0355C0056F48A302A94040,"S&B Rolloff, Inc.",2015,,770-914-7769,Dennis Slade,770-914-7769,193,,Private Commercial,"PBR-075-36COL;TS","S&B Rolloff, Inc. Transfer Station",Henry,-84.054373,33.320393
+0101000020E61000004432E4D87A0355C0056F48A302A94040,"S&B Rolloff, Inc.",2015,,770-914-7769,Dennis Slade,770-914-7769,193,,Private Commercial,PBR-075-36COL;TS,"S&B Rolloff, Inc. Transfer Station",Henry,-84.054373,33.320393
 0101000020E6100000696D1ADB6B1355C09032E202D0D24040,Steven Paul,2015,,404-361-0556,Steven Paul,404-361-0556,194,,Private,PBR-031-38TS,"S.P. Petroleum Transporters, Inc. Transfer Station",Clayton,-84.303458,33.646973
 0101000020E61000005872158BDF5054C069C70DBF9BFE3F40,"Safety Disposal Systems of Georgia, Inc.",2015,Unable to verify operational status.,-,,770-452-0011,195,,Private,PBR-025-26TS,"Safety Disposal Systems of Georgia, Inc. Transfer Station",Chatham,-81.263644,31.994564
 0101000020E6100000D8E90775911255C0003B376DC6F34040,J.R. Watson,2015,Unable to verify operational status.,803-943-5176,Ron Ceacal,404-452-0011,196,,Private,PBR-044-045TS,"Safety Disposal Systems of Georgia, Inc. Transfer Station",DeKalb,-84.290128,33.904493
@@ -220,7 +220,7 @@ the_geom,contact_name,reporting_year,notes,manager_phone,manager_name,contact_ph
 0101000020E610000001E0D8B3E71F55C09D2ADF3312EB4040,Dean Delawalla,2015,,404-434-5200,Dean Delawalla,404-434-5200,217,,Private,PBR-033-54TS,"Tech 2100 Medical, Inc. Transfer Station",Cobb,-84.498517,33.836493
 0101000020E6100000983270404B1A55C048E2E5E95CBD3F40,"Trans Waste Service, LLC",2015,,229-883-5200,Mike Powell,229-888-5200,218,,Public,PBR-135-01TS,Terrell County Transfer Station,Terrell,-84.410843,31.739699
 0101000020E6100000299831056B1055C08FDFDBF467114140,,2015,Unable to verify operational status.,-,,-,219,,Private,PBR-058-172TS,Tomahawk Waste Management Transfer Station,Forsyth,-84.256532,34.135985
-0101000020E6100000CB4DD4D2DCEF54C0D7A4DB12B9764140,Towns County,2015,,706-896-2276,Bill Kendall,706-896-2276,220,,Public,"PBR-139-03COL;TS",Towns County Transfer Station,Towns,-83.747853,34.927523
+0101000020E6100000CB4DD4D2DCEF54C0D7A4DB12B9764140,Towns County,2015,,706-896-2276,Bill Kendall,706-896-2276,220,,Public,PBR-139-03COL;TS,Towns County Transfer Station,Towns,-83.747853,34.927523
 0101000020E6100000ACA8C1340C1155C0BF823463D16C4040,"Trans Waste Services, LLC",2015,,919-325-3000,Richard Johnson,919-325-3000,221,,Private,PBR-145-09TS,Trans Waste Services - Thomaston Transfer Station,Upson,-84.26637,32.85014
 0101000020E6100000001B1021AEF854C097DC28B2D6424140,,2015,Unable to verify operational status.,-,,-,223,,Private,PBR-093-07TS,Tritt Transfer Station,Lumpkin,-83.885628,34.522177
 0101000020E6100000C9CB9A58E03955C0839CF7FF71844040,Troup County Board of Commissioners,2015,,706-883-1610,Judson F. Gilmer,706-883-1610,224,,Public,PBR-141-12TS,Troup County C&D Landfill Transfer Station,Troup,-84.904318,33.034729
