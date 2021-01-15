@@ -421,9 +421,14 @@ strVar += "";
 strVar += "<\/div>";
 strVar += "<!-- END FILTERS -->";
 strVar += "";
+strVar += "";
 strVar += "<!-- Matches filterFields and headerFixed height -->";
 strVar += "<div class=\"headerOffset2\" style=\"height:56px\">&nbsp;<\/div>";
 strVar += "";
+strVar += "<!-- ";
+strVar += "Displayed by refreshWidgets() in map-filters.js";
+strVar += "-->";
+strVar += "<iframe id=\"introframe\" style=\"display:none\" width=\"100%\" height=\"900px\" src=\"\" frameborder=\"0\" ><\/iframe>";
 strVar += "";
 strVar += "<!-- Settings Panel -->";
 strVar += "<div class=\"settingsPanel topMenuOffset floater\" style=\"display:none; position:fixed\">";
@@ -1348,6 +1353,7 @@ strVar += "  <\/div>";
 strVar += "<\/div>";
 strVar += "";
 strVar += "<!-- End HTML -->";
+
 
 
 // Hidden until search-filters.css loads
