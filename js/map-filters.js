@@ -1706,8 +1706,8 @@ function getNaics_setHiddenHash(go) {
     var ppe_suppliers = "622110,621111,325414,339113,423450,"
     var farmfresh = "311612,311615,311911,311919,311830,311824,311941,311710,311611,115114,311613,311811,311942,311991,311999,311211,311224,311920,"
 
-    if (params.naics) {
-        cat_filter = params.naics.split(',');
+    if (param.naics) {
+        cat_filter = param.naics.split(',');
     }
     else if (go){
         if (go == "bioeconomy") {
@@ -1792,7 +1792,15 @@ function refreshWidgets() {
 		} else {
 			$("#appMenu").attr("placeholder","Top Industries");
 		}
-
+		if (hash.go == "vehicles") {
+			// set viz=true to hide left text 
+			let introframe = "https://datausa.io/profile/naics/motor-vehicles-motor-vehicle-equipment-manufacturing/undefined/wage_geo_rca?viz=false";
+			//introframe = "https://kuula.co/share/collection/7lrpl?fs=1&vr=1&zoom=1&initload=1&thumbs=1&chromeless=1&logo=-1";
+			$("#introframe").show();
+			$("#introframe").prop("src", introframe);
+		} else {
+			$("#introframe").hide();
+		}
 		if (hash.go == "farmfresh") {
 			$(".data-section").show();
 		} else if (hash.go == "ppe") {
@@ -1940,7 +1948,8 @@ function refreshWidgets() {
 			$(".regionFilter").hide();
 		}
 		$(".filterSelected").text($("#state_select").find(":selected").text());
-		updateHash({'geo':'', 'regiontitle':'', 'lat':'', 'lon':''});
+		//'geo':'', 
+		updateHash({'regiontitle':'', 'lat':'', 'lon':''});
 		showCounties(0);
 	}
 	if (hash.m != priorHash.m) {
@@ -1998,8 +2007,8 @@ function refreshWidgets() {
 $(document).ready(function () {
 	let hash = getHash();
 	if (hash.state) {
-		//$("#state_select").val(hash.state)
-		$("#state_select option[value='NV']").prop('selected', true);
+		$("#state_select").val(hash.state)
+		//$("#state_select option[value='NV']").prop('selected', true);
 	}
 	refreshWidgets();
 });
