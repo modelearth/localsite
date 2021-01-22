@@ -3,13 +3,17 @@
 Note: The BLS QCEW FlowByActivity datasets that are hosted on Data Commons are updated to include county level data, so you can use the sample code below to retrieve the datasets.  
 
 
-From the terminal
+Clone using Github Desktop, or run from the terminal:
 
 	pip install git+https://github.com/USEPA/flowsa
 
 	 
 
-In a python IDE
+In a python IDE (like [Pycharm](https://www.jetbrains.com/pycharm/)) run in a "Python Console", not in a regular Pycharm terminal console.  
+
+If you try to run in the regular command terminal, you'll get `import: command not found`  
+
+IMPORTANT: If using Pycharm, first go to: Tools > "Python or Debug Console"  
 
 	import flowsa
 
@@ -19,7 +23,7 @@ If you want to get the raw data in our flow by activity format. You can subset t
 
 	 
 
-	df = flowsa.getFlowByActivity(flowclass=['Employment', ‘Money’, ‘Other’], years=[2018], datasource="BLS_QCEW")
+	df = flowsa.getFlowByActivity(flowclass=['Employment', 'Money', 'Other'], years=[2018], datasource="BLS_QCEW")
 
 	 
 
@@ -29,8 +33,50 @@ Returns a pandas dataframe that you can subset by NAICS sector in this case it w
 
 You can also create a df for multiple years. There is data for 2010 – 2018. Example:  
 
-	df = flowsa.getFlowByActivity(flowclass=['Employment', ‘Money’, ‘Other’], years=[2015, 2016], datasource="BLS_QCEW")
+	df = flowsa.getFlowByActivity(flowclass=['Employment', 'Money', 'Other'], years=[2015, 2016], datasource="BLS_QCEW")
 
+
+## Output to CSV
+
+### Optional, set the csv output path to …\flowsa\flowsa\output\FlowByActivity
+
+You'll need to manually create a folders called "output\FlowByActivity"
+
+	from flowsa.common import fbaoutputpath  
+
+ 
+# define parameters for getFlowByActivity
+
+fc=['Employment', 'Money', 'Other']
+
+years=[2018]
+
+ds="BLS_QCEW"
+
+ 
+
+# load the FlowByActivity as a parquet
+
+	df = flowsa.getFlowByActivity(flowclass=fc, years=years, datasource=ds)
+
+	df = flowsa.getFlowByActivity(flowclass=fc, years=years, datasource=ds, geographic_level='national')
+
+	df = flowsa.getFlowByActivity(flowclass=fc, years=years, datasource=ds, geographic_level='state')
+
+ 
+
+# determine output path, modify next line to save file elsewhere
+
+file_path = fbaoutputpath
+
+# name file
+
+file_name = ds + '_' + '_'.join(map(str, years)) + '.csv'
+
+
+# save dataframe as csv
+
+df.to_csv(file_path + file_name, index=False)
 
 <br>
 
