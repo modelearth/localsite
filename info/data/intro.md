@@ -1,5 +1,6 @@
 # County Industry Data Prep  
 
+The following documents how to generate a CSV file containing BLS data pulled from the EPAs Flowsa's [Data Commons](https://datacommons.org) API.  
 
 ## BLS Data Preparation 
 
@@ -7,6 +8,10 @@ U.S. Bureau of Labor Statistics (BLS) industry data
 BLS data is pulled using the [FLOWSA Python script](https://github.com/USEPA/flowsa/blob/master/flowsa/BLS_QCEW.py)
 maintained by Catherine Birney.
 <!--Check if 2017 has been added to master crosswalk  -->
+
+**Flowsa Wiki**  
+[Install & Run](https://github.com/USEPA/flowsa/wiki)  
+How Flowsa data is prepared - Creating a FlowByActivity Dataset
 
 If you change BLS_QCEW.py, do so in our [FLOWSA fork](https://github.com/modelearth/flowsa).
 
@@ -18,8 +23,8 @@ Output to [state data files](https://github.com/modelearth/community-data/tree/m
 
 Output 5 columns with names: fips, naics, employees, wages and firms (establishment count)
 
-- Location (fips for county)  
-- ActivityProducedBy (6-digit naics)  
-- Employment FlowAmount (Number of Employees)  
-- Money (Annual Wages)
-- Other (Number of Extablishments)  
+- fips - Location (fips for county)  
+- naics - ActivityProducedBy (6-digit naics)  
+- employees - Employment FlowAmount (Number of Employees)  
+- wages - Money (Annual Wages)
+- firms - Other (Number of Extablishments)  
