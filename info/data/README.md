@@ -38,24 +38,22 @@ You can also create a df for multiple years. There is data for 2010 – 2018. Ex
 
 ## Output to CSV
 
-### Optional, set the csv output path to …\flowsa\flowsa\output\FlowByActivity
-
-You'll need to manually create a folders called "output\FlowByActivity"
+### # Optional, set the csv output path to …\flowsa\flowsa\output\FlowByActivity
+### # You'll need to manually create a folder at "output\FlowByActivity"
 
 	from flowsa.common import fbaoutputpath  
 
  
-# define parameters for getFlowByActivity
+### # Define parameters for getFlowByActivity
 
-fc=['Employment', 'Money', 'Other']
+	fc=['Employment', 'Money', 'Other']
 
-years=[2018]
+	years=[2018]
 
-ds="BLS_QCEW"
+	ds="BLS_QCEW"
 
  
-
-# load the FlowByActivity as a parquet
+### # Load the FlowByActivity as a parquet (a columnar storage format) - Use one:
 
 	df = flowsa.getFlowByActivity(flowclass=fc, years=years, datasource=ds)
 
@@ -63,24 +61,67 @@ ds="BLS_QCEW"
 
 	df = flowsa.getFlowByActivity(flowclass=fc, years=years, datasource=ds, geographic_level='state')
 
- 
+### # Create new column with first two digits of Location representing state
 
-# determine output path, modify next line to save file elsewhere
+	df = df.assign(StateFIPS=df['Location'].apply(lambda x: x[0:2]))
 
-file_path = fbaoutputpath
+### # Limit the states to Alabama and Georgia (fips 1000 and 13000)
 
-# name file
+	df_state_sub = df[df['StateFIPS'].isin(['01', '13'])].reset_index(drop=True)
 
-file_name = ds + '_' + '_'.join(map(str, years)) + '.csv'
+### # TO DO use the merge function to combine 'Employment', 'Money' and 'Establishments' into one row.
+
+	# Add Function Here
+	# Simplify column names to: fips, naics, employees, wages and firms
+
+### # Limit output to specific columns and rename the column names
+
+	df_col_sub = df[['ActivityProducedBy', 'ActivityConsumedBy', 'Location']]
+
+	df_col_sub = df_col_sub.rename(columns={'ActivityProducedBy': 'APB', 'ActivityConsumedBy': 'ACB'})
+
+### # To output a file for each US state, loop through the 50 state names.
+
+	state_fips = df['StateFIPS'].unique()
+
+	for s in state_fips:
+
+	    df_name = 'df_' + s
+
+    	vars()[df_name] = df[df['StateFIPS'] == s].reset_index(drop=True)
+
+\# you can link the data to state names using [this function](https://github.com/USEPA/flowsa/blob/master/flowsa/common.py#L374)
 
 
-# save dataframe as csv
+### # Check if employment data is available for any of Georgia's 9 automobile manufacturers (naics 336111)
 
-df.to_csv(file_path + file_name, index=False)
+	df_ga_naics = df[df['StateFIPS'].isin(['13'])]
+
+	df_ga_naics = df_ga_naics[df_ga_naics['Class'] == 'Money']
+
+	df_ga_naics = df_ga_naics[df_ga_naics['ActivityProducedBy'] == '336111'].reset_index(drop=True)
+
+### # Limit to 6-digit naics, or loop through 2,3,4,5 and 6 to create separate files.
+
+	df_naics6 = df[df['ActivityProducedBy'].apply(lambda x: len(x) == 6)].reset_index(drop=True)
+
+
+### # Set output path. Modify to save file elsewhere.
+
+	file_path = fbaoutputpath
+
+### # Set file name
+
+	file_name = ds + '_' + '_'.join(map(str, years)) + '.csv'
+
+
+### # Save dataframe as csv
+
+	df.to_csv(file_path + file_name, index=False)
 
 <br>
 
-#### For Comparison to prior year
+## For Comparison to prior year
 
 Additional columns are available to compare to the prior year.  
 
