@@ -1,6 +1,6 @@
 
 
-Note: The BLS QCEW FlowByActivity datasets that are hosted on Data Commons are updated to include county level data, so you can use the sample code below to retrieve the datasets.  
+Note: The BLS QCEW FlowByActivity datasets that are hosted on [Data Commons](https://docs.datacommons.org/2020/10/15/search_launch.html) are updated to include county level data, so you can use the sample code below to retrieve the datasets.  
 
 
 Clone using Github Desktop, or run from the terminal:
@@ -119,13 +119,24 @@ You can also create a df for multiple years. There is data for 2010 – 2018. Ex
 
 	df.to_csv(file_path + file_name, index=False)
 
-#### # TO DO - Add script here to save in [community-data repo state folders](https://github.com/modelearth/community-data/tree/master/us/state).
+#### # TO DO - Add script here to save in [community-data repo state folders](https://github.com/modelearth/community-data/tree/master/us/state).  
+
+#### # TO DO - Fix the following so we can see where CSV file is saved.  
+#### # Once working, place this before running `df = flowsa.getFlowByActivity`above:
+
+	from flowsa.common import fbaoutputpath
+
+	import log
+
+	log.info(“CSV file saved at " +  file_path + file_name)
+
+
 
 <br>
 
 ## For Comparison to prior year
 
-Additional columns are available to compare to the prior year.  
+TO DO - Additional columns are available to compare to the prior year.  
 
 oty_annual_avg_emplvl_chg  
 oty_annual_avg_estabs_chg  
@@ -137,8 +148,9 @@ When Catherine Birney modified the data to include the columns for changes from 
 
 
 
-<br>
-Explore [options for zip code level data](../../../community/industries/)  
+## Add Zip Code level BLS Data to FLOWSA
+
+TO DO - Explore options for <a href="../../../community/industries/">zip code level data</a>.
 
 
 <br>
