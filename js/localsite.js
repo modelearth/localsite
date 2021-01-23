@@ -295,8 +295,14 @@ function formatRow(key,value,level,item) {
             
               if (isObject(value[c][d])) { // Error in Drupal json
                 //addHtml += "<b>Add something else here</b>\n";
-                for (e in value[c][d]){
-                  addHtml += formatRow(e,value[c][d][e],level);
+                for (e in value[c][d]) {
+                  //if (isObject(value[c][d][e]) || isArray(value[c][d][e])) {
+                  //if (e !== null && e !== undefined) { // 
+                    
+                    // BUGBUG - Uncomment after preventoing error here: http://localhost:8887/community/resources/diffbot/?zip=91945
+                    //addHtml += formatRow(e,value[c][d][e],level);
+
+                  //}
                   //addHtml += "<div class='level5'>" + e + ": " + value[c][d][e] + "</div>\n";
                 }
               } else {
