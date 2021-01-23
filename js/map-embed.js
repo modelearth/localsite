@@ -428,8 +428,7 @@ strVar += "";
 strVar += "<!-- ";
 strVar += "Displayed by refreshWidgets() in map-filters.js";
 strVar += "-->";
-strVar += "<iframe id=\"introframe\" style=\"display:none\" width=\"100%\" height=\"900px\" src=\"\" frameborder=\"0\" ><\/iframe>";
-strVar += "";
+
 strVar += "<!-- Settings Panel -->";
 strVar += "<div class=\"settingsPanel topMenuOffset floater\" style=\"display:none; position:fixed\">";
 strVar += "";
@@ -942,7 +941,7 @@ strVar += "            ";
 strVar += "<\/div>";
 strVar += "<!-- \/LOCATION SEARCH -->";
 strVar += "";
-strVar += "";
+strVar += "<iframe id=\"introframe\" style=\"display:none\" width=\"100%\" height=\"900px\" src=\"\" frameborder=\"0\" ><\/iframe>";
 strVar += "";
 strVar += "<div id=\"pageLinksHolder\" class=\"content contentpadding\" style=\"display:none; padding-top:0; padding-bottom:0\">";
 strVar += "  <br>";
