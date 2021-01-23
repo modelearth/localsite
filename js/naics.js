@@ -240,7 +240,11 @@ $(document).ready(function() {
         console.log("The hash: " + location.hash);
         let params = loadParams(location.search,location.hash);
         console.log("naics.js detects hash change hashChangeEvent");
-        renderIndustryChart(dataObject,values,params);
+        if(typeof value == 'undefined') {
+            console.log("ALERT value object undefined in naics.js")
+        } else {
+            renderIndustryChart(dataObject,values,params);
+        }
 
     }, false);
                         

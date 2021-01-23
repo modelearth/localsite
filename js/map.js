@@ -181,7 +181,7 @@ function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback
         // ADD BACKGROUND BASEMAP
         if (layerControl[whichmap] == undefined) {
           layerControl[whichmap] = L.control.layers(basemaps1, overlays1).addTo(map); // Init layer checkboxes
-          basemaps1["OpenStreetMap"].addTo(map); // Set the initial baselayer.
+          basemaps1["Grayscale"].addTo(map); // Set the initial baselayer.  OpenStreetMap
         } else {
           layerControl[whichmap].addOverlay(dp.group, dp.dataTitle); // Add layer checkbox
         }
@@ -557,7 +557,7 @@ function addIcons(dp,map,map2) {
 
     element.mapframe = getMapframe(element);
     if (element.mapframe) {
-        output += "<a href='#show=360&m=" + element.mapframe + "'>Birdseye Tour<br>";
+        output += "<a href='#show=360&m=" + element.mapframe + "'>Birdseye View<br>";
     }
     if (element.property_link) {
         output += "<a href='" + element.property_link + "'>Property Details</a><br>";
@@ -1429,7 +1429,7 @@ function showList(dp,map) {
       }
 
       if (element.mapframe) {
-          output += "<a href='#show=360&m=" + element.mapframe + "'>Birdseye Tour<br>";
+          output += "<a href='#show=360&m=" + element.mapframe + "'>Birdseye View<br>";
       }
       if (element.property_link) {
           output += "<a href='" + element.property_link + "'>Property Details</a><br>";
