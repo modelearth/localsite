@@ -1345,7 +1345,7 @@ function displayBigThumbnails(layerName,siteObject) {
 	                                }
 
 	                                if ((directlink.indexOf('/map/') >= 0 && location.pathname.indexOf('/map/') >= 0) || (directlink.indexOf('/info/') >= 0 && location.pathname.indexOf('/info/') >= 0)) { // Stayon page when on map or info
-	                                	linkJavascript = "onclick='goHash({\"go\":\"" + siteObject.items[layer].item + "\",\"cat\":\"\",\"sectors\":\"\",\"naics\":\"\",\"show\":\"\"}); return false;'"; // Remain in current page.
+	                                	linkJavascript = "onclick='goHash({\"go\":\"" + siteObject.items[layer].item + "\",\"cat\":\"\",\"sectors\":\"\",\"naics\":\"\",\"show\":\"\",\"m\":\"\"}); return false;'"; // Remain in current page.
 	                                } else {
 	                                	linkJavascript = "";
 	                                }
@@ -1519,7 +1519,7 @@ function initSiteObject(layerName) {
 	                
 	                // siteObjectFunctions(siteObject); // could add to keep simple here
 
-	          		$('#showApps, .hideApps, #appMenu').click(function(event) {
+	                $(document).on("click", "#showApps, .hideApps, #appMenu", function(event) {
 	          			console.log('#showApps click');
 	          			if ($("#bigThumbPanelHolder").is(':visible')) {
 	          				// To do: Only up scroll AND SHOW if not visible

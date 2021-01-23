@@ -29,7 +29,7 @@ If you want to get the raw data in our flow by activity format. You can subset t
 
 Returns a pandas dataframe that you can subset by NAICS sector in this case it will be the ActivityProducedBy.  
 
-[See the format reference table](https://github.com/USEPA/flowsa/blob/master/format%20specs/FlowByActivity.md) - filter by Location using a county FIPS  as a 5 digit code, e.g. 13001 for Appling County.  
+[See the format reference table](https://github.com/USEPA/flowsa/blob/master/format%20specs/FlowByActivity.md) - filter by Location using a county FIPS  as a 5 digit code, e.g. 13001 for Appling County, Georgia.  
 
 You can also create a df for multiple years. There is data for 2010 – 2018. Example:  
 
@@ -90,7 +90,7 @@ You can also create a df for multiple years. There is data for 2010 – 2018. Ex
 
     	vars()[df_name] = df[df['StateFIPS'] == s].reset_index(drop=True)
 
-\# you can link the data to state names using [this function](https://github.com/USEPA/flowsa/blob/master/flowsa/common.py#L374)
+\# You can link the data to state names using [this function](https://github.com/USEPA/flowsa/blob/master/flowsa/common.py#L374)
 
 
 ##### # Check if employment data is available for any of Georgia's 9 automobile manufacturers (naics 336111)
@@ -115,7 +115,7 @@ You can also create a df for multiple years. There is data for 2010 – 2018. Ex
 	file_name = ds + '_' + '_'.join(map(str, years)) + '.csv'
 
 
-##### # Save dataframe as csv
+##### # Save dataframe as .csv file.
 
 	df.to_csv(file_path + file_name, index=False)
 
