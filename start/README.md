@@ -144,7 +144,7 @@ Another great markdown editor: [Dillinger Markdown to HTML](https://dillinger.io
 
 Learn more about [JAM Stack Development](https://jamstack.org) - the process of creating fast sites using static pages with CSV files, JSON and APIs.  
 
-[AWS Amplify, plus more static site hosting options](../../amplify/AWS/) - Azure, Firebase, GitHub Pages, Netlify and more.
+[AWS Amplify, plus more static site hosting options](https://model.earth/amplify/AWS/) - Azure, Firebase, GitHub Pages, Netlify and more.
 
 <!--stackedit_data:
 eyJkaXNjdXNzaW9ucyI6eyJUVnA4TEhxcU93YTk2N1Y2Ijp7In
