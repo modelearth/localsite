@@ -22,6 +22,8 @@ If the above do not work, you can also try:
 
 	python -m SimpleHTTPServer 8887
 
+More Options:  
+
 ON A PC: [Install IIS](https://www.techwalla.com/articles/how-to-circumvent-mcafee-dlp) to view using http://localhost/  &nbsp; With this approach you'd avoid typing the port number.
 
 
