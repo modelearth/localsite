@@ -1,11 +1,20 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, user-scalable=yes">
+<!--meta name="viewport" content="width=device-width, user-scalable=yes"-->
 <html>
 <head profile="http://www.w3.org/2005/10/profile">
-  <title>Maps For Us</title>
-  <link rel="icon" type="image/png" href="../../img/logo/modelearth-icon.png" />
+<title>Maps For Us</title>
+
+<link rel="icon" type="image/x-icon" href="../../img/logo/modelearth-icon.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="../../../localsite/js/d3.v5.min.js"></script>
+<script type="text/javascript" src="../../../localsite/js/showdown.min.js"></script>
+<script type="text/javascript" src="../../../localsite/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../../localsite/js/localsite.js"></script>
+<script type="text/javascript" src="../../../localsite/js/navigation.js"></script>
+<link rel="stylesheet" href="../../../localsite/css/base.css" />
+
 
   <!-- Leaflet -->
   <link rel="stylesheet" href="https://assets.mapsfor.us/plugins/leaflet/leaflet.css" />
@@ -46,6 +55,7 @@
     #map {
       width: 100%;
       height: 100%;
+      height: 300px;
     }
 
     .intro-popup .leaflet-popup-tip-container {
@@ -59,17 +69,39 @@
 
 <div id="map"></div>
 
+<div class="content contentpadding">
+  <h1>Sample List from Google Sheet</h1>
+  Customized <a href="js/mapsforus.js">js/mapsforus.js</a> to display a list for the Google Sheet...<br>
+  Set constants.googleDocID within this page.  Currently your Google Sheet must have columns called Title, Description, County, district, and webpage.
+  <!--
+  Title was: Provider Name/Clinic Name
+  Description was: Health District Website
+  -->
+  <br>
+  <div id="maplist"></div>
+</div>
+
 <script type="text/javascript">
   var map = L.map('map', {
+    scrollWheelZoom: false, // Custom
     attributionControl: false
   }).setView([33.76,-84.365], 7);
 
   // One less external file
-  var constants = {
+  var constantsX = {
     googleDocID: '1I1bHQTUNCPHD6AuyNQfYV6g0qqJI8OjF9UHP9MW4XYg',
     informationSheetName: 'Information',
     pointsSheetName: 'Points'
   };
+
+  //TODO: Change so googleDocID only needs to be set here, not below too
+  var constants = {
+    googleDocID: '1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88',
+    informationSheetName: 'Information',
+    pointsSheetName: 'Sheet3'
+  };
+
+  //googleDocID: '1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88',
 
   // in here, get the ID from the URL
   function getUrlVars() {
@@ -88,7 +120,8 @@
     console.log("Recycling-mapsforus")
     // Optionally override the googleDocID set in constants above
     //constants.googleDocID = '1glMpFXTg8GJ-Jvsox4IK0-qQMEgBE53m_l2cIYG8OUg'; // Georgia-mapsforus in Georgia Data
-    constants.googleDocID = '1JDD36dOvy5TWsmfg0g4r8x9MMyuidRgpJAdDFD9HiTQ'; // Recycling-mapsforus in Georgia Maps
+    //constants.googleDocID = '1JDD36dOvy5TWsmfg0g4r8x9MMyuidRgpJAdDFD9HiTQ'; // Recycling-mapsforus in Georgia Maps
+    constants.googleDocID = '1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88'
   }
 </script>
 <script type="text/javascript" src="js/mapsforus.js"></script>

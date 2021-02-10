@@ -836,9 +836,9 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                                                 var filteredData = latdata.filter(function(e) {
                                                     if(d["id"]==fips[j]){
                                                         if(d["county"]==e["NAMELSAD"]){
-                                                            //mapLink.push("https://www.google.com/search?q=" + top_data_list[i]['data_id'].replace(/ /g," + ") + " " + d["county"].replace(/ /g," + ") + ",+Georgia")
-                                                            mapLink.push("https://www.google.com/maps/search/" + top_data_list[i]['data_id'].replace(/ /g," + ") + "/@" + e['latitude'] + "," + e['longitude'] + ",11z")
-                                                            //mapLink.push("https://bing.com/maps/?q=" + top_data_list[i]['data_id'].replace(/ /g," + ") + "&cp=" + e['latitude'] + "~" + e['longitude'] + "&lvl=11"); // lvl not working
+                                                            //mapLink.push("https://www.google.com/search?q=" + top_data_list[i]['data_id'].replace(/ /g,"+") + " " + d["county"].replace(/ /g,"+") + ",+Georgia")
+                                                            mapLink.push("https://www.google.com/maps/search/" + top_data_list[i]['data_id'].replace(/ /g,"+") + "/@" + e['latitude'] + "," + e['longitude'] + ",11z")
+                                                            //mapLink.push("https://bing.com/maps/?q=" + top_data_list[i]['data_id'].replace(/ /g,"+") + "&cp=" + e['latitude'] + "~" + e['longitude'] + "&lvl=11"); // lvl not working
                                                         }
                                                     }
                                                 })
@@ -846,15 +846,15 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                                         }
                                     } else if (fips == dataObject.stateshown) {
                                             //county=""
-                                            mapLink = "https://www.google.com/maps/search/" + top_data_list[i]['data_id'].replace(/ /g," + ") + "/@32.9406955,-84.5411485,8z"
-                                            //mapLink = "https://bing.com/maps/?q=" + top_data_list[i]['data_id'].replace(/ /g," + ") + "&cp=32.94~-84.54&z=8"; // lvl not working
+                                            mapLink = "https://www.google.com/maps/search/" + top_data_list[i]['data_id'].replace(/ /g,"+") + "/@32.9406955,-84.5411485,8z"
+                                            //mapLink = "https://bing.com/maps/?q=" + top_data_list[i]['data_id'].replace(/ /g,"+") + "&cp=32.94~-84.54&z=8"; // lvl not working
                                     } else {
                                         var filteredData = consdata.filter(function(d) {
                                             var filteredData = latdata.filter(function(e) {
                                                 if(d["id"]==fips ){      
                                                     if(d["county"]==e["NAMELSAD"]){
-                                                                //mapLink.push("https://www.google.com/search?q=" + top_data_list[i]['data_id'].replace(/ /g," + ") + " " + d["county"].replace(/ /g," + ") + ",+Georgia")
-                                                        mapLink = "https://www.google.com/maps/search/" + top_data_list[i]['data_id'].replace(/ /g," + ") + "/@" + e['latitude'] + "," + e['longitude'] + ",11z"
+                                                                //mapLink.push("https://www.google.com/search?q=" + top_data_list[i]['data_id'].replace(/ /g,"+") + " " + d["county"].replace(/ /g,"+") + ",+Georgia")
+                                                        mapLink = "https://www.google.com/maps/search/" + top_data_list[i]['data_id'].replace(/ /g,"+") + "/@" + e['latitude'] + "," + e['longitude'] + ",11z"
                                                                 //console.log("xxxxxxxxx"+e["longitude"])
                                                     }
                                                 }
@@ -862,7 +862,7 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                                         })
                                     }
                                 //})
-                                //let mapLink = "https://www.google.com/maps/search/" + top_data_list[i]['data_id'].replace(/ /g," + ") + "/@" + latitude + "," + longitude + ",11z";
+                                //let mapLink = "https://www.google.com/maps/search/" + top_data_list[i]['data_id'].replace(/ /g,"+") + "/@" + latitude + "," + longitude + ",11z";
 
 
                             if(params.catsort=="payann"){
