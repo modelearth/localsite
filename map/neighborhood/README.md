@@ -1,10 +1,60 @@
-# Maps For Us
+# Neighborhood Maps For Us
+
+View our [sample map](sample.html) and [Google Sheet](https://docs.google.com/spreadsheets/d/1JDD36dOvy5TWsmfg0g4r8x9MMyuidRgpJAdDFD9HiTQ/edit#gid=1284085090)
+
+View our [Open Data Google Sheet](http://bit.ly/code-for-atl-open-data-workingdoc)
 
 We're planning to update [Maps For Us](https://mapsfor.us/) to auto-geocode new addresses as they are added to the Google Sheet. Currently you have to highlight the address column and its 2 adjacent lat/lon columns to geocode using the manual steps below.  
 
-[EV Ecosystem Google Sheet](https://docs.google.com/spreadsheets/d/1odIH33Y71QGplQhjJpkYhZCfN5gYCA6zXALTctSavwE/edit?usp=sharing) - [Mapbox Google Sheet map sample](map.html)  
+[Mapbox Map Sample](map.html) - [from this Google Sheet](https://docs.google.com/spreadsheets/d/1odIH33Y71QGplQhjJpkYhZCfN5gYCA6zXALTctSavwE/edit?usp=sharing)  
 
-View our [Google Sheet](https://docs.google.com/spreadsheets/d/1JDD36dOvy5TWsmfg0g4r8x9MMyuidRgpJAdDFD9HiTQ/edit#gid=1284085090) and resulting [recycling map](sample.html).  
+####Column Names
+Status  
+Name  
+Email  
+Comments  
+Description  
+Category1  
+Category2  
+Category3  
+Location  
+Address  
+Latitude  
+Longitude   
+Geo  
+City  
+State  
+Zip  
+Country  
+Phone  
+Webpage  
+News  
+Donate  
+Volunteer  
+API  
+
+
+####Similar to MapBox column names 
+Underscores require a backslash in markdown and are not visible in links.  
+So we use CamelCase, or a dash to represent a space.  
+
+Name  
+Description  
+Address  
+Latitude  
+Longitude  
+Address_1  
+City  
+State_Province  
+Zip\_Code  
+Country_ISO3166\_Alpha2  
+Phone  
+News  
+Donate  
+Volunteer
+
+
+  
 
 Here are [5 csv files with recycling datasets](https://github.com/localsite/localsite/tree/master/map/recycling/ga) that we will display as layers in a Leaflet map.  
 

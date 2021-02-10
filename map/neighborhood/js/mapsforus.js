@@ -1,4 +1,4 @@
-// Source: https://github.com/codeforatlanta/mapsforus by Code for Atlanta
+// Original source: https://github.com/codeforatlanta/mapsforus by Code for Atlanta
 
 window.onload = function () {
 
