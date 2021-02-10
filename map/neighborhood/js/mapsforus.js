@@ -67,6 +67,8 @@ window.onload = function () {
 
   // only run this after Tabletop has loaded (onTabletopLoad())
   function mapPoints(points, layers) {
+
+    return; // Custom - Disabled until point['Marker Icon'] available
     var markerArray = [];
     for (var i in points) {
       var point = points[i];
@@ -92,6 +94,74 @@ window.onload = function () {
     }
     centerAndZoomMap(group);
 
+  }
+
+  // New Additions - Custom
+  function displayList(points, layers) {
+    var markerArray = [];
+    let html = "";
+    for (var i in points) {
+      var point = points[i];
+      if (point.Latitude !== "" && point.Longitude !== "") {
+        html += point["Title"] + "</b><br>" + point["Description"] + "<hr>";
+      }
+    }
+    document.getElementById('maplist').innerHTML = html;
+  }
+  function displayListVax(points, layers) {
+
+    
+    var markerArray = [];
+    let html = "";
+    html +='<h2>Amended Georgia Department of Health List of Distribution Points</h2>';
+    html += 'Updates maintained by volunteers at <a href="https://VaccinateGA.com">VaccinateGA.com</a> - Currently outdated.<br>';
+    //html += '<a href="https://docs.google.com/spreadsheets/d/1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88/edit?usp=sharing">Add updates to the VaccinateGA.com Google Sheet</a><br><br>';
+    html += 'Learn about <a href="https://www.infinitus.ai/blog-posts/vaccinateca-covid19-automation">automated call system assisting volunteers in California</a> and several other states.<br>';
+    html += '<br>';
+
+    for (i = 0; i < points.length; i++) {
+      var point = points[i];
+      if (point.Latitude !== "" && point.Longitude !== "") {
+        //html += point["Title"] + "</b><br>" + point["Description"] + point["County"]  + "<hr>";
+
+      }
+
+      var theTitle = point["Title"] + ' - ' + point["County"] + ' County';
+      var theTitleLink = 'https://www.google.com/maps/search/' + (point["Title"] + ', ' + point["County"] + ' County').replace(/ /g,"+");
+      var theRow = '<b>' + (i+1) + '</b> - <a href="' + theTitleLink + '">' + theTitle + '</a>';
+      if (point["district"]) {
+        theRow += ' - ' + point["district"];
+      }
+      if (point["Description"]) {
+        theRow += ' - ' + point["Description"];
+      }
+      if (point["webpage"]) {
+        theRow += '<br> &nbsp; &nbsp; &nbsp;' + linkify(point["webpage"]);
+      }
+      html += theRow + '<hr>';
+
+    }
+    document.getElementById('maplist').innerHTML = html;
+  }
+  function linkify(inputText) { // https://stackoverflow.com/questions/37684/how-to-replace-plain-urls-with-links
+    //return(inputText);
+    console.log(inputText)
+    var replacedText, replacePattern1, replacePattern2, replacePattern3;
+
+    //URLs starting with http://, https://, or ftp://
+    replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+
+    //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+    replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+    replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
+
+    //Change email addresses to mailto:: links.
+    //replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
+    //replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
+    // https://outlook.office365.com/owa/calendar/WhitfieldVaccineSchedule@gets.onmicrosoft.com/bookings/
+
+    return replacedText;
   }
 
   // only run this after Tabletop has loaded (onTabletopLoad())
@@ -149,7 +219,12 @@ window.onload = function () {
   }
 
   function onTabletopLoad() {
-    createDocumentSettings(tabletop.sheets(constants.informationSheetName).elements);
+    //createDocumentSettings(tabletop.sheets(constants.informationSheetName).elements); // Custom - remove
+    // Custom
+    documentSettings = {
+
+    }
+
     addBaseMap();
     document.title = documentSettings["Webpage Title:"];
     var points = tabletop.sheets(constants.pointsSheetName).elements;
@@ -158,6 +233,7 @@ window.onload = function () {
       mapHeatmap(points);
     } else {
       mapPoints(points, layers);
+      displayListVax(points, layers);
     }
   }
 
@@ -173,19 +249,23 @@ window.onload = function () {
   }
   
   function addBaseMap() {
-    var basemap = documentSettings["Tile Provider:"] === '' ? 'Stamen.TonerLite' : documentSettings["Tile Provider:"];
+
+    // Custom
+    //var basemap = documentSettings["Tile Provider:"] === '' ? 'Stamen.TonerLite' : documentSettings["Tile Provider:"];
+    var basemap = 'Stamen.TonerLite';
 
     L.tileLayer.provider(basemap, {
       maxZoom: 18
     }).addTo(map);
 
     L.control.attribution({
-      position: 'bottomleft'
+      position: 'bottomright'
     }).addTo(map);
 
     var attributionHTML = document.getElementsByClassName("leaflet-control-attribution")[0].innerHTML;
     var mapCreatorAttribution = documentSettings["Your Name:"] === '' ? 'Built with' : 'This map was built by ' + documentSettings["Your Name:"] + ' using';
     attributionHTML = mapCreatorAttribution + ' <a href="http://mapsfor.us/">mapsfor.us</a><br><a href="http://mapsfor.us/">Mapsfor.us</a> was created by <a href="http://www.codeforatlanta.org/">Code for Atlanta</a><br>' + attributionHTML;
-    document.getElementsByClassName("leaflet-control-attribution")[0].innerHTML = attributionHTML;
+    // Custom - Restore later
+    //document.getElementsByClassName("leaflet-control-attribution")[0].innerHTML = attributionHTML;
   }
 };
