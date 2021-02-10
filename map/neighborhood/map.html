@@ -18,10 +18,11 @@
     }
 
     #map {
-      position: absolute;
+      positionX: absolute;
       top: 0;
       bottom: 0;
       width: 100%;
+      height: 500px;
     }
 
     /* Popup styling */
@@ -79,6 +80,8 @@
 <body>
 
   <div id='map'></div>
+  <div style="padding:30px"><a href="./">Related notes</a></div>
+
   <script>
 
     var transformRequest = (url, resourceType) => {
@@ -97,9 +100,13 @@
       container: 'map', // container id
       style: 'mapbox://styles/mapbox/streets-v11', //stylesheet location
       center: [-122.411, 37.785], // starting position
-      zoom: 10,// starting zoom
+      zoom: 5, // starting zoom
       transformRequest: transformRequest
     });
+    // disable map zoom when using scroll
+    map.scrollZoom.disable(); // Equivalent to scrollWheelZoom: false in Leaflet
+    // Add zoom and rotation controls to the map.
+    map.addControl(new mapboxgl.NavigationControl());
 
     $(document).ready(function () {
       $.ajax({
@@ -170,7 +177,7 @@
             });
 
             var bbox = turf.bbox(data);
-            map.fitBounds(bbox, { padding: 50 });
+            //map.fitBounds(bbox, { padding: 50 });
 
           });
 
