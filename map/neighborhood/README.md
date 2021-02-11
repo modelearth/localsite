@@ -4,7 +4,7 @@ View [Georgia Vaccine Locations](../#show=vac) and [Availability Updates](vaccin
 
 <b>Vaccine Availability - Google Script Volunteer Needed</b>
 
-We need help writing scripts in Google Sheets to merge updates from a tab containing raw data from the Georgia Department of Health with our main vaccine availability tab where volunteers post comments to report on their contacts with pharmacies and hospitals.  Join the **#neighborhood** Slack channel at <a href="https://codeforatlanta.slack.com">codeforatlanta.slack.com</a> to volunteer your Google Sheet programming skills.  
+We need help writing scripts in Google Sheets to merge updates from a tab containing raw data from the Georgia Department of Health with our main vaccine availability tab where volunteers post comments to report on their contacts with pharmacies and hospitals.  Join the **#neighborhood** and **#vaccinate-ga** Slack channels at <a href="https://codeforatlanta.slack.com">codeforatlanta.slack.com</a> to volunteer your Google Sheet programming skills.  
 
 <!--
 [Recycling MapsForUs test Google Sheet](https://docs.google.com/spreadsheets/d/1JDD36dOvy5TWsmfg0g4r8x9MMyuidRgpJAdDFD9HiTQ/edit#gid=1284085090)
@@ -23,6 +23,8 @@ Status
 Name  
 Email  
 Comments  
+ContactDate  
+ContactedBy  
 Description  
 Category1  
 Category2  
