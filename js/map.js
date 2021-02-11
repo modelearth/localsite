@@ -897,7 +897,7 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     //dp1.googleDocID = "1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88"; // Vac copy
     //dp1.sheetName = "Sheet3";
     dp1.listInfo = "Availability currently limited to seniors 65 and older. Make your appointment in advance. <a href='https://www.vaccinatega.com/vaccination-sites/providers-in-georgia'>Check major providers</a> and <a href='neighborhood/vaccines/'>view availability and contribute updates</a>.";
-    dp1.search = {"In Title": "title", "In Description": "description", "In Website URL": "website", "In Address": "address", "In City Name": "city", "In Zip Code" : "zip"};
+    dp1.search = {"In Title": "title", "In Description": "description", "In Website URL": "website", "In Address": "address", "In City Name": "city", "In County Name": "county", "In Zip Code" : "zip"};
   
   } else if (show == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
     
