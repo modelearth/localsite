@@ -19,12 +19,11 @@ View our [Georgia Open Data Google Sheet](http://bit.ly/code-for-atl-open-data-w
 
 Used in open data lists and maps - CSV files and Google Sheets
 
-Status  
-Name  
-Email  
+Status - Null: needs review | 0: hide | 1: show | 2: show, but needs updates     
+Name - Location name or web service name  
 Comments  
 ContactDate  
-ContactedBy  
+ContactedBy - Name and (email) of person making contact   
 Description  
 Category1  
 Category2  
@@ -33,17 +32,20 @@ Location
 Address  
 Latitude  
 Longitude   
-Geo  
+Geo - 2-character country code followed by FIPS state or county number   
 City  
 State  
 Zip  
-Country  
 Phone  
 Webpage  
-News  
-Donate  
-Volunteer  
+News - A URL   
 API  
+Email - Public  
+EditorEmail - List of emails of users authorized to update the row  
+
+Comma-separate mutltiple values in ContactedBy, Geo, Email and Phone fields.  
+Place the most recent ContactedBy first.  
+<br>
 
 
 ####Improvements to MapBox column names 
@@ -62,8 +64,7 @@ Zip\_Code
 Country\_ISO3166\_Alpha2  
 Phone  
 News  
-Donate  
-Volunteer
+
 
 [Mapbox Map Sample](map.html) - [from this Google Sheet](https://docs.google.com/spreadsheets/d/1odIH33Y71QGplQhjJpkYhZCfN5gYCA6zXALTctSavwE/edit?usp=sharing) 
   
