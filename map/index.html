@@ -17,6 +17,10 @@
 <!--
 <link rel="stylesheet" href="../css/hexagons.css">
 -->
+
+<!-- For Goole Sheets, since CORS blocks CSV loading on some sheets. -->
+<script type="text/javascript" src="neighborhood/js/tabletop.js"></script>
+
 <script type="text/javascript" src="../js/showdown.min.js"></script>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/localsite.js"></script>
@@ -270,8 +274,7 @@
               <i id="showLocations" class="material-icons" style="transform: rotate(90deg); font-size:24px;cursor:pointer;display:none">&#xE409;</i>
               <i id="hideLocations"  class="material-icons" style="font-size:24px;cursor:pointer;">&#xE409;</i>
             </div>
-            <div class="filterSelected" style="padding-right:28px">Entire State
-            </div>
+            <div class="filterSelected" style="padding-right:28px">County</div><!-- Entire State -->
           </div>
         </div>
 

@@ -45,7 +45,7 @@ function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback
   // To Do: Map background could be loaded while waiting for D3 file. 
   // Move "d3.csv(dp.dataset).then" further down into a new function that starts with the following line.
   if (typeof d3 !== 'undefined') {
-    if (!dp.dataset) {
+    if (!dp.dataset && !dp.googleDocID) {
       console.log('CANCEL loadFromCSV - no dataset selected for top map.');
       $("#" + whichmap).hide();
       $("#data-section").hide();
@@ -127,110 +127,29 @@ function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback
     // We are currently loading dp.dataset from a CSV file.
     // Later we will check if the filename ends with .csv
 
-    d3.csv(dp.dataset).then(function(data) {
-        //console.log("To do: store data in browser to avoid repeat loading from CSV.");
+    if (dp.dataset) {
+      d3.csv(dp.dataset).then(function(data) {
+          //console.log("To do: store data in browser to avoid repeat loading from CSV.");
 
-        dp.data = readCsvData(data, dp.numColumns, dp.valueColumn);
-        // Make element key always lowercase
+          dp.data = readCsvData(data, dp.numColumns, dp.valueColumn);
+          // Make element key always lowercase
 
-        dp.data_lowercase_key
+          dp.data_lowercase_key;
 
-        dp.scale = getScale(dp.data, dp.scaleType, dp.valueColumn);
-        dp.group = L.layerGroup();
-        dp.group2 = L.layerGroup();
-        dp.iconName = 'star';
-        //dataParameters.push(dp);
+          processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,function(results){});
+      })
+    } else if (dp.googleDocID) {
+      tabletop = Tabletop.init( { key: dp.googleDocID, // from constants.js
+        callback: function(data, tabletop) { 
 
-        // Remove - clear the markers from the map for the layer
-         if (map.hasLayer(overlays1[dp.dataTitle])){
-            overlays1[dp.dataTitle].remove();
-         }
-         if (map2.hasLayer(overlays2[dp.dataTitle])){
-            overlays2[dp.dataTitle].remove();
-         }
-
-         // Prevents dups of layer from appearing
-         // Each dup shows a data subset when filter is being applied.
-         if (overlays1[dp.dataTitle]) {
-            layerControl[whichmap].removeLayer(overlays1[dp.dataTitle]);
-         }
-         if (overlays2[dp.dataTitle]) {
-            // Not working, multiple checkboxes appear
-            layerControl[whichmap2].removeLayer(overlays2[dp.dataTitle]);
-            //controlLayers.removeLayer(overlays2[dp.dataTitle]);
-         }
-
-        // Allows for use of dp.dataTitle with removeLayer and addLayer
-        overlays1[dp.dataTitle] = dp.group;
-        overlays2[dp.dataTitle] = dp.group2;
-
-        if (layerControl[whichmap] != undefined) {
-          // Remove existing instance of layer
-          //layerControl[whichmap].removeLayer(overlays[dp.dataTitle]); // Remove from control 
-          //map.removeLayer(overlays[dp.dataTitle]); // Remove from map
-        }
-
-        if (layerControl[whichmap] != undefined && dp.group) {
-            //layerControl[whichmap].removeLayer(dp.group);
-        }
-
-
-        // Still causes jump
-        //overlays2["Intermodal Ports 2"] = overlays["Intermodal Ports"];
-
-        // ADD BACKGROUND BASEMAP
-        if (layerControl[whichmap] == undefined) {
-          layerControl[whichmap] = L.control.layers(basemaps1, overlays1).addTo(map); // Init layer checkboxes
-          basemaps1["Grayscale"].addTo(map); // Set the initial baselayer.  OpenStreetMap
-        } else {
-          layerControl[whichmap].addOverlay(dp.group, dp.dataTitle); // Add layer checkbox
-        }
-        // ADD BACKGROUND BASEMAP to Side Map
-        if (layerControl[whichmap2] == undefined) {
-          layerControl[whichmap2] = L.control.layers(basemaps2, overlays2).addTo(map2); // Init layer checkboxes
-          basemaps2["OpenStreetMap"].addTo(map2); // Set the initial baselayer.
-        } else {
-          layerControl[whichmap2].addOverlay(dp.group2, dp.dataTitle); // Add layer checkbox
-        }
-
-        if (dp.showLegend != false) {
-          //addLegend(dp.scale, dp.scaleType, dp.name); // To big and d3-legend.js file is not available in embed, despite 
-        }
-    
-        // ADD ICONS TO MAP
-        // All layers reside in this object:
-        //console.log("dataParameters:");
-        //console.log(dataParameters);
-
-        if (dp.showLayer != false) {
-          $("#widgetTitle").text(dp.dataTitle);
-          dp = showList(dp,map); // Reduces list based on filters
-          addIcons(dp,map,map2);
-          // These do not effect the display of layer checkboxes
-          map.addLayer(overlays1[dp.dataTitle]);
-          map2.addLayer(overlays2[dp.dataTitle]);
-        }
-        $("#activeLayer").text(dp.dataTitle); // Resides after showList
-
-        //callback(map); // Sends to function(results).  "var map =" can be omitted when calling this function
-
-
-        // Runs too soon, unless placed within d3.csv.
-        // Otherwise causes: Cannot read property 'addOverlay' of undefined
-
-        //map.whenReady(function(){ 
-        //map.on('load',function(){ // Never runs
-          //alert("loaded")
-          callback(dp)
-        //});
-
-        // Neigher map.whenReady or map.on('load') seems to require SetView()
-        if (document.body.clientWidth > 500) { // Since map tiles do not fully load when below list. Could use a .5 sec timeout perhaps.
-          setTimeout( function() {
-            //$("#sidemapCard").hide(); // Hide after size is available for tiles.
-          }, 3000 ); // Allow ample time to load.
-        }
-    })
+          //onTabletopLoad(dp1) 
+          dp.data = tabletop.sheets(dp.sheetName).elements; // dp.data is called points in MapsForUs.js
+          dp.data_lowercase_key;
+          processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,function(results){});
+          console.log(dp.data);
+        } 
+      });
+    }
     //.catch(function(error){ 
     //     alert("Data loading error: " + error)
     //})
@@ -246,6 +165,105 @@ function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback
       }
   }
 }
+
+function processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,callback) {
+  dp.scale = getScale(dp.data, dp.scaleType, dp.valueColumn);
+  dp.group = L.layerGroup();
+  dp.group2 = L.layerGroup();
+  dp.iconName = 'star';
+  //dataParameters.push(dp);
+
+  // Remove - clear the markers from the map for the layer
+   if (map.hasLayer(overlays1[dp.dataTitle])){
+      overlays1[dp.dataTitle].remove();
+   }
+   if (map2.hasLayer(overlays2[dp.dataTitle])){
+      overlays2[dp.dataTitle].remove();
+   }
+
+   // Prevents dups of layer from appearing
+   // Each dup shows a data subset when filter is being applied.
+   if (overlays1[dp.dataTitle]) {
+      layerControl[whichmap].removeLayer(overlays1[dp.dataTitle]);
+   }
+   if (overlays2[dp.dataTitle]) {
+      // Not working, multiple checkboxes appear
+      layerControl[whichmap2].removeLayer(overlays2[dp.dataTitle]);
+      //controlLayers.removeLayer(overlays2[dp.dataTitle]);
+   }
+
+  // Allows for use of dp.dataTitle with removeLayer and addLayer
+  overlays1[dp.dataTitle] = dp.group;
+  overlays2[dp.dataTitle] = dp.group2;
+
+  if (layerControl[whichmap] != undefined) {
+    // Remove existing instance of layer
+    //layerControl[whichmap].removeLayer(overlays[dp.dataTitle]); // Remove from control 
+    //map.removeLayer(overlays[dp.dataTitle]); // Remove from map
+  }
+
+  if (layerControl[whichmap] != undefined && dp.group) {
+      //layerControl[whichmap].removeLayer(dp.group);
+  }
+
+
+  // Still causes jump
+  //overlays2["Intermodal Ports 2"] = overlays["Intermodal Ports"];
+
+  // ADD BACKGROUND BASEMAP
+  if (layerControl[whichmap] == undefined) {
+    layerControl[whichmap] = L.control.layers(basemaps1, overlays1).addTo(map); // Init layer checkboxes
+    basemaps1["Grayscale"].addTo(map); // Set the initial baselayer.  OpenStreetMap
+  } else {
+    layerControl[whichmap].addOverlay(dp.group, dp.dataTitle); // Add layer checkbox
+  }
+  // ADD BACKGROUND BASEMAP to Side Map
+  if (layerControl[whichmap2] == undefined) {
+    layerControl[whichmap2] = L.control.layers(basemaps2, overlays2).addTo(map2); // Init layer checkboxes
+    basemaps2["OpenStreetMap"].addTo(map2); // Set the initial baselayer.
+  } else {
+    layerControl[whichmap2].addOverlay(dp.group2, dp.dataTitle); // Add layer checkbox
+  }
+
+  if (dp.showLegend != false) {
+    //addLegend(dp.scale, dp.scaleType, dp.name); // To big and d3-legend.js file is not available in embed, despite 
+  }
+
+  // ADD ICONS TO MAP
+  // All layers reside in this object:
+  //console.log("dataParameters:");
+  //console.log(dataParameters);
+
+  if (dp.showLayer != false) {
+    $("#widgetTitle").text(dp.dataTitle);
+    dp = showList(dp,map); // Reduces list based on filters
+    addIcons(dp,map,map2);
+    // These do not effect the display of layer checkboxes
+    map.addLayer(overlays1[dp.dataTitle]);
+    map2.addLayer(overlays2[dp.dataTitle]);
+  }
+  $("#activeLayer").text(dp.dataTitle); // Resides after showList
+
+  //callback(map); // Sends to function(results).  "var map =" can be omitted when calling this function
+
+
+  // Runs too soon, unless placed within d3.csv.
+  // Otherwise causes: Cannot read property 'addOverlay' of undefined
+
+  //map.whenReady(function(){ 
+  //map.on('load',function(){ // Never runs
+    //alert("loaded")
+    callback(dp)
+  //});
+
+  // Neigher map.whenReady or map.on('load') seems to require SetView()
+  if (document.body.clientWidth > 500) { // Since map tiles do not fully load when below list. Could use a .5 sec timeout perhaps.
+    setTimeout( function() {
+      //$("#sidemapCard").hide(); // Hide after size is available for tiles.
+    }, 3000 ); // Allow ample time to load.
+  }
+}
+
 
 /////////// MAP SETTINGS ///////////
 
@@ -745,6 +763,8 @@ function changeCat(catTitle) {
 // var map1 = {};
 var showprevious = param["show"];
 
+var tabletop; // Allows us to wait for tabletop to load.
+
 function loadMap1(show, dp) { // Also called by map-filters.js
 
   console.log('loadMap1');
@@ -866,6 +886,18 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     //  https://model.earth/community-data/us/state/GA/VirtualTourSites.csv
     dp1.dataset =  dual_map.custom_data_root() + "360/GeorgiaPowerSites.csv";
     //alert(dp1.dataset)
+  } else if (show == "vac") {
+    dp1.listTitle = "Vaccine Locations";
+    //dp1.dataset = "https://docs.google.com/spreadsheets/d/1odIH33Y71QGplQhjJpkYhZCfN5gYCA6zXALTctSavwE/gviz/tq?tqx=out:csv&sheet=Sheet1"; // MapBox sample
+    // Link above works, but Google enforces CORS with this link to Vaccine data:
+    //dp1.dataset = "https://docs.google.com/spreadsheets/d/1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88/gviz/tq?tqx=out:csv&sheet=Sheet3";
+
+    //dp1.googleDocID = "1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90";
+    dp1.googleDocID = "1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88"; // Vac copy
+    dp1.sheetName = "Sheet3";
+    dp1.listInfo = "Currently limited to 65 and older. Make your appointment in advance.";
+    dp1.search = {"In Title": "title", "In Description": "description", "In Website URL": "website", "In Address": "address", "In City Name": "city", "In Zip Code" : "zip"};
+  
   } else if (show == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
     
     dp1.listTitle = "Data Driven Decision Making";
@@ -1020,6 +1052,7 @@ function loadMap1(show, dp) { // Also called by map-filters.js
   }
 
   // Load the map using settings above
+
   loadFromCSV('map1','map2', dp1, basemaps1, basemaps2, 0, function(results) {
 
       // CALLED WHENEVER FILTERS CHANGES
@@ -1040,6 +1073,25 @@ function loadMap1(show, dp) { // Also called by map-filters.js
   }
   showprevious = show;
 }
+
+function onTabletopLoad(dp1) {
+  //createDocumentSettings(tabletop.sheets(constants.informationSheetName).elements); // Custom - remove
+  // Custom
+  documentSettings = {
+
+  }
+
+  var points = tabletop.sheets(dp1.sheetName).elements;
+  //var layers = determineLayers(points);
+  if (documentSettings["Map Type:"] === 'Heatmap') {
+    //mapHeatmap(points);
+  } else {
+    //mapPoints(points, layers);
+    //displayListVax(points, layers);
+  }
+  //console.log(points)
+}
+
 
 function getMapframe(element) {
   if (element.virtual_tour) {

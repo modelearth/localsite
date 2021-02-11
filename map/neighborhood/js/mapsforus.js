@@ -118,30 +118,42 @@ window.onload = function () {
     //html += '<a href="https://docs.google.com/spreadsheets/d/1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88/edit?usp=sharing">Add updates to the VaccinateGA.com Google Sheet</a><br><br>';
     html += 'Learn about <a href="https://www.infinitus.ai/blog-posts/vaccinateca-covid19-automation">automated call system assisting volunteers in California</a> and several other states.<br>';
     html += '<br>';
-
+    var rowcount = 0;
     for (i = 0; i < points.length; i++) {
       var point = points[i];
       if (point.Latitude !== "" && point.Longitude !== "") {
         //html += point["Title"] + "</b><br>" + point["Description"] + point["County"]  + "<hr>";
 
       }
-
-      var theTitle = point["Title"] + ' - ' + point["County"] + ' County';
-      var theTitleLink = 'https://www.google.com/maps/search/' + (point["Title"] + ', ' + point["County"] + ' County').replace(/ /g,"+");
-      var theRow = '<b>' + (i+1) + '</b> - <a href="' + theTitleLink + '">' + theTitle + '</a>';
-      if (point["district"]) {
-        theRow += ' - ' + point["district"];
+      if (point["Status"] != "0") {
+        rowcount++;
+        var theTitle = capitalizeFirstLetter(point["Name"]) + ' - ' + point["County"] + ' County';
+        var theTitleLink = 'https://www.google.com/maps/search/' + (point["Name"] + ', ' + point["County"] + ' County').replace(/ /g,"+");
+        //var theRow = 
+        var theRow = '<b>' + rowcount + " - " + theTitle + '</b> ';
+        if (point["District"]) {
+          theRow += ' - ' + point["District"];
+        }
+        if (point["Description"]) {
+          theRow += ' - ' + point["Description"];
+        }
+        if (point["Availability"]) {
+          theRow += ' - ' + point["Availability"];
+        }
+        theRow += '<br>';
+        if (point["County"]) {
+          theRow += '<a href="' + theTitleLink + '">Google Map</a>';
+        }
+        if (point["Webpage"]) {
+          theRow += '&nbsp; | &nbsp;' + linkify(point["Webpage"]);
+        }
+        html += theRow + '<hr>';
       }
-      if (point["Description"]) {
-        theRow += ' - ' + point["Description"];
-      }
-      if (point["webpage"]) {
-        theRow += '<br> &nbsp; &nbsp; &nbsp;' + linkify(point["webpage"]);
-      }
-      html += theRow + '<hr>';
-
     }
     document.getElementById('maplist').innerHTML = html;
+  }
+  function capitalizeFirstLetter(str, locale=navigator.language) {
+    return str.replace(/^\p{CWU}/u, char => char.toLocaleUpperCase(locale));
   }
   function linkify(inputText) { // https://stackoverflow.com/questions/37684/how-to-replace-plain-urls-with-links
     //return(inputText);
@@ -150,11 +162,11 @@ window.onload = function () {
 
     //URLs starting with http://, https://, or ftp://
     replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">Website</a>');
 
     //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
     replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-    replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
+    replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">Website</a>');
 
     //Change email addresses to mailto:: links.
     //replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
@@ -226,7 +238,7 @@ window.onload = function () {
     }
 
     addBaseMap();
-    document.title = documentSettings["Webpage Title:"];
+    // document.title = documentSettings["Webpage Title:"];  // Custom
     var points = tabletop.sheets(constants.pointsSheetName).elements;
     var layers = determineLayers(points);
     if (documentSettings["Map Type:"] === 'Heatmap') {
