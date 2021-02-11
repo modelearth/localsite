@@ -113,9 +113,10 @@ window.onload = function () {
     
     var markerArray = [];
     let html = "";
-    html +='<h2>Amended Georgia Department of Health List of Distribution Points</h2>';
-    html += 'Updates maintained by volunteers at <a href="https://VaccinateGA.com">VaccinateGA.com</a> - Currently outdated.<br>';
-    //html += '<a href="https://docs.google.com/spreadsheets/d/1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88/edit?usp=sharing">Add updates to the VaccinateGA.com Google Sheet</a><br><br>';
+    html +='<h2>Georgia Vaccine Distribution </h2>';
+    // 
+    html += 'Georgia Department of Health list updates maintained by volunteers at <a href="https://VaccinateGA.com">VaccinateGA.com</a><br>';
+    html += 'Add updates by posting comments to the <a href="https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?ts=60233cb5#gid=698462553">VaccinateGA.com Google Sheet</a><br><br>';
     html += 'Learn about <a href="https://www.infinitus.ai/blog-posts/vaccinateca-covid19-automation">automated call system assisting volunteers in California</a> and several other states.<br>';
     html += '<br>';
     var rowcount = 0;
