@@ -117,8 +117,8 @@ window.onload = function () {
     // 
     html += 'Updates to Georgia Department of Health lists maintained by volunteers at <a href="https://VaccinateGA.com">VaccinateGA.com</a><br>';
     html += '<a href="https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?ts=60233cb5#gid=698462553">Add updates by posting your comments</a> within the Vaccinate Availability Google Sheet.<br>';
-    html += '<a href="../map/#show=vac">View Map of Locations</a> | <a href="./">Assist with coding and data</a><br><br>';
-    html += 'Learn about <a href="https://www.infinitus.ai/blog-posts/vaccinateca-covid19-automation">automated call system assisting volunteers in California</a> and several other states.<br>';
+    html += '<a href="../map/#show=vac">View Map of Locations</a> | <a href="./">Assist with coding and data - Code For America</a><br><br>';
+    html += 'Learn about the <a href="https://www.infinitus.ai/blog-posts/vaccinateca-covid19-automation">automated call system assisting volunteers in California</a> and several other states.<br>';
     
     html += '<br>';
     var rowcount = 0;

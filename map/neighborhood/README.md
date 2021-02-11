@@ -1,12 +1,21 @@
 # Neighborhood Maps For Us
 
-View [Vaccine Locations](../#show=vac) and [Availability Updates](sample.html) and add status updates to the [Vaccine Status Google Sheet](https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?usp=sharing)
+View [Vaccine Locations](../#show=vac) and [Availability Updates](sample.html) and add status updates as comments withing the [VaccineGA.com Google Sheet](https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?usp=sharing)
+
+<b>Vaccine Availability - Google Script Volunteer Needed</b>
+
+We need help writing scripts in Google Sheets to merge updates from a tab containing raw data from the Georgia Department of Health with our main vaccine availability tab where volunteers post comments to report on their contacts with pharmacies and hospitals.  Join the **#neighborhood** Slack channel at <a href="https://codeforatlanta.slack.com">codeforatlanta.slack.com</a> to volunteer your Google Sheet programming skills.  
 
 <!--
 [Recycling MapsForUs test Google Sheet](https://docs.google.com/spreadsheets/d/1JDD36dOvy5TWsmfg0g4r8x9MMyuidRgpJAdDFD9HiTQ/edit#gid=1284085090)
 -->
 
-View our [Open Data Google Sheet](http://bit.ly/code-for-atl-open-data-workingdoc)
+## Georgia Operation Open Data
+
+View our [Georgia Open Data Google Sheet](http://bit.ly/code-for-atl-open-data-workingdoc)
+
+
+## Geocoding Updates
 
 We're planning to update [Maps For Us](https://mapsfor.us/) to auto-geocode new addresses as they are added to the Google Sheet. Currently you have to highlight the address column and its 2 adjacent lat/lon columns to geocode using the manual steps below.  
 
