@@ -127,10 +127,13 @@ window.onload = function () {
       }
       if (point["Status"] != "0") {
         rowcount++;
-        var theTitle = capitalizeFirstLetter(point["Name"]) + ' - ' + point["County"] + ' County';
+        var theTitle = capitalizeFirstLetter(point["Name"]);
         var theTitleLink = 'https://www.google.com/maps/search/' + (point["Name"] + ', ' + point["County"] + ' County').replace(/ /g,"+");
         //var theRow = 
         var theRow = '<b>' + rowcount + " - " + theTitle + '</b> ';
+        if (point["County"]) {
+          theRow += ' - ' + point["County"] + ' County';
+        }
         if (point["District"]) {
           theRow += ' - ' + point["District"];
         }
