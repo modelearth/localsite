@@ -256,12 +256,14 @@ function processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,callba
     callback(dp)
   //});
 
+  /*
   // Neigher map.whenReady or map.on('load') seems to require SetView()
   if (document.body.clientWidth > 500) { // Since map tiles do not fully load when below list. Could use a .5 sec timeout perhaps.
     setTimeout( function() {
       //$("#sidemapCard").hide(); // Hide after size is available for tiles.
     }, 3000 ); // Allow ample time to load.
   }
+  */
 }
 
 
@@ -897,8 +899,8 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     //dp1.googleDocID = "1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88"; // Vac copy
     //dp1.sheetName = "Sheet3";
     dp1.listInfo = "Availability currently limited to seniors 65 and older. Make your appointment in advance. <a href='https://www.vaccinatega.com/vaccination-sites/providers-in-georgia'>Check major providers</a> and <a href='neighborhood/vaccines/'>view availability and contribute updates</a>.";
-    dp1.search = {"In Title": "title", "In Description": "description", "In Website URL": "website", "In Address": "address", "In City Name": "city", "In County Name": "county", "In Zip Code" : "zip"};
-  
+    dp1.search = {"In Location Name": "name", "In Address": "address", "In County Name": "county"};
+    // "In Description": "description", "In Website URL": "website", "In City Name": "city", "In Zip Code" : "zip"
   } else if (show == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
     
     dp1.listTitle = "Data Driven Decision Making";
@@ -1217,6 +1219,8 @@ function showList(dp,map) {
     dp.data = data_sorted;
   }
 
+  console.log(dp.data); //TEMP
+
   dp.data.forEach(function(elementRaw) {
     count++;
     foundMatch = 0;
@@ -1259,14 +1263,14 @@ function showList(dp,map) {
 
           if (keyword.length > 0) {
 
-            //console.log("Search for " + keyword);
+            console.log('Search for "' + keyword + '" - Fields to search: ' + JSON.stringify(dp.search));
             
             if (typeof dp.search != "undefined") { // An object containing interface labels and names of columns to search.
-              //var selected_col = {};
 
               $.each(selected_col, function( key, value ) { // Works for arrays and objects. key is the index value for arrays.
                 //selected_columns_object[key] = 0;
                 if (elementRaw[value]) {
+                  foundMatch++; // TEMP
                   if (elementRaw[value].toString().toLowerCase().indexOf(keyword) >= 0) {
                     foundMatch++;
                   }
@@ -1274,7 +1278,6 @@ function showList(dp,map) {
 
               });
 
-              
             } else { // dp.search is not defined, so try titlecolumn
               //console.log("no dp.search, try: " + elementRaw[dp.titleColumn]);
               if (elementRaw[dp.titleColumn] && elementRaw[dp.titleColumn].toLowerCase().indexOf(keyword) >= 0) {
