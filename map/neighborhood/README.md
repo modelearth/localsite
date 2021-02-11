@@ -1,6 +1,10 @@
 # Neighborhood Maps For Us
 
-View our [sample map](sample.html) and [Google Sheet](https://docs.google.com/spreadsheets/d/1JDD36dOvy5TWsmfg0g4r8x9MMyuidRgpJAdDFD9HiTQ/edit#gid=1284085090)
+View our [sample map](sample.html) and [Google Sheet](https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?usp=sharing)
+
+<!--
+[Recycling MapsForUs test Google Sheet](https://docs.google.com/spreadsheets/d/1JDD36dOvy5TWsmfg0g4r8x9MMyuidRgpJAdDFD9HiTQ/edit#gid=1284085090)
+-->
 
 View our [Open Data Google Sheet](http://bit.ly/code-for-atl-open-data-workingdoc)
 
@@ -75,6 +79,9 @@ Editable link is in our Slack #epa group.
 Select the content of three adjacent columns: Address, Latitude and Longitude.  
 
 Choose "Tools > Script Editor" and click next to the function "addressToPosition" and click the run button.  
+
+You may see a security alert the first time. 
+Processing requires choosing the unsafe option since the geocoding script will be run in your personal Google account.  
 
 If you don't yet have the addressToPosition function, copy it from below (or from the MapsforUS template above).  
 
