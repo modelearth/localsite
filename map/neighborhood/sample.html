@@ -30,7 +30,7 @@
   <script src="https://assets.mapsfor.us/plugins/Leaflet.heat/leaflet-heat.js"></script>
 
   <!-- Tabletop -->
-  <script src="https://assets.mapsfor.us/plugins/tabletop/src/tabletop.js"></script>
+  <script src="js/tabletop.js"></script>
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://assets.mapsfor.us/plugins/font-awesome-4.5.0/css/font-awesome.min.css">
@@ -70,14 +70,20 @@
 <div id="map"></div>
 
 <div class="content contentpadding">
+
+  <!--
   <h1>Sample List from Google Sheet</h1>
   Customized <a href="js/mapsforus.js">js/mapsforus.js</a> to display a list for the Google Sheet...<br>
-  Set constants.googleDocID within this page.  Currently your Google Sheet must have columns called Title, Description, County, district, and webpage.
+  Set constants.googleDocID within this page.<br>
+  Google Sheet columns include: Status, Name, Description, County, District, Webpage.
+  -->
+
   <!--
   Title was: Provider Name/Clinic Name
   Description was: Health District Website
-  -->
   <br>
+  -->
+  
   <div id="maplist"></div>
 </div>
 
@@ -94,14 +100,21 @@
     pointsSheetName: 'Points'
   };
 
-  //TODO: Change so googleDocID only needs to be set here, not below too
+  // tabletop.js formats as:
+  // https://spreadsheets.google.com/feeds/cells/1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88/objugzn/public/values?alt=json
+
+  // Vaccination sites
+  // https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit#gid=698462553
+
+  //TODO: Change so googleDocID only needs to be set here, not below too (might not be needed here currently)
   var constants = {
-    googleDocID: '1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88',
+    //googleDocID: '1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88',
+    googleDocID: '1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90',
     informationSheetName: 'Information',
-    pointsSheetName: 'Sheet3'
+    pointsSheetName: '2021-02-10'
   };
 
-  //googleDocID: '1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88',
+  // 1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90
 
   // in here, get the ID from the URL
   function getUrlVars() {
@@ -117,11 +130,11 @@
   if (mapID) {
     constants.googleDocID = mapID;
   } else {
-    console.log("Recycling-mapsforus")
+    //console.log("Recycling-mapsforus")
     // Optionally override the googleDocID set in constants above
     //constants.googleDocID = '1glMpFXTg8GJ-Jvsox4IK0-qQMEgBE53m_l2cIYG8OUg'; // Georgia-mapsforus in Georgia Data
     //constants.googleDocID = '1JDD36dOvy5TWsmfg0g4r8x9MMyuidRgpJAdDFD9HiTQ'; // Recycling-mapsforus in Georgia Maps
-    constants.googleDocID = '1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88'
+    constants.googleDocID = '1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90'
   }
 </script>
 <script type="text/javascript" src="js/mapsforus.js"></script>

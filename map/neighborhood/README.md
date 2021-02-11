@@ -1,6 +1,10 @@
 # Neighborhood Maps For Us
 
-View our [sample map](sample.html) and [Google Sheet](https://docs.google.com/spreadsheets/d/1JDD36dOvy5TWsmfg0g4r8x9MMyuidRgpJAdDFD9HiTQ/edit#gid=1284085090)
+View [Vaccine Locations](../#show=vac) and [Availability Updates](sample.html) and add status updates to the [Vaccine Status Google Sheet](https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?usp=sharing)
+
+<!--
+[Recycling MapsForUs test Google Sheet](https://docs.google.com/spreadsheets/d/1JDD36dOvy5TWsmfg0g4r8x9MMyuidRgpJAdDFD9HiTQ/edit#gid=1284085090)
+-->
 
 View our [Open Data Google Sheet](http://bit.ly/code-for-atl-open-data-workingdoc)
 
@@ -72,13 +76,123 @@ Editable link is in our Slack #epa group.
 
 ### Manually Geocode Google Sheet
 
-Select the content of three adjacent columns: address, latitude and longitude.  
+Select the content of three adjacent columns: Address, Latitude and Longitude.  
 
-Choose "Tools > Script Editor > Select Function > addressToPosition" and click the run button.  
+Choose "Tools > Script Editor" and click next to the function "addressToPosition" and click the run button.  
 
-If you don't yet have the addressToPosition, copy it from the MapsforUS template above.  
+You may see a security alert the first time. 
+Processing requires choosing the unsafe option since the geocoding script will be run in your personal Google account.  
 
-The geocoding maximum execution time allows for about 180 rows to be coded each time. Select the remaining batch and run again until you hit your max for the day, which might be 2,000.  
+If you don't yet have the addressToPosition function, copy it from below (or from the MapsforUS template above).  
+
+You should be able to geocode at least 400 rows each time. If you reach the max for one request, 
+select the remaining batch in sets of 400 to 500 and run again until you hit your max for the day, which might be 2,000.  
+
+```
+function addressToPosition() {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var cells = sheet.getActiveRange();
+  
+  // Must have selected 3 columns (Address, Lat, Lng).
+  // Must have selected at least 1 row.
+
+  if (cells.getNumColumns() != 3) {
+    Logger.log("Must select at least 3 columns: Address, Lat, Lng columns.");
+    return;
+  }
+  
+  var addressColumn = 1;
+  var addressRow;
+  
+  var latColumn = addressColumn + 1;
+  var lngColumn = addressColumn + 2;
+  
+  var geocoder = Maps.newGeocoder().setRegion("us");
+  var location;
+  
+  for (addressRow = 1; addressRow <= cells.getNumRows(); ++addressRow) {
+    var address = cells.getCell(addressRow, addressColumn).getValue();
+    
+    // Geocode the address and plug the lat, lng pair into the 
+    // 2nd and 3rd elements of the current range row.
+    location = geocoder.geocode(address);
+   
+    // Only change cells if geocoder seems to have gotten a 
+    // valid response.
+    if (location.status == 'OK') {
+      lat = location["results"][0]["geometry"]["location"]["lat"];
+      lng = location["results"][0]["geometry"]["location"]["lng"];
+      
+      cells.getCell(addressRow, latColumn).setValue(lat);
+      cells.getCell(addressRow, lngColumn).setValue(lng);
+    }
+  }
+};
+
+function positionToAddress() {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var cells = sheet.getActiveRange();
+  
+  // Must have selected 3 columns (Address, Lat, Lng).
+  // Must have selected at least 1 row.
+
+  if (cells.getNumColumns() != 3) {
+    Logger.log("Must select at least 3 columns: Address, Lat, Lng columns.");
+    return;
+  }
+
+  var addressColumn = 1;
+  var addressRow;
+  
+  var latColumn = addressColumn + 1;
+  var lngColumn = addressColumn + 2;
+  
+  var geocoder = Maps.newGeocoder().setRegion(getGeocodingRegion());
+  var location;
+  
+  for (addressRow = 1; addressRow <= cells.getNumRows(); ++addressRow) {
+    var lat = cells.getCell(addressRow, latColumn).getValue();
+    var lng = cells.getCell(addressRow, lngColumn).getValue();
+    
+    // Geocode the lat, lng pair to an address.
+    location = geocoder.reverseGeocode(lat, lng);
+   
+    // Only change cells if geocoder seems to have gotten a 
+    // valid response.
+    Logger.log(location.status);
+    if (location.status == 'OK') {
+      var address = location["results"][0]["formatted_address"];
+
+      cells.getCell(addressRow, addressColumn).setValue(address);
+    }
+  }  
+};
+
+function generateMenu() {
+  // var setGeocodingRegionMenuItem = 'Set Geocoding Region (Currently: ' + getGeocodingRegion() + ')';
+  
+  // {
+  //   name: setGeocodingRegionMenuItem,
+  //   functionName: "promptForGeocodingRegion"
+  // },
+  
+  var entries = [{
+    name: "Geocode Selected Cells (Address to   Lat, Long)",
+    functionName: "addressToPosition"
+  },
+  {
+    name: "Geocode Selected Cells (Address from Lat, Long)",
+    functionName: "positionToAddress"
+  }];
+  
+  return entries;
+}
+
+function updateMenu() {
+  SpreadsheetApp.getActiveSpreadsheet().updateMenu('Geocode', generateMenu())
+}
+```
+
 <br>
 
 ---
