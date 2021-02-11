@@ -46,7 +46,7 @@ API
 
 ####Improvements to MapBox column names 
 The use of underscores by MapBox leads to backslash in markdown, and underscores are not easily visible in underlined links.  
-So we use CamelCase, or a dash to represent a space.  
+So we use CamelCase, or a dash to represent a space instead of the following.  
 
 Name  
 Description  
