@@ -1,6 +1,6 @@
 # Neighborhood Maps For Us
 
-View [Georgia Vaccine Locations](../#show=vac) and [Availability Updates](sample.html) and add comments with your findings to the [VaccineGA.com Google Sheet](https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?usp=sharing)
+View [Georgia Vaccine Locations](../#show=vac) and [Availability Updates](vaccines/) and add comments with your findings to the [VaccineGA.com Google Sheet](https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?usp=sharing)
 
 <b>Vaccine Availability - Google Script Volunteer Needed</b>
 
