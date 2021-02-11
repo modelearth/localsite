@@ -41,17 +41,17 @@ var localsite_map = localsite_map || (function(){
     };
 }());
 
-function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback) {
+function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback) {
   // To Do: Map background could be loaded while waiting for D3 file. 
   // Move "d3.csv(dp.dataset).then" further down into a new function that starts with the following line.
   if (typeof d3 !== 'undefined') {
     if (!dp.dataset && !dp.googleDocID) {
-      console.log('CANCEL loadFromCSV - no dataset selected for top map.');
+      console.log('CANCEL loadFromSheet - no dataset selected for top map.');
       $("#" + whichmap).hide();
       $("#data-section").hide();
       return;
     } else {
-      console.log('loadFromCSV into #' + whichmap);
+      console.log('loadFromSheet into #' + whichmap);
       $("#" + whichmap).show();
     }
     let defaults = {};
@@ -158,7 +158,7 @@ function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback
       if (attempts < 2000) {
         // To do: Add a loading image after a coouple seconds. 2000 waits about 300 seconds.
         setTimeout( function() {
-          loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback);
+          loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback);
         }, 20 );
       } else {
         alert("D3 javascript not available for loading map dataset.")
@@ -256,12 +256,14 @@ function processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,callba
     callback(dp)
   //});
 
+  /*
   // Neigher map.whenReady or map.on('load') seems to require SetView()
   if (document.body.clientWidth > 500) { // Since map tiles do not fully load when below list. Could use a .5 sec timeout perhaps.
     setTimeout( function() {
       //$("#sidemapCard").hide(); // Hide after size is available for tiles.
     }, 3000 ); // Allow ample time to load.
   }
+  */
 }
 
 
@@ -896,9 +898,9 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     dp1.sheetName = "Locations";
     //dp1.googleDocID = "1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88"; // Vac copy
     //dp1.sheetName = "Sheet3";
-    dp1.listInfo = "Currently limited to seniors 65 and older. Make your appointment in advance. <a href='neighborhood/vaccines/'>Check availability and contribute updates</a>.";
-    dp1.search = {"In Title": "title", "In Description": "description", "In Website URL": "website", "In Address": "address", "In City Name": "city", "In Zip Code" : "zip"};
-  
+    dp1.listInfo = "Availability currently limited to seniors 65 and older. Make your appointment in advance. <a href='https://www.vaccinatega.com/vaccination-sites/providers-in-georgia'>Check major providers</a> and <a href='neighborhood/vaccines/'>view availability and contribute updates</a>.";
+    dp1.search = {"In Location Name": "name", "In Address": "address", "In County Name": "county"};
+    // "In Description": "description", "In Website URL": "website", "In City Name": "city", "In Zip Code" : "zip"
   } else if (show == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
     
     dp1.listTitle = "Data Driven Decision Making";
@@ -946,8 +948,8 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     dp1.listTitle = "Georgia COVID-19 Response";
     dp1.listTitle = "Georgia Suppliers of&nbsp;Critical Items <span style='white-space:nowrap'>to Fight COVID-19</span>"; // For iFrame site
     // https://www.georgia.org/sites/default/files/2021-01 
-    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://map.georgia.org/display/products/suppliers-pdf/ga_suppliers_list_2021-01-27.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
-    dp1.dataset = "https://map.georgia.org/display/products/suppliers/us_ga_suppliers_ppe_2021_01_27.csv";
+    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://map.georgia.org/display/products/suppliers-pdf/ga_suppliers_list_2021-02-11.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
+    dp1.dataset = "https://map.georgia.org/display/products/suppliers/us_ga_suppliers_ppe_2021_02_11.csv";
     //dp1.dataset = "/display/products/suppliers/us_ga_suppliers_ppe_2020_06_17.csv";
 
     dp1.dataTitle = "Manufacturers and Distributors";
@@ -1054,7 +1056,7 @@ function loadMap1(show, dp) { // Also called by map-filters.js
 
   // Load the map using settings above
 
-  loadFromCSV('map1','map2', dp1, basemaps1, basemaps2, 0, function(results) {
+  loadFromSheet('map1','map2', dp1, basemaps1, basemaps2, 0, function(results) {
 
       // CALLED WHENEVER FILTERS CHANGES
 
@@ -1217,6 +1219,8 @@ function showList(dp,map) {
     dp.data = data_sorted;
   }
 
+  console.log(dp.data); //TEMP
+
   dp.data.forEach(function(elementRaw) {
     count++;
     foundMatch = 0;
@@ -1259,14 +1263,14 @@ function showList(dp,map) {
 
           if (keyword.length > 0) {
 
-            //console.log("Search for " + keyword);
+            console.log('Search for "' + keyword + '" - Fields to search: ' + JSON.stringify(dp.search));
             
             if (typeof dp.search != "undefined") { // An object containing interface labels and names of columns to search.
-              //var selected_col = {};
 
               $.each(selected_col, function( key, value ) { // Works for arrays and objects. key is the index value for arrays.
                 //selected_columns_object[key] = 0;
                 if (elementRaw[value]) {
+                  foundMatch++; // TEMP
                   if (elementRaw[value].toString().toLowerCase().indexOf(keyword) >= 0) {
                     foundMatch++;
                   }
@@ -1274,7 +1278,6 @@ function showList(dp,map) {
 
               });
 
-              
             } else { // dp.search is not defined, so try titlecolumn
               //console.log("no dp.search, try: " + elementRaw[dp.titleColumn]);
               if (elementRaw[dp.titleColumn] && elementRaw[dp.titleColumn].toLowerCase().indexOf(keyword) >= 0) {
