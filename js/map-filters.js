@@ -1152,7 +1152,7 @@ $(document).ready(function () {
     console.log("catList triggers update");
     goHash({"cat":catString}); // Let the hash change trigger updates
 
-    //console.log("catList clicked, call loadMap1 which calls loadFromCSV > showList in map.js");
+    //console.log("catList clicked, call loadMap1 which calls loadFromSheet > showList in map.js");
     
     //loadMap1('suppliers');
     //hideNonListPanels();

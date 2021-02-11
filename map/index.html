@@ -189,6 +189,25 @@
         </div>
       </div>
 
+      <div style="overflow:visible; display:none" class="filterField searchElements mock-up earth">
+        <div class="filterLabel">
+          <div class="filterLabelMain">
+            Where
+            </div>
+        </div>
+
+        <div class="filterClick" id="filterClickLocation" style="position:relative; float:left;">
+
+          <div style="position:absolute; right:5px; top:5px;">
+            <!-- We could place over all select menus
+              https://fabriceleven.com/design/clever-way-to-change-the-drop-down-selector-arrow-icon/ -->
+            <i id="showLocations" class="material-icons" style="transform: rotate(90deg); font-size:24px;cursor:pointer;display:none">&#xE409;</i>
+            <i id="hideLocations"  class="material-icons" style="font-size:24px;cursor:pointer;">&#xE409;</i>
+          </div>
+          <div class="filterSelected" style="padding-right:28px">County</div><!-- Entire State -->
+        </div>
+      </div>
+      
       <!-- KEYWORD SEARCH -->
       <div style="float:left">
         <div class="filterField keywordField">
@@ -259,24 +278,6 @@
       </div>
       <!-- END KEYWORD SEARCH -->
 
-      <div style="overflow:visible; display:none" class="filterField searchElements mock-up earth">
-          <div class="filterLabel">
-            <div class="filterLabelMain">
-              Where
-              </div>
-          </div>
-
-          <div class="filterClick" id="filterClickLocation" style="position:relative; float:left;">
-
-            <div style="position:absolute; right:5px; top:5px;">
-              <!-- We could place over all select menus
-                https://fabriceleven.com/design/clever-way-to-change-the-drop-down-selector-arrow-icon/ -->
-              <i id="showLocations" class="material-icons" style="transform: rotate(90deg); font-size:24px;cursor:pointer;display:none">&#xE409;</i>
-              <i id="hideLocations"  class="material-icons" style="font-size:24px;cursor:pointer;">&#xE409;</i>
-            </div>
-            <div class="filterSelected" style="padding-right:28px">County</div><!-- Entire State -->
-          </div>
-        </div>
 
       <div class="searchField" style="float:left">
         
@@ -1494,7 +1495,7 @@ dual_map.init(["somevalue", 1, "controlId"]); // Used by link to feedback form
 
 console.log("Call loadMap1() in map.js but we need dp. Also below.");
 if (!param.go) {
-  param.go = "farmfresh"; // Used by loadFromCSV which is called by loadMap1
+  param.go = "farmfresh"; // Used by loadFromSheet which is called by loadMap1
 }
 
 //var localmap = 

@@ -41,17 +41,17 @@ var localsite_map = localsite_map || (function(){
     };
 }());
 
-function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback) {
+function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback) {
   // To Do: Map background could be loaded while waiting for D3 file. 
   // Move "d3.csv(dp.dataset).then" further down into a new function that starts with the following line.
   if (typeof d3 !== 'undefined') {
     if (!dp.dataset && !dp.googleDocID) {
-      console.log('CANCEL loadFromCSV - no dataset selected for top map.');
+      console.log('CANCEL loadFromSheet - no dataset selected for top map.');
       $("#" + whichmap).hide();
       $("#data-section").hide();
       return;
     } else {
-      console.log('loadFromCSV into #' + whichmap);
+      console.log('loadFromSheet into #' + whichmap);
       $("#" + whichmap).show();
     }
     let defaults = {};
@@ -158,7 +158,7 @@ function loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback
       if (attempts < 2000) {
         // To do: Add a loading image after a coouple seconds. 2000 waits about 300 seconds.
         setTimeout( function() {
-          loadFromCSV(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback);
+          loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback);
         }, 20 );
       } else {
         alert("D3 javascript not available for loading map dataset.")
@@ -1054,7 +1054,7 @@ function loadMap1(show, dp) { // Also called by map-filters.js
 
   // Load the map using settings above
 
-  loadFromCSV('map1','map2', dp1, basemaps1, basemaps2, 0, function(results) {
+  loadFromSheet('map1','map2', dp1, basemaps1, basemaps2, 0, function(results) {
 
       // CALLED WHENEVER FILTERS CHANGES
 
