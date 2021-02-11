@@ -896,7 +896,7 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     dp1.sheetName = "Locations";
     //dp1.googleDocID = "1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88"; // Vac copy
     //dp1.sheetName = "Sheet3";
-    dp1.listInfo = "Currently limited to seniors 65 and older. Make your appointment in advance. <a href='neighborhood/sample.html'>Check availability and contribute updates</a>.";
+    dp1.listInfo = "Currently limited to seniors 65 and older. Make your appointment in advance. <a href='neighborhood/vaccines/'>Check availability and contribute updates</a>.";
     dp1.search = {"In Title": "title", "In Description": "description", "In Website URL": "website", "In Address": "address", "In City Name": "city", "In Zip Code" : "zip"};
   
   } else if (show == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
