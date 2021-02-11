@@ -1,6 +1,6 @@
 # Neighborhood Maps For Us
 
-View our [sample map](sample.html) and [Google Sheet](https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?usp=sharing)
+View [Vaccine Locations](../#show=vac) and [Availability Updates](sample.html) and add status updates to the [Vaccine Status Google Sheet](https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?usp=sharing)
 
 <!--
 [Recycling MapsForUs test Google Sheet](https://docs.google.com/spreadsheets/d/1JDD36dOvy5TWsmfg0g4r8x9MMyuidRgpJAdDFD9HiTQ/edit#gid=1284085090)
