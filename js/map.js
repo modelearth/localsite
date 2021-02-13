@@ -1,20 +1,34 @@
+// INIT
 var dataParameters = [];
 var dp = {};
 var layerControl = {}; // Object containing one control for each map on page.
+if(typeof dataObject == 'undefined') {
+    var dataObject = {};
+}
+if(typeof priorHash == 'undefined') {
+    var priorHash = {};
+}
 
-  // Set your own Mapbox access token below.
-  // Restrict which domains your token is loaded through.
-  // https://blog.mapbox.com/url-restrictions-for-access-tokens-5f7f7eb90092
-var mbAttr = '<a href="https://www.mapbox.com/">Mapbox</a>',
-    mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZWUyZGV2IiwiYSI6ImNqaWdsMXJvdTE4azIzcXFscTB1Nmcwcm4ifQ.hECfwyQtM7RtkBtydKpc5g';
+/* Allows map to remove selected shapes when backing up. */
+document.addEventListener('hashChangeEvent', function (elem) {
+  console.log("map.js detects hashChangeEvent");
+
+  // NEED TO FIRST REMOVE FROM index.html and embed-map.js. Also prevent map-filters.js from involking loadMap1
+  //loadMap1();
+
+}, false);
+
+
+// Set your own Mapbox access token below.
+// Restrict which domains your token is loaded through.
+// https://blog.mapbox.com/url-restrictions-for-access-tokens-5f7f7eb90092
+var mbAttr = '<a href="https://www.mapbox.com/">Mapbox</a>', mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZWUyZGV2IiwiYSI6ImNqaWdsMXJvdTE4azIzcXFscTB1Nmcwcm4ifQ.hECfwyQtM7RtkBtydKpc5g';
 
 //////////////////////////////////////////////////////////////////
-// Usage:
-//
-// data: csv file with 
-//  lon, lat for position
+// Loads from Google Sheet or CSV
+//  longitude, latitude for position (lon, lat also supported)
 //  one numerical or categorical attribute to be visualized
-//  + (optional) one attribute calles "address" to be shown in tooltip
+//  + (optional) attributes like  "address" to be shown in tooltip and list.
 // 
 // 1. set class of aside element above to match the name of the data
 // 2. insert data into aside element
@@ -29,7 +43,7 @@ var mbAttr = '<a href="https://www.mapbox.com/">Mapbox</a>',
 /////////// LOAD FROM HTML ///////////
 
 // INTERMODAL PORTS - was here
-
+/*
 var localsite_map = localsite_map || (function(){
     var _args = {}; // private
 
@@ -40,6 +54,7 @@ var localsite_map = localsite_map || (function(){
         },
     };
 }());
+*/
 
 function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callback) {
   // To Do: Map background could be loaded while waiting for D3 file. 
@@ -292,6 +307,7 @@ dataParameters.forEach(function(ele) {
   overlays2[ele.name] = ele.group2; // Add to layer menu
 })
 
+// NOT USED IN CURRENT REPO - Check if still used when transitioning PPE map
 function populateMap(whichmap, dp, callback) { // From JSON within page
     var circle;
     let defaults = {};
@@ -767,7 +783,7 @@ var showprevious = param["show"];
 
 var tabletop; // Allows us to wait for tabletop to load.
 
-function loadMap1(show, dp) { // Also called by map-filters.js
+function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filters.js
 
   console.log('loadMap1');
   if (!show) {
@@ -888,7 +904,7 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     //  https://model.earth/community-data/us/state/GA/VirtualTourSites.csv
     dp1.dataset =  dual_map.custom_data_root() + "360/GeorgiaPowerSites.csv";
     //alert(dp1.dataset)
-  } else if (show == "vac") {
+  } else if (show == "vax" || show == "vac") { // Phase out vac
     dp1.listTitle = "Vaccine Locations";
     //dp1.dataset = "https://docs.google.com/spreadsheets/d/1odIH33Y71QGplQhjJpkYhZCfN5gYCA6zXALTctSavwE/gviz/tq?tqx=out:csv&sheet=Sheet1"; // MapBox sample
     // Link above works, but Google enforces CORS with this link to Vaccine data:
@@ -898,9 +914,12 @@ function loadMap1(show, dp) { // Also called by map-filters.js
     dp1.sheetName = "Locations";
     //dp1.googleDocID = "1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88"; // Vac copy
     //dp1.sheetName = "Sheet3";
-    dp1.listInfo = "Availability currently limited to seniors 65 and older.<br><br>Make your appointment in advance. <a href='https://www.vaccinatega.com/vaccination-sites/providers-in-georgia'>Check major providers</a> and <a href='neighborhood/vaccines/'>view availability and contribute updates</a> to VaccinateGA.com.<br><br>Join the <a href='https://vaxstandby.com/'>VAX Standby</a> list to receive a message when extra doses are available.";
+    dp1.listInfo = "Availability currently limited to seniors 65 and older.<br><br>Make your appointment in advance. Availability tracker at <a href='https://VaccinateGA.com'>VaccinateGA.com</a><br><a href='https://www.vaccinatega.com/vaccination-sites/providers-in-georgia'>Check major providers</a> and <a href='neighborhood/vaccines/'>view availability and contribute updates</a>.<br><br>Join the <a href='https://vaxstandby.com/'>VAX Standby</a> list to receive a message when extra doses are available.";
     dp1.search = {"In Location Name": "name", "In Address": "address", "In County Name": "county"};
     // "In Description": "description", "In Website URL": "website", "In City Name": "city", "In Zip Code" : "zip"
+    dp1.valueColumnLabel = "County";
+    dp1.valueColumn = "county";
+    dp1.countyColumn = "county";
   } else if (show == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
     
     dp1.listTitle = "Data Driven Decision Making";
@@ -1056,8 +1075,20 @@ function loadMap1(show, dp) { // Also called by map-filters.js
 
   // Load the map using settings above
 
-  loadFromSheet('map1','map2', dp1, basemaps1, basemaps2, 0, function(results) {
+  // INIT - geo fetches the county for filtering. This will be limited to datasets that contain County columns
+  let hash = getHash();
+  if (hash.geo) {
 
+    loadGeos(hash.geo,0,function(results) {
+
+      loadFromSheet('map1','map2', dp1, basemaps1, basemaps2, 0, function(results) {});
+
+    });
+
+    
+  } else {
+    loadFromSheet('map1','map2', dp1, basemaps1, basemaps2, 0, function(results) {
+  
       // CALLED WHENEVER FILTERS CHANGES
 
       // AVOID HERE - would create duplicate checkboxes
@@ -1065,8 +1096,8 @@ function loadMap1(show, dp) { // Also called by map-filters.js
       //layerControl['map1'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
       //layerControl['map2'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
          
-  });
-
+    });
+  }
   // Return to top for mobile users on search.
   if (document.body.clientWidth <= 500) {
     window.scrollTo({
@@ -1096,6 +1127,98 @@ function onTabletopLoad(dp1) {
 }
 
 
+
+function loadGeos(geo, attempts, callback) {
+
+  // load only, no search filter display - get county name from geo value.
+  // created from a copy of showCounties() in search-filters.js
+
+  if (typeof d3 !== 'undefined') {
+
+    let hash = getHash();
+    let stateID = {AL:1,AK:2,AZ:4,AR:5,CA:6,CO:8,CT:9,DE:10,FL:12,GA:13,HI:15,ID:16,IL:17,IN:18,IA:19,KS:20,KY:21,LA:22,ME:23,MD:24,MA:25,MI:26,MN:27,MS:28,MO:29,MT:30,NE:31,NV:32,NH:33,NJ:34,NM:35,NY:36,NC:37,ND:38,OH:39,OK:40,OR:41,PA:42,RI:44,SC:45,SD:46,TN:47,TX:48,UT:49,VT:50,VA:51,WA:53,WV:54,WI:55,WY:56,AS:60,GU:66,MP:69,PR:72,VI:78,}
+    let theState = "GA"; // TEMP - TODO: loop trough states from start of geo
+
+    var geos=geo.split(",");
+    fips=[]
+    for (var i = 0; i<geos.length; i++){
+        fip=geos[i].split("US")[1]
+        if(fip.startsWith("0")){
+            fips.push(parseInt(geos[i].split("US0")[1]))
+        }else{
+            fips.push(parseInt(geos[i].split("US")[1]))
+        }
+    }
+    st=(geos[0].split("US")[1]).slice(0,2)
+    if(st.startsWith("0")){
+        dataObject.stateshown=(geos[0].split("US0")[1]).slice(0,1)
+    }else{
+        if(geos[0].split("US")[1].length==4){
+            dataObject.stateshown=(geos[0].split("US")[1]).slice(0,1)
+        }else{
+            dataObject.stateshown=(geos[0].split("US")[1]).slice(0,2)
+        }
+    }
+
+    //Load in contents of CSV file
+    d3.csv(dual_map.community_data_root() + "us/state/" + theState + "/" + theState + "counties.csv").then(function(myData,error) {
+      if (error) {
+        //alert("error")
+        console.log("Error loading file. " + error);
+      }
+      let geoArray = [];
+
+      myData.forEach(function(d, i) {
+
+        let geoParams = {};
+        d.difference =  d.US_2007_Demand_$;
+
+        // OBJECTID,STATEFP10,COUNTYFP10,GEOID10,NAME10,NAMELSAD10,totalpop18,Reg_Comm,Acres,sq_miles,Label,lat,lon
+        //d.name = ;
+        //d.idname = "US" + d.GEOID + "-" + d.NAME + " County";
+
+        //d.perMile = Math.round(d.totalpop18 / d.sq_miles).toLocaleString(); // Breaks sort
+        d.perMile = Math.round(d.totalpop18 / d.sq_miles);
+
+        d.sq_miles = Number(Math.round(d.sq_miles).toLocaleString());
+        var activeGeo = false;
+        var theGeo = "US" + d.GEOID;
+        //alert(geo + " " + theGeo)
+        let geos=geo.split(",");
+        //fips=[]
+        for (var i = 0; i<geos.length; i++){
+            if (geos[i] == theGeo) {
+              activeGeo = true;
+            }
+        }
+
+
+        geoParams.name = d.NAME;
+        geoParams.pop = d.totalpop18;
+        geoParams.permile = d.perMile;
+        geoParams.active = activeGeo;
+
+        geoArray.push([theGeo, geoParams]); // Append an array with an object as the value
+      });
+
+      console.log("geoArray")
+      console.log(geoArray)
+      dataObject.geos = geoArray;
+      callback();
+    });
+  } else {
+    attempts = attempts + 1;
+        if (attempts < 2000) {
+          // To do: Add a loading image after a coouple seconds. 2000 waits about 300 seconds.
+          setTimeout( function() {
+            loadGeos(geo,attempts);
+          }, 20 );
+        } else {
+          alert("D3 javascript not available for loading counties csv.")
+        }
+  }
+}
+
 function getMapframe(element) {
   if (element.virtual_tour) {
     if (element.virtual_tour.toLowerCase().includes("kuula.co")) {
@@ -1114,7 +1237,7 @@ function getMapframe(element) {
 }
 
 function showList(dp,map) {
-  
+  console.log("showList")
   var iconColor, iconColorRGB;
   var colorScale = dp.scale;
   let count = 0;
@@ -1219,7 +1342,7 @@ function showList(dp,map) {
     dp.data = data_sorted;
   }
 
-  console.log(dp.data); //TEMP
+  //console.log(dp.data); //TEMP
 
   dp.data.forEach(function(elementRaw) {
     count++;
@@ -1261,7 +1384,21 @@ function showList(dp,map) {
             productMatchFound = 1; // Matches all products
           }
 
-          if (keyword.length > 0) {
+          if (dataObject.geos && elementRaw[dp.countyColumn]) { // Use name of county pre-loaded into dataObject.
+            
+            for(var g = 0; g < dataObject.geos.length; g++) {
+              if (dataObject.geos[g][1].active == true) {
+                //alert(elementRaw[dp.countyColumn])
+                //alert(dataObject.geos[g][1].name)
+                if(elementRaw[dp.countyColumn].toLowerCase() == dataObject.geos[g][1].name.toLowerCase()) { // If the current row matches an active county
+
+                  //alert(dataObject.geos[g][1].name); // The county name
+                  foundMatch++;
+                }
+                
+              }
+            }
+          } else if (keyword.length > 0) {
 
             console.log('Search for "' + keyword + '" - Fields to search: ' + JSON.stringify(dp.search));
             
@@ -1270,7 +1407,6 @@ function showList(dp,map) {
               $.each(selected_col, function( key, value ) { // Works for arrays and objects. key is the index value for arrays.
                 //selected_columns_object[key] = 0;
                 if (elementRaw[value]) {
-                  foundMatch++; // TEMP
                   if (elementRaw[value].toString().toLowerCase().indexOf(keyword) >= 0) {
                     foundMatch++;
                   }
@@ -1325,7 +1461,7 @@ function showList(dp,map) {
             */
 
           } else {
-            foundMatch++; // No keyword filter
+            foundMatch++; // No geo or keyword filter
           }
 
           if (1==2) { // Not yet tested here
@@ -1807,6 +1943,7 @@ function topReached(elem) { // top scrolled out view
 
 
 function updateGeoFilter(geo) {
+  //alert("updateGeoFilter")
   $(".geo").prop('checked', false);
   if (geo) {
     //locationFilterChange("counties");

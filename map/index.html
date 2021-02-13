@@ -993,18 +993,32 @@
               </div>
           </div>
 
-          <div style="overflow:auto; padding-right:30px; border:0px solid #ccc;" class="geoListHolder height100">
+          <div style="overflow:auto; padding-right:30px; border:0px solid #ccc; position:relative" class="geoListHolder height100">
 
               <div class="listHolder">
                 <!--Cities -->
               </div>
 
-              <div class="geoListCounties" style="overflow:scroll;">
+              <div style="position:absolute; bottom:0; left:0px; right:30px; padding:10px 20px 10px 20px; background-color:#ddd; border:1px solid #999; z-index:2">
+
+                  <div style="display:table; width:100%">
+                    <div style="min-height:30px; padding:10px; display: table-cell; vertical-align: middle">
+                      Choose one or more counties.
+                    </div>
+                    <div style="display: table-cell; padding:10px;">
+                      <div class="detailbutton hideAdvanced;" style="float:right">Done</div>
+                    </div>
+                  </div>
+
+                </div>
+
+              <div class="geoListCounties" style="overflow:scroll; margin-bottom:90px">
                 <!-- Activate or remove
                 <div style="float:right;margin:12px 0px 0 12px">
                   <input id="showValues" type="checkbox" checked> Show values
                 </div>
                 -->
+                
                 <div style="width:100%" class="output_table rotateHeader">
                 </div>
               </div>
@@ -1504,6 +1518,11 @@ if (param["show"] != "suppliers") {
   // Additional layer
   //loadMap1("suppliers", dp);
 }
+document.addEventListener('hashChangeEvent', function (elem) {
+  //param = loadParam(location.search,location.hash);
+  console.log("index.html detects hashChangeEvent");
+  loadMap1();
+}, false);
 
 // Append railroads here, somehow
 //layerControl['map1'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
