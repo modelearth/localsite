@@ -231,7 +231,7 @@ $(document).ready(function () {
     	event.stopPropagation();
     });
 	$('#filterLocations').click(function () {
-    	event.stopPropagation();
+    	//event.stopPropagation();
     });
 	
  	$('#state_select').on('change', function() {
@@ -283,7 +283,7 @@ $(document).ready(function () {
     	}
     	$('#keywordFields').hide();
     	$('#topPanel').hide();
-    	$("#filterLocations").hide();
+    	//$("#filterLocations").hide();
 	});
 	
 	function hideNonListPanels() {
