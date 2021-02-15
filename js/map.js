@@ -157,16 +157,22 @@ function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callba
           processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,function(results){});
       })
     } else if (dp.googleDocID) {
-      tabletop = Tabletop.init( { key: dp.googleDocID, // from constants.js
-        callback: function(data, tabletop) { 
+      // 
+      loadScript(dual_map.modelearth_data_root() + '/localsite/map/neighborhood/js/tabletop.js', function(results) {
 
-          //onTabletopLoad(dp1) 
-          dp.data = tabletop.sheets(dp.sheetName).elements; // dp.data is called points in MapsForUs.js
-          dp.data_lowercase_key;
-          processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,function(results){});
-          console.log(dp.data);
-        } 
+        tabletop = Tabletop.init( { key: dp.googleDocID, // from constants.js
+          callback: function(data, tabletop) { 
+
+            //onTabletopLoad(dp1) 
+            dp.data = tabletop.sheets(dp.sheetName).elements; // dp.data is called points in MapsForUs.js
+            dp.data_lowercase_key;
+            processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,function(results){});
+            console.log(dp.data);
+          } 
+        });
+        
       });
+
     }
     //.catch(function(error){ 
     //     alert("Data loading error: " + error)

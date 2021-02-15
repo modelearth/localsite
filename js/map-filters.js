@@ -1919,15 +1919,19 @@ function refreshWidgets() {
 	}
 	//alert(hash.regiontitle)
 	if (hash.regiontitle != priorHash.regiontitle) {
-		if (hash.go) {
-			$(".regiontitle").text(hash.regiontitle + " - " + hash.go.toTitleCase());
-		} else {
-			$(".regiontitle").text(hash.regiontitle);
-		}
-		$(".filterSelected").text(hash.regiontitle.replace(/\+/g," "));
+		if(!hash.regiontitle) {
 
-		
-		$("#region_select").val(hash.regiontitle.replace(/\+/g," "));
+		} else {
+			if (hash.go) {
+				$(".regiontitle").text(hash.regiontitle + " - " + hash.go.toTitleCase());
+			} else {
+				$(".regiontitle").text(hash.regiontitle);
+			}
+			$(".filterSelected").text(hash.regiontitle.replace(/\+/g," "));
+
+			
+			$("#region_select").val(hash.regiontitle.replace(/\+/g," "));
+		}
 	}
 
 	// Before hash.state to utilize initial lat/lon

@@ -1,10 +1,11 @@
-# Neighborhood Maps For Us
+# Maps from Google Sheets
 
-View [Georgia Vaccine Locations](../#show=vac) and [Availability Updates](vaccines/) and add comments with your findings to the [VaccineGA.com Google Sheet](https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?usp=sharing)
 
-<b>Vaccine Availability - Google Script Volunteer Needed</b>
+<b>Vaccine Distribution and Availability</b>
 
-We need help writing scripts in Google Sheets to merge updates from a tab containing raw data from the Georgia Department of Health with our main vaccine availability tab where volunteers post comments to report on their contacts with pharmacies and hospitals.  Join the **#neighborhood** and **#vaccinate-ga** Slack channels at <a href="https://codeforatlanta.slack.com">codeforatlanta.slack.com</a> to volunteer your Google Sheet programming skills.  
+View [Georgia Vaccine Locations](../#show=vax) and [Availability Updates](vaccines/)  
+
+Post comments in the [VaccineGA.com Google Sheet](https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?usp=sharing) to report on your contacts with pharmacies and hospitals.  Join the **#neighborhood** and **#vaccinate-ga** Slack channels at <a href="https://codeforatlanta.slack.com">codeforatlanta.slack.com</a> to volunteer your Google Sheet programming skills.  
 
 <!--
 [Recycling MapsForUs test Google Sheet](https://docs.google.com/spreadsheets/d/1JDD36dOvy5TWsmfg0g4r8x9MMyuidRgpJAdDFD9HiTQ/edit#gid=1284085090)
