@@ -43,6 +43,9 @@ var mbAttr = '<a href="https://www.mapbox.com/">Mapbox</a>', mbUrl = 'https://ap
 /////////// LOAD FROM HTML ///////////
 
 // INTERMODAL PORTS - was here
+
+var localsite_map = true; // Used by man-embed.js to detect map.js load.
+
 /*
 var localsite_map = localsite_map || (function(){
     var _args = {}; // private

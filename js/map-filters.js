@@ -1609,7 +1609,7 @@ let siteObject = callInitSiteObject(1);
   });
   
   function loadGoogleScript() {
-    var script = document.createElement('script');
+  	var script = document.createElement('script');
     script.src = 'https://maps.googleapis.com/maps/api/js' + '?key=' + GOOGLE_MAP_KEY +'&libraries=places';
     document.head.appendChild(script);
   }
