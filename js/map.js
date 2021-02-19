@@ -920,7 +920,8 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     //dp1.dataset = "https://docs.google.com/spreadsheets/d/1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88/gviz/tq?tqx=out:csv&sheet=Sheet3";
 
     dp1.googleDocID = "1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90";
-    dp1.sheetName = "Locations";
+    //dp1.sheetName = "Locations";
+    dp1.sheetName = "Current Availability";
     //dp1.googleDocID = "1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88"; // Vac copy
     //dp1.sheetName = "Sheet3";
     dp1.listInfo = "Availability currently limited to seniors 65 and older.<br><br>Make your appointment in advance. Availability tracker at <a href='https://VaccinateGA.com'>VaccinateGA.com</a><br><a href='https://www.vaccinatega.com/vaccination-sites/providers-in-georgia'>Check major providers</a> and <a href='neighborhood/vaccines/'>view availability and contribute updates</a>.<br><br>Join the <a href='https://vaxstandby.com/'>VAX Standby</a> list to receive a message when extra doses are available.";
@@ -1509,6 +1510,9 @@ function showList(dp,map) {
     //  foundMatch++;
     //}
 
+    if (elementRaw.Status == "0") {
+      foundMatch = 0;
+    }
     //console.log("foundMatch: " + foundMatch + ", productMatchFound: " + productMatchFound);
 
     if (foundMatch > 0 && productMatchFound > 0) {
@@ -1558,6 +1562,8 @@ function showList(dp,map) {
       } else if (element.title) {
         name = element.title;
       }
+      name = capitalizeFirstLetter(name);
+      var theTitleLink = 'https://www.google.com/maps/search/' + (name + ', ' + element.county + ' County').replace(/ /g,"+");
 
       if (element.website && !element.website.toLowerCase().includes("http")) {
         element.website = "http://" + element.website;
@@ -1628,12 +1634,33 @@ function showList(dp,map) {
           output += "<br>";
         }
       }
+      if (element.category1) {
+        output += "<b>Type:</b> " + element.category1 + "<br>";
+      }
+      if (element.district) {
+        output += "<b>District:</b> " + element.district + "<br>";
+      }
+      if (element.location) {
+        output += "<b>From Location Data:</b> " + element.location + "<br>";
+      }
+      if (element.comments) {
+        output += element.comments + "<br>";
+      }
+      if (element.availability) {
+        output += element.availability + "<br>";
+      }
 
       if (element.mapframe) {
           output += "<a href='#show=360&m=" + element.mapframe + "'>Birdseye View<br>";
       }
       if (element.property_link) {
           output += "<a href='" + element.property_link + "'>Property Details</a><br>";
+      }
+      if (element.county) {
+          output += '<a href="' + theTitleLink + '">Google Map</a> ';
+      }
+      if (element.webpage) {
+        output += '&nbsp; | &nbsp;' + linkify(element.webpage);
       }
 
       if (element.phone || element.phone_afterhours) {
@@ -1678,7 +1705,7 @@ function showList(dp,map) {
       }
 
       if (element.county) {
-        output += element.county + " County<br>";
+        //output += element.county + " County<br>";
       }
 
       if (element.website) {
@@ -1774,6 +1801,29 @@ function showList(dp,map) {
   dp.data = data_out;
   return dp;
 }
+function capitalizeFirstLetter(str, locale=navigator.language) {
+    return str.replace(/^\p{CWU}/u, char => char.toLocaleUpperCase(locale));
+  }
+  function linkify(inputText) { // https://stackoverflow.com/questions/37684/how-to-replace-plain-urls-with-links
+    //return(inputText);
+    console.log(inputText)
+    var replacedText, replacePattern1, replacePattern2, replacePattern3;
+
+    //URLs starting with http://, https://, or ftp://
+    replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">Website</a>');
+
+    //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+    replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+    replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">Website</a>');
+
+    //Change email addresses to mailto:: links.
+    //replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
+    //replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
+    // https://outlook.office365.com/owa/calendar/WhitfieldVaccineSchedule@gets.onmicrosoft.com/bookings/
+
+    return replacedText;
+  }
 
 function popMapPoint(dp, map, latitude, longitude, name) {
   let center = [latitude,longitude];
