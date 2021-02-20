@@ -923,7 +923,7 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     dp1.listTitle = "Birdseye Views";
     //  https://model.earth/community-data/us/state/GA/VirtualTourSites.csv
     dp1.dataset =  dual_map.custom_data_root() + "360/GeorgiaPowerSites.csv";
-} else if (show == "recycling-processors") {
+} else if (show == "recycling") { // recycling-processors
     // https://docs.google.com/spreadsheets/d/1YmfBPEFpfmaKmxcnxijPU8-esVkhaVBE1wLZqPNOKtY/edit?usp=sharing
     dp1.listTitle = "Recycling Processors";
     dp1.googleDocID = "1YmfBPEFpfmaKmxcnxijPU8-esVkhaVBE1wLZqPNOKtY";

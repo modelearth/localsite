@@ -313,7 +313,8 @@ function renderIndustryChart(dataObject,values,params) {
     }
 
     // Reduce params to only those used
-    const filteredKeys = ['go','geo','regiontitle','catsort','catsize','catmethod','catpage','catcount','census_scope','naics','state','hs']; // hs not yet implemented for Harmonized System codes
+    // Phasing out use of go
+    const filteredKeys = ['show','go','geo','regiontitle','catsort','catsize','catmethod','catpage','catcount','census_scope','naics','state','hs']; // hs not yet implemented for Harmonized System codes
     params = filteredKeys.reduce((obj, key) => ({ ...obj, [key]: params[key] }), {});
 
     console.log("params used by naics.js:")
@@ -467,17 +468,20 @@ function formatIndustryData(rawData,subsetKeys) {
 
 
 function keyFound(this_key, cat_filter, params) {
+    if (!params.show) {
+        params.show = params.go;
+    }
     if (this_key <= 1) {
         return false;
     } else if (cat_filter.length == 0) { // No filter
         return true;
-    } else if (params.go == "bioeconomy" && (this_key.startsWith("11") || this_key.startsWith("311"))) { // Quick hack, always include Agriculture
+    } else if (params.show == "bioeconomy" && (this_key.startsWith("11") || this_key.startsWith("311"))) { // Quick hack, always include Agriculture
         return true;
-    //} else if (params.go == "farmfresh" && (this_key.startsWith("11") || this_key.startsWith("311"))) { // Quick hack, always include Agriculture
+    //} else if (params.show == "farmfresh" && (this_key.startsWith("11") || this_key.startsWith("311"))) { // Quick hack, always include Agriculture
     //    return true;
-    } else if (params.go == "manufacturing" && (this_key.startsWith("31") || this_key.startsWith("32") || this_key.startsWith("33") )) { // All manufacturing
+    } else if (params.show == "manufacturing" && (this_key.startsWith("31") || this_key.startsWith("32") || this_key.startsWith("33") )) { // All manufacturing
         return true;
-    } else if ( (params.go == "bioeconomy" || params.go=="parts") && params.catsize == 2) { // Our 4 digit array matches key
+    } else if ( (params.show == "bioeconomy" || params.show=="parts") && params.catsize == 2) { // Our 4 digit array matches key
         cat_filt=[]
         for(i=0;i<cat_filter.length;i++){
             cat_filt.push(cat_filter[i].slice(0,2))
@@ -485,7 +489,7 @@ function keyFound(this_key, cat_filter, params) {
         if(cat_filt.includes(this_key.slice(0,2))){
             return true;
         }
-    } else if ( (params.go == "bioeconomy" || params.go=="parts") && params.catsize == 4 ) { // Our 4 digit array matches key
+    } else if ( (params.show == "bioeconomy" || params.show=="parts") && params.catsize == 4 ) { // Our 4 digit array matches key
         cat_filt=[]
         for(i=0;i<cat_filter.length;i++){
             cat_filt.push(cat_filter[i].slice(0,4))
@@ -493,7 +497,7 @@ function keyFound(this_key, cat_filter, params) {
         if(cat_filt.includes(this_key.slice(0,4))){
             return true;
         }
-    } else if ( (params.go == "bioeconomy" || params.go=="parts" || cat_filter.length > 0) && params.catsize == 6 && cat_filter.includes(this_key.slice(0,6))) { // Our 6 digit array matches key
+    } else if ( (params.show == "bioeconomy" || params.show=="parts" || cat_filter.length > 0) && params.catsize == 6 && cat_filter.includes(this_key.slice(0,6))) { // Our 6 digit array matches key
         return true;
     } else {
         console.log("NO CAT MATCH FOUND");
@@ -505,8 +509,11 @@ function keyFound(this_key, cat_filter, params) {
 function topRatesInFips(dataSet, dataNames, fips, params) {
     let catcount = params.catcount || 40;
     let gotext = "";
-    if (params.go) {
-        gotext = params.go.replace(/_/g," ").toTitleCase();
+    if (!params.show) {
+        params.show = params.go;
+    }
+    if (params.show) {
+        gotext = params.show.replace(/_/g," ").toTitleCase();
         if (gotext == "Smart") {
             gotext = "EV Ecosystem";
         } else if (gotext == "Ppe") {
@@ -544,7 +551,7 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                 }
 
                 // TO DO: Use hiddenhash.naics here instead
-                var cat_filter = getNaics_setHiddenHash(params.go);
+                var cat_filter = getNaics_setHiddenHash(params.show);
 
                 //alert(cat_filter)
                 var rates_dict = {};
@@ -1082,15 +1089,15 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                 d3.csv(dual_map.community_data_root() + "us/id_lists/county_id_list.csv").then( function(consdata) {
                     //document.getElementById("industryheader").text = ""; // Clear initial.
                     $(".location_titles").text(""); //Clear
-                    if (params.go == "bioeconomy") {
+                    if (params.show == "bioeconomy") {
                         $(".regiontitle").text("Bioeconomy and Petroleum Industries");
-                    } else if (params.go == "parts") {
+                    } else if (params.show == "parts") {
                         $(".regiontitle").text("Parts Manufacturing");
-                    } else if (params.go == "manufacturing") {
+                    } else if (params.show == "manufacturing") {
                         $(".regiontitle").text("Manufacturing");
-                    } else if (params.go == "ppe") {
+                    } else if (params.show == "ppe") {
                         $(".regiontitle").text("Healthcare");
-                    } else if (params.go == "vehicles") {
+                    } else if (params.show == "vehicles") {
                         $(".regiontitle").text("Vehicle Manufacturing");
                     } else if (gotext) {
                         //$(".regiontitle").text(gotext);
@@ -1099,11 +1106,11 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                     //if(Array.isArray(fips) && statelength != fips.length) {
                     if(Array.isArray(fips)) {
                         if (!params.regiontitle) {
-                            //if (params.go && fips.length == 1) {
+                            //if (params.show && fips.length == 1) {
                             //    // Remove " County" from this .replace(" County","")
                             //    $(".regiontitle").text(d["county"] + " - " + gotext);
                             //} else 
-                            if (params.go) {
+                            if (params.show) {
 
                                 $(".regiontitle").text(gotext + " Industries within "+ fips.length + " counties");
                             } else {
@@ -1112,7 +1119,7 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                             $(".filterSelected").text(fips.length + " counties");
                             //}
                         } else if (params.regiontitle) {
-                            if (params.go) {
+                            if (params.show) {
                                 $(".regiontitle").text(params.regiontitle.replace(/\+/g," ") + " - " + gotext);
                             } else {
                                 $(".regiontitle").text(params.regiontitle.replace(/\+/g," "));
@@ -1139,7 +1146,7 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                         }
                         $(".location_titles").text($(".location_titles").text().replace(/,\s*$/, ""));
                         if (fips.length >= 1 && fips.length <= 3) {
-                            if (params.go) {
+                            if (params.show) {
                                 $(".regiontitle").text($(".location_titles").text() + " - " + gotext);
                             } else {
                                 $(".regiontitle").text($(".location_titles").text());
@@ -1147,19 +1154,19 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                         }
 
                     } else if (fips==dataObject.stateshown) {
-                        if (params.go == "bioeconomy") {
+                        if (params.show == "bioeconomy") {
                             $(".regiontitle").text("Bioeconomy and Petroleum Industries");
-                        } else if (params.go == "parts") {
+                        } else if (params.show == "parts") {
                             $(".regiontitle").text("Parts Manufacturing");
-                        } else if (params.go == "manufacturing") {
+                        } else if (params.show == "manufacturing") {
                             $(".regiontitle").text("Manufacturing");
-                        } else if (params.go == "farmfresh") {
+                        } else if (params.show == "farmfresh") {
                             $(".regiontitle").text("Farm Fresh");
-                        } else if (params.go == "ppe") {
+                        } else if (params.show == "ppe") {
                             $(".regiontitle").text("Healthcare Industries");
-                        } else if (params.go == "smart") {
+                        } else if (params.show == "smart") {
                             $(".regiontitle").text("EV Ecosystem");
-                        } else if (params.go == "vehicles") {
+                        } else if (params.show == "vehicles") {
                             $(".regiontitle").text("Vehicles and Vehicle Parts");
                         } else if (gotext) {
                             $(".regiontitle").text(gotext);
@@ -1173,7 +1180,7 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                     } else {
 
                         var filteredData = consdata.filter(function(d) {
-                            if (params.go) {
+                            if (params.show) {
                                 // Remove " County" from this .replace(" County","")
                                 $(".regiontitle").text(d["county"] + " - " + gotext);
                             }

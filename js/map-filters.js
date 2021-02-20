@@ -1351,7 +1351,7 @@ function displayBigThumbnails(layerName,siteObject) {
 	                                }
 
 	                                if ((directlink.indexOf('/map/') >= 0 && location.pathname.indexOf('/map/') >= 0) || (directlink.indexOf('/info/') >= 0 && location.pathname.indexOf('/info/') >= 0)) { // Stayon page when on map or info
-	                                	linkJavascript = "onclick='goHash({\"go\":\"" + siteObject.items[layer].item + "\",\"cat\":\"\",\"sectors\":\"\",\"naics\":\"\",\"show\":\"\",\"m\":\"\"}); return false;'"; // Remain in current page.
+	                                	linkJavascript = "onclick='goHash({\"show\":\"" + siteObject.items[layer].item + "\",\"cat\":\"\",\"sectors\":\"\",\"naics\":\"\",\"go\":\"\",\"m\":\"\"}); return false;'"; // Remain in current page.
 	                                } else {
 	                                	linkJavascript = "";
 	                                }
