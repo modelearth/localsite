@@ -1811,6 +1811,8 @@ function refreshWidgets() {
 		} else {
 			$("#introframe").hide();
 		}
+
+		/*
 		if (hash.show == "farmfresh") {
 			$(".data-section").show();
 		} else if (hash.show == "ppe") {
@@ -1820,7 +1822,8 @@ function refreshWidgets() {
 			$(".data-section").hide();
 			$(".suppliers").hide();
 		}
-
+		*/
+		
 		getNaics_setHiddenHash(hash.show); // Sets hiddenhash.naics for use by other widgets.
 
 		hash.naics = ""; // Since go value invokes hiddenhash
