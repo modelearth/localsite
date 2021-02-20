@@ -905,14 +905,32 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
   $("." + show).show(); // Show layer's divs, after hiding all layer-specific above.
   $(".headerOffset2").height($("#filterFieldsHolder").height() + "px"); // Adjust incase reveal/hide changes height.
 
+  // Google Sheets must be published with File > Publish to Web to avoid error: "blocked by CORS policy: No 'Access-Control-Allow-Origin' header" 
+
   //if (dp && dp[0]) { // Parameters set in page or layer json
   if (dp && dp.dataset) { // Parameters set in page or layer json
     dp1 = dp;
+  } else if (show == "opendata") {
+    // https://docs.google.com/spreadsheets/d/1bvD9meJgMqLywdoiGwe3f93sw1IVI_ZRjWSuCLSebZo/edit?usp=sharing
+    dp1.listTitle = "Open Data";
+    dp1.googleDocID = "1bvD9meJgMqLywdoiGwe3f93sw1IVI_ZRjWSuCLSebZo";
+    dp1.sheetName = "OpenData";
+    //dp1.nameColumn = "company";
+    //dp1.valueColumnLabel = "Category1";
+    //dp1.valueColumn = "materials_category";
+  
   } else if (show == "360") {
     dp1.listTitle = "Birdseye Views";
     //  https://model.earth/community-data/us/state/GA/VirtualTourSites.csv
     dp1.dataset =  dual_map.custom_data_root() + "360/GeorgiaPowerSites.csv";
-    //alert(dp1.dataset)
+} else if (show == "recycling-processors") {
+    // https://docs.google.com/spreadsheets/d/1YmfBPEFpfmaKmxcnxijPU8-esVkhaVBE1wLZqPNOKtY/edit?usp=sharing
+    dp1.listTitle = "Recycling Processors";
+    dp1.googleDocID = "1YmfBPEFpfmaKmxcnxijPU8-esVkhaVBE1wLZqPNOKtY";
+    dp1.sheetName = "recycling_processors";
+    dp1.nameColumn = "company";
+    dp1.valueColumnLabel = "Category";
+    dp1.valueColumn = "materials_category";
   } else if (show == "vax" || show == "vac") { // Phase out vac
     dp1.listTitle = "Vaccine Locations";
     //dp1.dataset = "https://docs.google.com/spreadsheets/d/1odIH33Y71QGplQhjJpkYhZCfN5gYCA6zXALTctSavwE/gviz/tq?tqx=out:csv&sheet=Sheet1"; // MapBox sample
@@ -1802,6 +1820,7 @@ function showList(dp,map) {
   return dp;
 }
 function capitalizeFirstLetter(str, locale=navigator.language) {
+    if (!str) return "";
     return str.replace(/^\p{CWU}/u, char => char.toLocaleUpperCase(locale));
   }
   function linkify(inputText) { // https://stackoverflow.com/questions/37684/how-to-replace-plain-urls-with-links
