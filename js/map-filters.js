@@ -444,6 +444,9 @@ $(document).ready(function () {
 		// Displays Harmonized System (HS) subcategories
 		// To Do: Lazyload file when initially requested - when #catSearch is clicked.
 
+		if (!$("#productCodes").length) {
+			return;
+		}
 		$("#productSubcats").html("");
 		$("#productCatTitle").html("");
 		console.log("productList " + startRange + ' to ' + endRange + " " + text);
@@ -1521,7 +1524,7 @@ function initSiteObject(layerName) {
 	            'jsonpCallback': 'callback',
 	            'dataType': "jsonp",
 	            'success': function (siteObject) {
-	                consoleLog("json loaded within initSiteObject. location.hash: " + location.hash);
+	                consoleLog("Menu layers json loaded within initSiteObject. location.hash: " + location.hash);
 	                
 	                // siteObjectFunctions(siteObject); // could add to keep simple here
 

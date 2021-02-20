@@ -85,6 +85,9 @@ function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callba
     if (dp.latitude && dp.longitude) {
         mapCenter = [dp.latitude,dp.longitude];
     }
+    if (dp.listTitle) {
+      dp.dataTitle = dp.listTitle;
+    }
     dp = mix(dp,defaults); // Gives priority to dp
     if (dp.addLink) {
       //console.log("Add Link: " + dp.addLink)
@@ -254,7 +257,7 @@ function processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,callba
   }
 
   // ADD ICONS TO MAP
-  // All layers reside in this object:
+  // All layers reside in dataParameters object:
   //console.log("dataParameters:");
   //console.log(dataParameters);
 
@@ -706,7 +709,7 @@ function addIcons(dp,map,map2) {
       //$('.detail').css("padding","12px 0 12px 4px");
       $('.detail').removeClass("detailActive");
 
-      console.log("detail click");
+      console.log("List detail click");
       $('#sidemapName').text($(this).attr("name"));
 
       //$(this).css("border","1px solid #ccc");
@@ -717,10 +720,14 @@ function addIcons(dp,map,map2) {
 
       popMapPoint(dp, map2, $(this).attr("latitude"), $(this).attr("longitude"), $(this).attr("name"));
 
+      // Might reactivate scrolling to map2
+      /*
       window.scrollTo({
         top: $("#sidemapCard").offset().top - 140,
         left: 0
       });
+      */
+
       $(".go_local").show();
     }
   );
@@ -942,7 +949,7 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     dp1.sheetName = "Current Availability";
     //dp1.googleDocID = "1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88"; // Vac copy
     //dp1.sheetName = "Sheet3";
-    dp1.listInfo = "Availability currently limited to seniors 65 and older.<br><br>Make your appointment in advance. Availability tracker at <a href='https://VaccinateGA.com'>VaccinateGA.com</a><br><a href='https://www.vaccinatega.com/vaccination-sites/providers-in-georgia'>Check major providers</a> and <a href='neighborhood/vaccines/'>view availability and contribute updates</a>.<br><br>Join the <a href='https://vaxstandby.com/'>VAX Standby</a> list to receive a message when extra doses are available.";
+    dp1.listInfo = "Availability currently limited to seniors 65 and older. <a href='https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?ts=60233cb5#gid=698462553'>Update availability by posting comments</a><br><br>Make your appointment in advance. Availability tracker at <a href='https://VaccinateGA.com'>VaccinateGA.com</a><br><a href='https://www.vaccinatega.com/vaccination-sites/providers-in-georgia'>Check major providers</a> and <a href='neighborhood/vaccines/'>view availability and contribute updates</a>.<br><br>Join the <a href='https://vaxstandby.com/'>VAX Standby</a> list to receive a message when extra doses are available.";
     dp1.search = {"In Location Name": "name", "In Address": "address", "In County Name": "county"};
     // "In Description": "description", "In Website URL": "website", "In City Name": "city", "In Zip Code" : "zip"
     dp1.valueColumnLabel = "County";
@@ -1265,7 +1272,8 @@ function getMapframe(element) {
 }
 
 function showList(dp,map) {
-  console.log("showList")
+  
+  console.log("Call showList for " + dp.dataTitle + " list")
   var iconColor, iconColorRGB;
   var colorScale = dp.scale;
   let count = 0;
@@ -1747,8 +1755,9 @@ function showList(dp,map) {
     
   });
 
+  //return(dp); // TEMP
   if (!(param["show"] == "suppliers" || param["show"] == "ppe")) {
-    setTimeout(function(){ 
+    setTimeout(function(){
       $( "#detaillist > div:first-of-type" ).trigger("click");
     }, 500);
   }
@@ -1845,8 +1854,14 @@ function capitalizeFirstLetter(str, locale=navigator.language) {
   }
 
 function popMapPoint(dp, map, latitude, longitude, name) {
+  //return;
   let center = [latitude,longitude];
-  map.flyTo(center, 15); // 19 in lake
+
+  // BUGBUG - causes map point on other map to temporarily disappear.
+  //map.flyTo(center, 15); // 19 in lake
+
+  // Because flyTo causes points on other map to disappear
+  map.setView(center, 11);
 
   // Add a single map point
   var iconColor, iconColorRGB, iconName;
