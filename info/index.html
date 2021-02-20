@@ -601,13 +601,13 @@ Georgia-specific input-output dataset is being developed by the EPA.<br><br>
 
 			<option value="">Select impact area...</option>
 
-			<option value="JOBS,VADD">Positive Impacts:</option>
+			<option value="JOBS,VADD">Positive Impacts</option>
 
 			<option value="JOBS">&nbsp; &nbsp;Jobs (JOBS)</option>
 			<option value="VADD">&nbsp; &nbsp;Value Added (VADD)</option>
 
 
-			<option value="ENRG,LAND,WATR">Resource Use:</option>
+			<option value="ENRG,LAND,WATR">Resource Use</option>
 
 			<option value="ENRG" title="Energy Use (ENRG): 
 			Energy Use is an indicator of the life cycle total amount of primary energy used as defined by heat value in a combusted resource or the available energy in a renewable resource to a converting device such as a wind turbine or water turbine. This indicator is a combination of the NNRG and RNRG indicators. This indicator is expressed in megajoules (MJ).">&nbsp; &nbsp;Energy Use (ENRG)</option>
@@ -618,7 +618,7 @@ Georgia-specific input-output dataset is being developed by the EPA.<br><br>
 			<option value="LAND" title="Land Use (LAND): 
 			Nearly every process requires some amount of land for factories, offices, or roads. This land is often converted from existing natural habitats for wildlife. Habitat loss is the leading cause of wildlife extinctions worldwide and additional habitat conversion could lead to further loss of species. This indicator tracks the total area of usable land occupied to allow for the process. This indicator is expressed in square meters for a year (m2*yr).">&nbsp; &nbsp;Land Use (LAND)</option>
 
-			<option value="">Adverse Impacts:</option>
+			<option value="">Adverse Impacts</option>
 
 			<option value="ACID" title="Acid Rain (ACID): 
 			Acid rain occurs when acid-precursors are absorbed from the atmosphere by clouds and dissolved in falling rain. Acid rain, while not directly dangerous to people, causes millions of dollars in damage to infrastructure by very slowly dissolving the exposed surfaces of roads, buildings, drains, and even statues. Acid rain is also detrimental to natural life: acidic soils make it difficult or impossible for plants to survive and grow and acidic runoff can disrupt the delicate chemical balance in natural bodies of water. In this indicator, emissions are expressed in sulfur dioxide (SO2) equivalents. The source of the factors for this indicator is TRACI 2.1 (Bare 2012).">&nbsp; &nbsp;Acid Rain (ACID)</option>
@@ -673,7 +673,8 @@ Georgia-specific input-output dataset is being developed by the EPA.<br><br>
     </div>
 
 	<span style="font-size:14px">
-	Move sliders to view impacts from changes to production levels.<br>
+	Select an impact area and move sliders to view changes to production levels.<br>
+	Use the commodities sort menu to choose multiple impact areas.<br>
 	Values are currently national rather than state-specific.<br><br>
 	</span>
 	<div id="iogrid"></div>
@@ -880,9 +881,7 @@ config.join(sectorList);
           <input id="mySelect" type="checkbox" checked>
           <span class="slider round"></span>
         </label>
-        <div class="switch-text">
-          Highlight top industries within region
-        </div>
+        <div class="switch-text">Highlight industries from the counties and/or topic selected above. (Hit refresh after changing counties.)</div>
 
       </div>
 

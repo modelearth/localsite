@@ -44,8 +44,8 @@ function populateFieldsFromHash() {
 	}
 	$("#productCodes").val(param["hs"]);
 	if (param["region"]) {
-		if (hash.go) {
-			$(".regiontitle").val(param["region"] + " - " + hash.go.toTitleCase());
+		if (hash.show) {
+			$(".regiontitle").val(param["region"] + " - " + hash.show.toTitleCase());
 		} else {
 			$(".regiontitle").val(param["region"]);
 		}
@@ -1552,7 +1552,7 @@ function initSiteObject(layerName) {
 	                //displayBigThumbnails("main",siteObject);
 	                //displayHexagonMenu("",siteObject);
 	                let hash = getHash();
-	                if (!hash.go && !hash.show) { // INITial load
+	                if (!hash.show && !hash.show) { // INITial load
 	                	// alert($("#fullcolumn").width()) = null
 	                	if ($("body").width() >= 800) {
 	                		showThumbMenu(siteObject);
@@ -1784,26 +1784,25 @@ function refreshWidgets() {
 	
 
 	// NOTE: params after ? are not included, just the hash.
-	if (hash.go != priorHash.go) {
-		//$(".data-section").hide();
+	if (hash.show != priorHash.show) {
 		if (hash.show == priorHash.show) {
 			hash.show = ""; // Clear the suppliers display
 		}
-		if (hash.go) {
-			if (hash.go != "ppe") {
+		if (hash.show) {
+			if (hash.show != "ppe") {
 				$(".layerclass.ppe").hide();
 			}
-			if (hash.go == "ppe") {
+			if (hash.show == "ppe") {
 				$("#appMenu").attr("placeholder","PPE Suppliers");
-			} else if (hash.go == "farmfresh") {
+			} else if (hash.show == "farmfresh") {
 				$("#appMenu").attr("placeholder","Farm Fresh");
 			} else {
-				$("#appMenu").attr("placeholder",hash.go.charAt(0).toUpperCase() + hash.go.substr(1).replace(/\_/g," ") );
+				$("#appMenu").attr("placeholder",hash.show.charAt(0).toUpperCase() + hash.show.substr(1).replace(/\_/g," ") );
 			}
 		} else {
 			$("#appMenu").attr("placeholder","Top Industries");
 		}
-		if (hash.go == "vehicles") {
+		if (hash.show == "vehicles") {
 			// set viz=true to hide left text 
 			let introframe = "https://datausa.io/profile/naics/motor-vehicles-motor-vehicle-equipment-manufacturing/undefined/wage_geo_rca?viz=false";
 			//introframe = "https://kuula.co/share/collection/7lrpl?fs=1&vr=1&zoom=1&initload=1&thumbs=1&chromeless=1&logo=-1";
@@ -1812,9 +1811,9 @@ function refreshWidgets() {
 		} else {
 			$("#introframe").hide();
 		}
-		if (hash.go == "farmfresh") {
+		if (hash.show == "farmfresh") {
 			$(".data-section").show();
-		} else if (hash.go == "ppe") {
+		} else if (hash.show == "ppe") {
 			$(".data-section").show();
 			$(".suppliers").show();
 		} else {
@@ -1822,7 +1821,7 @@ function refreshWidgets() {
 			$(".suppliers").hide();
 		}
 
-		getNaics_setHiddenHash(hash.go); // Sets hiddenhash.naics for use by other widgets.
+		getNaics_setHiddenHash(hash.show); // Sets hiddenhash.naics for use by other widgets.
 
 		hash.naics = ""; // Since go value invokes hiddenhash
 		// Then we call applyIO at end of this refreshWidgets function
@@ -1925,8 +1924,8 @@ function refreshWidgets() {
 		if(!hash.regiontitle) {
 
 		} else {
-			if (hash.go) {
-				$(".regiontitle").text(hash.regiontitle + " - " + hash.go.toTitleCase());
+			if (hash.show) {
+				$(".regiontitle").text(hash.regiontitle + " - " + hash.show.toTitleCase());
 			} else {
 				$(".regiontitle").text(hash.regiontitle);
 			}
@@ -2012,7 +2011,7 @@ function refreshWidgets() {
 	priorHash = getHash();
 
 	// TEMP
-	if (hash.go != priorHash.go) {
+	if (hash.show != priorHash.show) {
 		applyIO(hiddenhash.naics);
 	}
 }

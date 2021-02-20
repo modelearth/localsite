@@ -1278,7 +1278,8 @@ function applyIO(naics) { // Called from naics.js
     }
 
 
-    var indicators = "VADD";
+    //var indicators = "VADD";
+    var indicators = "";
     let hash = getHash();
     if (hash.indicators) {
         indicators = hash.indicators;
