@@ -32,8 +32,13 @@ Also lacks CHARM.  Far from comprehensive.
 
 <h2>Contribute to Updates</h2>
 
-<a href="https://drive.google.com/drive/u/5/folders/15ubXRHLHtwDF92zyH7ledoO1SsJ3FS4f" target="google-recycling">Google Sheets</a> - View data and post comments to submit changes.<br>
-<a href="../../mapsforus/" target="_blank">Maps for Us</a> - Work in progress.
+<h3>Google Sheets</h3>
+View location data and post comments to submit changes.  
+
+<a href="https://drive.google.com/drive/u/5/folders/15ubXRHLHtwDF92zyH7ledoO1SsJ3FS4f" target="google-recycling">Georgia Recycling Processors</a> - 
+<a href="../../#show=recycling-processors">map</a>
+<hr>
+<a href="../../neighborhood/" target="_blank">About Maps from Google Sheets</a>
 <!--
 Google Sheets resides in Georgia Maps Google account > Georgia Recycling folder
 Owned by maps.georgia.org@gmail.com

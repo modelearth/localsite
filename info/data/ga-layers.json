@@ -71,7 +71,7 @@ callback(
 		"sectionTitle": "leftNav",
 		"topnavaccess": "10",
 		"menuaccess": "0",
-		"directlink": "/localsite/info/#go=parts",
+		"directlink": "/localsite/info/#show=parts",
 		"caption": ""
 	},
 	{
@@ -91,7 +91,7 @@ callback(
 		"sectionTitle": "leftNav",
 		"topnavaccess": "10",
 		"menuaccess": "0",
-		"directlink": "/localsite/info/#go=vehicles",
+		"directlink": "/localsite/info/#show=vehicles",
 		"caption": ""
 	},
 	{
@@ -112,7 +112,7 @@ callback(
 		"sectionTitle": "leftNav",
 		"topnavaccess": "10",
 		"menuaccess": "0",
-		"directlink": "/localsite/info/#go=bioeconomy",
+		"directlink": "/localsite/info/#show=bioeconomy",
 		"caption": ""
 	},
 	{
@@ -129,7 +129,9 @@ callback(
 		"headericoncolor": "#999",
 		"feedname": "Georgia Economic Regions",
 		"icon": "<i class='fa fa-recycle'></i>",
-		"mainiframe": "/localsite/map/recycling/ga/",
+		"mainiframeX": "/localsite/map/recycling/ga/",
+		"directlinkX": "/localsite/map/recycling/ga/",
+		"directlink": "/localsite/map/#show=recycling",
 		"footerlogos": "Residential recycling center content from <a href='https://RecycleSearch.com' target='recyclesearch'>recyclesearch.com</a>",
 		"caption": "Residential recycling center content from <a href='https://RecycleSearch.com' target='recyclesearch'>recyclesearch.com</a>"
 	},
@@ -190,7 +192,7 @@ callback(
 		"sectionTitle": "leftNav",
 		"topnavaccess": "10",
 		"menuaccess": "0",
-		"directlink": "/localsite/info/#go=ppe",
+		"directlink": "/localsite/info/#show=ppe",
 		"caption": ""
 	},
 	{
