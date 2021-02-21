@@ -1689,13 +1689,13 @@ function showList(dp,map) {
           output += "<a href='" + element.property_link + "'>Property Details</a><br>";
       }
       if (element.county) {
-          output += '<a href="' + theTitleLink + '">Google Map</a>';
+          output += '<a href="' + theTitleLink + '">Google Map</a> ';
       }
       if (element.webpage) {
-        output += '&nbsp; | &nbsp;' + linkify(element.webpage);
+        output += '&nbsp;| &nbsp;' + linkify(element.webpage);
       }
       if (dp.editLink) {
-        output += "&nbsp; | &nbsp;<a href='" + dp.editLink + "' target='edit" + param["show"] + "'>Make Updates</a>";
+        output += "&nbsp;| &nbsp;<a href='" + dp.editLink + "' target='edit" + param["show"] + "'>Make Updates</a>";
       }
       if (element.phone || element.phone_afterhours) {
         if (element.phone) {
