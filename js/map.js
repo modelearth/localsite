@@ -717,9 +717,11 @@ function addIcons(dp,map,map2) {
       //$(this).css("padding","15px");
       $(this).addClass("detailActive");
       
-
-      popMapPoint(dp, map2, $(this).attr("latitude"), $(this).attr("longitude"), $(this).attr("name"));
-
+      if ($(this).attr("latitude") && $(this).attr("longitude")) {
+        popMapPoint(dp, map2, $(this).attr("latitude"), $(this).attr("longitude"), $(this).attr("name"));
+      } else {
+        $("#sidemapCard").hide();
+      }
       // Might reactivate scrolling to map2
       /*
       window.scrollTo({
@@ -930,7 +932,7 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     dp1.listTitle = "Birdseye Views";
     //  https://model.earth/community-data/us/state/GA/VirtualTourSites.csv
     dp1.dataset =  dual_map.custom_data_root() + "360/GeorgiaPowerSites.csv";
-} else if (show == "recycling") { // recycling-processors
+  } else if (show == "recycling") { // recycling-processors
     // https://docs.google.com/spreadsheets/d/1YmfBPEFpfmaKmxcnxijPU8-esVkhaVBE1wLZqPNOKtY/edit?usp=sharing
     dp1.listTitle = "Recycling Processors";
     dp1.googleDocID = "1YmfBPEFpfmaKmxcnxijPU8-esVkhaVBE1wLZqPNOKtY";
@@ -943,15 +945,12 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     //dp1.dataset = "https://docs.google.com/spreadsheets/d/1odIH33Y71QGplQhjJpkYhZCfN5gYCA6zXALTctSavwE/gviz/tq?tqx=out:csv&sheet=Sheet1"; // MapBox sample
     // Link above works, but Google enforces CORS with this link to Vaccine data:
     //dp1.dataset = "https://docs.google.com/spreadsheets/d/1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88/gviz/tq?tqx=out:csv&sheet=Sheet3";
-
+    dp1.editLink = "https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?ts=60233cb5#gid=698462553";
     dp1.googleDocID = "1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90";
-    //dp1.sheetName = "Locations";
     dp1.sheetName = "Current Availability";
-    //dp1.googleDocID = "1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88"; // Vac copy
-    //dp1.sheetName = "Sheet3";
     dp1.listInfo = "Availability currently limited to seniors 65 and older. <a href='https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?ts=60233cb5#gid=698462553'>Update availability by posting comments</a><br><br>Make your appointment in advance. Availability tracker at <a href='https://VaccinateGA.com'>VaccinateGA.com</a><br><a href='https://www.vaccinatega.com/vaccination-sites/providers-in-georgia'>Check major providers</a> and <a href='neighborhood/vaccines/'>view availability and contribute updates</a>.<br><br>Join the <a href='https://vaxstandby.com/'>VAX Standby</a> list to receive a message when extra doses are available.<br>Receive text messages on availability from <a href='https://twitter.com/DiscoDroidAI'>Disco Droid</a> or check their <a href='https://twitter.com/DiscoDroidAI'>Tweets</a>.";
-    dp1.search = {"In Location Name": "name", "In Address": "address", "In County Name": "county"};
-    // "In Description": "description", "In Website URL": "website", "In City Name": "city", "In Zip Code" : "zip"
+    dp1.search = {"In Location Name": "name", "In Address": "address", "In County Name": "county", "In Website URL": "website"};
+    // "In Description": "description", "In City Name": "city", "In Zip Code" : "zip"
     dp1.valueColumnLabel = "County";
     dp1.valueColumn = "county";
     dp1.countyColumn = "county";
@@ -1660,6 +1659,13 @@ function showList(dp,map) {
           output += "<br>";
         }
       }
+      if (!(element[dp.latColumn] && element[dp.lonColumn])) {
+        if (!element[dp.addressColumn]) {
+          output += "<span style='color:red'>Needs address or lat/lon.</span><br>";
+        } else {
+          output += "<span style='color:red'>Needs lat/lon.</span><br>";
+        }
+      }
       if (element.category1) {
         output += "<b>Type:</b> " + element.category1 + "<br>";
       }
@@ -1683,12 +1689,14 @@ function showList(dp,map) {
           output += "<a href='" + element.property_link + "'>Property Details</a><br>";
       }
       if (element.county) {
-          output += '<a href="' + theTitleLink + '">Google Map</a> ';
+          output += '<a href="' + theTitleLink + '">Google Map</a>';
       }
       if (element.webpage) {
         output += '&nbsp; | &nbsp;' + linkify(element.webpage);
       }
-
+      if (dp.editLink) {
+        output += "&nbsp; | &nbsp;<a href='" + dp.editLink + "' target='edit" + param["show"] + "'>Make Updates</a>";
+      }
       if (element.phone || element.phone_afterhours) {
         if (element.phone) {
           output += element.phone + " ";
@@ -1755,7 +1763,6 @@ function showList(dp,map) {
     
   });
 
-  //return(dp); // TEMP
   if (!(param["show"] == "suppliers" || param["show"] == "ppe")) {
     setTimeout(function(){
       $( "#detaillist > div:first-of-type" ).trigger("click");
