@@ -948,7 +948,7 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     dp1.editLink = "https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?ts=60233cb5#gid=698462553";
     dp1.googleDocID = "1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90";
     dp1.sheetName = "Current Availability";
-    dp1.listInfo = "<br><br><a href='https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?ts=60233cb5#gid=698462553'>Update availability info below by posting comments</a>.<br><br><a href='https://myvaccinegeorgia.com/'>Pregister with myvaccinegeorgia.com</a> and join the <a href='https://vaxstandby.com/'>VAX Standby</a> list to receive a message when extra doses are available. Receive text messages on availability from <a href='https://twitter.com/DiscoDroidAI'>Disco Droid</a> or check their <a href='https://twitter.com/DiscoDroidAI'>Tweets</a>.<br><br><a href='https://www.vaccinatega.com/vaccination-sites/providers-in-georgia'>Check provider status</a> at <a href='https://VaccinateGA.com'>VaccinateGA.com</a> and <a href='neighborhood/'>assist with data and coding</a>.";
+    dp1.listInfo = "<br><br><a href='https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?ts=60233cb5#gid=698462553'>Update availability info below by posting comments</a>.<br><br><a href='https://myvaccinegeorgia.com/'>Preregister with myvaccinegeorgia.com</a> and join the <a href='https://vaxstandby.com/'>VAX Standby</a> list to receive a message when extra doses are available. Also receive text messages on availability from <a href='https://twitter.com/DiscoDroidAI'>Disco Droid</a> or check their <a href='https://twitter.com/DiscoDroidAI'>Tweets</a>.<br><br><a href='https://www.vaccinatega.com/vaccination-sites/providers-in-georgia'>Check provider status</a> at <a href='https://VaccinateGA.com'>VaccinateGA.com</a> and <a href='neighborhood/'>assist with data and coding</a>.";
     // <a href='neighborhood/vaccines/'>view availability and contribute updates</a>
     dp1.search = {"In Location Name": "name", "In Address": "address", "In County Name": "county", "In Website URL": "website"};
     // "In Description": "description", "In City Name": "city", "In Zip Code" : "zip"
@@ -1439,10 +1439,21 @@ function showList(dp,map) {
             console.log('Search for "' + keyword + '" - Fields to search: ' + JSON.stringify(dp.search));
             
             if (typeof dp.search != "undefined") { // An object containing interface labels and names of columns to search.
+console.log("Search in selected_col ")
+console.log(selected_col)
 
-              $.each(selected_col, function( key, value ) { // Works for arrays and objects. key is the index value for arrays.
+console.log("Search in dp.search ")
+console.log(dp.search)
+
+              $.each(dp.search, function( key, value ) { // Works for arrays and objects. key is the index value for arrays.
                 //selected_columns_object[key] = 0;
                 if (elementRaw[value]) {
+                  if (elementRaw[value].toString().toLowerCase().indexOf(keyword) >= 0) {
+                    foundMatch++;
+                  }
+
+                  // Without toLowerCase() - TO DO - make always lowercase
+                  console.log(elementRaw[value].toString().toLowerCase())
                   if (elementRaw[value].toString().toLowerCase().indexOf(keyword) >= 0) {
                     foundMatch++;
                   }
@@ -1500,6 +1511,7 @@ function showList(dp,map) {
             foundMatch++; // No geo or keyword filter
           }
 
+          console.log("foundMatch " + foundMatch)
           if (1==2) { // Not yet tested here
             console.log("Check if listing's product HS codes match.");
             for(var pc = 0; pc < productcode_array.length; pc++) { 
