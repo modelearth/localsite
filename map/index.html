@@ -1195,7 +1195,7 @@ Displayed by refreshWidgets() in map-filters.js
 
 
 <section class="data-section" id="data" style="overflow:auto">
-<div class="content contentpadding litePanel displayOnload" style="display:none; padding-top:0px; padding-bottom:10px; padding-right:0px">
+<div class="content contentpadding litePanel displayOnloadXX" style="displayX:none; padding-top:0px; padding-bottom:10px; padding-right:0px">
 
   <div id="flexwrapper">
     <div id="hublist" style="margin-top:20px">
@@ -1522,8 +1522,8 @@ dual_map.init(["somevalue", 1, "controlId"]); // Used by link to feedback form
 //dual_map.community_root();
 
 console.log("Call loadMap1() in map.js but we need dp. Also below.");
-if (!param.go) {
-  param.go = "farmfresh"; // Used by loadFromSheet which is called by loadMap1
+if (!param.show) {
+  param.show = "farmfresh"; // Used by loadFromSheet which is called by loadMap1
 }
 
 //var localmap = 

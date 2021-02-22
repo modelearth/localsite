@@ -1552,9 +1552,10 @@ function initSiteObject(layerName) {
 	                //displayBigThumbnails("main",siteObject);
 	                //displayHexagonMenu("",siteObject);
 	                let hash = getHash();
-	                if (!hash.show && !hash.show) { // INITial load
+	                if (!hash.show && !param.show) { // INITial load
 	                	// alert($("#fullcolumn").width()) = null
 	                	if ($("body").width() >= 800) {
+
 	                		//showThumbMenu(siteObject);
 	                	}
 	            	}

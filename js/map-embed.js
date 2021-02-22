@@ -1114,7 +1114,7 @@ strVar += "";
 strVar += "";
 strVar += "";
 strVar += "<section class=\"data-section\" id=\"data\" style=\"overflow:auto\">";
-strVar += "<div class=\"content contentpadding litePanel displayOnload\" style=\"display:none; padding-top:0px; padding-bottom:10px; padding-right:0px\">";
+strVar += "<div class=\"content contentpadding litePanel displayOnloadXX\" style=\"padding-top:0px; padding-bottom:10px; padding-right:0px\">";
 strVar += "";
 strVar += "  <div id=\"flexwrapper\">";
 strVar += "    <div id=\"hublist\" style=\"margin-top:20px\">";
