@@ -1555,7 +1555,7 @@ function initSiteObject(layerName) {
 	                if (!hash.show && !hash.show) { // INITial load
 	                	// alert($("#fullcolumn").width()) = null
 	                	if ($("body").width() >= 800) {
-	                		showThumbMenu(siteObject);
+	                		//showThumbMenu(siteObject);
 	                	}
 	            	}
 	            	if (hash.show == "counties") {

@@ -933,7 +933,7 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     let kilometers_wide = $("#state_select").find(":selected").attr("km");
     //zoom = 1/kilometers_wide * 1800000;
 
-    if (theState = "HI") { // Hawaii
+    if (theState == "HI") { // Hawaii
         dp1.zoom = 6
     } else if (kilometers_wide > 1000000) { // Alaska
         dp1.zoom = 4

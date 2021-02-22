@@ -33,7 +33,7 @@ strVar += "";
 strVar += "<!-- FILTERS -->";
 strVar += "<div class=\"search-filters-css\" style=\"display:none\">";
 strVar += "<div id=\"headerFixed\" class=\"filterPanel\">";
-strVar += "  <div class=\"headerOffset headerOffsetOne\">&nbsp;<\/div>";
+strVar += "  <div class=\"headerOffset headerOffsetOne\" style=\"display:none\">&nbsp;<\/div>";
 strVar += "";
 strVar += "  <div class=\"filterPanel_background\">";
 strVar += "  <\/div>";
