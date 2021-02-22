@@ -128,6 +128,7 @@ function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callba
     }
     let map2 = {};
     if (whichmap2) {
+      $("#list_main").show();
       map2 = document.querySelector('#' + whichmap2)._leaflet_map; // Recall existing map
       var container2 = L.DomUtil.get(map2);
       if (container2 == null) { // Initialize map
@@ -1125,7 +1126,7 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     //}
     dp1.name = "Local Farms"; // To remove
     dp1.dataTitle = "Farm Fresh Produce";
-    dp1.markerType = "google";
+    //dp1.markerType = "google"; // BUGBUG stopped working
     dp1.search = {"In Market Name": "MarketName","In County": "County","In City": "city","In Street": "street","In Zip": "zip","In Website": "Website"};
     dp1.nameColumn = "marketname";
     dp1.titleColumn = "marketname";

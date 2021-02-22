@@ -1190,7 +1190,7 @@ Displayed by refreshWidgets() in map-filters.js
 
 </div>
 
-<div id="list_main" style="overflow:auto; background: #fff">
+<div id="list_main" style="display:none; overflow:auto; background: #fff">
 
 
 
@@ -1524,6 +1524,7 @@ dual_map.init(["somevalue", 1, "controlId"]); // Used by link to feedback form
 console.log("Call loadMap1() in map.js but we need dp. Also below.");
 if (!param.show) {
   param.show = "farmfresh"; // Used by loadFromSheet which is called by loadMap1
+  updateHash({"show":"farmfresh"}); // Update with triggering. Allow map clicks to 
 }
 
 //var localmap = 

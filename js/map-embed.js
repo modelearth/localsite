@@ -1109,7 +1109,7 @@ strVar += "  <\/div>";
 strVar += "";
 strVar += "<\/div>";
 strVar += "";
-strVar += "<div id=\"list_main\" style=\"overflow:auto; background: #fff\">";
+strVar += "<div id=\"list_main\" style=\"display:none; overflow:auto; background: #fff\">";
 strVar += "";
 strVar += "";
 strVar += "";
