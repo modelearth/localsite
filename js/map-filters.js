@@ -1823,7 +1823,7 @@ function refreshWidgets() {
 			$(".suppliers").hide();
 		}
 		*/
-		
+
 		getNaics_setHiddenHash(hash.show); // Sets hiddenhash.naics for use by other widgets.
 
 		hash.naics = ""; // Since go value invokes hiddenhash

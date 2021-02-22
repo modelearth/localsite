@@ -116,7 +116,7 @@ window.onload = function () {
     html +='<h2>Georgia Vaccine Distribution </h2>';
     // 
     html += 'Crowdsourced updates to Georgia Department of Health lists are maintained by volunteers at <a href="https://VaccinateGA.com">VaccinateGA.com</a><br>';
-    html += '<a href="https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?ts=60233cb5#gid=698462553">Add your updates by posting comments</a> within the Vaccinate Availability Google Sheet.<br>';
+    html += '<a href="https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?ts=60233cb5#gid=698462553">Update availability by posting comments</a> within the Vaccinate Availability Google Sheet.<br>';
     html += '<b><a href="../../#show=vax">View Map of Locations</a></b> | <a href="../">Assist with coding and data - Code For America</a> | <a href="https://www.vaccinatega.com/who-we-are">Twitter Updates</a><br><br>';
     html += 'Learn about the <a href="https://www.infinitus.ai/blog-posts/vaccinateca-covid19-automation">automated call system assisting volunteers in California</a> and several other states.<br>';
     

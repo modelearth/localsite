@@ -85,6 +85,12 @@ function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callba
     if (dp.latitude && dp.longitude) {
         mapCenter = [dp.latitude,dp.longitude];
     }
+
+    // Make all keys lowercase - add more here, good to loop through array of possible keeys
+    if (dp.itemsColumn) {
+      dp.itemsColumn = dp.itemsColumn.toLowerCase();
+    }
+    
     if (dp.listTitle) {
       dp.dataTitle = dp.listTitle;
     }
@@ -155,7 +161,7 @@ function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callba
           dp.data = readCsvData(data, dp.numColumns, dp.valueColumn);
           // Make element key always lowercase
 
-          dp.data_lowercase_key;
+          //dp.data_lowercase_key;
 
           processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,function(results){});
       })
@@ -167,10 +173,37 @@ function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callba
           callback: function(data, tabletop) { 
 
             //onTabletopLoad(dp1) 
-            dp.data = tabletop.sheets(dp.sheetName).elements; // dp.data is called points in MapsForUs.js
-            dp.data_lowercase_key;
+            dataMixedCase = tabletop.sheets(dp.sheetName).elements; // dp.data is called points in MapsForUs.js
+            //dp.data_lowercase_key;
+
+            // Currently assumes dp.data is blank - later we may need to append.
+            // Also, tag a start and end time to determine if it would be faster to append the array of objects once populated.
+            dp.data = [];
+
+            // Convert all keys to lowercase
+            for (var i = 0, l = dataMixedCase.length; i < l; i++) {
+              var key, keys = Object.keys(dataMixedCase[i]);
+              var n = keys.length;
+              //var newobj={}
+              dp.data[i] = {};
+              while (n--) {
+                key = keys[n];
+                if (key.toLowerCase() != key) {
+                  dp.data[i][key.toLowerCase()] = dataMixedCase[i][key];
+                  //dp.data[i][key] = null;
+                }
+              }
+              //console.log("TEST dp.data[i]");
+              //console.log(dp.data[i]);
+            }
+
+            // Above is not working yet, need to traverse rows.
+            //dp.data = dataMixedCase;
+
+            // TO DO
+            // dataMixedCase delete
             processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,function(results){});
-            console.log(dp.data);
+            
           } 
         });
         
@@ -955,6 +988,7 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     dp1.valueColumnLabel = "County";
     dp1.valueColumn = "county";
     dp1.countyColumn = "county";
+    dp1.itemsColumn = "Category1";
   } else if (show == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
     
     dp1.listTitle = "Data Driven Decision Making";
@@ -1412,7 +1446,7 @@ function showList(dp,map) {
                     //console.log("foundMatch: " + elementRaw[dp.itemsColumn] + " contains: " + products_array[p]);
                     
                   } else {
-                    //console.log("No Match: " + elementRaw[dp.itemsColumn] + " does not contain: " + products_array[p]);
+                    console.log("No Match: " + elementRaw[dp.itemsColumn] + " does not contain: " + products_array[p]);
                   }
               }
             }
@@ -1439,21 +1473,17 @@ function showList(dp,map) {
             console.log('Search for "' + keyword + '" - Fields to search: ' + JSON.stringify(dp.search));
             
             if (typeof dp.search != "undefined") { // An object containing interface labels and names of columns to search.
-console.log("Search in selected_col ")
-console.log(selected_col)
 
-console.log("Search in dp.search ")
-console.log(dp.search)
+            //console.log("Search in selected_col ")
+            //console.log(selected_col)
+
+            //console.log("Search in dp.search ")
+            //console.log(dp.search)
 
               $.each(dp.search, function( key, value ) { // Works for arrays and objects. key is the index value for arrays.
+                //console.log(elementRaw[key]);
                 //selected_columns_object[key] = 0;
                 if (elementRaw[value]) {
-                  if (elementRaw[value].toString().toLowerCase().indexOf(keyword) >= 0) {
-                    foundMatch++;
-                  }
-
-                  // Without toLowerCase() - TO DO - make always lowercase
-                  console.log(elementRaw[value].toString().toLowerCase())
                   if (elementRaw[value].toString().toLowerCase().indexOf(keyword) >= 0) {
                     foundMatch++;
                   }
@@ -1548,7 +1578,7 @@ console.log(dp.search)
     //  foundMatch++;
     //}
 
-    if (elementRaw.Status == "0") {
+    if (elementRaw.status == "0") {
       foundMatch = 0;
     }
     //console.log("foundMatch: " + foundMatch + ", productMatchFound: " + productMatchFound);
