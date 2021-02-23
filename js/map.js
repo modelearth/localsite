@@ -189,10 +189,10 @@ function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callba
               dp.data[i] = {};
               while (n--) {
                 key = keys[n];
-                if (key.toLowerCase() != key) {
+                //if (key.toLowerCase() != key) {
                   dp.data[i][key.toLowerCase()] = dataMixedCase[i][key];
                   //dp.data[i][key] = null;
-                }
+                //}
               }
               //console.log("TEST dp.data[i]");
               //console.log(dp.data[i]);
@@ -203,7 +203,9 @@ function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callba
 
             // TO DO
             // dataMixedCase delete
-            processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,function(results){});
+            processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,function(results){
+              callback(); // Triggers initialHighlight()
+            });
             
           } 
         });
@@ -211,6 +213,7 @@ function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callba
       });
 
     }
+    
     //.catch(function(error){ 
     //     alert("Data loading error: " + error)
     //})
@@ -544,6 +547,7 @@ function addIcons(dp,map,map2) {
             }).addTo(dp.group2);
         }
     } else {
+      console.log("dp.latColumn " + dp.latColumn);
       circle = L.circle([element[dp.latColumn], element[dp.lonColumn]], {
                 color: colorScale(element[dp.valueColumn]),
                 fillColor: colorScale(element[dp.valueColumn]),
@@ -744,6 +748,8 @@ function addIcons(dp,map,map2) {
       $('.detail').removeClass("detailActive");
 
       console.log("List detail click");
+      let locname = $(this).attr("name").replace(/ /g,"_");
+      updateHash({"name":locname});
       $('#sidemapName').text($(this).attr("name"));
 
       //$(this).css("border","1px solid #ccc");
@@ -966,14 +972,17 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     dp1.listTitle = "Birdseye Views";
     //  https://model.earth/community-data/us/state/GA/VirtualTourSites.csv
     dp1.dataset =  dual_map.custom_data_root() + "360/GeorgiaPowerSites.csv";
+
   } else if (show == "recycling") { // recycling-processors
-    // https://docs.google.com/spreadsheets/d/1YmfBPEFpfmaKmxcnxijPU8-esVkhaVBE1wLZqPNOKtY/edit?usp=sharing
     dp1.listTitle = "Recycling Processors";
+    dp1.editLink = "https://docs.google.com/spreadsheets/d/1YmfBPEFpfmaKmxcnxijPU8-esVkhaVBE1wLZqPNOKtY/edit?usp=sharing";
     dp1.googleDocID = "1YmfBPEFpfmaKmxcnxijPU8-esVkhaVBE1wLZqPNOKtY";
     dp1.sheetName = "recycling_processors";
     dp1.nameColumn = "company";
-    dp1.valueColumnLabel = "Category";
     dp1.valueColumn = "materials_category";
+    dp1.valueColumnLabel = "Category";
+    dp1.latColumn = "latitude";
+    dp1.lonColumn = "longitude";
   } else if (show == "vax" || show == "vac") { // Phase out vac
     dp1.listTitle = "Vaccine Locations";
     //dp1.dataset = "https://docs.google.com/spreadsheets/d/1odIH33Y71QGplQhjJpkYhZCfN5gYCA6zXALTctSavwE/gviz/tq?tqx=out:csv&sheet=Sheet1"; // MapBox sample
@@ -986,8 +995,8 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     // <a href='neighborhood/vaccines/'>view availability and contribute updates</a>
     dp1.search = {"In Location Name": "name", "In Address": "address", "In County Name": "county", "In Website URL": "website"};
     // "In Description": "description", "In City Name": "city", "In Zip Code" : "zip"
-    dp1.valueColumnLabel = "County";
     dp1.valueColumn = "county";
+    dp1.valueColumnLabel = "County";
     dp1.countyColumn = "county";
     dp1.itemsColumn = "Category1";
   } else if (show == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
@@ -1127,8 +1136,8 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     dp1.name = "Local Farms"; // To remove
     dp1.dataTitle = "Farm Fresh Produce";
 
-    //dp1.markerType = "google"; // BUGBUG doesn't seem to work with county boundary background (showShapeMap)
-    dp1.showShapeMap = true;
+    dp1.markerType = "google"; // BUGBUG doesn't seem to work with county boundary background (showShapeMap)
+    //dp1.showShapeMap = true;
 
     dp1.search = {"In Market Name": "MarketName","In County": "County","In City": "city","In Street": "street","In Zip": "zip","In Website": "Website"};
     dp1.nameColumn = "marketname";
@@ -1151,24 +1160,14 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
   // INIT - geo fetches the county for filtering. This will be limited to datasets that contain County columns
   let hash = getHash();
   if (hash.geo) {
-
     loadGeos(hash.geo,0,function(results) {
-
-      loadFromSheet('map1','map2', dp1, basemaps1, basemaps2, 0, function(results) {});
-
+      loadFromSheet('map1','map2', dp1, basemaps1, basemaps2, 0, function(results) {
+        initialHighlight(hash);
+      });
     });
-
-    
   } else {
     loadFromSheet('map1','map2', dp1, basemaps1, basemaps2, 0, function(results) {
-  
-      // CALLED WHENEVER FILTERS CHANGES
-
-      // AVOID HERE - would create duplicate checkboxes
-      // Could check if overlay already exists
-      //layerControl['map1'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
-      //layerControl['map2'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
-         
+      initialHighlight(hash);  
     });
   }
   // Return to top for mobile users on search.
@@ -1180,6 +1179,33 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
   }
   showprevious = show;
 }
+function initialHighlight(hash) {
+  if (hash.name) {
+    let locname = hash.name.replace(/_/g," ");
+    $("#detaillist > [name='"+locname+"']" ).trigger("click");
+    //$("#detaillist").scrollTop($("#detaillist").scrollTop() + $("#detaillist > [name='"+locname+"']" ).position().top);
+
+    // https://stackoverflow.com/questions/2346011/how-do-i-scroll-to-an-element-within-an-overflowed-div?noredirect=1&lq=1
+
+    var element = document.getElementById("detaillist");
+    //element.scrollTop = element.scrollHeight;
+    //$("#detaillist").scrollTop(200);
+
+    $("#detaillist").scrollTo("#detaillist > [name='"+locname+"']");
+
+  } else {
+    if (!(param["show"] == "suppliers" || param["show"] == "ppe")) {
+      //setTimeout(function(){
+        $("#detaillist > div:first-of-type" ).trigger("click");
+      //}, 500);
+    }
+  }
+}
+
+jQuery.fn.scrollTo = function(elem) { 
+    $(this).scrollTop($(this).scrollTop() - $(this).offset().top + $(elem).offset().top); 
+    return this; 
+};
 
 function onTabletopLoad(dp1) {
   //createDocumentSettings(tabletop.sheets(constants.informationSheetName).elements); // Custom - remove
@@ -1422,6 +1448,7 @@ function showList(dp,map) {
     count++;
     foundMatch = 0;
     productMatchFound = 0;
+
     /*
     if (keyword == allItemsPhrase) { // Use a div argument instead
         keyword == ""; products = "";
@@ -1545,7 +1572,7 @@ function showList(dp,map) {
             foundMatch++; // No geo or keyword filter
           }
 
-          console.log("foundMatch " + foundMatch)
+          //console.log("foundMatch " + foundMatch)
           if (1==2) { // Not yet tested here
             console.log("Check if listing's product HS codes match.");
             for(var pc = 0; pc < productcode_array.length; pc++) { 
@@ -1742,7 +1769,7 @@ function showList(dp,map) {
         output += '&nbsp;| &nbsp;' + linkify(element.webpage);
       }
       if (dp.editLink) {
-        output += "&nbsp;| &nbsp;<a href='" + dp.editLink + "' target='edit" + param["show"] + "'>Make Updates</a>";
+        output += "&nbsp;| &nbsp;<a href='" + dp.editLink + "' target='edit" + param["show"] + "'>Make Updates</a><br>";
       }
       if (element.phone || element.phone_afterhours) {
         if (element.phone) {
@@ -1809,13 +1836,6 @@ function showList(dp,map) {
     }
     
   });
-
-  if (!(param["show"] == "suppliers" || param["show"] == "ppe")) {
-    setTimeout(function(){
-      $( "#detaillist > div:first-of-type" ).trigger("click");
-    }, 500);
-  }
-  
 
   // BUGBUG - May need to clear first to avoid multiple calls.
   $('.detail').mouseover(
