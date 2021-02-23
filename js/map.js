@@ -1126,7 +1126,10 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     //}
     dp1.name = "Local Farms"; // To remove
     dp1.dataTitle = "Farm Fresh Produce";
-    //dp1.markerType = "google"; // BUGBUG stopped working
+
+    //dp1.markerType = "google"; // BUGBUG doesn't seem to work with county boundary background (showShapeMap)
+    dp1.showShapeMap = true;
+
     dp1.search = {"In Market Name": "MarketName","In County": "County","In City": "city","In Street": "street","In Zip": "zip","In Website": "Website"};
     dp1.nameColumn = "marketname";
     dp1.titleColumn = "marketname";
@@ -1140,7 +1143,7 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     // community/farmfresh/ 
     dp1.listInfo = "Farmers markets and local farms providing fresh produce directly to consumers. <a style='white-space: nowrap' href='https://model.earth/community/farmfresh/ga/'>About Data</a> | <a href='https://www.ams.usda.gov/local-food-directories/farmersmarkets'>Update Listings</a>";
   
-    dp1.showShapeMap = true;
+    
   }
 
   // Load the map using settings above
