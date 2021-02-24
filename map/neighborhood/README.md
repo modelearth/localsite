@@ -2,14 +2,14 @@
 
 ## Operation Open Data
 
-View our [Georgia Open Data Google Sheet](http://bit.ly/code-for-atl-open-data-workingdoc) and [list](../#show=opendata)
+Update our [Georgia Open Data Google Sheet](http://bit.ly/code-for-atl-open-data-workingdoc) and [list](../#show=opendata)
 
 
 ## Sample Project
 
 <b>Vaccine Distribution and Availability</b>
 
-View [Georgia Vaccine Locations](../#show=vax) and [Availability Updates](vaccines/)  
+View [Georgia Vaccine Locations](../#show=vax) and update [Availability Updates](vaccines/) by adding comments.  
 
 Post comments in the [VaccineGA.com Google Sheet](https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?usp=sharing) to report on your contacts with pharmacies and hospitals.  
 

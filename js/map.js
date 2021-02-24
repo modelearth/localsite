@@ -85,6 +85,12 @@ function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callba
     if (dp.latitude && dp.longitude) {
         mapCenter = [dp.latitude,dp.longitude];
     }
+
+    // Make all keys lowercase - add more here, good to loop through array of possible keeys
+    if (dp.itemsColumn) {
+      dp.itemsColumn = dp.itemsColumn.toLowerCase();
+    }
+
     if (dp.listTitle) {
       dp.dataTitle = dp.listTitle;
     }
@@ -122,6 +128,7 @@ function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callba
     }
     let map2 = {};
     if (whichmap2) {
+      $("#list_main").show();
       map2 = document.querySelector('#' + whichmap2)._leaflet_map; // Recall existing map
       var container2 = L.DomUtil.get(map2);
       if (container2 == null) { // Initialize map
@@ -155,7 +162,7 @@ function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callba
           dp.data = readCsvData(data, dp.numColumns, dp.valueColumn);
           // Make element key always lowercase
 
-          dp.data_lowercase_key;
+          //dp.data_lowercase_key;
 
           processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,function(results){});
       })
@@ -167,16 +174,46 @@ function loadFromSheet(whichmap,whichmap2,dp,basemaps1,basemaps2,attempts,callba
           callback: function(data, tabletop) { 
 
             //onTabletopLoad(dp1) 
-            dp.data = tabletop.sheets(dp.sheetName).elements; // dp.data is called points in MapsForUs.js
-            dp.data_lowercase_key;
-            processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,function(results){});
-            console.log(dp.data);
+            dataMixedCase = tabletop.sheets(dp.sheetName).elements; // dp.data is called points in MapsForUs.js
+            //dp.data_lowercase_key;
+
+            // Currently assumes dp.data is blank - later we may need to append.
+            // Also, tag a start and end time to determine if it would be faster to append the array of objects once populated.
+            dp.data = [];
+
+            // Convert all keys to lowercase
+            for (var i = 0, l = dataMixedCase.length; i < l; i++) {
+              var key, keys = Object.keys(dataMixedCase[i]);
+              var n = keys.length;
+              //var newobj={}
+              dp.data[i] = {};
+              while (n--) {
+                key = keys[n];
+                //if (key.toLowerCase() != key) {
+                  dp.data[i][key.toLowerCase()] = dataMixedCase[i][key];
+                  //dp.data[i][key] = null;
+                //}
+              }
+              //console.log("TEST dp.data[i]");
+              //console.log(dp.data[i]);
+            }
+
+            // Above is not working yet, need to traverse rows.
+            //dp.data = dataMixedCase;
+
+            // TO DO
+            // dataMixedCase delete
+            processOutput(dp,map,map2,whichmap,whichmap2,basemaps1,basemaps2,function(results){
+              callback(); // Triggers initialHighlight()
+            });
+            
           } 
         });
         
       });
 
     }
+    
     //.catch(function(error){ 
     //     alert("Data loading error: " + error)
     //})
@@ -510,6 +547,7 @@ function addIcons(dp,map,map2) {
             }).addTo(dp.group2);
         }
     } else {
+      console.log("dp.latColumn " + dp.latColumn);
       circle = L.circle([element[dp.latColumn], element[dp.lonColumn]], {
                 color: colorScale(element[dp.valueColumn]),
                 fillColor: colorScale(element[dp.valueColumn]),
@@ -710,6 +748,8 @@ function addIcons(dp,map,map2) {
       $('.detail').removeClass("detailActive");
 
       console.log("List detail click");
+      let locname = $(this).attr("name").replace(/ /g,"_");
+      updateHash({"name":locname});
       $('#sidemapName').text($(this).attr("name"));
 
       //$(this).css("border","1px solid #ccc");
@@ -717,9 +757,11 @@ function addIcons(dp,map,map2) {
       //$(this).css("padding","15px");
       $(this).addClass("detailActive");
       
-
-      popMapPoint(dp, map2, $(this).attr("latitude"), $(this).attr("longitude"), $(this).attr("name"));
-
+      if ($(this).attr("latitude") && $(this).attr("longitude")) {
+        popMapPoint(dp, map2, $(this).attr("latitude"), $(this).attr("longitude"), $(this).attr("name"));
+      } else {
+        $("#sidemapCard").hide();
+      }
       // Might reactivate scrolling to map2
       /*
       window.scrollTo({
@@ -898,7 +940,7 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     let kilometers_wide = $("#state_select").find(":selected").attr("km");
     //zoom = 1/kilometers_wide * 1800000;
 
-    if (theState = "HI") { // Hawaii
+    if (theState == "HI") { // Hawaii
         dp1.zoom = 6
     } else if (kilometers_wide > 1000000) { // Alaska
         dp1.zoom = 4
@@ -930,31 +972,33 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     dp1.listTitle = "Birdseye Views";
     //  https://model.earth/community-data/us/state/GA/VirtualTourSites.csv
     dp1.dataset =  dual_map.custom_data_root() + "360/GeorgiaPowerSites.csv";
-} else if (show == "recycling") { // recycling-processors
-    // https://docs.google.com/spreadsheets/d/1YmfBPEFpfmaKmxcnxijPU8-esVkhaVBE1wLZqPNOKtY/edit?usp=sharing
+
+  } else if (show == "recycling") { // recycling-processors
     dp1.listTitle = "Recycling Processors";
+    dp1.editLink = "https://docs.google.com/spreadsheets/d/1YmfBPEFpfmaKmxcnxijPU8-esVkhaVBE1wLZqPNOKtY/edit?usp=sharing";
     dp1.googleDocID = "1YmfBPEFpfmaKmxcnxijPU8-esVkhaVBE1wLZqPNOKtY";
     dp1.sheetName = "recycling_processors";
     dp1.nameColumn = "company";
-    dp1.valueColumnLabel = "Category";
     dp1.valueColumn = "materials_category";
+    dp1.valueColumnLabel = "Category";
+    dp1.latColumn = "latitude";
+    dp1.lonColumn = "longitude";
   } else if (show == "vax" || show == "vac") { // Phase out vac
     dp1.listTitle = "Vaccine Locations";
     //dp1.dataset = "https://docs.google.com/spreadsheets/d/1odIH33Y71QGplQhjJpkYhZCfN5gYCA6zXALTctSavwE/gviz/tq?tqx=out:csv&sheet=Sheet1"; // MapBox sample
     // Link above works, but Google enforces CORS with this link to Vaccine data:
     //dp1.dataset = "https://docs.google.com/spreadsheets/d/1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88/gviz/tq?tqx=out:csv&sheet=Sheet3";
-
+    dp1.editLink = "https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?ts=60233cb5#gid=698462553";
     dp1.googleDocID = "1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90";
-    //dp1.sheetName = "Locations";
     dp1.sheetName = "Current Availability";
-    //dp1.googleDocID = "1q5dvOEaAoTFfseZDqP_mIZOf2PhD-2fL505jeKndM88"; // Vac copy
-    //dp1.sheetName = "Sheet3";
-    dp1.listInfo = "Availability currently limited to seniors 65 and older. <a href='https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?ts=60233cb5#gid=698462553'>Update availability by posting comments</a><br><br>Make your appointment in advance. Availability tracker at <a href='https://VaccinateGA.com'>VaccinateGA.com</a><br><a href='https://www.vaccinatega.com/vaccination-sites/providers-in-georgia'>Check major providers</a> and <a href='neighborhood/vaccines/'>view availability and contribute updates</a>.<br><br>Join the <a href='https://vaxstandby.com/'>VAX Standby</a> list to receive a message when extra doses are available.";
-    dp1.search = {"In Location Name": "name", "In Address": "address", "In County Name": "county"};
-    // "In Description": "description", "In Website URL": "website", "In City Name": "city", "In Zip Code" : "zip"
-    dp1.valueColumnLabel = "County";
+    dp1.listInfo = "<br><br><a href='https://docs.google.com/spreadsheets/d/1_wvZXUWFnpbgSAZGuIb1j2ni8p9Gqj3Qsvd8gV95i90/edit?ts=60233cb5#gid=698462553'>Help update Google Sheet data by posting comments</a>.<br><br><a href='https://myvaccinegeorgia.com/'>Preregister with myvaccinegeorgia.com</a> and join the <a href='https://vaxstandby.com/'>VAX Standby</a> list to receive a message when extra doses are available. Also receive text messages on availability from <a href='https://twitter.com/DiscoDroidAI'>Disco Droid</a> or check their <a href='https://twitter.com/DiscoDroidAI'>Tweets</a>.<br><br><a href='https://www.vaccinatega.com/vaccination-sites/providers-in-georgia'>Check provider status</a> at <a href='https://VaccinateGA.com'>VaccinateGA.com</a> and <a href='neighborhood/'>assist with data and coding</a>.";
+    // <a href='neighborhood/vaccines/'>view availability and contribute updates</a>
+    dp1.search = {"In Location Name": "name", "In Address": "address", "In County Name": "county", "In Website URL": "website"};
+    // "In Description": "description", "In City Name": "city", "In Zip Code" : "zip"
     dp1.valueColumn = "county";
+    dp1.valueColumnLabel = "County";
     dp1.countyColumn = "county";
+    dp1.itemsColumn = "Category1";
   } else if (show == "smart" || param["data"] == "smart") { // param["data"] for legacy: https://www.georgia.org/smart-mobility
     
     dp1.listTitle = "Data Driven Decision Making";
@@ -1002,8 +1046,8 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     dp1.listTitle = "Georgia COVID-19 Response";
     dp1.listTitle = "Georgia Suppliers of&nbsp;Critical Items <span style='white-space:nowrap'>to Fight COVID-19</span>"; // For iFrame site
     // https://www.georgia.org/sites/default/files/2021-01 
-    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://map.georgia.org/display/products/suppliers-pdf/ga_suppliers_list_2021-02-10.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
-    dp1.dataset = "https://map.georgia.org/display/products/suppliers/us_ga_suppliers_ppe_2021_02_11.csv";
+    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://map.georgia.org/display/products/suppliers-pdf/ga_suppliers_list_2021-02-24.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
+    dp1.dataset = "https://map.georgia.org/display/products/suppliers/us_ga_suppliers_ppe_2021_02_24.csv";
     //dp1.dataset = "/display/products/suppliers/us_ga_suppliers_ppe_2020_06_17.csv";
 
     dp1.dataTitle = "Manufacturers and Distributors";
@@ -1091,7 +1135,10 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     //}
     dp1.name = "Local Farms"; // To remove
     dp1.dataTitle = "Farm Fresh Produce";
-    dp1.markerType = "google";
+
+    dp1.markerType = "google"; // BUGBUG doesn't seem to work with county boundary background (showShapeMap)
+    //dp1.showShapeMap = true;
+
     dp1.search = {"In Market Name": "MarketName","In County": "County","In City": "city","In Street": "street","In Zip": "zip","In Website": "Website"};
     dp1.nameColumn = "marketname";
     dp1.titleColumn = "marketname";
@@ -1105,7 +1152,7 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     // community/farmfresh/ 
     dp1.listInfo = "Farmers markets and local farms providing fresh produce directly to consumers. <a style='white-space: nowrap' href='https://model.earth/community/farmfresh/ga/'>About Data</a> | <a href='https://www.ams.usda.gov/local-food-directories/farmersmarkets'>Update Listings</a>";
   
-    dp1.showShapeMap = true;
+    
   }
 
   // Load the map using settings above
@@ -1113,24 +1160,14 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
   // INIT - geo fetches the county for filtering. This will be limited to datasets that contain County columns
   let hash = getHash();
   if (hash.geo) {
-
     loadGeos(hash.geo,0,function(results) {
-
-      loadFromSheet('map1','map2', dp1, basemaps1, basemaps2, 0, function(results) {});
-
+      loadFromSheet('map1','map2', dp1, basemaps1, basemaps2, 0, function(results) {
+        initialHighlight(hash);
+      });
     });
-
-    
   } else {
     loadFromSheet('map1','map2', dp1, basemaps1, basemaps2, 0, function(results) {
-  
-      // CALLED WHENEVER FILTERS CHANGES
-
-      // AVOID HERE - would create duplicate checkboxes
-      // Could check if overlay already exists
-      //layerControl['map1'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
-      //layerControl['map2'].addOverlay(baselayers["Rail"], "Railroads"); // Appends to existing layers
-         
+      initialHighlight(hash);  
     });
   }
   // Return to top for mobile users on search.
@@ -1142,6 +1179,33 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
   }
   showprevious = show;
 }
+function initialHighlight(hash) {
+  if (hash.name) {
+    let locname = hash.name.replace(/_/g," ");
+    $("#detaillist > [name='"+locname+"']" ).trigger("click");
+    //$("#detaillist").scrollTop($("#detaillist").scrollTop() + $("#detaillist > [name='"+locname+"']" ).position().top);
+
+    // https://stackoverflow.com/questions/2346011/how-do-i-scroll-to-an-element-within-an-overflowed-div?noredirect=1&lq=1
+
+    var element = document.getElementById("detaillist");
+    //element.scrollTop = element.scrollHeight;
+    //$("#detaillist").scrollTop(200);
+
+    $("#detaillist").scrollTo("#detaillist > [name='"+locname+"']");
+
+  } else {
+    if (!(param["show"] == "suppliers" || param["show"] == "ppe")) {
+      //setTimeout(function(){
+        $("#detaillist > div:first-of-type" ).trigger("click");
+      //}, 500);
+    }
+  }
+}
+
+jQuery.fn.scrollTo = function(elem) { 
+    $(this).scrollTop($(this).scrollTop() - $(this).offset().top + $(elem).offset().top); 
+    return this; 
+};
 
 function onTabletopLoad(dp1) {
   //createDocumentSettings(tabletop.sheets(constants.informationSheetName).elements); // Custom - remove
@@ -1384,6 +1448,7 @@ function showList(dp,map) {
     count++;
     foundMatch = 0;
     productMatchFound = 0;
+
     /*
     if (keyword == allItemsPhrase) { // Use a div argument instead
         keyword == ""; products = "";
@@ -1412,7 +1477,7 @@ function showList(dp,map) {
                     //console.log("foundMatch: " + elementRaw[dp.itemsColumn] + " contains: " + products_array[p]);
                     
                   } else {
-                    //console.log("No Match: " + elementRaw[dp.itemsColumn] + " does not contain: " + products_array[p]);
+                    console.log("No Match: " + elementRaw[dp.itemsColumn] + " does not contain: " + products_array[p]);
                   }
               }
             }
@@ -1440,7 +1505,14 @@ function showList(dp,map) {
             
             if (typeof dp.search != "undefined") { // An object containing interface labels and names of columns to search.
 
-              $.each(selected_col, function( key, value ) { // Works for arrays and objects. key is the index value for arrays.
+            //console.log("Search in selected_col ")
+            //console.log(selected_col)
+
+            //console.log("Search in dp.search ")
+            //console.log(dp.search)
+
+              $.each(dp.search, function( key, value ) { // Works for arrays and objects. key is the index value for arrays.
+                //console.log(elementRaw[key]);
                 //selected_columns_object[key] = 0;
                 if (elementRaw[value]) {
                   if (elementRaw[value].toString().toLowerCase().indexOf(keyword) >= 0) {
@@ -1500,6 +1572,7 @@ function showList(dp,map) {
             foundMatch++; // No geo or keyword filter
           }
 
+          //console.log("foundMatch " + foundMatch)
           if (1==2) { // Not yet tested here
             console.log("Check if listing's product HS codes match.");
             for(var pc = 0; pc < productcode_array.length; pc++) { 
@@ -1536,7 +1609,7 @@ function showList(dp,map) {
     //  foundMatch++;
     //}
 
-    if (elementRaw.Status == "0") {
+    if (elementRaw.status == "0") {
       foundMatch = 0;
     }
     //console.log("foundMatch: " + foundMatch + ", productMatchFound: " + productMatchFound);
@@ -1660,6 +1733,13 @@ function showList(dp,map) {
           output += "<br>";
         }
       }
+      if (!(element[dp.latColumn] && element[dp.lonColumn])) {
+        if (!element[dp.addressColumn]) {
+          output += "<span style='color:red'>Needs address or lat/lon.</span><br>";
+        } else {
+          output += "<span style='color:red'>Needs lat/lon.</span><br>";
+        }
+      }
       if (element.category1) {
         output += "<b>Type:</b> " + element.category1 + "<br>";
       }
@@ -1686,9 +1766,11 @@ function showList(dp,map) {
           output += '<a href="' + theTitleLink + '">Google Map</a> ';
       }
       if (element.webpage) {
-        output += '&nbsp; | &nbsp;' + linkify(element.webpage);
+        output += '&nbsp;| &nbsp;' + linkify(element.webpage);
       }
-
+      if (dp.editLink) {
+        output += "&nbsp;| &nbsp;<a href='" + dp.editLink + "' target='edit" + param["show"] + "'>Make Updates</a><br>";
+      }
       if (element.phone || element.phone_afterhours) {
         if (element.phone) {
           output += element.phone + " ";
@@ -1754,14 +1836,6 @@ function showList(dp,map) {
     }
     
   });
-
-  //return(dp); // TEMP
-  if (!(param["show"] == "suppliers" || param["show"] == "ppe")) {
-    setTimeout(function(){
-      $( "#detaillist > div:first-of-type" ).trigger("click");
-    }, 500);
-  }
-  
 
   // BUGBUG - May need to clear first to avoid multiple calls.
   $('.detail').mouseover(
@@ -1829,29 +1903,28 @@ function showList(dp,map) {
   return dp;
 }
 function capitalizeFirstLetter(str, locale=navigator.language) {
-    if (!str) return "";
-    return str.replace(/^\p{CWU}/u, char => char.toLocaleUpperCase(locale));
-  }
-  function linkify(inputText) { // https://stackoverflow.com/questions/37684/how-to-replace-plain-urls-with-links
-    //return(inputText);
-    console.log(inputText)
-    var replacedText, replacePattern1, replacePattern2, replacePattern3;
+  if (!str) return "";
+  return str.replace(/^\p{CWU}/u, char => char.toLocaleUpperCase(locale));
+}
+function linkify(inputText) { // https://stackoverflow.com/questions/37684/how-to-replace-plain-urls-with-links
+  //return(inputText);
+  var replacedText, replacePattern1, replacePattern2, replacePattern3;
 
-    //URLs starting with http://, https://, or ftp://
-    replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">Website</a>');
+  //URLs starting with http://, https://, or ftp://
+  replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+  replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">Website</a>');
 
-    //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
-    replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-    replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">Website</a>');
+  //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+  replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+  replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">Website</a>');
 
-    //Change email addresses to mailto:: links.
-    //replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
-    //replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
-    // https://outlook.office365.com/owa/calendar/WhitfieldVaccineSchedule@gets.onmicrosoft.com/bookings/
+  //Change email addresses to mailto:: links.
+  //replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
+  //replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
+  // https://outlook.office365.com/owa/calendar/WhitfieldVaccineSchedule@gets.onmicrosoft.com/bookings/
 
-    return replacedText;
-  }
+  return replacedText;
+}
 
 function popMapPoint(dp, map, latitude, longitude, name) {
   //return;

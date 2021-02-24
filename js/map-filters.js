@@ -1552,10 +1552,11 @@ function initSiteObject(layerName) {
 	                //displayBigThumbnails("main",siteObject);
 	                //displayHexagonMenu("",siteObject);
 	                let hash = getHash();
-	                if (!hash.show && !hash.show) { // INITial load
+	                if (!hash.show && !param.show) { // INITial load
 	                	// alert($("#fullcolumn").width()) = null
 	                	if ($("body").width() >= 800) {
-	                		showThumbMenu(siteObject);
+
+	                		//showThumbMenu(siteObject);
 	                	}
 	            	}
 	            	if (hash.show == "counties") {
@@ -1811,6 +1812,8 @@ function refreshWidgets() {
 		} else {
 			$("#introframe").hide();
 		}
+
+		/*
 		if (hash.show == "farmfresh") {
 			$(".data-section").show();
 		} else if (hash.show == "ppe") {
@@ -1820,6 +1823,7 @@ function refreshWidgets() {
 			$(".data-section").hide();
 			$(".suppliers").hide();
 		}
+		*/
 
 		getNaics_setHiddenHash(hash.show); // Sets hiddenhash.naics for use by other widgets.
 
