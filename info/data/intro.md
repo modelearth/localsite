@@ -4,6 +4,8 @@ The following documents how to generate a CSV file containing BLS data pulled fr
 
 ## BLS Data Preparation 
 
+The steps below have been applied in our [Google CoLab for exploring NAICS](https://colab.research.google.com/drive/1HLK4HIUMLlgTR524QoCKvfaNl-La48XU?usp=sharing) which can be used to save a CSV file with 6-digit naics in your Google Drive.  Also resides in our [FLOWSA fork](https://github.com/modelearth/flowsa/tree/master/colabs).
+
 U.S. Bureau of Labor Statistics (BLS) industry data  
 BLS data is pulled using the [FLOWSA Python script](https://github.com/USEPA/flowsa/blob/master/flowsa/BLS_QCEW.py)
 maintained by Catherine Birney.
