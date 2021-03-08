@@ -1727,7 +1727,8 @@ function getNaics_setHiddenHash(go) {
         else if (go == "farmfresh") {
             cat_filter = (farmfresh).split(',');
         }
-        else if (go == "smart") {
+        else if (go == "ev" || go == "smart") {
+        	// smart also shows list of data-driven mobility projects
             cat_filter = (electric + auto_parts).split(',');
         }
         else if (go == "parts") {

@@ -29,7 +29,7 @@ $(document).ready(function(){
  	var modelpath = climbpath;
  	if(location.host.indexOf('localhost') < 0 && location.host.indexOf('model.') < 0 && location.host.indexOf('hood') < 0) { // When not localhost or other sites that have a fork of io and community.
  		// To do: allow "Input-Output Map" link in footer to remain relative.
- 		modelpath = "https://model.earth/" + modelpath; // Avoid - gets applied to #headerSiteTitle
+ 		modelpath = "https://model.earth/" + modelpath; // Avoid - gets applied to #headerSiteTitle and hamburger menu
  		
  		//modelpath = "/" + modelpath;
  	}
@@ -63,6 +63,7 @@ $(document).ready(function(){
  			//headerFile = climbpath + "../header.html";
  		}
  		if (param.headerFile) {
+ 			modelpath = ""; // Use the current repo when custom headerFile provided.
  			headerFile = param.headerFile;
  		}
 
