@@ -1805,11 +1805,13 @@ function refreshWidgets() {
 			$("#appMenu").attr("placeholder","Top Industries");
 		}
 		if (hash.show == "vehicles") {
-			// set viz=true to hide left text 
-			let introframe = "https://datausa.io/profile/naics/motor-vehicles-motor-vehicle-equipment-manufacturing/undefined/wage_geo_rca?viz=false";
-			//introframe = "https://kuula.co/share/collection/7lrpl?fs=1&vr=1&zoom=1&initload=1&thumbs=1&chromeless=1&logo=-1";
-			$("#introframe").show();
-			$("#introframe").prop("src", introframe);
+			if(location.host.indexOf('georgia') < 0){
+				// set viz=true to hide left text 
+				let introframe = "https://datausa.io/profile/naics/motor-vehicles-motor-vehicle-equipment-manufacturing/undefined/wage_geo_rca?viz=false";
+				//introframe = "https://kuula.co/share/collection/7lrpl?fs=1&vr=1&zoom=1&initload=1&thumbs=1&chromeless=1&logo=-1";
+				$("#introframe").show();
+				$("#introframe").prop("src", introframe);
+			}
 		} else {
 			$("#introframe").hide();
 		}
