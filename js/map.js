@@ -570,6 +570,9 @@ function addIcons(dp,map,map2) {
       name = element.title;
     }
     var output = "<b>" + name + "</b><br>";
+    if (element.description) {
+      output += element.description + "<br>";
+    }
     if (element[dp.addressColumn]) {
       output +=  element[dp.addressColumn] + "<br>";
     } else if (element.address || element.city || element.state || element.zip) { 
@@ -983,6 +986,14 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     dp1.valueColumnLabel = "Category";
     dp1.latColumn = "latitude";
     dp1.lonColumn = "longitude";
+  } else if (show == "vehicles") {
+    dp1.listTitle = "Automotive Industry";
+    dp1.editLink = "https://docs.google.com/spreadsheets/d/1OX8TsLby-Ddn8WHa7yLKNpEERYN_RlScMrC0sbnT1Zs/edit?usp=sharing";
+    dp1.googleDocID = "1OX8TsLby-Ddn8WHa7yLKNpEERYN_RlScMrC0sbnT1Zs";
+    dp1.sheetName = "Automotive";
+    dp1.listInfo = "<br><br><a href='https://docs.google.com/spreadsheets/d/1OX8TsLby-Ddn8WHa7yLKNpEERYN_RlScMrC0sbnT1Zs/edit?usp=sharing'>Make updates and additions</a> by posting comments in our Google Sheet.";
+    dp1.valueColumn = "ev industry";
+    dp1.valueColumnLabel = "EV Industry";
   } else if (show == "vax" || show == "vac") { // Phase out vac
     dp1.listTitle = "Vaccine Locations";
     //dp1.dataset = "https://docs.google.com/spreadsheets/d/1odIH33Y71QGplQhjJpkYhZCfN5gYCA6zXALTctSavwE/gviz/tq?tqx=out:csv&sheet=Sheet1"; // MapBox sample
@@ -1716,21 +1727,22 @@ function showList(dp,map) {
         output += "<b>Location:</b> ";
         if (element.address) {
           output += element.address + "<br>";
-        }
-        if (element.city) {
-          output += element.city;
-        }
-        if (element.state || element.zip) {
-          output += ", ";
-        }
-        if (element.state) {
-          output += element.state + " ";
-        }
-        if (element.zip) {
-          output += element.zip;
-        }
-        if (element.city || element.state || element.zip) {
-          output += "<br>";
+        } else {
+          if (element.city) {
+            output += element.city;
+          }
+          if (element.state || element.zip) {
+            output += ", ";
+          }
+          if (element.state) {
+            output += element.state + " ";
+          }
+          if (element.zip) {
+            output += element.zip;
+          }
+          if (element.city || element.state || element.zip) {
+            output += "<br>";
+          }
         }
       }
       if (!(element[dp.latColumn] && element[dp.lonColumn])) {
@@ -1739,6 +1751,17 @@ function showList(dp,map) {
         } else {
           output += "<span style='color:red'>Needs lat/lon.</span><br>";
         }
+      }
+      if (element.website) {
+        if (element.website.length <= 50) {
+          output += "<b>Website:</b> <a href='" + element.website + "' target='_blank'>" + element.website.replace("https://","").replace("http://","").replace("www.","").replace(/\/$/, "") + "</a><br>";
+        } else {
+          // To Do: Display domain only
+          output += "<b>Website:</b> <a href='" + element.website + "' target='_blank'>" + element.website.replace("https://","").replace("http://","").replace("www.","").replace(/\/$/, "") + "</a><br>"; 
+        }
+      } else if (element.webpage) {
+        // Switch to calling Webpage, probably add linkify above.
+        output += '<b>Webpage:</b> ' + linkify(element.webpage + "<br>");
       }
       if (element.category1) {
         output += "<b>Type:</b> " + element.category1 + "<br>";
@@ -1765,11 +1788,12 @@ function showList(dp,map) {
       if (element.county) {
           output += '<a href="' + theTitleLink + '">Google Map</a> ';
       }
-      if (element.webpage) {
-        output += '&nbsp;| &nbsp;' + linkify(element.webpage);
-      }
+      
       if (dp.editLink) {
-        output += "&nbsp;| &nbsp;<a href='" + dp.editLink + "' target='edit" + param["show"] + "'>Make Updates</a><br>";
+        if (element.county) {
+          output += "&nbsp;| &nbsp;"
+        }
+        output += "<a href='" + dp.editLink + "' target='edit" + param["show"] + "'>Make Updates</a><br>";
       }
       if (element.phone || element.phone_afterhours) {
         if (element.phone) {
@@ -1816,14 +1840,7 @@ function showList(dp,map) {
         //output += element.county + " County<br>";
       }
 
-      if (element.website) {
-        if (element.website.length <= 50) {
-          output += "<b>Website:</b> <a href='" + element.website + "' target='_blank'>" + element.website.replace("https://","").replace("http://","").replace("www.","").replace(/\/$/, "") + "</a><br>";
-        } else {
-          // To Do: Display domain only
-          output += "<b>Website:</b> <a href='" + element.website + "' target='_blank'>" + element.website.replace("https://","").replace("http://","").replace("www.","").replace(/\/$/, "") + "</a><br>"; 
-        }
-      }
+      
       if (element.distance) {
           output += "<b>Distance:</b> " + element.distance + " miles<br>"; 
         
