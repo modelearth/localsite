@@ -1165,7 +1165,9 @@ function topRatesInFips(dataSet, dataNames, fips, params) {
                         } else if (params.show == "ppe") {
                             $(".regiontitle").text("Healthcare Industries");
                         } else if (params.show == "smart") {
-                            $(".regiontitle").text("EV Ecosystem");
+                            $(".regiontitle").text("EV Ecosystem"); // data-driven list
+                        } else if (params.show == "ev") {
+                            $(".regiontitle").text("Combustion and Electric Vehicle Manufacturing"); // Excludes parts and data-driven list
                         } else if (params.show == "vehicles") {
                             $(".regiontitle").text("Vehicles and Vehicle Parts");
                         } else if (gotext) {
