@@ -578,20 +578,21 @@ function addIcons(dp,map,map2) {
     } else if (element.address || element.city || element.state || element.zip) { 
       if (element.address) {
         output += element.address + "<br>";
+      } else {
+        if (element.city) {
+          output += element.city;
+        }
+        if (element.state || element.zip) {
+          output += ", ";
+        }
+        if (element.state) {
+          output += element.state + " ";
+        }
+        if (element.zip) {
+          output += element.zip;
+        }
+        output += "<br>";
       }
-      if (element.city) {
-        output += element.city;
-      }
-      if (element.state || element.zip) {
-        output += ", ";
-      }
-      if (element.state) {
-        output += element.state + " ";
-      }
-      if (element.zip) {
-        output += element.zip;
-      }
-      output += "<br>";
     }
 
     if (element.phone || element.phone_afterhours) {
