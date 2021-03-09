@@ -994,6 +994,7 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     dp1.listInfo = "<br><br><a href='https://docs.google.com/spreadsheets/d/1OX8TsLby-Ddn8WHa7yLKNpEERYN_RlScMrC0sbnT1Zs/edit?usp=sharing'>Make updates and additions</a> by posting comments in our Google Sheet.";
     dp1.valueColumn = "ev industry";
     dp1.valueColumnLabel = "EV Industry";
+    dp1.markerType = "google";
   } else if (show == "vax" || show == "vac") { // Phase out vac
     dp1.listTitle = "Vaccine Locations";
     //dp1.dataset = "https://docs.google.com/spreadsheets/d/1odIH33Y71QGplQhjJpkYhZCfN5gYCA6zXALTctSavwE/gviz/tq?tqx=out:csv&sheet=Sheet1"; // MapBox sample
