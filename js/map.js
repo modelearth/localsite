@@ -1069,7 +1069,7 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     dp1.valueColumnLabel = "Type";
     dp1.color = "#ff9819"; // orange
     dp1.markerType = "google";
-    dp1.search = {"In Items": "items", "In Website URL": "website", "In City Name": "city", "In Zip Code" : "zip"};
+    dp1.search = {"In Company Name": "company", "In Items": "items", "In Website URL": "website", "In City Name": "city", "In Zip Code" : "zip"};
     dp1.nameColumn = "company";
 
   } else if (show == "suppliersX" || show == "ppeX") { // "http://" + param["domain"]
