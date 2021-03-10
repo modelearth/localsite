@@ -578,20 +578,21 @@ function addIcons(dp,map,map2) {
     } else if (element.address || element.city || element.state || element.zip) { 
       if (element.address) {
         output += element.address + "<br>";
+      } else {
+        if (element.city) {
+          output += element.city;
+        }
+        if (element.state || element.zip) {
+          output += ", ";
+        }
+        if (element.state) {
+          output += element.state + " ";
+        }
+        if (element.zip) {
+          output += element.zip;
+        }
+        output += "<br>";
       }
-      if (element.city) {
-        output += element.city;
-      }
-      if (element.state || element.zip) {
-        output += ", ";
-      }
-      if (element.state) {
-        output += element.state + " ";
-      }
-      if (element.zip) {
-        output += element.zip;
-      }
-      output += "<br>";
     }
 
     if (element.phone || element.phone_afterhours) {
@@ -1053,12 +1054,30 @@ function loadMap1(show, dp) { // Called by index.html, map-embed.js and map-filt
     dp1.listLocation = false;
     dp1.addLink = "https://www.georgia.org/covid19response"; // Not yet used
 
-  } else if (show == "suppliers" || show == "ppe") { // "http://" + param["domain"]
+  } else if (show == "suppliers" || show == "ppe") { 
+
+    // https://docs.google.com/spreadsheets/d/1bqMTVgaMpHIFQBNdiyMe3ZeMMr_lp9qTgzjdouRJTKI/edit?usp=sharing
+    dp1.listTitle = "Georgia COVID-19 Response";
+    //dp1.editLink = "";
+    dp1.googleDocID = "1bqMTVgaMpHIFQBNdiyMe3ZeMMr_lp9qTgzjdouRJTKI";
+    dp1.sheetName = "GA Suppliers List";
+    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://map.georgia.org/display/products/suppliers-pdf/ga_suppliers_list_2021-03-10.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
+    
+    dp1.dataTitle = "Manufacturers and Distributors";
+    dp1.itemsColumn = "items";
+    dp1.valueColumn = "type";
+    dp1.valueColumnLabel = "Type";
+    dp1.color = "#ff9819"; // orange
+    dp1.markerType = "google";
+    dp1.search = {"In Company Name": "company", "In Items": "items", "In Website URL": "website", "In City Name": "city", "In Zip Code" : "zip"};
+    dp1.nameColumn = "company";
+
+  } else if (show == "suppliersX" || show == "ppeX") { // "http://" + param["domain"]
 
     dp1.listTitle = "Georgia COVID-19 Response";
     dp1.listTitle = "Georgia Suppliers of&nbsp;Critical Items <span style='white-space:nowrap'>to Fight COVID-19</span>"; // For iFrame site
     // https://www.georgia.org/sites/default/files/2021-01 
-    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://map.georgia.org/display/products/suppliers-pdf/ga_suppliers_list_2021-02-24.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
+    dp1.listInfo = "Select a category to the left to filter results. View&nbsp;<a href='https://map.georgia.org/display/products/suppliers-pdf/ga_suppliers_list_2021-03-10.pdf' target='_parent'>PDF&nbsp;version</a>&nbsp;of&nbsp;the&nbsp;complete&nbsp;list.";
     dp1.dataset = "https://map.georgia.org/display/products/suppliers/us_ga_suppliers_ppe_2021_02_24.csv";
     //dp1.dataset = "/display/products/suppliers/us_ga_suppliers_ppe_2020_06_17.csv";
 
@@ -1747,10 +1766,10 @@ function showList(dp,map) {
         }
       }
       if (!(element[dp.latColumn] && element[dp.lonColumn])) {
-        if (!element[dp.addressColumn]) {
-          output += "<span style='color:red'>Needs address or lat/lon.</span><br>";
+        if (!element[dp.lonColumn]) {
+          output += "<span style='color:red'>Needs latitude and longitude</span><br>";
         } else {
-          output += "<span style='color:red'>Needs lat/lon.</span><br>";
+          output += "<span style='color:red'>Needs address or lat/lon values</span><br>";
         }
       }
       if (element.website) {
