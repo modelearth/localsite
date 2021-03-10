@@ -1766,10 +1766,10 @@ function showList(dp,map) {
         }
       }
       if (!(element[dp.latColumn] && element[dp.lonColumn])) {
-        if (!element[dp.addressColumn]) {
-          output += "<span style='color:red'>Needs address or lat/lon.</span><br>";
+        if (!element[dp.lonColumn]) {
+          output += "<span style='color:red'>Needs latitude and longitude</span><br>";
         } else {
-          output += "<span style='color:red'>Needs lat/lon.</span><br>";
+          output += "<span style='color:red'>Needs address or lat/lon values</span><br>";
         }
       }
       if (element.website) {
